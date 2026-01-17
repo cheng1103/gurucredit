@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useTranslation } from '@/lib/i18n';
 import { leadsAPI } from '@/lib/api';
-import { SERVICE_AREAS } from '@/lib/constants';
+import { SERVICE_AREA_CODES, SERVICE_AREA_LABELS } from '@/lib/form-options';
 
 const content = {
   en: {
@@ -49,8 +49,8 @@ export function ExitIntentPopup() {
   const [isVisible, setIsVisible] = useState(false);
   const [phone, setPhone] = useState('');
   const [serviceArea, setServiceArea] = useState<
-    (typeof SERVICE_AREAS)[number]['regionCode']
-  >(SERVICE_AREAS[0].regionCode);
+    (typeof SERVICE_AREA_CODES)[number]
+  >('MY-14');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -196,14 +196,14 @@ export function ExitIntentPopup() {
                     value={serviceArea}
                     onChange={(e) =>
                       setServiceArea(
-                        e.target.value as (typeof SERVICE_AREAS)[number]['regionCode'],
+                        e.target.value as (typeof SERVICE_AREA_CODES)[number],
                       )
                     }
                     className="w-full rounded-md border border-input bg-background px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 text-sm"
                   >
-                    {SERVICE_AREAS.map((area) => (
-                      <option key={area.regionCode} value={area.regionCode}>
-                        {area.name}
+                    {SERVICE_AREA_CODES.map((code) => (
+                      <option key={code} value={code}>
+                        {SERVICE_AREA_LABELS[code]}
                       </option>
                     ))}
                   </select>

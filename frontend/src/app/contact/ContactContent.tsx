@@ -32,7 +32,8 @@ import {
   Instagram,
 } from 'lucide-react';
 import type { Language } from '@/lib/i18n/translations';
-import { COMPANY, SERVICE_AREAS, SERVICE_AREA_LABEL } from '@/lib/constants';
+import { COMPANY, SERVICE_AREA_LABEL } from '@/lib/constants';
+import { SERVICE_AREA_CODES, SERVICE_AREA_LABELS } from '@/lib/form-options';
 
 // Bilingual page content
 const pageContent = {
@@ -266,7 +267,7 @@ export default function ContactContent({ language }: ContactContentProps) {
     phone: '',
     subject: '',
     message: '',
-    serviceArea: SERVICE_AREAS[0].regionCode,
+    serviceArea: 'MY-14',
   };
 
   const [loading, setLoading] = useState(false);
@@ -435,9 +436,9 @@ export default function ContactContent({ language }: ContactContentProps) {
                           aria-describedby={getFieldError(errors, 'serviceArea') ? 'serviceArea-error' : undefined}
                           required
                         >
-                          {SERVICE_AREAS.map((area) => (
-                            <option key={area.regionCode} value={area.regionCode}>
-                              {area.name}
+                          {SERVICE_AREA_CODES.map((code) => (
+                            <option key={code} value={code}>
+                              {SERVICE_AREA_LABELS[code]}
                             </option>
                           ))}
                         </select>

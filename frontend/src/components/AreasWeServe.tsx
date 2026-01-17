@@ -10,51 +10,61 @@ import { useState } from 'react';
 const content = {
   en: {
     badge: 'Local Expertise',
-    title: 'Areas We Serve in Kuala Lumpur & Selangor',
+    title: 'Areas We Serve Across Malaysia',
     subtitle:
-      'From Damansara Heights and Bangsar to Petaling Jaya, Shah Alam, and Klang, our consultants cover every major Klang Valley district with on-ground lender relationships.',
+      'From Klang Valley to Penang, Johor, Sabah, and Sarawak, our consultants support borrowers nationwide with bank-ready guidance and fast WhatsApp follow-up.',
     neighborhoods: [
       {
-        title: 'Kuala Lumpur Core',
-        description: 'Damansara Heights, Bangsar South, Mont Kiara, Cheras, Setapak',
-        stat: '24h eligibility report for city-centre applicants',
+        title: 'Klang Valley (KL & Selangor)',
+        description: 'Damansara, Bangsar, Mont Kiara, PJ, Shah Alam, Subang, Klang',
+        stat: 'Fast SLA with in-person partner coverage',
       },
       {
-        title: 'Petaling Jaya & Damansara',
-        description: 'PJ Old Town, Mutiara Damansara, Kota Damansara, Tropicana, Ara Damansara',
-        stat: 'Bank partner walk-ins around PJ Utara + Selatan',
+        title: 'Northern Corridor',
+        description: 'Penang, Kedah, Perak, Perlis',
+        stat: 'Regional bank partners for fast approvals',
       },
       {
-        title: 'Shah Alam, Subang & Klang',
-        description: 'Shah Alam Seksyen 7-26, Subang Jaya, Bukit Jelutong, Klang South',
-        stat: 'Dedicated slots for factory & SME owners',
+        title: 'Southern Corridor',
+        description: 'Johor, Melaka, Negeri Sembilan',
+        stat: 'Specialized guidance for SME and salaried profiles',
+      },
+      {
+        title: 'East Malaysia',
+        description: 'Sabah & Sarawak (Kota Kinabalu, Kuching, Miri, Sibu)',
+        stat: 'Remote processing with WhatsApp-first support',
       },
     ],
-    note: 'Not in the list? As long as you reside in Kuala Lumpur or Selangor (Klang Valley), we can still process your case via WhatsApp.',
+    note: 'Not listed? We still accept applications from all Malaysian states via WhatsApp.',
   },
   ms: {
     badge: 'Kepakaran Tempatan',
-    title: 'Kawasan Liputan Kuala Lumpur & Selangor',
+    title: 'Kawasan Liputan Seluruh Malaysia',
     subtitle:
-      'Daripada Damansara Heights dan Bangsar hingga Petaling Jaya, Shah Alam dan Klang, perunding kami merangkumi setiap kawasan utama Lembah Klang dengan hubungan bank setempat.',
+      'Daripada Lembah Klang ke Pulau Pinang, Johor, Sabah dan Sarawak, perunding kami menyokong pemohon di seluruh negara dengan panduan bank dan susulan pantas melalui WhatsApp.',
     neighborhoods: [
       {
-        title: 'Teras Kuala Lumpur',
-        description: 'Damansara Heights, Bangsar South, Mont Kiara, Cheras, Setapak',
-        stat: 'Laporan kelayakan 24 jam untuk pemohon bandar',
+        title: 'Lembah Klang (KL & Selangor)',
+        description: 'Damansara, Bangsar, Mont Kiara, PJ, Shah Alam, Subang, Klang',
+        stat: 'SLA pantas dengan liputan rakan bank',
       },
       {
-        title: 'Petaling Jaya & Damansara',
-        description: 'PJ Old Town, Mutiara Damansara, Kota Damansara, Tropicana, Ara Damansara',
-        stat: 'Akses terus ke rakan bank sekitar PJ Utara & Selatan',
+        title: 'Koridor Utara',
+        description: 'Pulau Pinang, Kedah, Perak, Perlis',
+        stat: 'Rakan bank wilayah untuk kelulusan pantas',
       },
       {
-        title: 'Shah Alam, Subang & Klang',
-        description: 'Shah Alam Seksyen 7-26, Subang Jaya, Bukit Jelutong, Klang Selatan',
-        stat: 'Slot khas untuk pemilik kilang & PKS',
+        title: 'Koridor Selatan',
+        description: 'Johor, Melaka, Negeri Sembilan',
+        stat: 'Panduan khusus untuk PKS dan pemohon bergaji',
+      },
+      {
+        title: 'Malaysia Timur',
+        description: 'Sabah & Sarawak (Kota Kinabalu, Kuching, Miri, Sibu)',
+        stat: 'Proses jarak jauh dengan sokongan WhatsApp',
       },
     ],
-    note: 'Tidak tersenarai? Jika anda menetap di Kuala Lumpur atau Selangor (Lembah Klang), kami masih boleh proses kes anda melalui WhatsApp.',
+    note: 'Tidak tersenarai? Kami masih menerima permohonan dari semua negeri melalui WhatsApp.',
   },
 };
 
@@ -104,8 +114,8 @@ export function AreasWeServe() {
           <div className="rounded-2xl overflow-hidden shadow-xl border bg-background relative">
             <div className="aspect-[4/3] bg-muted relative">
               <iframe
-                title="Klang Valley coverage map"
-                src="https://maps.google.com/maps?q=Kuala%20Lumpur&z=11&output=embed"
+                title="Malaysia coverage map"
+                src="https://maps.google.com/maps?q=Malaysia&z=5&output=embed"
                 className="w-full h-full border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -118,7 +128,7 @@ export function AreasWeServe() {
                       {language === 'en' ? 'Coverage preview' : 'Pratonton liputan'}
                     </p>
                     <h3 className="text-lg font-semibold">
-                      {language === 'en' ? 'Klang Valley Focus' : 'Fokus Lembah Klang'}
+                      {language === 'en' ? 'Malaysia Coverage' : 'Liputan Malaysia'}
                     </h3>
                   </div>
                   <div className="grid gap-3">
@@ -137,8 +147,8 @@ export function AreasWeServe() {
             </div>
             <div className="p-4 text-sm text-muted-foreground">
               {language === 'en'
-                ? 'Map highlights our Klang Valley coverage. Pins are illustrative and not exact branch locations.'
-                : 'Peta menunjukkan liputan Lembah Klang kami. Lokasi pin adalah ilustrasi dan bukan alamat cawangan.'}
+                ? 'Map highlights our Malaysia-wide coverage. Pins are illustrative and not exact branch locations.'
+                : 'Peta menunjukkan liputan seluruh Malaysia. Lokasi pin adalah ilustrasi dan bukan alamat cawangan.'}
             </div>
           </div>
         </div>

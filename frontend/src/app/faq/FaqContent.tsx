@@ -61,7 +61,7 @@ const pageContent = {
     quickLinks: {
       eligibility: {
         title: 'Apply for a Loan',
-        description: 'Quick and easy online application. Get approved in 24 hours.',
+        description: 'Quick and easy online application. Get analysis within 24 hours.',
         button: 'Apply Now',
       },
       calculator: {
@@ -100,8 +100,8 @@ const pageContent = {
       // Application Process
       {
         category: 'process',
-        question: 'How long does loan approval take?',
-        answer: 'Most loan applications are processed within 24 hours. Once approved, funds are disbursed quickly to your bank account. Complex applications may take slightly longer for verification.',
+        question: 'How long does the analysis take?',
+        answer: 'Most analyses are completed within 24 hours after we receive complete documents. Bank approval timelines vary by lender and profile.',
       },
       {
         category: 'process',
@@ -111,7 +111,7 @@ const pageContent = {
       {
         category: 'process',
         question: 'How do I apply for a loan?',
-        answer: 'Applying is easy: 1) Fill out our simple online application form (takes 5 minutes), 2) Upload your supporting documents, 3) Wait for our team to review (within 24 hours), 4) Once approved, sign the agreement and receive your funds.',
+        answer: 'Applying is easy: 1) Fill out our simple online form (takes 5 minutes), 2) Upload supporting documents, 3) We complete the analysis within 24 hours, 4) We guide you on submission and next steps.',
       },
       {
         category: 'process',
@@ -127,22 +127,22 @@ const pageContent = {
       {
         category: 'payment',
         question: 'What are the repayment options?',
-        answer: 'Repayment is made through fixed monthly installments. You can choose to pay via: auto-debit from your bank account, online banking transfer, or over-the-counter at bank branches. We recommend setting up auto-debit for convenience.',
+        answer: 'Repayment terms are set by the bank and typically use fixed monthly instalments. We explain the available options and what to expect before you sign.',
       },
       {
         category: 'payment',
         question: 'Can I make early repayment?',
-        answer: 'Yes, you can make early or full settlement of your loan. Early settlement may be subject to early settlement fees as stated in your loan agreement. Contact us for the exact settlement amount.',
+        answer: 'Early or full settlement depends on the lender’s policy and may involve fees. We can guide you on what to check before committing.',
       },
       {
         category: 'payment',
         question: 'What happens if I miss a payment?',
-        answer: 'If you miss a payment, late payment charges will apply as stated in your agreement. We recommend contacting us immediately if you\'re having difficulty making payments - we can discuss possible solutions.',
+        answer: 'Late payment charges follow your bank’s loan agreement. If you’re struggling, contact the lender quickly and we can advise on next steps.',
       },
       {
         category: 'payment',
         question: 'Are there any hidden fees?',
-        answer: 'No hidden fees. All charges including processing fee, stamp duty, and any other applicable fees are clearly disclosed before you sign the agreement. The interest rate shown is the flat rate per annum.',
+        answer: 'We disclose our service fees clearly. Bank fees and terms are provided by the lender before you sign, and we help you review them.',
       },
       // Security
       {
@@ -153,7 +153,7 @@ const pageContent = {
       {
         category: 'security',
         question: 'How do I know this is a legitimate lending company?',
-        answer: 'GURU Credits is a legitimate registered lending company. All our rates, terms, and fees are clearly disclosed. We never ask for upfront payments before loan approval. If you have concerns, feel free to visit our office or contact us via official channels.',
+        answer: 'GURU Credits is a registered consultation company. All our fees are clearly disclosed. We only collect the RM30 analysis fee via official WhatsApp after submission. If you have concerns, feel free to visit our office or contact us via official channels.',
       },
       {
         category: 'security',
@@ -236,8 +236,8 @@ const pageContent = {
       // Application Process
       {
         category: 'process',
-        question: 'Berapa lama kelulusan pinjaman mengambil masa?',
-        answer: 'Kebanyakan permohonan pinjaman diproses dalam 24 jam. Setelah diluluskan, dana dipindahkan dengan cepat ke akaun bank anda. Permohonan yang kompleks mungkin mengambil masa lebih sedikit untuk pengesahan.',
+        question: 'Berapa lama analisis kelayakan mengambil masa?',
+        answer: 'Kebanyakan analisis siap dalam 24 jam selepas dokumen lengkap diterima. Tempoh kelulusan bank berbeza mengikut bank dan profil pemohon.',
       },
       {
         category: 'process',
@@ -247,7 +247,7 @@ const pageContent = {
       {
         category: 'process',
         question: 'Bagaimana cara memohon pinjaman?',
-        answer: 'Permohonan mudah: 1) Isi borang permohonan dalam talian kami (mengambil masa 5 minit), 2) Muat naik dokumen sokongan anda, 3) Tunggu pasukan kami menyemak (dalam 24 jam), 4) Setelah diluluskan, tandatangani perjanjian dan terima dana anda.',
+        answer: 'Proses mudah: 1) Isi borang dalam talian kami (5 minit), 2) Muat naik dokumen sokongan, 3) Kami siapkan analisis dalam 24 jam, 4) Kami bantu anda hantar ke bank yang sesuai dan terangkan langkah seterusnya.',
       },
       {
         category: 'process',
@@ -263,22 +263,22 @@ const pageContent = {
       {
         category: 'payment',
         question: 'Apakah pilihan pembayaran balik?',
-        answer: 'Pembayaran balik dibuat melalui ansuran bulanan tetap. Anda boleh memilih untuk membayar melalui: debit automatik dari akaun bank anda, pindahan perbankan dalam talian, atau di kaunter cawangan bank. Kami mengesyorkan menetapkan debit automatik untuk kemudahan.',
+        answer: 'Pembayaran balik ditetapkan oleh bank dan biasanya menggunakan ansuran bulanan tetap. Kami akan jelaskan pilihan pembayaran yang ditawarkan oleh bank sebelum anda menandatangani.',
       },
       {
         category: 'payment',
         question: 'Bolehkah saya membuat pembayaran awal?',
-        answer: 'Ya, anda boleh membuat penyelesaian awal atau penuh pinjaman anda. Penyelesaian awal mungkin tertakluk kepada yuran penyelesaian awal seperti yang dinyatakan dalam perjanjian pinjaman anda. Hubungi kami untuk jumlah penyelesaian yang tepat.',
+        answer: 'Ia bergantung pada polisi bank dan mungkin melibatkan yuran penyelesaian awal. Kami boleh bantu anda semak terma yang berkaitan.',
       },
       {
         category: 'payment',
         question: 'Apa yang berlaku jika saya terlepas bayaran?',
-        answer: 'Jika anda terlepas bayaran, caj pembayaran lewat akan dikenakan seperti yang dinyatakan dalam perjanjian anda. Kami mengesyorkan menghubungi kami dengan segera jika anda menghadapi kesukaran membuat pembayaran - kami boleh membincangkan penyelesaian yang mungkin.',
+        answer: 'Caj lewat tertakluk kepada perjanjian pinjaman bank. Jika anda menghadapi kesukaran, hubungi bank segera dan kami boleh beri panduan tindakan seterusnya.',
       },
       {
         category: 'payment',
         question: 'Adakah terdapat caj tersembunyi?',
-        answer: 'Tiada caj tersembunyi. Semua caj termasuk yuran pemprosesan, duti setem, dan sebarang caj lain yang berkenaan dinyatakan dengan jelas sebelum anda menandatangani perjanjian. Kadar faedah yang ditunjukkan adalah kadar rata setahun.',
+        answer: 'Tiada caj tersembunyi untuk perkhidmatan kami. Caj bank dan terma pinjaman akan dinyatakan oleh bank sebelum anda menandatangani, dan kami bantu semak.',
       },
       // Security
       {
@@ -289,7 +289,7 @@ const pageContent = {
       {
         category: 'security',
         question: 'Bagaimana saya tahu ini adalah syarikat pinjaman yang sah?',
-        answer: 'GURU Credits adalah syarikat pinjaman berdaftar yang sah. Semua kadar, terma, dan yuran kami dinyatakan dengan jelas. Kami tidak pernah meminta bayaran pendahuluan sebelum kelulusan pinjaman. Jika anda mempunyai kebimbangan, sila lawati pejabat kami atau hubungi kami melalui saluran rasmi.',
+        answer: 'GURU Credits adalah syarikat konsultasi berdaftar. Semua yuran dinyatakan dengan jelas. Kami hanya kutip yuran analisis RM30 melalui WhatsApp rasmi selepas penghantaran. Jika anda mempunyai kebimbangan, sila lawati pejabat kami atau hubungi kami melalui saluran rasmi.',
       },
       {
         category: 'security',

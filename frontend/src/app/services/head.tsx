@@ -6,7 +6,7 @@ const URL = `${SEO.url}/services`;
 const TITLE = `Loan Services | ${COMPANY.name}`;
 const TITLE_MS = `Perkhidmatan Pinjaman | ${COMPANY.name}`;
 const DESCRIPTION =
-  'Compare personal, car, home, and business loans with transparent fees, RM30 eligibility analysis, and expert guidance to secure approvals fast.';
+  'Compare personal, car, home, and business loans with transparent fees, RM30 eligibility analysis, and expert guidance to speed up bank decisions.';
 const DESCRIPTION_MS =
   'Bandingkan pinjaman peribadi, kereta, rumah dan perniagaan dengan yuran telus, semakan kelayakan RM30 dan panduan pakar untuk kelulusan pantas.';
 

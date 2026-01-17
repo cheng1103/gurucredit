@@ -48,7 +48,7 @@ const pageContent = {
       { value: '2.5% - 3.5%', label: 'Flat Rate Range' },
       { value: 'Up to 90%', label: 'Margin of Finance' },
       { value: '9 Years', label: 'Max Tenure' },
-      { value: '24h', label: 'Pre-approval' },
+      { value: '24h', label: 'Pre-check' },
     ],
     benefits: {
       title: 'What We Fix For You',
@@ -95,7 +95,7 @@ const pageContent = {
         { step: '01', title: 'Share Car Details', description: 'Quotation, booking form, downpayment plan' },
         { step: '02', title: 'Run Eligibility', description: 'DSR, CCRIS, and bank shortlist based on car age & price' },
         { step: '03', title: 'Submit & Negotiate', description: 'We coordinate with dealer & bank, including insurance & accessories' },
-        { step: '04', title: 'Sign & Collect', description: 'Track approval, JPJ release, and disbursement to dealer' },
+        { step: '04', title: 'Sign & Collect', description: 'Track bank decision, JPJ release, and disbursement to dealer' },
       ],
     },
     checklist: {
@@ -116,8 +116,8 @@ const pageContent = {
           answer: 'Aim for at least 10% to lower instalments and improve approval odds.',
         },
         {
-          question: 'How long does approval take?',
-          answer: 'Most approvals land within 1-7 days with complete documents.',
+          question: 'How long does a bank decision take?',
+          answer: 'Some banks respond within 1-7 days with complete documents, but timelines vary.',
         },
         {
           question: 'Is a longer tenure always better?',

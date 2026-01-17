@@ -17,7 +17,7 @@ const SERVICE_META = {
     title: `Apply for Car Loan | ${COMPANY.name}`,
     titleMs: `Mohon Pinjaman Kereta | ${COMPANY.name}`,
     description:
-      'Plan your hire purchase financing with expert DSR guidance, bank matching, and WhatsApp document support for fast car loan approval.',
+      'Plan your hire purchase financing with expert DSR guidance, bank matching, and WhatsApp document support for faster bank decisions.',
     descriptionMs:
       'Rancang pembiayaan sewa beli anda dengan panduan DSR pakar, padanan bank, dan sokongan dokumen WhatsApp untuk kelulusan pinjaman kereta yang pantas.',
   },

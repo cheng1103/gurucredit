@@ -56,7 +56,7 @@ const pageContent = {
         {
           icon: 'Zap',
           title: 'Faster Access',
-          description: 'Pre-check DSR and documents so approvals land within 24-48 hours.',
+          description: 'Pre-check DSR and documents so bank responses can be faster.',
         },
         {
           icon: 'Wallet',
@@ -126,8 +126,8 @@ const pageContent = {
       title: 'Personal Loan FAQ',
       items: [
         {
-          question: 'How fast can personal loan approval happen?',
-          answer: 'With complete documents, approvals can land within 24-48 hours.',
+          question: 'How fast can personal loan decisions happen?',
+          answer: 'With complete documents, some banks respond within 24-48 hours, but timelines vary.',
         },
         {
           question: 'What DSR is acceptable for personal loans?',

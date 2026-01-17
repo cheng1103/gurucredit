@@ -20,8 +20,8 @@ const testimonials = [
     loanType: 'Business Loan',
     loanTypeMs: 'Pinjaman Perniagaan',
     amount: 'RM150,000',
-    text: 'After 3 bank rejections, I thought it was impossible to get a business loan. GURU Credits identified that my documentation was the issue, not my creditworthiness. They helped restructure my application and I got approved within 2 weeks!',
-    textMs: 'Selepas 3 penolakan bank, saya ingat mustahil untuk mendapatkan pinjaman perniagaan. GURU Credits mengenal pasti dokumentasi saya yang bermasalah, bukan kelayakan kredit. Mereka bantu susun semula permohonan saya dan saya diluluskan dalam 2 minggu!',
+    text: 'After 3 bank rejections, I thought it was impossible to get a business loan. GURU Credits identified that my documentation was the issue, not my creditworthiness. They helped restructure my application and I received bank approval within 2 weeks.',
+    textMs: 'Selepas 3 penolakan bank, saya ingat mustahil untuk mendapatkan pinjaman perniagaan. GURU Credits mengenal pasti dokumentasi saya yang bermasalah, bukan kelayakan kredit. Mereka bantu susun semula permohonan saya dan saya menerima kelulusan bank dalam 2 minggu.',
   },
   {
     name: 'Sarah Lim',
@@ -86,13 +86,13 @@ const content = {
     badge: 'Success Stories',
     title: 'What Our Clients Say',
     subtitle: 'Join over 1,000+ satisfied Malaysians who have successfully navigated their loan applications with our help.',
-    approved: 'Approved',
+    approved: 'Result',
   },
   ms: {
     badge: 'Kisah Kejayaan',
     title: 'Apa Kata Pelanggan Kami',
-    subtitle: 'Sertai lebih 1,000+ rakyat Malaysia yang telah berjaya mendapat kelulusan pinjaman dengan bantuan kami.',
-    approved: 'Diluluskan',
+    subtitle: 'Sertai lebih 1,000+ rakyat Malaysia yang berjaya menavigasi permohonan pinjaman dengan bantuan kami.',
+    approved: 'Hasil',
   },
 };
 

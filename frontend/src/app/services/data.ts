@@ -124,7 +124,7 @@ export const pageContent: Record<Language, ServicesPageContent> = {
       title: 'Choose Your',
       titleHighlight: 'Loan Type',
       subtitle:
-        'Competitive rates starting from 3.5% p.a. Fast approval within 24 hours.',
+        'Competitive rates starting from 3.5% p.a. Eligibility analysis within 24 hours.',
       primaryCta: 'Start Eligibility Analysis',
       secondaryCta: 'Take 5-min Eligibility Test',
       supportNote:
@@ -151,7 +151,7 @@ export const pageContent: Record<Language, ServicesPageContent> = {
         highlight: 'Most Popular',
         features: [
           'No collateral needed',
-          '24hr approval',
+          '24hr analysis',
           'Flexible tenure',
         ],
       },
@@ -164,7 +164,7 @@ export const pageContent: Record<Language, ServicesPageContent> = {
         tenure: '3-9 years',
         type: 'CAR_LOAN',
         highlight: 'Lowest Rate',
-        features: ['Low upfront cost', 'Insurance bundle', 'Fast approval'],
+        features: ['Low upfront cost', 'Insurance bundle', 'Fast analysis'],
       },
       {
         id: '3',
@@ -192,9 +192,9 @@ export const pageContent: Record<Language, ServicesPageContent> = {
     loanJourney: {
       badge: 'Easy Process',
       title: 'How It Works',
-      subtitle: 'Three steps to get your loan approved with GURU Credits',
+      subtitle: 'Three steps to get lender-ready with GURU Credits',
       imageCaption:
-        'Our consultants guide you from eligibility assessment to bank approval, so you always know the next step.',
+        'Our consultants guide you from eligibility assessment to bank submission, so you always know the next step.',
       steps: [
         {
           title: '1. Share Your Profile',
@@ -207,9 +207,9 @@ export const pageContent: Record<Language, ServicesPageContent> = {
             'We analyze your CCRIS/CTOS and DSR, then shortlist the right banks.',
         },
         {
-          title: '3. Approval & Guidance',
+          title: '3. Submission & Guidance',
           description:
-            'Receive personalized guidance until your loan is approved.',
+            'Receive personalized guidance through submission and follow-up.',
         },
       ],
     },
@@ -223,9 +223,9 @@ export const pageContent: Record<Language, ServicesPageContent> = {
             'Identity card, 3 month payslips, and 3 month bank statements. That’s enough to start the analysis.',
         },
         {
-          question: 'How fast is the approval?',
+          question: 'How fast is the analysis?',
           answer:
-            'Most approvals happen within 24 hours once you submit all required documents.',
+            'Most analyses are completed within 24 hours once you submit all required documents.',
         },
         {
           question: 'Is the RM30 fee refundable?',
@@ -268,7 +268,7 @@ export const pageContent: Record<Language, ServicesPageContent> = {
       title: 'Pilih',
       titleHighlight: 'Jenis Pinjaman',
       subtitle:
-        'Kadar kompetitif dari 3.5% setahun. Kelulusan pantas dalam 24 jam.',
+        'Kadar kompetitif dari 3.5% setahun. Analisis kelayakan dalam 24 jam.',
       primaryCta: 'Mulakan Analisis Kelayakan',
       secondaryCta: 'Ujian Kelayakan 5 Minit',
       supportNote:
@@ -295,7 +295,7 @@ export const pageContent: Record<Language, ServicesPageContent> = {
         highlight: 'Paling Popular',
         features: [
           'Tiada cagaran diperlukan',
-          'Kelulusan 24 jam',
+          'Analisis 24 jam',
           'Tempoh fleksibel',
         ],
       },
@@ -308,7 +308,7 @@ export const pageContent: Record<Language, ServicesPageContent> = {
         tenure: '3-9 tahun',
         type: 'CAR_LOAN',
         highlight: 'Kadar Terendah',
-        features: ['Kos awal rendah', 'Pakej insurans', 'Kelulusan pantas'],
+        features: ['Kos awal rendah', 'Pakej insurans', 'Analisis pantas'],
       },
       {
         id: '3',
@@ -345,9 +345,9 @@ export const pageContent: Record<Language, ServicesPageContent> = {
       badge: 'Proses Mudah',
       title: 'Cara Ia Berfungsi',
       subtitle:
-        'Tiga langkah untuk mendapatkan kelulusan pinjaman dengan GURU Credits',
+        'Tiga langkah untuk sedia dihantar ke bank dengan GURU Credits',
       imageCaption:
-        'Konsultan kami membimbing anda dari semakan kelayakan hingga kelulusan bank supaya anda tahu langkah seterusnya.',
+        'Konsultan kami membimbing anda dari semakan kelayakan hingga penghantaran ke bank supaya anda tahu langkah seterusnya.',
       steps: [
         {
           title: '1. Kongsi Profil Anda',
@@ -360,9 +360,9 @@ export const pageContent: Record<Language, ServicesPageContent> = {
             'Kami analisis CCRIS/CTOS dan DSR anda, kemudian senaraikan bank yang sesuai.',
         },
         {
-          title: '3. Kelulusan & Panduan',
+          title: '3. Penghantaran & Panduan',
           description:
-            'Terima panduan peribadi sehingga pinjaman anda diluluskan.',
+            'Terima panduan peribadi hingga permohonan dihantar dan diikuti.',
         },
       ],
     },
@@ -376,9 +376,9 @@ export const pageContent: Record<Language, ServicesPageContent> = {
             'Kad pengenalan, slip gaji 3 bulan, dan penyata bank 3 bulan. Cukup untuk mulakan analisis.',
         },
         {
-          question: 'Berapa pantas kelulusan?',
+          question: 'Berapa pantas analisis?',
           answer:
-            'Kebanyakan kelulusan dalam 24 jam selepas semua dokumen diterima.',
+            'Kebanyakan analisis siap dalam 24 jam selepas semua dokumen diterima.',
         },
         {
           question: 'Adakah yuran RM30 boleh dikembalikan?',
@@ -400,10 +400,10 @@ export const pageContent: Record<Language, ServicesPageContent> = {
       },
       {
         value: '85%',
-        label: 'Kadar Kelulusan',
+        label: 'Kadar Kejayaan',
         description: 'Dengan panduan',
       },
-      { value: '24j', label: 'Kelulusan', description: 'Laporan kelayakan' },
+      { value: '24j', label: 'Analisis', description: 'Laporan kelayakan' },
       { value: 'RM30', label: 'Yuran Analisis', description: 'Harga tetap' },
     ],
     serviceLabels: {

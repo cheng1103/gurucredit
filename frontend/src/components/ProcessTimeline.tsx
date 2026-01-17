@@ -17,7 +17,7 @@ const content = {
     badge: 'Simple Process',
     title: 'How It',
     titleHighlight: 'Works',
-    subtitle: 'Get your loan approved in just 3 simple steps',
+    subtitle: 'Get lender-ready in just 3 simple steps',
     steps: [
       {
         step: '01',
@@ -35,9 +35,9 @@ const content = {
       },
       {
         step: '03',
-        title: 'Get Your Cash',
-        description: 'Once approved, funds are transferred directly to your account',
-        time: 'Fast disbursement',
+        title: 'Submit to Bank',
+        description: 'We help submit to the right lenders and guide your follow-up',
+        time: 'Same-day submission',
         icon: CheckCircle,
       },
     ],
@@ -48,7 +48,7 @@ const content = {
     badge: 'Proses Mudah',
     title: 'Cara Ia',
     titleHighlight: 'Berfungsi',
-    subtitle: 'Dapatkan kelulusan pinjaman dalam 3 langkah mudah',
+    subtitle: 'Sedia untuk bank dalam 3 langkah mudah',
     steps: [
       {
         step: '01',
@@ -66,9 +66,9 @@ const content = {
       },
       {
         step: '03',
-        title: 'Terima Wang Anda',
-        description: 'Setelah diluluskan, wang dipindahkan terus ke akaun anda',
-        time: 'Pengeluaran cepat',
+        title: 'Hantar ke Bank',
+        description: 'Kami bantu hantar ke bank yang sesuai dan pandu susulan',
+        time: 'Hantaran hari sama',
         icon: CheckCircle,
       },
     ],

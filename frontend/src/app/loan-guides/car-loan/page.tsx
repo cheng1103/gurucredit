@@ -98,8 +98,8 @@ const pageContent = {
         answer: 'Aim for at least 10% to lower instalments and improve approval odds.',
       },
       {
-        question: 'How long does a car loan approval take?',
-        answer: 'Most approvals land within 1-7 days if documents are complete.',
+        question: 'How long does a car loan decision take?',
+        answer: 'Most banks respond within 1-7 days if documents are complete.',
       },
       {
         question: 'Is a longer tenure always better?',

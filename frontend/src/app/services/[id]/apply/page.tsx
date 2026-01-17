@@ -191,25 +191,25 @@ const pageContent = {
         features: [
           'Loan up to RM100,000',
           'Flexible tenure 1-7 years',
-          'Fast approval within 24 hours',
+          'Eligibility analysis within 24 hours',
           'Minimal documentation',
           'No collateral required',
           'Competitive rates from 4.88%',
           'Fixed monthly installments',
         ],
         spotlight: {
-          quote: '“Got RM80k approved in 5 days thanks to the WhatsApp prep list.”',
+          quote: '“Bank approved RM80k in 5 days thanks to the WhatsApp prep list.”',
           author: 'Nurul, Penang',
           faq: {
             question: 'How fast can funds be ready?',
-            answer: 'Once your documents are ready we can submit to our partner banks within the same day and most approvals land within 24–48 hours.',
+            answer: 'Once your documents are ready we can submit to our partner banks within the same day. Approval timelines depend on the bank and documentation completeness.',
           },
         },
       },
       '2': {
         name: 'Car Loan',
         description: 'Finance your dream car with competitive rates and flexible repayment terms',
-        features: ['New & used car financing', 'Up to 90% financing', 'Tenure up to 9 years', 'Competitive rates', 'Fast approval'],
+        features: ['New & used car financing', 'Up to 90% financing', 'Tenure up to 9 years', 'Competitive rates', 'Fast analysis'],
         spotlight: {
           quote: '“Dealer needed an answer within 2 days — GURU Credits delivered.”',
           author: 'Hafiz, Shah Alam',

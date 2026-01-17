@@ -106,7 +106,7 @@ const pageContent = {
       steps: [
         { step: '1', title: 'Submit Your Details', description: 'Tell us about your current debts and income' },
         { step: '2', title: 'Get Analysis', description: 'We analyze your situation and find the best consolidation option' },
-        { step: '3', title: 'Get Approved', description: 'Once approved, we pay off your existing debts' },
+        { step: '3', title: 'Bank Decision', description: 'Once approved by the bank, your existing debts are settled by the lender' },
         { step: '4', title: 'One Payment', description: 'Make one simple monthly payment at a lower rate' },
       ],
     },
@@ -216,7 +216,7 @@ const pageContent = {
       steps: [
         { step: '1', title: 'Hantar Butiran Anda', description: 'Beritahu kami tentang hutang dan pendapatan semasa anda' },
         { step: '2', title: 'Dapatkan Analisis', description: 'Kami analisis situasi anda dan cari pilihan penyatuan terbaik' },
-        { step: '3', title: 'Diluluskan', description: 'Setelah diluluskan, kami bayar hutang sedia ada anda' },
+        { step: '3', title: 'Keputusan Bank', description: 'Setelah diluluskan oleh bank, hutang sedia ada diselesaikan oleh pihak bank' },
         { step: '4', title: 'Satu Bayaran', description: 'Buat satu bayaran bulanan mudah pada kadar lebih rendah' },
       ],
     },

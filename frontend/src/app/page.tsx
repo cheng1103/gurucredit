@@ -112,7 +112,7 @@ const content = {
       badge: 'Our Loan Products',
       title: 'Loans We Offer',
       subtitle:
-        'Personal, car, home, and business financing with clear requirements, transparent fees, and a guided approval path.',
+        'Personal, car, home, and business financing with clear requirements, transparent fees, and a guided submission path.',
       items: [
         { title: 'Personal Loan', description: 'For emergencies, medical bills, or cashflow gaps with rapid guidance' },
         { title: 'Car Loan', description: 'Finance a new or used car with a bank shortlist that fits your DSR' },
@@ -150,7 +150,7 @@ const content = {
       title: 'What Our Clients Say',
       subtitle: 'Join over 1,000 Malaysian borrowers who have successfully navigated their loan applications with our help.',
       items: [
-        { name: 'Ahmad R.', location: 'Kuala Lumpur', text: 'GURU Credits helped me understand why my previous loan applications were rejected. Their analysis identified issues with my credit report I never knew about. After following their recommendations, I got approved for my home loan!' },
+        { name: 'Ahmad R.', location: 'Kuala Lumpur', text: 'GURU Credits helped me understand why my previous loan applications were rejected. Their analysis identified issues with my credit report I never knew about. After following their recommendations, I received bank approval for my home loan!' },
         { name: 'Sarah L.', location: 'Petaling Jaya', text: 'The RM30 analysis was worth every sen. Very detailed report with clear explanations. They even recommended which banks would be more likely to approve my application based on my profile.' },
         { name: 'Raj K.', location: 'Shah Alam', text: 'Professional service with fast turnaround. Got my report within 24 hours as promised. The DSR calculation and bank recommendations were spot on. Highly recommend!' },
       ],
@@ -161,7 +161,7 @@ const content = {
       items: [
         'Bank pairing based on your DSR and credit file, not generic advice',
         'Transparent fees with a RM30 analysis option before committing',
-        'Document checklist and templates to cut approval time',
+        'Document checklist and templates to cut decision time',
         'Support for personal, car, home, and business loans across Malaysia',
         '24h turnaround for analysis once docs are complete',
       ],
@@ -177,7 +177,7 @@ const content = {
       subtitle: 'Quick answers to help you understand our loan services better.',
       items: [
         { question: 'What types of loans do you offer?', answer: 'We offer personal loans, car loans, home loans, and business loans with competitive interest rates starting from 4.88% flat rate per annum.' },
-        { question: 'How long does the approval take?', answer: 'Most loan applications are processed within 24 hours. Once approved, funds are disbursed quickly to your account.' },
+        { question: 'How long does the approval take?', answer: 'Our eligibility analysis is usually completed within 24 hours. Bank approval timelines vary by lender and documentation completeness.' },
         { question: 'What documents do I need?', answer: 'Basic set: IC copy, latest 3 months salary slips, bank statements, employment letter. We provide a checklist and flag extras by loan type.' },
       ],
       viewAll: 'View All FAQs',
@@ -218,7 +218,7 @@ const content = {
     },
     cta: {
       badge: 'Get Started Today',
-      title: 'Ready for a clear approval path?',
+      title: 'Ready for a clear submission path?',
       subtitle: 'Start with a RM30 eligibility analysis: DSR, CCRIS/CTOS review, lender shortlist, and action plan.',
       primary: 'Start My Analysis',
       secondary: 'Chat on WhatsApp',
@@ -292,7 +292,7 @@ const content = {
         'Panduan kadar berdasarkan DSR dan profil',
       ],
       cta: 'Dapatkan Pelan Saya',
-      note: 'Panduan kelulusan dalam 24 jam',
+      note: 'Panduan analisis dalam 24 jam',
     },
     features: {
       badge: 'Produk Pinjaman Kami',
@@ -343,7 +343,7 @@ const content = {
       items: [
         'Padanan bank berdasarkan DSR & fail kredit anda',
         'Yuran telus dengan pilihan analisis RM30',
-        'Senarai semak dokumen & templat untuk percepat kelulusan',
+        'Senarai semak dokumen & templat untuk percepat keputusan bank',
         'Sokong pinjaman peribadi, kereta, rumah & perniagaan di seluruh Malaysia',
         'Analisis siap 24 jam selepas dokumen lengkap',
       ],
@@ -400,7 +400,7 @@ const content = {
     },
     cta: {
       badge: 'Mulakan Hari Ini',
-      title: 'Sedia untuk laluan kelulusan jelas?',
+      title: 'Sedia untuk laluan permohonan yang jelas?',
       subtitle: 'Mulakan dengan analisis kelayakan RM30: DSR, semakan CCRIS/CTOS, senarai bank & pelan tindakan.',
       primary: 'Mulakan Analisis Saya',
       secondary: 'Chat di WhatsApp',

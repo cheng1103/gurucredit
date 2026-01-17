@@ -95,7 +95,7 @@ const pageContent = {
         { step: '01', title: 'Profile & Property Review', description: 'Income, debts, SPA/letter offer, property type' },
         { step: '02', title: 'DSR & Bank Plan', description: 'Scenario planning for different tenures & spreads' },
         { step: '03', title: 'Document Coaching', description: 'Prep HR letters, EPF, tax forms, valuation booking' },
-        { step: '04', title: 'Submission & Tracking', description: 'Monitor approval, valuation, MRTA/MLTA and signing' },
+        { step: '04', title: 'Submission & Tracking', description: 'Monitor bank decision, valuation, MRTA/MLTA and signing' },
       ],
     },
     checklist: {
@@ -120,8 +120,8 @@ const pageContent = {
           answer: 'Plan at least 10-15% plus legal, valuation, and SPA fees.',
         },
         {
-          question: 'How long does approval take?',
-          answer: 'With complete documents, approvals typically take 7-21 days.',
+          question: 'How long does a bank decision take?',
+          answer: 'With complete documents, bank decisions typically take 7-21 days, depending on the lender.',
         },
       ],
     },

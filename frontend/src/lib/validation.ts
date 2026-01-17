@@ -95,7 +95,7 @@ export const loanApplicationSchema = z.object({
   email: emailSchema,
   phone: phoneSchema,
   serviceArea: z.enum(SERVICE_AREA_CODES, {
-    error: () => ({ message: 'Please select Kuala Lumpur or Selangor' }),
+    error: () => ({ message: 'Please select your state' }),
   }),
   employmentType: z.enum(EMPLOYMENT_TYPES, {
     message: 'Please select an employment type',

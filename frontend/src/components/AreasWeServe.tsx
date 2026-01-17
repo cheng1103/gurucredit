@@ -12,10 +12,10 @@ const content = {
     badge: 'Local Expertise',
     title: 'Areas We Serve Across Malaysia',
     subtitle:
-      'From Klang Valley to Penang, Johor, Sabah, and Sarawak, our consultants support borrowers nationwide with bank-ready guidance and fast WhatsApp follow-up.',
+      'From Central Malaysia to Penang, Johor, Sabah, and Sarawak, our consultants support borrowers nationwide with bank-ready guidance and fast WhatsApp follow-up.',
     neighborhoods: [
       {
-        title: 'Klang Valley (KL & Selangor)',
+        title: 'Central Malaysia (KL & Selangor)',
         shortCode: 'KL',
         description: 'Damansara, Bangsar, Mont Kiara, PJ, Shah Alam, Subang, Klang',
         stat: 'Fast SLA with in-person partner coverage',
@@ -24,7 +24,7 @@ const content = {
         title: 'Northern Corridor',
         shortCode: 'NORTH',
         description: 'Penang, Kedah, Perak, Perlis',
-        stat: 'Regional bank partners for fast approvals',
+        stat: 'Regional bank partners for fast analysis',
       },
       {
         title: 'Southern Corridor',
@@ -45,10 +45,10 @@ const content = {
     badge: 'Kepakaran Tempatan',
     title: 'Kawasan Liputan Seluruh Malaysia',
     subtitle:
-      'Daripada Lembah Klang ke Pulau Pinang, Johor, Sabah dan Sarawak, perunding kami menyokong pemohon di seluruh negara dengan panduan bank dan susulan pantas melalui WhatsApp.',
+      'Daripada Wilayah Tengah ke Pulau Pinang, Johor, Sabah dan Sarawak, perunding kami menyokong pemohon di seluruh negara dengan panduan bank dan susulan pantas melalui WhatsApp.',
     neighborhoods: [
       {
-        title: 'Lembah Klang (KL & Selangor)',
+        title: 'Wilayah Tengah (KL & Selangor)',
         shortCode: 'KL',
         description: 'Damansara, Bangsar, Mont Kiara, PJ, Shah Alam, Subang, Klang',
         stat: 'SLA pantas dengan liputan rakan bank',
@@ -57,7 +57,7 @@ const content = {
         title: 'Koridor Utara',
         shortCode: 'UTARA',
         description: 'Pulau Pinang, Kedah, Perak, Perlis',
-        stat: 'Rakan bank wilayah untuk kelulusan pantas',
+        stat: 'Rakan bank wilayah untuk analisis pantas',
       },
       {
         title: 'Koridor Selatan',

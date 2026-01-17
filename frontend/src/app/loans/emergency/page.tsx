@@ -28,7 +28,7 @@ export const metadata = buildMetadata({
   path: '/loans/emergency',
   image: '/images/optimized/personal-loan.jpg',
   keywords:
-    'emergency loan Malaysia, urgent cash loan, fast approval, DSR analysis, loan guidance',
+    'emergency loan Malaysia, urgent cash loan, fast analysis, DSR analysis, loan guidance',
 });
 
 const pageContent = {
@@ -37,7 +37,7 @@ const pageContent = {
       badge: 'Urgent Financial Help',
       title: 'Emergency',
       titleHighlight: 'Loans',
-      subtitle: 'Fast cash when you need it most. Same-day approval for urgent financial needs.',
+      subtitle: 'Fast guidance when you need it most. Same-day analysis for urgent financial needs.',
     },
     urgentBanner: {
       title: 'Need Cash Today?',
@@ -45,7 +45,7 @@ const pageContent = {
       cta: 'Call Now',
     },
     stats: [
-      { value: '2-4hrs', label: 'Express Approval' },
+      { value: '2-4hrs', label: 'Express Analysis' },
       { value: 'RM50K', label: 'Up to Amount' },
       { value: '24/7', label: 'Application' },
       { value: '4.88%', label: 'From Rate' },
@@ -67,7 +67,7 @@ const pageContent = {
         {
           icon: 'Zap',
           title: 'Express Processing',
-          description: 'Priority handling for urgent cases. Get approved in as little as 2-4 hours.',
+          description: 'Priority handling for urgent cases. Get analysis within 2-4 hours when documents are complete.',
         },
         {
           icon: 'FileText',
@@ -88,7 +88,7 @@ const pageContent = {
     },
     process: {
       title: 'Emergency Loan Process',
-      subtitle: 'Get your loan in 3 simple steps',
+      subtitle: 'Get lender-ready in 3 simple steps',
       steps: [
         {
           step: '1',
@@ -99,14 +99,14 @@ const pageContent = {
         {
           step: '2',
           title: 'Quick Verification',
-          description: 'Our team verifies your documents and processes your application immediately',
+          description: 'Our team verifies your documents and completes your eligibility analysis',
           time: '2-4 hours',
         },
         {
           step: '3',
-          title: 'Receive Funds',
-          description: 'Once approved, funds are transferred directly to your bank account',
-          time: 'Same day',
+          title: 'Submit to Bank',
+          description: 'We help submit to the right lenders and guide your follow-up',
+          time: 'Same day (if docs complete)',
         },
       ],
     },
@@ -130,11 +130,11 @@ const pageContent = {
       ],
     },
     tips: {
-      title: 'Tips for Faster Approval',
+      title: 'Tips for Faster Processing',
       items: [
         'Have all documents ready before applying',
         'Ensure salary slip matches bank statement deposits',
-        'Apply during business hours (9am-6pm) for same-day processing',
+        'Apply during business hours (9am-6pm) for same-day analysis',
         'Call ahead if your case is extremely urgent',
       ],
     },
@@ -142,8 +142,8 @@ const pageContent = {
       title: 'Emergency Loan FAQ',
       items: [
         {
-          question: 'How fast can I get funds?',
-          answer: 'With complete documents, approvals can happen within 2-4 hours and disburse same day.',
+          question: 'How fast can my application be submitted?',
+          answer: 'With complete documents, analysis can happen within 2-4 hours and submission can be done the same day. Approval timelines depend on the bank.',
         },
         {
           question: 'What documents are required?',
@@ -168,7 +168,7 @@ const pageContent = {
       badge: 'Bantuan Kewangan Segera',
       title: 'Pinjaman',
       titleHighlight: 'Kecemasan',
-      subtitle: 'Wang tunai cepat bila anda perlukan. Kelulusan hari yang sama untuk keperluan kewangan segera.',
+      subtitle: 'Panduan pantas bila anda perlukan. Analisis hari yang sama untuk keperluan kewangan segera.',
     },
     urgentBanner: {
       title: 'Perlukan Wang Hari Ini?',
@@ -176,7 +176,7 @@ const pageContent = {
       cta: 'Hubungi Sekarang',
     },
     stats: [
-      { value: '2-4jam', label: 'Kelulusan Ekspres' },
+      { value: '2-4jam', label: 'Analisis Ekspres' },
       { value: 'RM50K', label: 'Sehingga Jumlah' },
       { value: '24/7', label: 'Permohonan' },
       { value: '4.88%', label: 'Dari Kadar' },
@@ -198,7 +198,7 @@ const pageContent = {
         {
           icon: 'Zap',
           title: 'Pemprosesan Ekspres',
-          description: 'Pengendalian keutamaan untuk kes segera. Diluluskan dalam masa 2-4 jam.',
+          description: 'Pengendalian keutamaan untuk kes segera. Analisis siap dalam 2-4 jam jika dokumen lengkap.',
         },
         {
           icon: 'FileText',
@@ -219,7 +219,7 @@ const pageContent = {
     },
     process: {
       title: 'Proses Pinjaman Kecemasan',
-      subtitle: 'Dapatkan pinjaman anda dalam 3 langkah mudah',
+      subtitle: 'Sedia untuk bank dalam 3 langkah mudah',
       steps: [
         {
           step: '1',
@@ -230,14 +230,14 @@ const pageContent = {
         {
           step: '2',
           title: 'Pengesahan Cepat',
-          description: 'Pasukan kami sahkan dokumen anda dan proses permohonan anda dengan segera',
+          description: 'Pasukan kami sahkan dokumen anda dan siapkan analisis kelayakan',
           time: '2-4 jam',
         },
         {
           step: '3',
-          title: 'Terima Dana',
-          description: 'Setelah diluluskan, dana dipindahkan terus ke akaun bank anda',
-          time: 'Hari sama',
+          title: 'Hantar ke Bank',
+          description: 'Kami bantu hantar ke bank yang sesuai dan pandu susulan',
+          time: 'Hari sama (jika dokumen lengkap)',
         },
       ],
     },
@@ -261,11 +261,11 @@ const pageContent = {
       ],
     },
     tips: {
-      title: 'Tip untuk Kelulusan Lebih Cepat',
+      title: 'Tip untuk Proses Lebih Cepat',
       items: [
         'Sediakan semua dokumen sebelum memohon',
         'Pastikan slip gaji sepadan dengan deposit penyata bank',
-        'Mohon semasa waktu perniagaan (9pg-6ptg) untuk pemprosesan hari sama',
+        'Mohon semasa waktu perniagaan (9pg-6ptg) untuk analisis hari sama',
         'Hubungi terlebih dahulu jika kes anda sangat segera',
       ],
     },
@@ -273,8 +273,8 @@ const pageContent = {
       title: 'Soalan Lazim Pinjaman Kecemasan',
       items: [
         {
-          question: 'Berapa cepat dana boleh diterima?',
-          answer: 'Jika dokumen lengkap, kelulusan 2-4 jam dan dana hari yang sama.',
+          question: 'Berapa cepat permohonan boleh dihantar?',
+          answer: 'Jika dokumen lengkap, analisis siap dalam 2-4 jam dan penghantaran boleh dibuat hari yang sama. Tempoh kelulusan bergantung pada bank.',
         },
         {
           question: 'Dokumen apa diperlukan?',
@@ -312,7 +312,7 @@ export default async function EmergencyLoanPage() {
     <>
       <LoanProductJsonLd
         name="Emergency Personal Loan"
-        description="Fast cash for urgent financial needs with same-day approval"
+        description="Fast eligibility analysis for urgent financial needs"
         interestRate="4.88% p.a."
         loanTerm="1-7 years"
         minAmount={5000}

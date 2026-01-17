@@ -31,7 +31,7 @@ interface DocumentsContentProps {
 const content = {
   en: {
     title: 'Document Checklist',
-    subtitle: 'Prepare your documents for a faster loan approval process',
+    subtitle: 'Prepare your documents for a faster bank decision process',
     description: 'Having all required documents ready can speed up your loan application by up to 50%. Use our interactive checklists to ensure you have everything prepared.',
     downloadChecklist: 'Download Checklist',
     applyNow: 'Apply Now',
@@ -200,7 +200,7 @@ const content = {
     },
     selfEmployed: {
       title: 'Self-Employed? Additional Documents Needed',
-      description: 'If you are self-employed or a business owner in Damansara Heights, Petaling Jaya, Shah Alam, or Klang, please prepare the following supporting items.',
+      description: 'If you are self-employed or a business owner in Malaysia, please prepare the following supporting items.',
       items: [
         'Business registration (SSM)',
         'Latest 6 months business bank statements',
@@ -217,7 +217,7 @@ const content = {
   },
   ms: {
     title: 'Senarai Semak Dokumen',
-    subtitle: 'Sediakan dokumen anda untuk proses kelulusan pinjaman yang lebih cepat',
+    subtitle: 'Sediakan dokumen anda untuk proses keputusan bank yang lebih cepat',
     description: 'Mempunyai semua dokumen yang diperlukan boleh mempercepatkan permohonan pinjaman anda sehingga 50%. Gunakan senarai semak interaktif kami untuk memastikan anda telah menyediakan semuanya.',
     downloadChecklist: 'Muat Turun Senarai',
     applyNow: 'Mohon Sekarang',
@@ -386,7 +386,7 @@ const content = {
     },
     selfEmployed: {
       title: 'Bekerja Sendiri? Dokumen Tambahan Diperlukan',
-      description: 'Jika anda bekerja sendiri atau pemilik perniagaan di Damansara Heights, Petaling Jaya, Shah Alam, atau Klang, sila sediakan dokumen sokongan berikut.',
+      description: 'Jika anda bekerja sendiri atau pemilik perniagaan di Malaysia, sila sediakan dokumen sokongan berikut.',
       items: [
         'Pendaftaran perniagaan (SSM)',
         'Penyata bank perniagaan 6 bulan terkini',

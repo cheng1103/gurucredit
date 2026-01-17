@@ -67,7 +67,7 @@ const pageContent = {
       {
         question: 'What is your current employment status?',
         options: [
-          { label: 'Permanent employee (2+ years)', feedback: 'Best for loan approval' },
+          { label: 'Permanent employee (2+ years)', feedback: 'Best for eligibility' },
           { label: 'Permanent employee (< 2 years)', feedback: 'Generally acceptable' },
           { label: 'Contract/Temporary', feedback: 'Limited options' },
           { label: 'Self-employed', feedback: 'Need more documentation' },
@@ -112,7 +112,7 @@ const pageContent = {
     results: {
       excellent: {
         title: 'Excellent Eligibility!',
-        description: 'Based on your answers, you have a high chance of loan approval. Most banks would likely approve your application.',
+        description: 'Based on your answers, you have a strong eligibility profile. Many banks may view your application favorably.',
         recommendations: [
           'You qualify for most banks and loan products',
           'Negotiate for better interest rates',
@@ -122,7 +122,7 @@ const pageContent = {
       },
       good: {
         title: 'Good Eligibility',
-        description: 'You have a reasonable chance of approval, though some banks may have stricter requirements.',
+        description: 'You have a reasonable eligibility profile, though some banks may have stricter requirements.',
         recommendations: [
           'Focus on banks with flexible criteria',
           'Prepare all documents thoroughly',
@@ -142,7 +142,7 @@ const pageContent = {
       },
       poor: {
         title: 'Needs Improvement',
-        description: 'Based on your answers, you may face challenges getting approved. We recommend addressing some issues first.',
+        description: 'Based on your answers, you may face challenges with eligibility. We recommend addressing some issues first.',
         recommendations: [
           'Focus on improving your credit score',
           'Reduce your debt-to-income ratio',

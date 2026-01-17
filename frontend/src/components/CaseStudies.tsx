@@ -40,10 +40,10 @@ const content = {
         after: {
           label: 'Result',
           dsr: '24 hours',
-          status: 'Approved!',
+          status: 'Bank Approved',
           result: 'RM30,000 personal loan at 4.88%',
         },
-        quote: 'I needed urgent cash for medical bills. GURU Credits approved my loan within 24 hours. The process was simple and the rate was very competitive!',
+        quote: 'I needed urgent cash for medical bills. GURU Credits delivered my analysis within 24 hours and guided me to the right bank. The process was simple and the rate was very competitive!',
         rating: 5,
       },
       {
@@ -60,10 +60,10 @@ const content = {
         after: {
           label: 'Result',
           dsr: '48 hours',
-          status: 'Approved!',
-          result: 'RM50,000 business loan approved',
+          status: 'Bank Approved',
+          result: 'RM50,000 business loan',
         },
-        quote: 'As a business owner, I needed quick capital. GURU Credits understood my needs and approved my loan fast. Now my business is growing!',
+        quote: 'As a business owner, I needed quick capital. GURU Credits understood my needs and guided my submission. Now my business is growing!',
         rating: 5,
       },
       {
@@ -87,7 +87,7 @@ const content = {
         rating: 5,
       },
     ],
-    improvement: 'Fast Approval',
+    improvement: 'Fast Analysis',
     viewMore: 'Apply Now',
   },
   ms: {
@@ -110,10 +110,10 @@ const content = {
         after: {
           label: 'Hasil',
           dsr: '24 jam',
-          status: 'Diluluskan!',
+          status: 'Lulus Bank',
           result: 'Pinjaman peribadi RM30,000 pada 4.88%',
         },
-        quote: 'Saya perlukan wang tunai segera untuk bil perubatan. GURU Credits meluluskan pinjaman saya dalam 24 jam. Proses mudah dan kadar sangat kompetitif!',
+        quote: 'Saya perlukan wang tunai segera untuk bil perubatan. GURU Credits siapkan analisis saya dalam 24 jam dan bantu hantar ke bank yang sesuai. Proses mudah dan kadar sangat kompetitif!',
         rating: 5,
       },
       {
@@ -130,10 +130,10 @@ const content = {
         after: {
           label: 'Hasil',
           dsr: '48 jam',
-          status: 'Diluluskan!',
-          result: 'Pinjaman perniagaan RM50,000 diluluskan',
+          status: 'Lulus Bank',
+          result: 'Pinjaman perniagaan RM50,000',
         },
-        quote: 'Sebagai pemilik perniagaan, saya perlukan modal cepat. GURU Credits faham keperluan saya dan meluluskan pinjaman dengan pantas. Kini perniagaan saya berkembang!',
+        quote: 'Sebagai pemilik perniagaan, saya perlukan modal cepat. GURU Credits faham keperluan saya dan bantu hantar permohonan dengan pantas. Kini perniagaan saya berkembang!',
         rating: 5,
       },
       {
@@ -157,7 +157,7 @@ const content = {
         rating: 5,
       },
     ],
-    improvement: 'Kelulusan Cepat',
+    improvement: 'Analisis Pantas',
     viewMore: 'Mohon Sekarang',
   },
 } as const;

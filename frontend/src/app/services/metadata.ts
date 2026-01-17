@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Malaysia Loan Services | GURU Credits',
-    description: 'RM30 eligibility analysis and guided loan approvals for borrowers across Malaysia.',
+    description: 'RM30 eligibility analysis and guided loan submissions for borrowers across Malaysia.',
   },
   alternates: {
     canonical: `${SEO.url}/services`,

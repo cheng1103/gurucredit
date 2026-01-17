@@ -59,7 +59,7 @@ const pageContent = {
         description: 'Review BR + spread, lock-in period, flexi features, and legal/valuation fees.',
       },
       {
-        title: 'Submit and track approvals',
+        title: 'Submit and track decisions',
         description: 'Prepare for valuation scheduling, MRTA/MLTA options, and signing.',
       },
     ],
@@ -103,8 +103,8 @@ const pageContent = {
         answer: 'Plan at least 10-15% plus legal, valuation, and SPA fees.',
       },
       {
-        question: 'How long does a mortgage approval take?',
-        answer: 'With complete documents, approvals typically take 7-21 days.',
+        question: 'How long does a mortgage decision take?',
+        answer: 'With complete documents, bank decisions typically take 7-21 days.',
       },
     ],
     ctaTitle: 'Ready to Secure Your Mortgage?',

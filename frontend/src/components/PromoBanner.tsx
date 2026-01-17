@@ -54,13 +54,13 @@ const promotions: Promotion[] = [
     startDate: '2024-01-01',
     endDate: '2025-12-31',
     en: {
-      title: 'Flash Approval',
-      description: 'Apply before 12PM, get approval by 6PM today!',
+      title: 'Flash Analysis',
+      description: 'Apply before 12PM, get your eligibility analysis by 6PM today!',
       cta: 'Get Started',
     },
     ms: {
-      title: 'Kelulusan Kilat',
-      description: 'Mohon sebelum 12PM, dapat kelulusan sebelum 6PM hari ini!',
+      title: 'Analisis Kilat',
+      description: 'Mohon sebelum 12PM, dapat analisis kelayakan sebelum 6PM hari ini!',
       cta: 'Mula Sekarang',
     },
     link: '/services/1/apply',
@@ -223,12 +223,12 @@ export function FloatingPromoWidget() {
   const content = {
     en: {
       title: 'Limited Time Offer!',
-      description: 'Get pre-approved in 5 minutes',
+      description: 'Complete the eligibility check in 5 minutes',
       cta: 'Check Eligibility',
     },
     ms: {
       title: 'Tawaran Terhad!',
-      description: 'Dapatkan pra-kelulusan dalam 5 minit',
+      description: 'Lengkapkan semakan kelayakan dalam 5 minit',
       cta: 'Semak Kelayakan',
     },
   };

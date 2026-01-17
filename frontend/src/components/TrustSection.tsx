@@ -10,16 +10,16 @@ const content = {
     subtitle: 'Licensed, secure, and trusted by thousands',
     badges: [
       {
-        title: 'Licensed & Regulated',
-        description: 'Registered with SSM and compliant with all Malaysian lending regulations',
+        title: 'Registered & Verified',
+        description: 'Registered with SSM and aligned with Malaysian compliance guidelines',
       },
       {
         title: 'PDPA Compliant',
         description: 'Your personal data is protected under Malaysian privacy laws',
       },
       {
-        title: '24-Hour Approval',
-        description: 'Fast processing with most applications approved within 24 hours',
+        title: '24-Hour Analysis',
+        description: 'Fast processing with most eligibility analyses completed within 24 hours',
       },
       {
         title: '15+ Bank Partners',
@@ -29,8 +29,8 @@ const content = {
     stats: [
       { value: '1,000+', label: 'Happy Customers' },
       { value: '4.9/5', label: 'Customer Rating' },
-      { value: 'RM2B+', label: 'Loans Processed' },
-      { value: '98%', label: 'Approval Rate' },
+      { value: 'RM2B+', label: 'Applications Guided' },
+      { value: '98%', label: 'Guided Success Rate' },
     ],
     reviews: {
       title: 'What Our Customers Say',
@@ -39,7 +39,7 @@ const content = {
           name: 'Ahmad Rizal',
           location: 'Kuala Lumpur',
           rating: 5,
-          text: 'Very fast approval! I got my personal loan within 24 hours. The team was very helpful.',
+          text: 'Very fast analysis! I received my report within 24 hours and got approved after following the guidance. The team was very helpful.',
         },
         {
           name: 'Siti Nurhaliza',
@@ -61,16 +61,16 @@ const content = {
     subtitle: 'Berlesen, selamat, dan dipercayai ribuan orang',
     badges: [
       {
-        title: 'Berlesen & Dikawal Selia',
-        description: 'Berdaftar dengan SSM dan mematuhi semua peraturan pinjaman Malaysia',
+        title: 'Berdaftar & Disahkan',
+        description: 'Berdaftar dengan SSM dan selari dengan garis panduan pematuhan Malaysia',
       },
       {
         title: 'Patuh PDPA',
         description: 'Data peribadi anda dilindungi di bawah undang-undang privasi Malaysia',
       },
       {
-        title: 'Kelulusan 24 Jam',
-        description: 'Pemprosesan pantas dengan kebanyakan permohonan diluluskan dalam 24 jam',
+        title: 'Analisis 24 Jam',
+        description: 'Pemprosesan pantas dengan kebanyakan analisis kelayakan siap dalam 24 jam',
       },
       {
         title: '15+ Rakan Bank',
@@ -80,8 +80,8 @@ const content = {
     stats: [
       { value: '1,000+', label: 'Pelanggan Gembira' },
       { value: '4.9/5', label: 'Penilaian Pelanggan' },
-      { value: 'RM2B+', label: 'Pinjaman Diproses' },
-      { value: '98%', label: 'Kadar Kelulusan' },
+      { value: 'RM2B+', label: 'Permohonan Dibimbing' },
+      { value: '98%', label: 'Kadar Kejayaan Dibimbing' },
     ],
     reviews: {
       title: 'Apa Kata Pelanggan Kami',
@@ -90,7 +90,7 @@ const content = {
           name: 'Ahmad Rizal',
           location: 'Kuala Lumpur',
           rating: 5,
-          text: 'Kelulusan sangat pantas! Saya dapat pinjaman peribadi dalam masa 24 jam. Pasukan sangat membantu.',
+          text: 'Analisis sangat pantas! Laporan saya siap dalam 24 jam dan saya diluluskan selepas ikut panduan. Pasukan sangat membantu.',
         },
         {
           name: 'Siti Nurhaliza',

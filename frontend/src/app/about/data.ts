@@ -4,13 +4,13 @@ export const aboutContent = {
       badge: 'About Us',
       title: 'About',
       titleHighlight: 'GURU Credits',
-      description: 'Your trusted lending partner in Malaysia. We provide fast, easy personal loans with competitive rates starting from 4.88% per annum.',
+      description: 'Your trusted loan consultation partner in Malaysia. We provide fast eligibility analysis and bank matching with indicative rates starting from 4.88% per annum.',
     },
     mission: {
       badge: 'Our Mission',
       title: 'Making Loans Simple & Accessible',
       description1: 'At GURU Credits, we believe everyone deserves access to fast, affordable financing when they need it. We understand that life can bring unexpected expenses and opportunities that require quick financial solutions.',
-      description2: 'Our mission is to provide transparent, hassle-free lending with competitive rates and fast approval. No hidden fees, no complicated paperwork - just straightforward loans when you need them.',
+      description2: 'Our mission is to provide transparent, hassle-free loan guidance with indicative rates and fast analysis. No hidden fees, no complicated paperwork - just clear recommendations when you need them.',
       description3: 'Whether you need a personal loan, car financing, home loan, or business funding, we\'re here to help you achieve your financial goals.',
       exploreServices: 'View Our Loan Products',
       contactUs: 'Contact Us',
@@ -42,9 +42,9 @@ export const aboutContent = {
       note: 'Coverage is nationwide and continues to expand.',
     },
     stats: [
-      { value: '1,000+', label: 'Loans Approved', description: 'Trusted by Malaysians nationwide' },
+      { value: '1,000+', label: 'Applications Guided', description: 'Trusted by Malaysians nationwide' },
       { value: '4.88%', label: 'From Rate', description: 'Competitive flat rate p.a.' },
-      { value: '24hr', label: 'Fast Approval', description: 'Quick processing guaranteed' },
+      { value: '24hr', label: 'Fast Analysis', description: 'Quick analysis turnaround' },
       { value: '0', label: 'Hidden Fees', description: 'Transparent pricing' },
     ],
     journey: {
@@ -53,10 +53,10 @@ export const aboutContent = {
       description: 'From humble beginnings to helping thousands of Malaysians achieve their financial goals.',
     },
     timeline: [
-      { year: '2019', title: 'Founded', description: 'Started with a mission to provide accessible lending solutions to all Malaysians.' },
-      { year: '2020', title: 'Online Launch', description: 'Launched our online application platform for faster loan processing.' },
-      { year: '2021', title: '500 Loans', description: 'Reached our first 500 approved loans milestone.' },
-      { year: '2023', title: '1000+ Loans', description: 'Approved over 1000 loans for Malaysians nationwide.' },
+      { year: '2019', title: 'Founded', description: 'Started with a mission to provide accessible loan guidance to all Malaysians.' },
+      { year: '2020', title: 'Online Launch', description: 'Launched our online platform for faster eligibility analysis.' },
+      { year: '2021', title: '500 Clients', description: 'Reached our first 500 guided applications milestone.' },
+      { year: '2023', title: '1000+ Clients', description: 'Guided over 1000 applications for Malaysians nationwide.' },
       { year: '2024', title: 'Expansion', description: 'Expanded our loan products to include car, home, and business loans.' },
     ],
     values: {
@@ -74,18 +74,18 @@ export const aboutContent = {
         },
         {
           title: 'Fast Service',
-          description: 'We understand urgency. Most loan applications are processed within 24 hours with quick fund disbursement upon approval.',
+          description: 'We understand urgency. Most eligibility analyses are completed within 24 hours; bank approval timelines vary.',
         },
         {
-          title: 'Fair Lending',
-          description: 'Competitive rates starting from 4.88% with flexible repayment terms designed to suit your financial situation.',
+          title: 'Fair Guidance',
+          description: 'Indicative rates starting from 4.88% with repayment insights tailored to your financial situation.',
         },
       ],
     },
     whyChooseUs: {
       badge: 'Why Us',
       title: 'Why Choose GURU Credits?',
-      description: 'We make getting a loan simple, fast, and affordable.',
+      description: 'We make loan planning simple, fast, and affordable.',
       items: [
         {
           title: 'Simple Application',
@@ -97,7 +97,7 @@ export const aboutContent = {
         },
         {
           title: 'Fast Approval',
-          description: 'Most applications processed within 24 hours. Quick disbursement upon approval.',
+          description: 'Most analyses completed within 24 hours, with guidance on next steps.',
         },
         {
           title: 'Flexible Terms',
@@ -116,7 +116,7 @@ export const aboutContent = {
         features: [
           'Loan amount up to RM100,000',
           'Flexible tenure from 1-7 years',
-          'Fast approval within 24 hours',
+          'Eligibility analysis within 24 hours',
           'Minimal documentation required',
           'No collateral needed',
           'Fixed monthly installments',
@@ -148,13 +148,13 @@ export const aboutContent = {
         {
           name: 'Ahmad R.',
           location: 'Kuala Lumpur',
-          text: 'Needed urgent cash for medical bills. GURU Credits approved my loan within 24 hours. The process was simple and the rate was very competitive!',
+          text: 'Needed urgent cash for medical bills. GURU Credits delivered my analysis within 24 hours and guided me on the best lenders. The process was simple and the rate options were clear.',
           rating: 5,
         },
         {
           name: 'Sarah L.',
           location: 'Penang',
-          text: 'Got my personal loan approved quickly with no hidden fees. The monthly installment fits my budget perfectly. Highly recommend!',
+          text: 'Got my personal loan plan quickly with no hidden fees. The repayment options fit my budget perfectly. Highly recommend!',
           rating: 5,
         },
         {
@@ -168,7 +168,7 @@ export const aboutContent = {
     cta: {
       badge: 'Get Started Today',
       title: 'Ready to Apply?',
-      description: 'Get fast, easy loans with competitive rates from 4.88%. Apply online in just 5 minutes.',
+      description: 'Get fast eligibility analysis and loan guidance with indicative rates from 4.88%. Apply online in just 5 minutes.',
       viewServices: 'Apply Now',
       tryCalculator: 'Contact Us',
     },
@@ -178,13 +178,13 @@ export const aboutContent = {
       badge: 'Tentang Kami',
       title: 'Tentang',
       titleHighlight: 'GURU Credits',
-      description: 'Rakan pinjaman dipercayai anda di Malaysia. Kami menyediakan pinjaman peribadi pantas dan mudah dengan kadar kompetitif bermula dari 4.88% setahun.',
+      description: 'Rakan konsultasi pinjaman dipercayai anda di Malaysia. Kami menyediakan analisis kelayakan pantas dan padanan bank dengan kadar indikatif bermula dari 4.88% setahun.',
     },
     mission: {
       badge: 'Misi Kami',
       title: 'Menjadikan Pinjaman Mudah & Boleh Diakses',
       description1: 'Di GURU Credits, kami percaya setiap orang berhak mendapat akses kepada pembiayaan yang pantas dan mampu milik apabila diperlukan. Kami faham bahawa kehidupan boleh membawa perbelanjaan dan peluang yang tidak dijangka yang memerlukan penyelesaian kewangan segera.',
-      description2: 'Misi kami adalah menyediakan pinjaman yang telus dan tanpa kerumitan dengan kadar kompetitif dan kelulusan pantas. Tiada caj tersembunyi, tiada dokumentasi rumit - hanya pinjaman yang mudah apabila anda memerlukannya.',
+      description2: 'Misi kami adalah menyediakan panduan pinjaman yang telus dan tanpa kerumitan dengan kadar indikatif dan analisis pantas. Tiada caj tersembunyi, tiada dokumentasi rumit - hanya cadangan yang jelas apabila anda memerlukannya.',
       description3: 'Sama ada anda memerlukan pinjaman peribadi, pembiayaan kereta, pinjaman rumah, atau modal perniagaan, kami sedia membantu anda mencapai matlamat kewangan anda.',
       exploreServices: 'Lihat Produk Pinjaman Kami',
       contactUs: 'Hubungi Kami',
@@ -216,9 +216,9 @@ export const aboutContent = {
       note: 'Liputan adalah seluruh negara dan akan terus berkembang.',
     },
     stats: [
-      { value: '1,000+', label: 'Pinjaman Diluluskan', description: 'Dipercayai oleh rakyat Malaysia seluruh negara' },
+      { value: '1,000+', label: 'Permohonan Dibimbing', description: 'Dipercayai oleh rakyat Malaysia seluruh negara' },
       { value: '4.88%', label: 'Kadar Dari', description: 'Kadar rata kompetitif setahun' },
-      { value: '24j', label: 'Kelulusan Pantas', description: 'Pemprosesan cepat dijamin' },
+      { value: '24j', label: 'Analisis Pantas', description: 'Masa analisis yang pantas' },
       { value: '0', label: 'Caj Tersembunyi', description: 'Harga telus' },
     ],
     journey: {
@@ -227,10 +227,10 @@ export const aboutContent = {
       description: 'Dari permulaan yang sederhana hingga membantu beribu-ribu rakyat Malaysia mencapai matlamat kewangan mereka.',
     },
     timeline: [
-      { year: '2019', title: 'Ditubuhkan', description: 'Bermula dengan misi untuk menyediakan penyelesaian pinjaman yang mudah diakses oleh semua rakyat Malaysia.' },
-      { year: '2020', title: 'Pelancaran Online', description: 'Melancarkan platform permohonan online untuk pemprosesan pinjaman yang lebih pantas.' },
-      { year: '2021', title: '500 Pinjaman', description: 'Mencapai pencapaian pertama 500 pinjaman yang diluluskan.' },
-      { year: '2023', title: '1000+ Pinjaman', description: 'Meluluskan lebih 1000 pinjaman untuk rakyat Malaysia seluruh negara.' },
+      { year: '2019', title: 'Ditubuhkan', description: 'Bermula dengan misi untuk menyediakan panduan pinjaman yang mudah diakses oleh semua rakyat Malaysia.' },
+      { year: '2020', title: 'Pelancaran Online', description: 'Melancarkan platform dalam talian untuk analisis kelayakan yang lebih pantas.' },
+      { year: '2021', title: '500 Klien', description: 'Mencapai pencapaian pertama 500 permohonan yang dibimbing.' },
+      { year: '2023', title: '1000+ Klien', description: 'Membimbing lebih 1000 permohonan untuk rakyat Malaysia seluruh negara.' },
       { year: '2024', title: 'Pengembangan', description: 'Mengembangkan produk pinjaman termasuk pinjaman kereta, rumah, dan perniagaan.' },
     ],
     values: {
@@ -248,18 +248,18 @@ export const aboutContent = {
         },
         {
           title: 'Perkhidmatan Pantas',
-          description: 'Kami faham keperluan segera. Kebanyakan permohonan pinjaman diproses dalam 24 jam dengan pengeluaran cepat selepas kelulusan.',
+          description: 'Kami faham keperluan segera. Kebanyakan analisis kelayakan siap dalam 24 jam; tempoh kelulusan bank berbeza.',
         },
         {
-          title: 'Pinjaman Adil',
-          description: 'Kadar kompetitif bermula dari 4.88% dengan terma pembayaran fleksibel yang direka untuk situasi kewangan anda.',
+          title: 'Panduan Adil',
+          description: 'Kadar indikatif bermula dari 4.88% dengan panduan bayaran balik yang disesuaikan dengan situasi kewangan anda.',
         },
       ],
     },
     whyChooseUs: {
       badge: 'Mengapa Kami',
       title: 'Mengapa Pilih GURU Credits?',
-      description: 'Kami menjadikan mendapatkan pinjaman mudah, pantas, dan mampu milik.',
+      description: 'Kami menjadikan perancangan pinjaman mudah, pantas, dan mampu milik.',
       items: [
         {
           title: 'Permohonan Mudah',
@@ -270,8 +270,8 @@ export const aboutContent = {
           description: 'Kadar faedah bermula dari 4.88% kadar rata setahun. Tiada caj tersembunyi.',
         },
         {
-          title: 'Kelulusan Pantas',
-          description: 'Kebanyakan permohonan diproses dalam 24 jam. Pengeluaran cepat selepas kelulusan.',
+          title: 'Analisis Pantas',
+          description: 'Kebanyakan analisis siap dalam 24 jam dengan panduan langkah seterusnya.',
         },
         {
           title: 'Terma Fleksibel',
@@ -290,7 +290,7 @@ export const aboutContent = {
         features: [
           'Jumlah pinjaman sehingga RM100,000',
           'Tempoh fleksibel dari 1-7 tahun',
-          'Kelulusan pantas dalam 24 jam',
+          'Analisis kelayakan dalam 24 jam',
           'Dokumentasi minimum diperlukan',
           'Tiada cagaran diperlukan',
           'Ansuran bulanan tetap',
@@ -322,13 +322,13 @@ export const aboutContent = {
         {
           name: 'Ahmad R.',
           location: 'Kuala Lumpur',
-          text: 'Perlukan wang tunai segera untuk bil perubatan. GURU Credits meluluskan pinjaman saya dalam 24 jam. Proses mudah dan kadar sangat kompetitif!',
+          text: 'Perlukan wang tunai segera untuk bil perubatan. GURU Credits siapkan analisis saya dalam 24 jam dan beri panduan bank terbaik. Proses mudah dan kadar jelas.',
           rating: 5,
         },
         {
           name: 'Sarah L.',
           location: 'Pulau Pinang',
-          text: 'Pinjaman peribadi saya diluluskan dengan pantas tanpa caj tersembunyi. Ansuran bulanan sesuai dengan bajet saya. Sangat disyorkan!',
+          text: 'Pelan pinjaman peribadi saya siap dengan pantas tanpa caj tersembunyi. Ansuran bulanan sesuai dengan bajet saya. Sangat disyorkan!',
           rating: 5,
         },
         {
@@ -342,7 +342,7 @@ export const aboutContent = {
     cta: {
       badge: 'Mula Hari Ini',
       title: 'Bersedia untuk Memohon?',
-      description: 'Dapatkan pinjaman pantas dan mudah dengan kadar kompetitif dari 4.88%. Mohon dalam talian hanya 5 minit.',
+      description: 'Mulakan panduan pinjaman pantas dengan kadar indikatif dari 4.88%. Mohon dalam talian hanya 5 minit.',
       viewServices: 'Mohon Sekarang',
       tryCalculator: 'Hubungi Kami',
     },

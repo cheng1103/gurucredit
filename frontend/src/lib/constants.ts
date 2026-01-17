@@ -164,7 +164,7 @@ export const SERVICES = [
     features: [
       'Loan up to RM100,000',
       'Flexible tenure 1-7 years',
-      'Fast approval within 24 hours',
+      'Eligibility analysis within 24 hours',
       'Minimal documentation',
       'No collateral required',
       'Competitive rates from 4.88%',
@@ -184,7 +184,7 @@ export const SERVICES = [
       'Up to 90% financing',
       'Tenure up to 9 years',
       'Competitive rates',
-      'Fast approval',
+      'Fast analysis turnaround',
     ],
   },
   {
@@ -216,7 +216,7 @@ export const SERVICES = [
       'Equipment financing',
       'Business expansion',
       'Flexible terms',
-      'Quick processing',
+      'Quick eligibility review',
     ],
   },
 ];
@@ -350,7 +350,7 @@ export const TESTIMONIALS = [
   {
     name: 'Ahmad R.',
     location: 'Kuala Lumpur',
-    text: 'GURU Credits helped me understand why my previous loan applications were rejected. Their analysis identified issues with my credit report I never knew about. After following their recommendations, I got approved for my home loan!',
+    text: 'GURU Credits helped me understand why my previous loan applications were rejected. Their analysis identified issues with my credit report I never knew about. After following their recommendations, I received bank approval for my home loan!',
     rating: 5,
   },
   {
@@ -368,7 +368,7 @@ export const TESTIMONIALS = [
   {
     name: 'Mei Ling T.',
     location: 'Cyberjaya, Selangor',
-    text: 'I was nervous about applying for a car loan after being rejected once. GURU Credits showed me exactly what to fix. Three months later, I got approved with a great interest rate!',
+    text: 'I was nervous about applying for a car loan after being rejected once. GURU Credits showed me exactly what to fix. Three months later, I received bank approval with a great interest rate!',
     rating: 5,
   },
 ];

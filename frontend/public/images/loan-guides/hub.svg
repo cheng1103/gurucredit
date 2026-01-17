@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Loan Guides Hub">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e6f0ff"/>
+      <stop offset="55%" stop-color="#f9fbff"/>
+      <stop offset="100%" stop-color="#fff6e5"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="980" cy="130" r="140" fill="#c7d2fe" opacity="0.5"/>
+  <circle cx="220" cy="520" r="180" fill="#fde68a" opacity="0.45"/>
+  <rect x="80" y="90" width="1040" height="450" rx="36" fill="#ffffff" opacity="0.85"/>
+  <rect x="120" y="130" width="180" height="6" rx="3" fill="url(#accent)"/>
+  <text x="120" y="210" font-family="Space Grotesk, Arial, sans-serif" font-size="52" fill="#0f172a" font-weight="700">
+    Loan Guides Hub
+  </text>
+  <text x="120" y="270" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="24" fill="#334155">
+    Credit score, home loan, car loan, and debt consolidation playbooks.
+  </text>
+  <g transform="translate(120 330)">
+    <rect width="300" height="150" rx="24" fill="#e0ecff"/>
+    <rect x="24" y="24" width="110" height="6" rx="3" fill="#1d4ed8"/>
+    <text x="24" y="70" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="20" fill="#1e293b" font-weight="600">Credit Score</text>
+    <text x="24" y="105" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="16" fill="#475569">90-day recovery plan</text>
+  </g>
+  <g transform="translate(460 330)">
+    <rect width="300" height="150" rx="24" fill="#e7f7ef"/>
+    <rect x="24" y="24" width="110" height="6" rx="3" fill="#059669"/>
+    <text x="24" y="70" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="20" fill="#1e293b" font-weight="600">Home Loan</text>
+    <text x="24" y="105" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="16" fill="#475569">DSR + document checklist</text>
+  </g>
+  <g transform="translate(800 330)">
+    <rect width="300" height="150" rx="24" fill="#fff1e6"/>
+    <rect x="24" y="24" width="110" height="6" rx="3" fill="#f97316"/>
+    <text x="24" y="70" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="20" fill="#1e293b" font-weight="600">Car Loan</text>
+    <text x="24" y="105" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="16" fill="#475569">Down payment plan</text>
+  </g>
+  <text x="120" y="560" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="18" fill="#64748b">GURU Credits • Malaysia Loan Advisory</text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Credit Score Guide">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e0f2fe"/>
+      <stop offset="60%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#fef9c3"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="80" y="90" width="1040" height="450" rx="36" fill="#ffffff" opacity="0.9"/>
+  <rect x="120" y="140" width="200" height="6" rx="3" fill="url(#accent)"/>
+  <text x="120" y="220" font-family="Space Grotesk, Arial, sans-serif" font-size="54" fill="#0f172a" font-weight="700">
+    Credit Score Guide
+  </text>
+  <text x="120" y="280" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="24" fill="#334155">
+    CCRIS & CTOS recovery plan for Malaysia borrowers.
+  </text>
+  <g transform="translate(120 330)">
+    <rect width="420" height="180" rx="24" fill="#eff6ff"/>
+    <text x="28" y="70" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="22" fill="#1e293b" font-weight="600">90-Day Recovery Plan</text>
+    <text x="28" y="110" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="16" fill="#475569">Lower utilization • Stabilize payments</text>
+  </g>
+  <g transform="translate(580 330)">
+    <rect width="420" height="180" rx="24" fill="#fef3c7"/>
+    <text x="28" y="70" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="22" fill="#1e293b" font-weight="600">Target DSR & Score</text>
+    <text x="28" y="110" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="16" fill="#475569">Healthy approval benchmarks</text>
+  </g>
+  <text x="120" y="560" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="18" fill="#64748b">GURU Credits • Loan Advisory</text>
+</svg>

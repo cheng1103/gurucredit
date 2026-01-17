@@ -34,7 +34,7 @@ const pageContent = {
       title: 'Loan',
       titleHighlight: 'Comparison',
       titleEnd: 'Tool',
-      description: 'Compare loan rates from major Malaysian banks serving Damansara Heights, Petaling Jaya, Shah Alam, and the wider Klang Valley. Find the best deal for your home, car, or personal loan.',
+      description: 'Compare loan rates from major Malaysian banks nationwide. Find the best deal for your home, car, or personal loan.',
     },
     loanTypes: {
       home: 'Home Loan',
@@ -118,7 +118,7 @@ const pageContent = {
       title: 'Alat',
       titleHighlight: 'Perbandingan',
       titleEnd: 'Pinjaman',
-      description: 'Bandingkan kadar pinjaman dari bank utama yang meliputi Damansara Heights, Petaling Jaya, Shah Alam dan seluruh Lembah Klang. Cari tawaran terbaik untuk pinjaman rumah, kereta atau peribadi anda.',
+      description: 'Bandingkan kadar pinjaman dari bank utama di seluruh Malaysia. Cari tawaran terbaik untuk pinjaman rumah, kereta atau peribadi anda.',
     },
     loanTypes: {
       home: 'Pinjaman Rumah',

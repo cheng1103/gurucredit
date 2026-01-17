@@ -20,7 +20,7 @@ export const COMPANY = {
   instagram: 'https://instagram.com/gurucredits',
 };
 
-// Primary service coverage (Klang Valley)
+// Primary service coverage (nationwide focus areas)
 export const SERVICE_AREAS = [
   {
     name: 'Kuala Lumpur',
@@ -42,14 +42,54 @@ export const SERVICE_AREAS = [
       longitude: 101.5183,
     },
   },
+  {
+    name: 'Penang',
+    regionCode: 'MY-07',
+    locality: 'George Town',
+    shortName: 'Penang',
+    coordinates: {
+      latitude: 5.4141,
+      longitude: 100.3288,
+    },
+  },
+  {
+    name: 'Johor',
+    regionCode: 'MY-01',
+    locality: 'Johor Bahru',
+    shortName: 'Johor',
+    coordinates: {
+      latitude: 1.4927,
+      longitude: 103.7414,
+    },
+  },
+  {
+    name: 'Sabah',
+    regionCode: 'MY-12',
+    locality: 'Kota Kinabalu',
+    shortName: 'Sabah',
+    coordinates: {
+      latitude: 5.9804,
+      longitude: 116.0735,
+    },
+  },
+  {
+    name: 'Sarawak',
+    regionCode: 'MY-13',
+    locality: 'Kuching',
+    shortName: 'Sarawak',
+    coordinates: {
+      latitude: 1.5533,
+      longitude: 110.3592,
+    },
+  },
 ] as const;
 
 export type ServiceArea = (typeof SERVICE_AREAS)[number];
-export type ServiceAreaCode = ServiceArea['regionCode'];
+export type ServiceAreaCode = (typeof SERVICE_AREA_CODES)[number];
 export { SERVICE_AREA_CODES };
 
-export const SERVICE_AREA_LABEL = 'Kuala Lumpur & Selangor (Klang Valley)';
-export const SERVICE_AREA_NOTE = 'Applications are currently open to borrowers based in Kuala Lumpur and Selangor only.';
+export const SERVICE_AREA_LABEL = 'Malaysia (Nationwide)';
+export const SERVICE_AREA_NOTE = 'Applications are open to borrowers across Malaysia, including Sabah and Sarawak.';
 
 // Slogans
 export const SLOGANS = {
@@ -405,21 +445,21 @@ export const FOOTER_RESOURCE_LINKS = [
 // SEO Metadata
 export const SEO = {
   siteName: 'GURU Credits',
-  defaultTitle: 'GURU Credits - Loan Guidance for Kuala Lumpur & Selangor (From 4.88%)',
+  defaultTitle: 'GURU Credits - Malaysia-wide Loan Guidance (From 4.88%)',
   defaultDescription:
-    'Loan consultation and DSR analysis dedicated to Kuala Lumpur & Selangor residents (Klang Valley). RM30 eligibility check, fast 24-hour turnaround, home loan, car loan, and debt consolidation guidance with curated bank shortlists.',
+    'Nationwide loan consultation and DSR analysis across Malaysia. RM30 eligibility check, fast 24-hour turnaround, home loan, car loan, business loan, and debt consolidation guidance with curated bank shortlists.',
   keywords:
-    'personal loan Kuala Lumpur, personal loan Selangor, home loan Malaysia, car loan Malaysia, debt consolidation Malaysia, credit score Malaysia, Klang Valley loan consultant, KL pinjaman peribadi, Selangor loan advice, GURU Credits',
+    'personal loan Malaysia, home loan Malaysia, car loan Malaysia, business loan Malaysia, debt consolidation Malaysia, credit score Malaysia, loan consultant Malaysia, pinjaman peribadi Malaysia, GURU Credits',
   url: 'https://gurucredits.my',
   locale: 'en_MY',
   shareImage: '/images/optimized/logo.jpg',
   translations: {
     ms: {
-      defaultTitle: 'GURU Credits - Panduan Pinjaman untuk Kuala Lumpur & Selangor (Dari 4.88%)',
+      defaultTitle: 'GURU Credits - Panduan Pinjaman Seluruh Malaysia (Dari 4.88%)',
       defaultDescription:
-        'Perundingan pinjaman dan analisis DSR khusus untuk penduduk Kuala Lumpur & Selangor. Semakan kelayakan RM30, laporan dalam 24 jam, panduan pinjaman rumah, pinjaman kereta, dan penyatuan hutang dengan senarai bank yang sesuai.',
+        'Perundingan pinjaman dan analisis DSR seluruh Malaysia. Semakan kelayakan RM30, laporan pantas 24 jam, panduan pinjaman rumah, kereta, perniagaan, dan penyatuan hutang dengan senarai bank yang sesuai.',
       keywords:
-        'pinjaman peribadi Kuala Lumpur, pinjaman Selangor, pinjaman rumah Malaysia, pinjaman kereta Malaysia, penyatuan hutang Malaysia, skor kredit Malaysia, konsultasi pinjaman Lembah Klang, khidmat pinjaman KL, nasihat pinjaman Selangor, GURU Credits',
+        'pinjaman peribadi Malaysia, pinjaman rumah Malaysia, pinjaman kereta Malaysia, pinjaman perniagaan Malaysia, penyatuan hutang Malaysia, skor kredit Malaysia, konsultasi pinjaman Malaysia, GURU Credits',
     },
   },
 };

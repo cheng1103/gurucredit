@@ -16,21 +16,25 @@ const content = {
     neighborhoods: [
       {
         title: 'Klang Valley (KL & Selangor)',
+        shortCode: 'KL',
         description: 'Damansara, Bangsar, Mont Kiara, PJ, Shah Alam, Subang, Klang',
         stat: 'Fast SLA with in-person partner coverage',
       },
       {
         title: 'Northern Corridor',
+        shortCode: 'NORTH',
         description: 'Penang, Kedah, Perak, Perlis',
         stat: 'Regional bank partners for fast approvals',
       },
       {
         title: 'Southern Corridor',
+        shortCode: 'SOUTH',
         description: 'Johor, Melaka, Negeri Sembilan',
         stat: 'Specialized guidance for SME and salaried profiles',
       },
       {
         title: 'East Malaysia',
+        shortCode: 'EM',
         description: 'Sabah & Sarawak (Kota Kinabalu, Kuching, Miri, Sibu)',
         stat: 'Remote processing with WhatsApp-first support',
       },
@@ -45,21 +49,25 @@ const content = {
     neighborhoods: [
       {
         title: 'Lembah Klang (KL & Selangor)',
+        shortCode: 'KL',
         description: 'Damansara, Bangsar, Mont Kiara, PJ, Shah Alam, Subang, Klang',
         stat: 'SLA pantas dengan liputan rakan bank',
       },
       {
         title: 'Koridor Utara',
+        shortCode: 'UTARA',
         description: 'Pulau Pinang, Kedah, Perak, Perlis',
         stat: 'Rakan bank wilayah untuk kelulusan pantas',
       },
       {
         title: 'Koridor Selatan',
+        shortCode: 'SEL',
         description: 'Johor, Melaka, Negeri Sembilan',
         stat: 'Panduan khusus untuk PKS dan pemohon bergaji',
       },
       {
         title: 'Malaysia Timur',
+        shortCode: 'TIMUR',
         description: 'Sabah & Sarawak (Kota Kinabalu, Kuching, Miri, Sibu)',
         stat: 'Proses jarak jauh dengan sokongan WhatsApp',
       },
@@ -94,7 +102,7 @@ export function AreasWeServe() {
                         <h3 className="font-semibold text-lg flex items-center gap-2">
                           {area.title}
                           <span className="text-xs text-muted-foreground uppercase tracking-wide">
-                            {SERVICE_AREAS[index]?.shortName || 'KL'}
+                            {area.shortCode}
                           </span>
                         </h3>
                         <p className="text-sm text-muted-foreground">{area.description}</p>

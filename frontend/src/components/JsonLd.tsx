@@ -136,7 +136,7 @@ export function ContactPageJsonLd() {
     '@type': 'ContactPage',
     url: `${SEO.url}/contact`,
     name: `${COMPANY.name} Contact`,
-    description: `Contact GURU Credits for Kuala Lumpur & Selangor (Klang Valley) loan assistance.`,
+    description: 'Contact GURU Credits for Malaysia-wide loan assistance.',
     mainEntity: {
       '@type': 'Organization',
       name: COMPANY.name,
@@ -690,7 +690,7 @@ export function GeoCoverageJsonLd() {
         (area) => `${area.coordinates.latitude},${area.coordinates.longitude} 40km`,
       ),
     },
-    description: `${COMPANY.name} serves borrowers located in ${SERVICE_AREA_LABEL}.`,
+    description: `${COMPANY.name} serves borrowers located across ${SERVICE_AREA_LABEL}.`,
   };
 
   return (

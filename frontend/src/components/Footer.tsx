@@ -36,7 +36,7 @@ const footerContent = {
     },
     slogan: slogans.en,
     sloganMs: slogans.ms,
-    description: `Fast and easy personal loans with competitive rates from 4.88% for ${SERVICE_AREA_LABEL}. Your trusted Klang Valley lending partner.`,
+    description: `Fast and easy personal loans with competitive rates from 4.88% for ${SERVICE_AREA_LABEL}. Your trusted nationwide lending partner.`,
     quickLinks: {
       title: 'Quick Links',
       items: [
@@ -101,7 +101,7 @@ const footerContent = {
     },
     slogan: slogans.ms,
     sloganMs: slogans.en,
-    description: `Pinjaman peribadi pantas dan mudah dengan kadar kompetitif dari 4.88% untuk ${SERVICE_AREA_LABEL}. Rakan pinjaman dipercayai anda di Lembah Klang.`,
+    description: `Pinjaman peribadi pantas dan mudah dengan kadar kompetitif dari 4.88% untuk ${SERVICE_AREA_LABEL}. Rakan pinjaman dipercayai anda di seluruh negara.`,
     quickLinks: {
       title: 'Pautan Pantas',
       items: [

@@ -24,7 +24,7 @@ const content = {
     success: 'Thank you! We\'ll contact you shortly.',
     errorEmpty: 'Please enter your phone number',
     serviceAreaLabel: 'Where do you live?',
-    serviceAreaHelper: 'We only assist Kuala Lumpur & Selangor (Klang Valley) residents.',
+    serviceAreaHelper: 'We assist borrowers nationwide, including Sabah and Sarawak.',
   },
   ms: {
     title: 'Tunggu! Sebelum Anda Pergi...',
@@ -41,7 +41,7 @@ const content = {
     success: 'Terima kasih! Kami akan menghubungi anda.',
     errorEmpty: 'Sila masukkan nombor telefon anda',
     serviceAreaLabel: 'Anda tinggal di mana?',
-    serviceAreaHelper: 'Kami hanya membantu peminjam Kuala Lumpur & Selangor (Lembah Klang).',
+    serviceAreaHelper: 'Kami membantu peminjam di seluruh Malaysia termasuk Sabah dan Sarawak.',
   },
 };
 

@@ -69,7 +69,7 @@ const pageContent = {
       phone: 'Phone Number',
       serviceArea: {
         label: 'Where do you live?',
-        helper: 'We currently assist Kuala Lumpur & Selangor (Klang Valley) residents only.',
+        helper: 'We assist borrowers across Malaysia, including Sabah and Sarawak.',
       },
       employmentType: 'Employment Type',
       employed: 'Employed',
@@ -286,7 +286,7 @@ const pageContent = {
       phone: 'Nombor Telefon',
       serviceArea: {
         label: 'Anda tinggal di mana?',
-        helper: 'Kami hanya membantu peminjam Kuala Lumpur & Selangor (Lembah Klang).',
+        helper: 'Kami membantu peminjam di seluruh Malaysia termasuk Sabah dan Sarawak.',
       },
       employmentType: 'Jenis Pekerjaan',
       employed: 'Bekerja',

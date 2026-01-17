@@ -42,10 +42,10 @@ const pageContent = {
       title: 'Contact',
       titleHighlight: 'Us',
       description:
-        'Serving Kuala Lumpur & Selangor (Klang Valley) only. Have questions about our services or need help with a KL/Selangor loan application? Reach out via any channel below.',
+        'Serving borrowers nationwide. Have questions about our services or need help with a loan application? Reach out via any channel below.',
       highlights: [
         { title: '24h response time', description: 'Fast answers from our consultants.' },
-        { title: 'Klang Valley focus', description: 'KL & Selangor support specialists.' },
+        { title: 'Nationwide support', description: 'Support for all Malaysian states.' },
         { title: 'WhatsApp-first support', description: 'Quick updates after you submit.' },
       ],
     },
@@ -61,7 +61,7 @@ const pageContent = {
         phonePlaceholder: '+60 12-345 6789',
         serviceArea: {
           label: 'Where do you live?',
-          helper: 'We currently assist Kuala Lumpur & Selangor (Klang Valley) residents only.',
+          helper: 'We assist borrowers across Malaysia, including Sabah and Sarawak.',
         },
         subject: 'Subject',
         subjectPlaceholder: 'How can we help?',
@@ -102,7 +102,7 @@ const pageContent = {
         {
           title: 'Service Coverage',
           value: SERVICE_AREA_LABEL,
-          description: 'We currently accept applicants in Kuala Lumpur & Selangor only (no Sabah/Sarawak).',
+          description: 'Nationwide coverage including Sabah and Sarawak.',
         },
         {
           title: 'Location',
@@ -148,10 +148,10 @@ const pageContent = {
       badge: 'Hubungi Kami',
       title: 'Hubungi',
       titleHighlight: 'Kami',
-      description: 'Kami hanya beroperasi di Kuala Lumpur & Selangor (Lembah Klang). Ada soalan tentang perkhidmatan kami di kawasan ini? Hubungi kami melalui saluran di bawah.',
+      description: 'Kami beroperasi di seluruh Malaysia. Ada soalan tentang perkhidmatan kami atau perlukan bantuan permohonan? Hubungi kami melalui saluran di bawah.',
       highlights: [
         { title: 'Respons dalam 24 jam', description: 'Jawapan pantas daripada konsultan.' },
-        { title: 'Fokus Lembah Klang', description: 'Pakar KL & Selangor.' },
+        { title: 'Sokongan seluruh negara', description: 'Bantuan untuk semua negeri.' },
         { title: 'Sokongan WhatsApp', description: 'Kemas kini pantas selepas hantar borang.' },
       ],
     },
@@ -167,7 +167,7 @@ const pageContent = {
         phonePlaceholder: '+60 12-345 6789',
         serviceArea: {
           label: 'Anda tinggal di mana?',
-          helper: 'Kami hanya membantu peminjam Kuala Lumpur & Selangor (Lembah Klang).',
+          helper: 'Kami membantu peminjam di seluruh Malaysia termasuk Sabah dan Sarawak.',
         },
         subject: 'Subjek',
         subjectPlaceholder: 'Bagaimana kami boleh bantu?',
@@ -208,7 +208,7 @@ const pageContent = {
         {
           title: 'Liputan Perkhidmatan',
           value: SERVICE_AREA_LABEL,
-          description: 'Permohonan dari Sabah/Sarawak tidak diterima buat masa ini.',
+          description: 'Liputan seluruh Malaysia termasuk Sabah dan Sarawak.',
         },
         {
           title: 'Lokasi',

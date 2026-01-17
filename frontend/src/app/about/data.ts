@@ -35,11 +35,11 @@ export const aboutContent = {
     },
     coverage: {
       badge: 'Service Coverage',
-      title: 'Focused on Klang Valley',
+      title: 'Nationwide Coverage',
       description:
-        'We currently support applicants in Kuala Lumpur and Selangor. This focus helps us move faster with local lenders and requirements.',
-      areas: ['Kuala Lumpur', 'Petaling Jaya', 'Shah Alam', 'Klang', 'Subang Jaya'],
-      note: 'We do not process Sabah/Sarawak cases at this time.',
+        'We support applicants across Malaysia, including Sabah and Sarawak, with WhatsApp-first guidance and bank-ready prep.',
+      areas: ['Kuala Lumpur', 'Selangor', 'Penang', 'Johor', 'Sabah', 'Sarawak'],
+      note: 'Coverage is nationwide and continues to expand.',
     },
     stats: [
       { value: '1,000+', label: 'Loans Approved', description: 'Trusted by Malaysians nationwide' },
@@ -209,11 +209,11 @@ export const aboutContent = {
     },
     coverage: {
       badge: 'Liputan Perkhidmatan',
-      title: 'Fokus di Lembah Klang',
+      title: 'Liputan Seluruh Malaysia',
       description:
-        'Kami fokus kepada pemohon di Kuala Lumpur dan Selangor untuk pemprosesan yang lebih pantas.',
-      areas: ['Kuala Lumpur', 'Petaling Jaya', 'Shah Alam', 'Klang', 'Subang Jaya'],
-      note: 'Permohonan Sabah/Sarawak tidak diproses buat masa ini.',
+        'Kami menyokong pemohon di seluruh Malaysia termasuk Sabah dan Sarawak dengan panduan WhatsApp dan persediaan dokumen.',
+      areas: ['Kuala Lumpur', 'Selangor', 'Pulau Pinang', 'Johor', 'Sabah', 'Sarawak'],
+      note: 'Liputan adalah seluruh negara dan akan terus berkembang.',
     },
     stats: [
       { value: '1,000+', label: 'Pinjaman Diluluskan', description: 'Dipercayai oleh rakyat Malaysia seluruh negara' },

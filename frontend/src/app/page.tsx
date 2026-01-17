@@ -39,7 +39,7 @@ import { blogPosts } from '@/lib/blog-data';
 const content = {
   en: {
     hero: {
-      badge: 'Serving Kuala Lumpur & Selangor',
+      badge: 'Serving Malaysia Nationwide',
       title: 'Fast, Clear',
       titleHighlight: 'Loan Guidance',
       titleEnd: 'When You Need It',
@@ -49,7 +49,7 @@ const content = {
       secondary: 'Estimate Monthly Payment',
       whatsapp: 'Chat on WhatsApp',
       paymentNotice: 'RM30 eligibility fee is collected ONLY inside our official WhatsApp chat after submission. No payment happens on this website.',
-      coverageNotice: 'Applicants must reside in Kuala Lumpur or Selangor (Klang Valley). We do not process Sabah/Sarawak cases.',
+      coverageNotice: 'Applications are open across Malaysia, including Sabah and Sarawak.',
       statusLink: 'Track application status',
       highlights: [
         {
@@ -65,8 +65,8 @@ const content = {
           description: 'RM30 is collected only via official WhatsApp.',
         },
         {
-          title: 'Klang Valley focus',
-          description: 'Dedicated support for KL & Selangor applicants.',
+          title: 'Nationwide support',
+          description: 'We support borrowers across all Malaysian states.',
         },
       ],
       steps: [
@@ -88,7 +88,7 @@ const content = {
       { value: '85%', label: 'Guided Approval Rate' },
       { value: '24h', label: 'Report Turnaround' },
       { value: 'RM30', label: 'Expert Analysis' },
-      { value: '1,000+', label: 'Klang Valley Borrowers' },
+      { value: '1,000+', label: 'Borrowers Nationwide' },
     ],
     mainService: {
       badge: 'Most Popular',
@@ -148,7 +148,7 @@ const content = {
     testimonials: {
       badge: 'Client Success Stories',
       title: 'What Our Clients Say',
-      subtitle: 'Join over 1,000 Klang Valley borrowers who have successfully navigated their loan applications with our help.',
+      subtitle: 'Join over 1,000 Malaysian borrowers who have successfully navigated their loan applications with our help.',
       items: [
         { name: 'Ahmad R.', location: 'Kuala Lumpur', text: 'GURU Credits helped me understand why my previous loan applications were rejected. Their analysis identified issues with my credit report I never knew about. After following their recommendations, I got approved for my home loan!' },
         { name: 'Sarah L.', location: 'Petaling Jaya', text: 'The RM30 analysis was worth every sen. Very detailed report with clear explanations. They even recommended which banks would be more likely to approve my application based on my profile.' },
@@ -162,7 +162,7 @@ const content = {
         'Bank pairing based on your DSR and credit file, not generic advice',
         'Transparent fees with a RM30 analysis option before committing',
         'Document checklist and templates to cut approval time',
-        'Support for personal, car, home, and business loans across Kuala Lumpur & Selangor',
+        'Support for personal, car, home, and business loans across Malaysia',
         '24h turnaround for analysis once docs are complete',
       ],
       stats: [
@@ -226,7 +226,7 @@ const content = {
   },
   ms: {
     hero: {
-      badge: 'Beroperasi di Kuala Lumpur & Selangor',
+      badge: 'Beroperasi di Seluruh Malaysia',
       title: 'Pantas & Jelas',
       titleHighlight: 'Panduan Pinjaman',
       titleEnd: 'Saat Anda Perlukan',
@@ -235,7 +235,7 @@ const content = {
       secondary: 'Anggar Bayaran Bulanan',
       whatsapp: 'Sembang WhatsApp',
       paymentNotice: 'Yuran semakan RM30 hanya dikutip melalui WhatsApp rasmi kami selepas penghantaran. Tiada bayaran dibuat di laman web ini.',
-      coverageNotice: 'Kami hanya menerima pemohon dari Kuala Lumpur atau Selangor (Lembah Klang). Permohonan dari Sabah/Sarawak tidak diterima.',
+      coverageNotice: 'Permohonan dibuka untuk seluruh Malaysia termasuk Sabah dan Sarawak.',
       statusLink: 'Semak status permohonan',
       highlights: [
         {
@@ -251,8 +251,8 @@ const content = {
           description: 'RM30 dikutip hanya melalui WhatsApp rasmi.',
         },
         {
-          title: 'Fokus Lembah Klang',
-          description: 'Bantuan khusus untuk KL & Selangor.',
+          title: 'Sokongan seluruh negara',
+          description: 'Kami menyokong pemohon dari semua negeri.',
         },
       ],
       steps: [
@@ -274,7 +274,7 @@ const content = {
       { value: '85%', label: 'Kadar Kelulusan Dibimbing' },
       { value: '24j', label: 'Masa Laporan' },
       { value: 'RM30', label: 'Analisis Pakar' },
-      { value: '1,000+', label: 'Pemohon Lembah Klang' },
+      { value: '1,000+', label: 'Pemohon Seluruh Negara' },
     ],
     mainService: {
       badge: 'Paling Popular',
@@ -330,7 +330,7 @@ const content = {
     testimonials: {
       badge: 'Kisah Kejayaan Pelanggan',
       title: 'Apa Kata Pelanggan Kami',
-      subtitle: 'Sertai lebih 1,000 peminjam Lembah Klang yang berjaya menavigasi permohonan pinjaman dengan bantuan kami.',
+      subtitle: 'Sertai lebih 1,000 peminjam Malaysia yang berjaya menavigasi permohonan pinjaman dengan bantuan kami.',
       items: [
         { name: 'Ahmad R.', location: 'Kuala Lumpur', text: 'GURU Credits bantu saya faham kenapa permohonan pinjaman dahulu ditolak. Selepas ikut cadangan mereka, permohonan rumah diluluskan!' },
         { name: 'Sarah L.', location: 'Petaling Jaya', text: 'Analisis RM30 sangat berbaloi. Laporan jelas dan cadangan bank tepat dengan profil saya.' },
@@ -344,7 +344,7 @@ const content = {
         'Padanan bank berdasarkan DSR & fail kredit anda',
         'Yuran telus dengan pilihan analisis RM30',
         'Senarai semak dokumen & templat untuk percepat kelulusan',
-        'Sokong pinjaman peribadi, kereta, rumah & perniagaan di Kuala Lumpur & Selangor',
+        'Sokong pinjaman peribadi, kereta, rumah & perniagaan di seluruh Malaysia',
         'Analisis siap 24 jam selepas dokumen lengkap',
       ],
       stats: [

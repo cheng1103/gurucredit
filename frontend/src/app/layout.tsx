@@ -83,7 +83,7 @@ export const metadata: Metadata = {
   },
   other: {
     "geo.region": "MY-14,MY-10",
-    "geo.placename": "Kuala Lumpur & Selangor, Malaysia",
+    "geo.placename": "Malaysia",
     "geo.position": "3.1390;101.6869",
     ICBM: "3.1390, 101.6869",
   },

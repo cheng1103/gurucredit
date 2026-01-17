@@ -11,7 +11,7 @@ export default async function ContactPage() {
       <WebPageJsonLd
         url={`${SEO.url}/contact`}
         title="Contact GURU Credits"
-        description="Reach GURU Credits for loan consultation, WhatsApp support, and document guidance in Klang Valley."
+        description="Reach GURU Credits for loan consultation, WhatsApp support, and document guidance across Malaysia."
         image="/images/cta-bg.jpg"
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },

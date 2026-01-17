@@ -10,7 +10,7 @@ export default async function AboutPage() {
       <WebPageJsonLd
         url={`${SEO.url}/about`}
         title="About GURU Credits"
-        description="Learn about GURU Credits, our loan guidance process, and how we support borrowers in Kuala Lumpur & Selangor."
+        description="Learn about GURU Credits, our loan guidance process, and how we support borrowers across Malaysia."
         image="/images/team.jpg"
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },

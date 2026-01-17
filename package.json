@@ -1,0 +1,31 @@
+{
+  "name": "guru-credits",
+  "version": "1.0.0",
+  "description": "GURU Credits - Professional Loan Consultation Services",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "backend",
+    "frontend",
+    "admin"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:admin\"",
+    "dev:backend": "cd backend && npm run start:dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:admin": "cd admin && npm run dev",
+    "install:all": "npm install",
+    "prepare": "npm run build:shared",
+    "build:shared": "(cd backend && npx tsc -p ../packages/shared-config/tsconfig.json) && node scripts/link-shared-config.js",
+    "build": "npm run build:shared && cd backend && npm run build && cd ../frontend && npm run build && cd ../admin && npm run build",
+    "lint": "npm run lint --workspace backend && npm run lint --workspace frontend && npm run lint --workspace admin",
+    "test": "npm run test --workspace backend && npm run test --workspace frontend && npm run test --workspace admin",
+    "ci": "npm run lint && npm run test && npm run build",
+    "db:push": "cd backend && npx prisma db push",
+    "db:generate": "cd backend && npx prisma generate",
+    "db:seed": "cd backend && npx prisma db seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

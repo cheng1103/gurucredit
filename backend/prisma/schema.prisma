@@ -1,0 +1,266 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  email         String    @unique
+  password      String
+  name          String
+  phone         String?
+  icNumber      String?   @unique
+  role          String    @default("USER") // USER, ADMIN, SUPER_ADMIN
+  isActive      Boolean   @default(true)
+  failedLoginAttempts Int  @default(0)
+  lastFailedLogin DateTime?
+  lockedUntil   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  applications  Application[]
+  creditReports CreditReport[]
+  payments      Payment[]
+  auditLogs     AuditLog[] @relation("AuditLogActor")
+  leadDistributions LeadDistribution[] @relation("LeadDistributionSender")
+
+  @@index([createdAt])
+  @@index([role, isActive])
+}
+
+model Service {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  price       Float
+  type        String   // ELIGIBILITY_ANALYSIS, CREDIT_REPAIR, LOAN_APPLICATION, DSR_CONSULTATION
+  features    String   // JSON string array
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  applications Application[]
+}
+
+model Application {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String?  @db.ObjectId
+  serviceId         String   @db.ObjectId
+  status            String   @default("PENDING") // PENDING, IN_REVIEW, APPROVED, REJECTED, COMPLETED
+
+  // Applicant Info
+  applicantName     String   @default("")
+  applicantEmail    String   @default("")
+  applicantPhone    String?
+  serviceArea       String   @default("MY-14")
+  applicantIcNumber String?
+
+  // Personal Info
+  monthlyIncome     Float?
+  existingDebts     Float?
+  employmentType    String?
+  employerName      String?
+  jobTitle          String?
+  yearsEmployed     Int?
+
+  // Loan Details
+  loanAmount        Float?
+  loanPurpose       String?
+  loanTenure        Int?
+
+  // Analysis Results
+  dsrPercentage     Float?
+  creditScore       Int?
+  approvalChance    String?
+  maxLoanAmount     Float?
+  recommendations   String?  // JSON string array
+  issues            String?  // JSON string array
+  referralSource    String?
+  contactPreference String?
+
+  notes             String?
+  adminNotes        String?
+  assignedTo        String?
+  followUpAt        DateTime?
+  followUpNotes     String?
+  followUpStatus    String?  @default("OPEN")
+
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  completedAt       DateTime?
+
+  user              User?     @relation(fields: [userId], references: [id])
+  service           Service   @relation(fields: [serviceId], references: [id])
+  documents         Document[]
+  payments          Payment[]
+
+  @@index([status, createdAt])
+  @@index([serviceArea, createdAt])
+  @@index([applicantPhone])
+}
+
+model AuditLog {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  actorId    String?  @db.ObjectId
+  actorName  String?
+  action     String
+  targetType String
+  targetId   String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  actor      User?    @relation("AuditLogActor", fields: [actorId], references: [id])
+
+  @@index([targetType, targetId])
+  @@index([action, createdAt])
+  @@index([actorId, createdAt])
+}
+
+model CreditReport {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String   @db.ObjectId
+  reportDate      DateTime @default(now())
+  creditScore     Int
+  totalDebts      Float
+  monthlyPayments Float
+  ccrisStatus     String?
+  ctosStatus      String?
+  bankruptcyCheck Boolean  @default(false)
+  remarks         String?
+
+  createdAt       DateTime @default(now())
+
+  user            User     @relation(fields: [userId], references: [id])
+}
+
+model Document {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  applicationId String      @db.ObjectId
+  fileName      String
+  fileType      String
+  fileUrl       String
+  uploadedAt    DateTime    @default(now())
+
+  application   Application @relation(fields: [applicationId], references: [id])
+}
+
+model Payment {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String       @db.ObjectId
+  applicationId String?      @db.ObjectId
+  amount        Float
+  currency      String       @default("MYR")
+  status        String       @default("pending")
+  paymentMethod String?
+  transactionId String?
+  paidAt        DateTime?
+  createdAt     DateTime     @default(now())
+
+  user          User         @relation(fields: [userId], references: [id])
+  application   Application? @relation(fields: [applicationId], references: [id])
+}
+
+model BankPartner {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  logo          String?
+  minLoanAmount Float
+  maxLoanAmount Float
+  interestRate  Float
+  minDSR        Float
+  requirements  String   // JSON string array
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Setting {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Contact form submissions
+model ContactMessage {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  phone     String?
+  serviceArea String  @default("MY-14")
+  subject   String
+  message   String
+  status    String    @default("NEW") // NEW, READ, REPLIED, ARCHIVED
+  adminNote String?
+  repliedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([status, createdAt])
+  @@index([serviceArea, createdAt])
+}
+
+// Newsletter subscriptions
+model NewsletterSubscriber {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  email          String    @unique
+  isActive       Boolean   @default(true)
+  subscribedAt   DateTime  @default(now())
+  unsubscribedAt DateTime?
+
+  @@index([isActive, subscribedAt])
+}
+
+// Exit intent lead captures
+model Lead {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  phone     String
+  serviceArea String  @default("MY-14")
+  source    String   @default("EXIT_INTENT") // EXIT_INTENT, FOOTER, POPUP
+  pageUrl   String?
+  language  String?
+  status    String   @default("NEW") // NEW, CONTACTED, CONVERTED, NOT_INTERESTED
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  distributions LeadDistribution[]
+
+  @@index([status, createdAt])
+  @@index([serviceArea, createdAt])
+}
+
+model TeamMember {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  phone     String
+  role      String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  distributions LeadDistribution[]
+
+  @@index([isActive, createdAt])
+}
+
+model LeadDistribution {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  leadId       String   @db.ObjectId
+  teamMemberId String   @db.ObjectId
+  sentById     String?  @db.ObjectId
+  note         String?
+  createdAt    DateTime @default(now())
+
+  lead       Lead       @relation(fields: [leadId], references: [id])
+  teamMember TeamMember @relation(fields: [teamMemberId], references: [id])
+  sentBy     User?      @relation("LeadDistributionSender", fields: [sentById], references: [id])
+
+  @@index([leadId, createdAt])
+  @@index([teamMemberId, createdAt])
+}

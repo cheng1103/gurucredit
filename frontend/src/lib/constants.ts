@@ -13,74 +13,126 @@ export const COMPANY = {
   phoneLink: 'tel:+60112748389',
   whatsapp: '011-2748 6389',
   whatsappLink: 'https://wa.me/60112748389',
-  email: 'info@gurucredits.my',
-  emailLink: 'mailto:info@gurucredits.my',
+  email: 'info@guru-credit.com',
+  emailLink: 'mailto:info@guru-credit.com',
   location: 'Level 5, 13A, Jalan Semantan, Damansara Heights, 50490 Kuala Lumpur',
   facebook: 'https://facebook.com/gurucredits',
   instagram: 'https://instagram.com/gurucredits',
 };
 
-// Primary service coverage (nationwide focus areas)
+// Primary service coverage — all 13 Malaysian states + 3 federal territories
 export const SERVICE_AREAS = [
   {
     name: 'Kuala Lumpur',
     regionCode: 'MY-14',
     locality: 'Kuala Lumpur',
     shortName: 'KL',
-    coordinates: {
-      latitude: 3.139,
-      longitude: 101.6869,
-    },
+    coordinates: { latitude: 3.139, longitude: 101.6869 },
   },
   {
     name: 'Selangor',
     regionCode: 'MY-10',
     locality: 'Petaling Jaya / Shah Alam',
     shortName: 'Selangor',
-    coordinates: {
-      latitude: 3.0738,
-      longitude: 101.5183,
-    },
+    coordinates: { latitude: 3.0738, longitude: 101.5183 },
   },
   {
-    name: 'Penang',
-    regionCode: 'MY-07',
-    locality: 'George Town',
-    shortName: 'Penang',
-    coordinates: {
-      latitude: 5.4141,
-      longitude: 100.3288,
-    },
+    name: 'Putrajaya',
+    regionCode: 'MY-16',
+    locality: 'Putrajaya',
+    shortName: 'Putrajaya',
+    coordinates: { latitude: 2.9264, longitude: 101.6964 },
   },
   {
     name: 'Johor',
     regionCode: 'MY-01',
     locality: 'Johor Bahru',
     shortName: 'Johor',
-    coordinates: {
-      latitude: 1.4927,
-      longitude: 103.7414,
-    },
+    coordinates: { latitude: 1.4927, longitude: 103.7414 },
+  },
+  {
+    name: 'Penang',
+    regionCode: 'MY-07',
+    locality: 'George Town',
+    shortName: 'Penang',
+    coordinates: { latitude: 5.4141, longitude: 100.3288 },
+  },
+  {
+    name: 'Perak',
+    regionCode: 'MY-08',
+    locality: 'Ipoh',
+    shortName: 'Perak',
+    coordinates: { latitude: 4.5975, longitude: 101.0901 },
+  },
+  {
+    name: 'Kedah',
+    regionCode: 'MY-02',
+    locality: 'Alor Setar',
+    shortName: 'Kedah',
+    coordinates: { latitude: 6.1184, longitude: 100.3685 },
+  },
+  {
+    name: 'Perlis',
+    regionCode: 'MY-09',
+    locality: 'Kangar',
+    shortName: 'Perlis',
+    coordinates: { latitude: 6.4414, longitude: 100.1986 },
+  },
+  {
+    name: 'Kelantan',
+    regionCode: 'MY-03',
+    locality: 'Kota Bharu',
+    shortName: 'Kelantan',
+    coordinates: { latitude: 6.1254, longitude: 102.2381 },
+  },
+  {
+    name: 'Terengganu',
+    regionCode: 'MY-11',
+    locality: 'Kuala Terengganu',
+    shortName: 'Terengganu',
+    coordinates: { latitude: 5.3117, longitude: 103.1324 },
+  },
+  {
+    name: 'Pahang',
+    regionCode: 'MY-06',
+    locality: 'Kuantan',
+    shortName: 'Pahang',
+    coordinates: { latitude: 3.8077, longitude: 103.326 },
+  },
+  {
+    name: 'Negeri Sembilan',
+    regionCode: 'MY-05',
+    locality: 'Seremban',
+    shortName: 'N. Sembilan',
+    coordinates: { latitude: 2.7258, longitude: 101.9424 },
+  },
+  {
+    name: 'Melaka',
+    regionCode: 'MY-04',
+    locality: 'Melaka City',
+    shortName: 'Melaka',
+    coordinates: { latitude: 2.1896, longitude: 102.2501 },
   },
   {
     name: 'Sabah',
     regionCode: 'MY-12',
     locality: 'Kota Kinabalu',
     shortName: 'Sabah',
-    coordinates: {
-      latitude: 5.9804,
-      longitude: 116.0735,
-    },
+    coordinates: { latitude: 5.9804, longitude: 116.0735 },
   },
   {
     name: 'Sarawak',
     regionCode: 'MY-13',
     locality: 'Kuching',
     shortName: 'Sarawak',
-    coordinates: {
-      latitude: 1.5533,
-      longitude: 110.3592,
-    },
+    coordinates: { latitude: 1.5533, longitude: 110.3592 },
+  },
+  {
+    name: 'Labuan',
+    regionCode: 'MY-15',
+    locality: 'Labuan',
+    shortName: 'Labuan',
+    coordinates: { latitude: 5.2831, longitude: 115.2308 },
   },
 ] as const;
 
@@ -108,7 +160,7 @@ export const TRUST_BLOCK = {
       },
       {
         title: 'Transparent fee notice',
-        description: 'RM30 analysis fee is collected only after submission via official WhatsApp.',
+        description: 'The RM30 CTOS report fee is a pass-through charge — collected only via official WhatsApp after we confirm your details.',
       },
       {
         title: 'Bank-ready documentation',
@@ -126,7 +178,7 @@ export const TRUST_BLOCK = {
       },
       {
         title: 'Notis yuran telus',
-        description: 'Yuran analisis RM30 hanya dikutip selepas penghantaran melalui WhatsApp rasmi.',
+        description: 'Yuran laporan CTOS RM30 adalah caj salur lalu — dikutip hanya melalui WhatsApp rasmi selepas pengesahan.',
       },
       {
         title: 'Dokumen siap bank',
@@ -169,38 +221,6 @@ export const SERVICES = [
       'No collateral required',
       'Competitive rates from 4.88%',
       'Fixed monthly installments',
-    ],
-  },
-  {
-    id: '2',
-    title: 'Car Loan',
-    description: 'Finance your dream car with competitive rates and flexible repayment terms.',
-    price: 3.5,
-    priceFormatted: '3.5%',
-    duration: '24-48 hours',
-    popular: false,
-    features: [
-      'New & used car financing',
-      'Up to 90% financing',
-      'Tenure up to 9 years',
-      'Competitive rates',
-      'Fast analysis turnaround',
-    ],
-  },
-  {
-    id: '3',
-    title: 'Home Loan',
-    description: 'Make your dream home a reality with our home financing solutions.',
-    price: 4.0,
-    priceFormatted: '4.0%',
-    duration: '1-2 weeks',
-    popular: false,
-    features: [
-      'Up to 90% financing',
-      'Tenure up to 35 years',
-      'Competitive rates',
-      'Flexible repayment',
-      'Free consultation',
     ],
   },
   {
@@ -299,7 +319,7 @@ export const FAQS = [
   {
     category: 'process',
     question: 'Do I pay the RM30 analysis fee on the website?',
-    answer: 'No. We only collect the RM30 eligibility analysis fee after you submit the form, and strictly via our official WhatsApp chat. Wait for our consultant to say hello and share the payment link—ignore any other requests. You can track your application anytime via the Track Application page.',
+    answer: 'No. The RM30 CTOS report fee is a pass-through charge to the credit reporting agency. We only collect it via our official WhatsApp chat after we confirm your details — wait for our consultant to say hello and share the payment link. Ignore any other payment requests.',
   },
   {
     category: 'process',
@@ -423,8 +443,6 @@ export const FOOTER_QUICK_LINKS = [
 
 export const FOOTER_SERVICE_LINKS = [
   { href: '/services/1/apply', label: 'Personal Loan' },
-  { href: '/services/2/apply', label: 'Car Loan' },
-  { href: '/services/3/apply', label: 'Home Loan' },
   { href: '/services/4/apply', label: 'Business Loan' },
 ];
 
@@ -447,17 +465,17 @@ export const SEO = {
   siteName: 'GURU Credits',
   defaultTitle: 'GURU Credits - Malaysia-wide Loan Guidance (From 4.88%)',
   defaultDescription:
-    'Nationwide loan consultation and DSR analysis across Malaysia. RM30 eligibility check, fast 24-hour turnaround, home loan, car loan, business loan, and debt consolidation guidance with curated bank shortlists.',
+    'Nationwide loan consultation and DSR analysis across Malaysia. RM30 eligibility check, fast 24-hour turnaround, home loan, car loan, business loan, and debt consolidation guidance with tailored loan offers.',
   keywords:
     'personal loan Malaysia, home loan Malaysia, car loan Malaysia, business loan Malaysia, debt consolidation Malaysia, credit score Malaysia, loan consultant Malaysia, pinjaman peribadi Malaysia, GURU Credits',
-  url: 'https://gurucredits.my',
+  url: 'https://guru-credit.com',
   locale: 'en_MY',
   shareImage: '/images/optimized/logo.jpg',
   translations: {
     ms: {
       defaultTitle: 'GURU Credits - Panduan Pinjaman Seluruh Malaysia (Dari 4.88%)',
       defaultDescription:
-        'Perundingan pinjaman dan analisis DSR seluruh Malaysia. Semakan kelayakan RM30, laporan pantas 24 jam, panduan pinjaman rumah, kereta, perniagaan, dan penyatuan hutang dengan senarai bank yang sesuai.',
+        'Perundingan pinjaman dan analisis DSR seluruh Malaysia. Semakan kelayakan RM30, laporan pantas 24 jam, panduan pinjaman rumah, kereta, perniagaan, dan penyatuan hutang dengan tawaran pinjaman yang sesuai.',
       keywords:
         'pinjaman peribadi Malaysia, pinjaman rumah Malaysia, pinjaman kereta Malaysia, pinjaman perniagaan Malaysia, penyatuan hutang Malaysia, skor kredit Malaysia, konsultasi pinjaman Malaysia, GURU Credits',
     },

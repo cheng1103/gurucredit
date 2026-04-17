@@ -1,12 +1,8 @@
 import { Language } from '@/lib/i18n/translations';
-import { Wallet, Car, Home, Briefcase } from 'lucide-react';
+import { Wallet, Briefcase } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
-export type ServiceType =
-  | 'PERSONAL_LOAN'
-  | 'CAR_LOAN'
-  | 'HOME_LOAN'
-  | 'BUSINESS_LOAN';
+export type ServiceType = 'PERSONAL_LOAN' | 'BUSINESS_LOAN';
 
 export interface ServiceDefinition {
   id: string;
@@ -73,36 +69,26 @@ export interface ServicesPageContent {
 
 export const serviceIcons: Record<ServiceType, LucideIcon> = {
   PERSONAL_LOAN: Wallet,
-  CAR_LOAN: Car,
-  HOME_LOAN: Home,
   BUSINESS_LOAN: Briefcase,
 };
 
 export const serviceGradients: Record<ServiceType, string> = {
   PERSONAL_LOAN: 'from-pink-500 via-rose-500 to-orange-500',
-  CAR_LOAN: 'from-blue-500 via-indigo-500 to-purple-500',
-  HOME_LOAN: 'from-emerald-500 via-green-500 to-teal-500',
   BUSINESS_LOAN: 'from-amber-500 via-orange-500 to-red-500',
 };
 
 export const serviceAccentColors: Record<ServiceType, string> = {
   PERSONAL_LOAN: 'text-pink-500',
-  CAR_LOAN: 'text-blue-500',
-  HOME_LOAN: 'text-emerald-500',
   BUSINESS_LOAN: 'text-amber-500',
 };
 
 export const serviceImages: Record<ServiceType, string> = {
   PERSONAL_LOAN: '/images/personal-loan.jpg',
-  CAR_LOAN: '/images/car-loan.jpg',
-  HOME_LOAN: '/images/home-loan.jpg',
   BUSINESS_LOAN: '/images/business-loan.jpg',
 };
 
 export const loanDetailLinks: Record<ServiceType, string> = {
   PERSONAL_LOAN: '/loans/personal',
-  CAR_LOAN: '/loans/car',
-  HOME_LOAN: '/loans/home',
   BUSINESS_LOAN: '/loans/emergency',
 };
 
@@ -128,7 +114,7 @@ export const pageContent: Record<Language, ServicesPageContent> = {
       primaryCta: 'Start Eligibility Analysis',
       secondaryCta: 'Take 5-min Eligibility Test',
       supportNote:
-        'No payment on this website. RM30 is collected only through official WhatsApp after submission.',
+        'No payment on this website. The RM30 CTOS report fee is collected only through our official WhatsApp after we confirm your details.',
     },
     analysisBanner: {
       title: 'Eligibility Analysis',
@@ -154,28 +140,6 @@ export const pageContent: Record<Language, ServicesPageContent> = {
           '24hr analysis',
           'Flexible tenure',
         ],
-      },
-      {
-        id: '2',
-        name: 'Car Loan',
-        tagline: 'Drive your dream car today',
-        rate: '3.50',
-        maxAmount: '300,000',
-        tenure: '3-9 years',
-        type: 'CAR_LOAN',
-        highlight: 'Lowest Rate',
-        features: ['Low upfront cost', 'Insurance bundle', 'Fast analysis'],
-      },
-      {
-        id: '3',
-        name: 'Home Loan',
-        tagline: 'Plan your property upgrade',
-        rate: '3.98',
-        maxAmount: '1,000,000',
-        tenure: '10-35 years',
-        type: 'HOME_LOAN',
-        highlight: 'Best Value',
-        features: ['Flexible tenure', 'Zero hidden fees', 'Lock-in optional'],
       },
       {
         id: '4',
@@ -272,7 +236,7 @@ export const pageContent: Record<Language, ServicesPageContent> = {
       primaryCta: 'Mulakan Analisis Kelayakan',
       secondaryCta: 'Ujian Kelayakan 5 Minit',
       supportNote:
-        'Tiada bayaran di laman web. RM30 dikutip hanya melalui WhatsApp rasmi selepas penghantaran.',
+        'Tiada bayaran di laman web. Yuran laporan CTOS RM30 dikutip hanya melalui WhatsApp rasmi selepas kami mengesahkan butiran anda.',
     },
     analysisBanner: {
       title: 'Analisis Kelayakan',
@@ -297,32 +261,6 @@ export const pageContent: Record<Language, ServicesPageContent> = {
           'Tiada cagaran diperlukan',
           'Analisis 24 jam',
           'Tempoh fleksibel',
-        ],
-      },
-      {
-        id: '2',
-        name: 'Pinjaman Kereta',
-        tagline: 'Miliki kereta idaman anda',
-        rate: '3.50',
-        maxAmount: '300,000',
-        tenure: '3-9 tahun',
-        type: 'CAR_LOAN',
-        highlight: 'Kadar Terendah',
-        features: ['Kos awal rendah', 'Pakej insurans', 'Analisis pantas'],
-      },
-      {
-        id: '3',
-        name: 'Pinjaman Rumah',
-        tagline: 'Rancang pembelian hartanah anda',
-        rate: '3.98',
-        maxAmount: '1,000,000',
-        tenure: '10-35 tahun',
-        type: 'HOME_LOAN',
-        highlight: 'Nilai Terbaik',
-        features: [
-          'Tempoh fleksibel',
-          'Tiada caj tersembunyi',
-          'Pilihan lock-in',
         ],
       },
       {

@@ -4,13 +4,13 @@ import { SEO } from '@/lib/constants';
 export const metadata: Metadata = {
   title: 'Malaysia Loan Services',
   description:
-    'RM30 eligibility analysis, DSR consultation, and full loan assistance for borrowers nationwide. Fast 24-hour turnaround with curated bank recommendations.',
+    'Licensed personal, business, and debt consolidation loans nationwide. Start with an RM30 CTOS report — written analysis and a structured offer within 24 hours.',
   keywords:
-    'loan consultation Malaysia, loan consultant Malaysia, RM30 eligibility analysis, DSR consultation Malaysia, GURU Credits services',
+    'licensed money lender Malaysia, personal loan, business loan, debt consolidation, Moneylenders Act 1951, CTOS report, GURU Credits',
   openGraph: {
     title: 'Malaysia Loan Services | GURU Credits',
     description:
-      'Explore personal, car, home, and business loan services for borrowers nationwide. RM30 analysis + bank shortlist included.',
+      'Personal, business, and debt consolidation loans directly from a licensed lender. RM30 CTOS report fee + written analysis included.',
     url: `${SEO.url}/services`,
     siteName: SEO.siteName,
     type: 'website',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Malaysia Loan Services | GURU Credits',
-    description: 'RM30 eligibility analysis and guided loan submissions for borrowers across Malaysia.',
+    description: 'Direct-to-lender loan analysis and offers for borrowers across Malaysia.',
   },
   alternates: {
     canonical: `${SEO.url}/services`,

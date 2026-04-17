@@ -18,7 +18,7 @@ import {
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { COMPANY, SEO, TRUST_BLOCK } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
-import { LoanProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
+import { FinancialProductJsonLd, LoanProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
 import { TrustPanel } from '@/components/TrustPanel';
 
 export const metadata = buildMetadata({
@@ -275,6 +275,20 @@ export default async function DebtConsolidationPage() {
         loanTerm="1-7 years"
         minAmount={10000}
         maxAmount={200000}
+      />
+      <FinancialProductJsonLd
+        url={`${SEO.url}/loans/debt-consolidation`}
+        name="Debt Consolidation Loan Malaysia"
+        description="Combine multiple high-interest debts into one manageable monthly payment with a clearer repayment plan and bank recommendations."
+        category="PersonalLoan"
+        aprMin={6}
+        aprMax={9}
+        termMonthsMin={12}
+        termMonthsMax={84}
+        minAmount={10000}
+        maxAmount={200000}
+        requiredCollateral="Typically unsecured; some banks require salary-transfer assignment"
+        feeNote="RM30 eligibility analysis. Early-settlement fees may apply on existing debts being consolidated."
       />
       <WebPageJsonLd
         url={`${SEO.url}/loans/debt-consolidation`}

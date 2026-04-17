@@ -124,7 +124,7 @@ export function TestimonialCarousel() {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section className="py-20 lg:py-24 bg-muted/30">
+    <section className="py-24 lg:py-32 bg-muted/30">
       <div className="container">
         {/* Header */}
         <div className="text-center mb-12">

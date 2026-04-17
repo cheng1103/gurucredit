@@ -44,7 +44,7 @@ export class NotificationService {
       this.configService.get<string>('SMTP_SECURE', 'false') === 'true';
 
     this.fromAddress =
-      this.configService.get<string>('SMTP_FROM') || 'no-reply@gurucredits.my';
+      this.configService.get<string>('SMTP_FROM') || 'no-reply@guru-credit.com';
     this.whatsapp =
       this.configService.get<string>('COMPANY_WHATSAPP') || '+601127486389';
 

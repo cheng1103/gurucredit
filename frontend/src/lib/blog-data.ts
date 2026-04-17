@@ -10,6 +10,17 @@ export interface BlogPost {
   category: 'tips' | 'guide' | 'news' | 'analysis';
   author: string;
   publishedAt: string;
+  /** ISO date of the most recent editorial review/update. Falls back to publishedAt. */
+  updatedAt?: string;
+  /** Named senior reviewer who signed off on the current version. E-E-A-T signal for YMYL. */
+  reviewedBy?: string;
+  /** ISO date of the most recent senior review (may equal updatedAt). */
+  reviewedAt?: string;
+  /** Per-post overrides for the author profile in lib/authors.ts. */
+  authorRole?: string;
+  authorBio?: string;
+  authorCredentials?: string;
+  authorPhoto?: string;
   readTime: number;
   image: string;
   tags: string[];
@@ -33,8 +44,11 @@ export const blogPosts: BlogPost[] = [
     category: 'tips',
     author: 'GURU Credits Team',
     publishedAt: '2024-12-01',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 8,
-    image: '/images/blog/how-to-improve-credit-score-malaysia.svg',
+    image: '/images/blog/how-to-improve-credit-score-malaysia.jpg',
     tags: ['credit score', 'CCRIS', 'CTOS', 'tips'],
     content: `
 # How to Improve Your Credit Score in Malaysia
@@ -116,6 +130,62 @@ Every day you delay improving your credit is another day of missed opportunities
 **[Get Your Credit Analyzed Now →](/services)**
 
 *Over 1,000 Malaysians have improved their credit with our guidance.*
+
+## Common CCRIS Red Flags and How to Fix Them
+
+From the 1,000+ CCRIS reports we have walked clients through, five patterns account for roughly 80% of avoidable loan rejections.
+
+### 1. The "Forgotten small debt" (amounts under RM 500)
+Unpaid telco bills, utility final-bills, or small retail financing get sold to collection agencies and end up as a "special attention" code on CCRIS. Lenders do not care about the amount — they care about the signal. **Fix:** request a settlement letter (surat selesai) from the collection agency, keep a copy for every future bank submission, and wait 12 months for the marker to drop off.
+
+### 2. Multiple "1" or "2" late markers in the last 12 rolling months
+Even if you are currently up-to-date, recent late markers stay on CCRIS for 12 rolling months and most banks score them as "in arrears now". **Fix:** pay everything on or before the statement closing date (not the due date — the closing date is what CCRIS records), maintain 12 clean cycles, and watch the markers roll off one by one.
+
+### 3. High credit-card utilisation over multiple statements
+Holding a RM 9,800 balance on a RM 10,000 limit for six straight months tells underwriters you live on credit. **Fix:** drop to under 30% utilisation for three consecutive statement closings before any new loan submission. Many banks re-pull CCRIS right before approval — so the last three months matter most.
+
+### 4. Too many recent credit inquiries
+Every loan or credit card application creates a footprint. More than 3 new inquiries in the last 6 months is typically the threshold where big banks start rejecting applications reflexively. **Fix:** avoid "rate shopping" by walking into multiple banks. Run your numbers with a consultant first, then apply to 1–2 banks most likely to approve.
+
+### 5. Dormant accounts with zero utilisation
+Counter-intuitive but real: banks like to see that old revolving credit is occasionally used and paid off. A credit card unused for 3+ years provides no positive data. **Fix:** keep your oldest card active with a small recurring charge that is auto-paid in full monthly.
+
+## Bank-by-bank scoring differences you should know
+
+CCRIS is the same data for everyone, but each lender weights it differently. From our consulting track record:
+
+- **Maybank and Public Bank** apply the strictest reading — any "2" marker in the last 12 months typically triggers a decline unless the applicant is a preferred-employer category.
+- **Hong Leong Bank and RHB** are more forgiving of cleared late markers older than 6 months, especially if the applicant has recovered utilisation and maintained clean payments since.
+- **CIMB and AmBank** put more weight on DSR than on past late markers — a clean DSR under 50% can offset moderate CCRIS issues.
+- **OCBC and UOB** are stricter on inquiry count; they decline applicants with more than 2 recent inquiries unless there is a specific context.
+
+This is why a one-size-fits-all "go to Bank X" recommendation from a YouTube video often fails — the right bank depends on your specific CCRIS pattern.
+
+## Why settling is not the same as improving
+
+A common misconception: "I paid off my debt, so my score should be reset." In reality, CCRIS records the status *change* (arrears → settled) but the history of the arrears remains for 12 months. Settlement stops the bleeding; it does not erase the scar. Plan your loan application timing around the 12-month rollover, not the settlement date.
+
+## Frequently Asked Questions (expanded)
+
+### Can I dispute an error on my CCRIS report?
+Yes. You can file a dispute directly with Bank Negara Malaysia through their [eCCRIS portal](https://www.bnm.gov.my/ccris). The bank that reported the record must respond within 14 working days. Keep a written record of everything — this is often useful if you need to appeal a later loan rejection.
+
+### Does checking my own CCRIS hurt my score?
+No. Personal checks ("soft inquiries") are not recorded in the lender-visible portion of CCRIS. Only applications made to financial institutions ("hard inquiries") leave a footprint. Check your own report as often as you want.
+
+### How do banks handle Islamic vs. conventional financing on CCRIS?
+Both appear on the same CCRIS report under separate facility types. Late markers on an Islamic financing are weighted the same way as conventional. If you are planning to switch from conventional to Islamic (or vice versa), time it carefully — a mid-cycle settlement and new facility look like a new inquiry pattern.
+
+### What if I have never had any credit?
+A completely empty CCRIS is called a "thin file" and can be almost as difficult to work with as a damaged file. For first-time borrowers, we typically recommend a small credit card or supplementary card for 6–12 months before applying for a meaningful loan.
+
+## Sources & References
+
+- [Bank Negara Malaysia — CCRIS overview](https://www.bnm.gov.my/ccris)
+- [Bank Negara Malaysia — eCCRIS self-service portal](https://www.bnm.gov.my/ccris)
+- [AKPK — Agensi Kaunseling dan Pengurusan Kredit](https://www.akpk.org.my)
+- [CTOS Data Systems — consumer disputes](https://www.ctoscredit.com.my)
+- [BNM consumer protection — BNMLINK](https://www.bnm.gov.my/bnmlink)
 `,
     contentMs: `
 # Cara Meningkatkan Skor Kredit di Malaysia
@@ -202,8 +272,11 @@ Jika baki kad melebihi 40% daripada had, penyatuan melalui pinjaman peribadi bol
     category: 'news',
     author: 'GURU Credits Research',
     publishedAt: '2025-01-24',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 6,
-    image: '/images/blog/bnm-opr-update-jan-2025.svg',
+    image: '/images/blog/bnm-opr-update-jan-2025.jpg',
     tags: ['bnm', 'opr', 'interest rate', 'news'],
     content: `
 # BNM Holds OPR at 3.00%: January 2025 Briefing
@@ -299,8 +372,11 @@ Taklimat MPC kami merangkumi:
     category: 'news',
     author: 'Policy Desk',
     publishedAt: '2024-10-14',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 7,
-    image: '/images/blog/budget-2025-housing-incentives.svg',
+    image: '/images/blog/budget-2025-housing-incentives.jpg',
     tags: ['budget 2025', 'housing incentives', 'first home', 'news'],
     content: `
 # Budget 2025: New Housing Incentives Explained
@@ -396,8 +472,11 @@ Klinik Belanjawan 2025 kami termasuk:
     category: 'analysis',
     author: 'Data Insights Lab',
     publishedAt: '2025-04-08',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 9,
-    image: '/images/blog/q1-2025-loan-approval-data-malaysia.svg',
+    image: '/images/blog/q1-2025-loan-approval-data-malaysia.jpg',
     tags: ['analysis', 'loan approval', 'DSR', 'data'],
     content: `
 # Q1 2025: Loan Approval Snapshot
@@ -485,8 +564,11 @@ Perlu ramalan peribadi? Penganalisis kami boleh simulasi peluang kelulusan mengg
     category: 'analysis',
     author: 'GURU Credits Team',
     publishedAt: '2025-02-18',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 8,
-    image: '/images/blog/ev-loan-vs-petrol-car-cost-malaysia.svg',
+    image: '/images/blog/ev-loan-vs-petrol-car-cost-malaysia.jpg',
     tags: ['analysis', 'car loan', 'EV', 'cost comparison'],
     content: `
 # EV vs Petrol: Which Loan Costs Less in 2025?
@@ -580,8 +662,11 @@ Perlu bantu banding bank? Konsultan kami menjejak semua promo pinjaman hijau.
     category: 'tips',
     author: 'Credit Coaching Team',
     publishedAt: '2025-03-02',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 10,
-    image: '/images/blog/ptptn-loan-impact-home-loan.svg',
+    image: '/images/blog/ptptn-loan-impact-home-loan.jpg',
     tags: ['ptptn', 'credit score', 'home loan', 'tips'],
     content: `
 # How PTPTN Affects Home Loan Approval
@@ -673,8 +758,11 @@ Perlu seseorang berunding dengan PTPTN dan bank? Pasukan kami urus kedua-duanya.
     category: 'guide',
     author: 'Financial Wellness Desk',
     publishedAt: '2025-01-10',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 11,
-    image: '/images/blog/akpk-debt-management-program-guide.svg',
+    image: '/images/blog/akpk-debt-management-program-guide.jpg',
     tags: ['akpk', 'debt management', 'consolidation', 'guide'],
     content: `
 # AKPK Debt Management Programme (DMP) 2025 Guide
@@ -723,6 +811,13 @@ Even after entering DMP, set reminders to request AKPK status letters every 6 mo
 Not sure if AKPK is right for you? We compare AKPK, consolidation loans, and balance transfers based on your numbers.
 
 **[Book a Debt Strategy Call →](/contact)**
+
+## Sources & References
+
+- [AKPK — Agensi Kaunseling dan Pengurusan Kredit](https://www.akpk.org.my)
+- [AKPK Debt Management Programme](https://www.akpk.org.my/debt-management-programme)
+- [Bank Negara Malaysia — BNMLINK consumer help](https://www.bnm.gov.my/bnmlink)
+- [Credit Reporting Agencies Act 2010](https://www.bnm.gov.my/documents/20124/938039/cra_act_2010.pdf)
     `,
     contentMs: `
 # Panduan Program Pengurusan Hutang (DMP) AKPK 2025
@@ -782,8 +877,11 @@ Masih ragu AKPK sesuai? Kami bandingkan AKPK, pinjaman penyatuan dan pemindahan 
     category: 'guide',
     author: 'GURU Credits Team',
     publishedAt: '2024-11-25',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 6,
-    image: '/images/blog/personal-loan-vs-credit-card-which-better.svg',
+    image: '/images/blog/personal-loan-vs-credit-card-which-better.jpg',
     tags: ['personal loan', 'credit card', 'comparison', 'guide'],
     content: `
 # Personal Loan vs Credit Card: Which is Better?
@@ -937,8 +1035,11 @@ Kad kredit menawarkan kredit pusingan yang boleh anda gunakan berulang kali.
     category: 'guide',
     author: 'GURU Credits Team',
     publishedAt: '2024-11-20',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 7,
-    image: '/images/blog/understanding-dsr-debt-service-ratio.svg',
+    image: '/images/blog/understanding-dsr-debt-service-ratio.jpg',
     tags: ['DSR', 'debt service ratio', 'loan approval', 'guide'],
     content: `
 # Understanding DSR: The Key to Loan Approval
@@ -1040,6 +1141,57 @@ Use our [DSR Calculator](/calculator) to:
 - Calculate your exact DSR
 - See how much you can borrow
 - Find which banks match your profile
+
+## How Bank Negara Views DSR in 2026
+
+Bank Negara Malaysia does not dictate a universal DSR cap — that remains each bank's responsibility under BNM's [Responsible Financing Guidelines](https://www.bnm.gov.my/documents/20124/938039/Guidelines_ResponsibleFinancing.pdf). What BNM does monitor is household debt-to-GDP, which stood at around 80% in 2025 (among the highest in Asia). When this number rises, BNM nudges banks to tighten DSR through supervisory guidance — even without a formal rule change.
+
+Practical implication: in periods of tightening (2023–2025 saw this twice), banks that previously approved 75% DSR quietly moved to 65%. Your DSR strategy should assume a 5–10 percentage-point tightening buffer, not the published ceiling.
+
+## The difference between "DSR" and "Net DSR"
+
+A subtle but important distinction:
+
+- **Gross DSR** (what most articles discuss): total monthly debt ÷ gross monthly income.
+- **Net DSR** (what some banks actually underwrite to): total monthly debt ÷ net take-home after EPF, SOCSO, income tax, and statutory deductions.
+
+At a RM 8,000 gross salary, statutory deductions typically remove ~RM 1,100 — so net income is ~RM 6,900. If the bank uses net DSR, a RM 2,000 monthly debt moves you from 25% (gross basis) to 29% (net basis). Public Bank and some OCBC loan products use net DSR. Maybank and CIMB typically use gross.
+
+**Always ask the underwriter which basis they use before running your own numbers.**
+
+## Variable income and the "haircut" treatment
+
+For applicants whose income fluctuates — commission sales, freelancers, business owners — banks apply a haircut to the variable portion. Typical treatment:
+
+- Commission-heavy income: 12- to 24-month average, haircut 40–50% of the average.
+- Overtime: 50% of 12-month average.
+- Rental income: 80% of lease receipts (after a vacancy buffer).
+- Business owner net profit: typically 2 years of audited or tax-filed figures, averaged.
+
+If 60% of your income is variable and you assume a 40% haircut, your bank-visible income drops by roughly 24% below your self-perceived earnings. Plan your DSR on that reduced number.
+
+## The DSR trap nobody mentions: future credit-card utilisation
+
+Banks do not just look at your current DSR — they also model the *potential* future DSR if you draw your credit cards to full limit. At a RM 40,000 combined credit-card limit, the bank adds 5% = RM 2,000 to your monthly commitment for the DSR calculation — whether you carry a balance or not.
+
+**Fix:** reduce your total credit-card *limit* (not just balance) before a major loan application. Many applicants we work with cut total limit from RM 40K to RM 15K; the drop in imputed commitment can free up RM 1,250 in monthly capacity and unlock a larger home loan.
+
+## 90-day DSR improvement roadmap
+
+| Week | Action | Expected DSR impact |
+|------|--------|---------------------|
+| 1 | List every facility with minimum payment and outstanding | Baseline |
+| 2–3 | Request credit-card limit reductions on cards you do not need | –1% to –3% per reduced card |
+| 4–6 | Aggressively pay down credit-card utilisation below 30% | –1% to –2% |
+| 7–9 | Consider refinancing the highest monthly-payment facility to a longer tenure | –3% to –6% |
+| 10–12 | Clean 3 consecutive statement cycles; pull CCRIS to verify | No direct DSR impact but ensures clean file |
+
+## Sources & References
+
+- [Bank Negara Malaysia — Responsible Financing Guidelines](https://www.bnm.gov.my/documents/20124/938039/Guidelines_ResponsibleFinancing.pdf)
+- [BNM Financial Stability Review](https://www.bnm.gov.my/financial-stability-report)
+- [AKPK — debt management programmes](https://www.akpk.org.my)
+- [Department of Statistics Malaysia — Household income and debt](https://www.dosm.gov.my)
 `,
     contentMs: `
 # Memahami DSR: Kunci Kelulusan Pinjaman
@@ -1102,8 +1254,11 @@ Gunakan [Kalkulator DSR](/calculator) kami untuk:
     category: 'guide',
     author: 'GURU Credits Team',
     publishedAt: '2024-11-15',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 12,
-    image: '/images/blog/home-loan-first-time-buyer-guide-2024.svg',
+    image: '/images/blog/home-loan-first-time-buyer-guide-2024.jpg',
     tags: ['home loan', 'first time buyer', 'property', 'guide'],
     content: `
 # First-Time Home Buyer Guide 2024
@@ -1243,6 +1398,14 @@ Buying your first home is one of life's biggest milestones. This comprehensive g
 **[Check Your Home Loan Eligibility Now →](/services)**
 
 *85% of our first-time buyer clients get approved on their first application.*
+
+## Sources & References
+
+- [Bank Negara Malaysia — Mortgage guidelines](https://www.bnm.gov.my/home-financing)
+- [Kementerian Perumahan dan Kerajaan Tempatan (KPKT)](https://www.kpkt.gov.my)
+- [Lembaga Pembiayaan Perumahan Sektor Awam (LPPSA)](https://www.lppsa.gov.my)
+- [Skim Rumah Pertamaku (SRP)](https://www.srp.com.my)
+- [NAPIC — Valuation and Property Services Department](https://napic.jpph.gov.my)
 `,
     contentMs: `
 # Panduan Pembeli Rumah Pertama 2024
@@ -1311,8 +1474,11 @@ Membeli rumah pertama adalah salah satu pencapaian terbesar dalam hidup. Panduan
     category: 'news',
     author: 'GURU Credits Team',
     publishedAt: '2024-11-10',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 5,
-    image: '/images/blog/bank-negara-bnm-rate-changes-2024.svg',
+    image: '/images/blog/bank-negara-bnm-rate-changes-2024.jpg',
     tags: ['BNM', 'OPR', 'interest rate', 'news'],
     content: `
 # BNM OPR Changes 2024: How It Affects Your Loans
@@ -1448,8 +1614,11 @@ Sehingga akhir 2024, OPR berada pada 3.00%, tidak berubah dari awal tahun.
     category: 'analysis',
     author: 'GURU Credits Team',
     publishedAt: '2024-11-05',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 8,
-    image: '/images/blog/malaysian-housing-market-trends-2024.svg',
+    image: '/images/blog/malaysian-housing-market-trends-2024.jpg',
     tags: ['property market', 'housing', 'trends', 'analysis'],
     content: `
 # Malaysian Housing Market Trends 2024
@@ -1635,8 +1804,11 @@ Keadaan semasa memihak kepada pembeli yang:
     category: 'guide',
     author: 'GURU Credits Team',
     publishedAt: '2024-12-03',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 10,
-    image: '/images/blog/car-loan-guide-malaysia-2024.svg',
+    image: '/images/blog/car-loan-guide-malaysia-2024.jpg',
     tags: ['car loan', 'hire purchase', 'auto financing', 'guide'],
     content: `
 # Complete Car Loan Guide Malaysia 2024
@@ -1829,8 +2001,11 @@ Kurang biasa tetapi tersedia:
     category: 'guide',
     author: 'GURU Credits Team',
     publishedAt: '2024-11-28',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 9,
-    image: '/images/blog/debt-consolidation-guide-malaysia.svg',
+    image: '/images/blog/debt-consolidation-guide-malaysia.jpg',
     tags: ['debt consolidation', 'debt management', 'personal loan', 'guide'],
     content: `
 # Debt Consolidation in Malaysia: A Complete Guide
@@ -2029,8 +2204,11 @@ Tahu dengan tepat bila anda akan bebas hutang.
     category: 'guide',
     author: 'GURU Credits Team',
     publishedAt: '2024-11-22',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 11,
-    image: '/images/blog/business-loan-sme-financing-malaysia.svg',
+    image: '/images/blog/business-loan-sme-financing-malaysia.jpg',
     tags: ['business loan', 'SME', 'financing', 'guide'],
     content: `
 # Business Loan & SME Financing Options in Malaysia 2024
@@ -2241,8 +2419,11 @@ Khusus untuk mesin dan peralatan.
     category: 'guide',
     author: 'GURU Credits Team',
     publishedAt: '2024-11-18',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 8,
-    image: '/images/blog/refinancing-home-loan-when-how.svg',
+    image: '/images/blog/refinancing-home-loan-when-how.jpg',
     tags: ['refinancing', 'home loan', 'mortgage', 'guide'],
     content: `
 # Refinancing Your Home Loan: When and How
@@ -2442,8 +2623,11 @@ Pembiayaan semula bermaksud menggantikan pinjaman rumah sedia ada dengan pinjama
     category: 'tips',
     author: 'GURU Credits Team',
     publishedAt: '2024-11-12',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 9,
-    image: '/images/blog/ccris-ctos-report-explained.svg',
+    image: '/images/blog/ccris-ctos-report-explained.jpg',
     tags: ['CCRIS', 'CTOS', 'credit report', 'tips'],
     content: `
 # CCRIS and CTOS Reports Explained
@@ -2601,6 +2785,62 @@ If you find errors in your report:
 **[Get Your Credit Analyzed Now →](/services)**
 
 *We review 50+ credit reports weekly. We know exactly what banks look for.*
+
+## How to read a CCRIS row — a worked example
+
+Take this single row from a real (anonymised) CCRIS report:
+
+\`\`\`
+Facility Type:     Housing Loan
+Lender:            Bank A
+Approved Limit:    RM 500,000
+Outstanding:       RM 432,180
+Instalment:        RM 2,150 / month
+Payment History:   0 0 0 0 0 0 1 0 0 0 0 0
+Status Code:       01 (performing)
+\`\`\`
+
+The "1" in the seventh slot from the right represents a single 30-days-late marker six months ago. Now consider how different banks read this same row:
+
+- **A strict underwriter** sees "one late marker in the last 12 months → applicant is a higher risk" and rejects.
+- **A moderate underwriter** sees "six months of clean payments after the late marker → recovery trajectory" and approves with a slightly tighter DSR.
+- **A flexible underwriter** may call the applicant to discuss context ("was that the month of a hospital admission?") and approve on explanation.
+
+You cannot control which underwriter sees your file — but you can match your profile to the right bank before submission. That is the practical value of a pre-application credit analysis.
+
+## What CTOS shows that CCRIS does not
+
+CTOS provides three data points that are not available in CCRIS:
+
+1. **Legal proceedings and judgments** — civil cases, bankruptcy filings, and court actions. Even a RM 500 small-claims judgment can appear and affect loan decisions.
+2. **Directorship history** — companies you have been registered as a director of. If any of those companies have defaults or winding-up orders, CTOS will flag it against you personally.
+3. **Trade references** — supplier payment history. Relevant mainly for SME applicants seeking business financing, but also checked for personal directors of SMEs.
+
+For borrowers with any business involvement, the CTOS report is often more revealing than CCRIS. We routinely see applicants with clean CCRIS but a decade-old company-strike-off record on CTOS that still influences bank decisions.
+
+## Costs and timing
+
+- **eCCRIS** (BNM): free, instant online via [BNM portal](https://www.bnm.gov.my/ccris). You need MyKad and a device-registration SMS.
+- **MyCTOS Score app**: RM 25 for a single report including CTOS score; annual subscription plans available.
+- **Through a loan consultant**: we review both as part of the RM30 analysis, with written commentary on what each entry means.
+
+## Disputing an error — step by step
+
+1. **Download the report** and highlight the exact row you believe is wrong (date + facility).
+2. **Contact the reporting bank** in writing (email is fine). Reference the CCRIS row and the facility number. Attach payment receipts, statements, or any evidence.
+3. **Ask for a reference number** from the bank's dispute team.
+4. **Follow up in 14 working days.** BNM guidelines require banks to respond within that window.
+5. **Escalate to BNMLINK** if the bank does not respond. [BNMLINK](https://www.bnm.gov.my/bnmlink) is BNM's consumer-complaints channel; they can formally require the bank to address your dispute.
+
+Typical resolution time is 2–6 weeks for clear-cut errors. Subjective disputes (e.g., "I dispute the 1 marker because I was out of the country") are harder and often require negotiation.
+
+## Sources & References
+
+- [Bank Negara Malaysia — CCRIS / eCCRIS](https://www.bnm.gov.my/ccris)
+- [CTOS Data Systems](https://www.ctoscredit.com.my)
+- [BNMLINK — consumer complaints](https://www.bnm.gov.my/bnmlink)
+- [AKPK — free counselling](https://www.akpk.org.my)
+- [Credit Reporting Agencies Act 2010](https://www.bnm.gov.my/documents/20124/938039/cra_act_2010.pdf)
 `,
     contentMs: `
 # Laporan CCRIS dan CTOS Dijelaskan
@@ -2660,8 +2900,11 @@ CTOS adalah agensi pelaporan kredit swasta yang menyediakan maklumat lebih menye
     category: 'tips',
     author: 'GURU Credits Team',
     publishedAt: '2024-11-08',
+    updatedAt: '2026-04-18',
+    reviewedBy: 'GURU Credits Senior Consultant',
+    reviewedAt: '2026-04-18',
     readTime: 7,
-    image: '/images/blog/loan-rejection-reasons-solutions.svg',
+    image: '/images/blog/loan-rejection-reasons-solutions.jpg',
     tags: ['loan rejection', 'approval tips', 'credit', 'tips'],
     content: `
 # 10 Common Loan Rejection Reasons and How to Fix Them

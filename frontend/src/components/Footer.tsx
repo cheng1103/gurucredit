@@ -19,7 +19,7 @@ import {
   Loader2,
   CheckCircle
 } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { useTranslation, localeHref } from '@/lib/i18n';
 import { COMPANY, SERVICE_AREA_LABEL } from '@/lib/constants';
 import { newsletterAPI } from '@/lib/api';
 import { toast } from 'sonner';
@@ -41,7 +41,6 @@ const footerContent = {
       title: 'Quick Links',
       items: [
         { href: '/services', label: 'Our Services' },
-        { href: '/status', label: 'Track Application' },
         { href: '/contact', label: 'Contact' },
         { href: '/faq', label: 'FAQ' },
         { href: '/blog', label: 'Blog' },
@@ -53,8 +52,6 @@ const footerContent = {
       title: 'Loan Products',
       items: [
         { href: '/services/1/apply', label: 'Personal Loan' },
-        { href: '/services/2/apply', label: 'Car Loan' },
-        { href: '/services/3/apply', label: 'Home Loan' },
         { href: '/services/4/apply', label: 'Business Loan' },
         { href: '/loans/debt-consolidation', label: 'Debt Consolidation' },
         { href: '/loans/emergency', label: 'Emergency Loan' },
@@ -64,8 +61,6 @@ const footerContent = {
       title: 'Free Tools',
       items: [
         { href: '/calculator', label: 'DSR Calculator' },
-        { href: '/tools/home-loan-calculator', label: 'Home Loan Calculator' },
-        { href: '/tools/car-loan-calculator', label: 'Car Loan Calculator' },
         { href: '/eligibility-test', label: 'Eligibility Test' },
         { href: '/compare', label: 'Compare Loans' },
         { href: '/glossary', label: 'Loan Glossary' },
@@ -106,7 +101,6 @@ const footerContent = {
       title: 'Pautan Pantas',
       items: [
         { href: '/services', label: 'Perkhidmatan Kami' },
-        { href: '/status', label: 'Jejak Permohonan' },
         { href: '/contact', label: 'Hubungi' },
         { href: '/faq', label: 'Soalan Lazim' },
         { href: '/blog', label: 'Blog' },
@@ -118,8 +112,6 @@ const footerContent = {
       title: 'Produk Pinjaman',
       items: [
         { href: '/services/1/apply', label: 'Pinjaman Peribadi' },
-        { href: '/services/2/apply', label: 'Pinjaman Kereta' },
-        { href: '/services/3/apply', label: 'Pinjaman Rumah' },
         { href: '/services/4/apply', label: 'Pinjaman Perniagaan' },
         { href: '/loans/debt-consolidation', label: 'Penyatuan Hutang' },
         { href: '/loans/emergency', label: 'Pinjaman Kecemasan' },
@@ -129,8 +121,6 @@ const footerContent = {
       title: 'Alat Percuma',
       items: [
         { href: '/calculator', label: 'Kalkulator DSR' },
-        { href: '/tools/home-loan-calculator', label: 'Kalkulator Pinjaman Rumah' },
-        { href: '/tools/car-loan-calculator', label: 'Kalkulator Pinjaman Kereta' },
         { href: '/eligibility-test', label: 'Ujian Kelayakan' },
         { href: '/compare', label: 'Bandingkan Pinjaman' },
         { href: '/glossary', label: 'Glosari Pinjaman' },
@@ -284,7 +274,7 @@ export function Footer() {
                 {t.quickLinks.items.map((link) => (
                   <li key={link.href + link.label}>
                     <Link
-                      href={link.href}
+                      href={localeHref(language, link.href)}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center group"
                     >
                       <span className="w-0 group-hover:w-2 h-px bg-primary transition-all mr-0 group-hover:mr-2" />
@@ -302,7 +292,7 @@ export function Footer() {
                 {t.loanProducts.items.map((link) => (
                   <li key={link.href}>
                     <Link
-                      href={link.href}
+                      href={localeHref(language, link.href)}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center group"
                     >
                       <span className="w-0 group-hover:w-2 h-px bg-primary transition-all mr-0 group-hover:mr-2" />
@@ -320,7 +310,7 @@ export function Footer() {
                 {t.tools.items.map((link) => (
                   <li key={link.href}>
                     <Link
-                      href={link.href}
+                      href={localeHref(language, link.href)}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center group"
                     >
                       <span className="w-0 group-hover:w-2 h-px bg-primary transition-all mr-0 group-hover:mr-2" />
@@ -389,11 +379,30 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Regulatory Disclaimer */}
+      {/* Regulatory Resources + Disclaimer */}
       <div className="bg-muted/30 border-t">
-        <div className="container py-4">
+        <div className="container py-5 space-y-3">
+          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+            <span className="font-semibold uppercase tracking-[0.18em] text-[10px]">
+              {language === 'ms' ? 'Rujukan Rasmi' : 'Official Resources'}
+            </span>
+            <a href="https://www.bnm.gov.my" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+              Bank Negara Malaysia ↗
+            </a>
+            <a href="https://www.akpk.org.my" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+              AKPK Credit Counselling ↗
+            </a>
+            <a href="https://telelink.bnm.gov.my" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+              BNMTELELINK 1-300-88-5465 ↗
+            </a>
+          </div>
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
             {t.regulatoryDisclaimer}
+          </p>
+          <p className="text-[11px] text-muted-foreground text-center leading-relaxed italic">
+            {language === 'ms'
+              ? 'GURU Credits dilesenkan di bawah Akta Pemberi Pinjam Wang 1951. Maklumat lesen boleh didapati atas permintaan.'
+              : 'GURU Credits operates under a Moneylenders Act 1951 license. License details available on request.'}
           </p>
         </div>
       </div>
@@ -406,13 +415,13 @@ export function Footer() {
               {t.copyright}
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-              <Link href="/privacy" className="hover:text-primary transition-colors">
+              <Link href={localeHref(language, "/privacy")} className="hover:text-primary transition-colors">
                 {t.legal.privacy}
               </Link>
-              <Link href="/terms" className="hover:text-primary transition-colors">
+              <Link href={localeHref(language, "/terms")} className="hover:text-primary transition-colors">
                 {t.legal.terms}
               </Link>
-              <Link href="/disclaimer" className="hover:text-primary transition-colors">
+              <Link href={localeHref(language, "/disclaimer")} className="hover:text-primary transition-colors">
                 {t.legal.disclaimer}
               </Link>
             </div>

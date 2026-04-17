@@ -79,23 +79,23 @@ const pageContent = {
       // Loan Products
       {
         category: 'services',
-        question: 'What types of loans do you offer?',
-        answer: 'We offer four main loan products: Personal Loans (up to RM100,000 at 4.88% p.a.), Car Loans (up to RM300,000 at 3.5% p.a.), Home Loans (based on property value at 4.0% p.a.), and Business Loans (for SMEs at 5.5% p.a.). Each product has flexible tenure options to suit your needs.',
+        question: 'What types of loans do you consult on?',
+        answer: 'We consult on four loan categories: Personal Loans (up to RM100,000 from 4.88% p.a.), Business Loans (for SMEs from 5.5% p.a.), Debt Consolidation (6–9% p.a.), and Emergency Loans (fast-turnaround personal financing). We match each applicant to Bank Negara-licensed lenders based on their CCRIS, income, and DSR profile.',
       },
       {
         category: 'services',
         question: 'What is the maximum loan amount I can borrow?',
-        answer: 'The maximum loan amount depends on the loan type: Personal Loans up to RM100,000, Car Loans up to RM300,000, Home Loans based on property value (up to 90% financing), and Business Loans based on your business needs and eligibility. Actual amounts are subject to credit evaluation.',
+        answer: 'The maximum amount depends on the product and your profile: Personal Loans up to RM100,000, Business Loans based on cash-flow and collateral, Debt Consolidation typically up to RM200,000. Final approval is subject to each bank\u2019s credit evaluation.',
       },
       {
         category: 'services',
         question: 'What are your interest rates?',
-        answer: 'Our competitive flat rates start from: Personal Loans at 4.88% p.a., Car Loans at 3.5% p.a., Home Loans at 4.0% p.a., and Business Loans at 5.5% p.a. Actual rates may vary based on your credit profile and loan amount.',
+        answer: 'Indicative rates we commonly see in approvals: Personal Loans from 4.88% p.a., Business Loans from 5.5% p.a., Debt Consolidation 6–9% p.a. Actual rates depend on your credit profile, bank selected, and prevailing BNM Reference Rate.',
       },
       {
         category: 'services',
         question: 'What is the loan tenure available?',
-        answer: 'Tenure varies by loan type: Personal Loans: 1-7 years, Car Loans: up to 9 years, Home Loans: up to 35 years, Business Loans: flexible terms based on business needs. You can choose a tenure that fits your budget.',
+        answer: 'Tenure varies by product: Personal Loans 1–7 years, Debt Consolidation 1–7 years, Business Loans flexible based on need, Emergency Loans 1–7 years. Longer tenure lowers monthly payment but increases total interest.',
       },
       // Application Process
       {
@@ -153,7 +153,7 @@ const pageContent = {
       {
         category: 'security',
         question: 'How do I know this is a legitimate lending company?',
-        answer: 'GURU Credits is a registered consultation company. All our fees are clearly disclosed. We only collect the RM30 analysis fee via official WhatsApp after submission. If you have concerns, feel free to visit our office or contact us via official channels.',
+        answer: 'GURU Credits operates under a Moneylenders Act 1951 license issued by KPKT. All our fees are clearly disclosed — the RM30 you see mentioned is a pass-through charge for pulling your CTOS credit report and is collected only via our official WhatsApp after we confirm your details. Licensing details and our registered business address are available on request through any official channel.',
       },
       {
         category: 'security',
@@ -216,22 +216,22 @@ const pageContent = {
       {
         category: 'services',
         question: 'Apakah jenis pinjaman yang anda tawarkan?',
-        answer: 'Kami menawarkan empat produk pinjaman utama: Pinjaman Peribadi (sehingga RM100,000 pada 4.88% setahun), Pinjaman Kereta (sehingga RM300,000 pada 3.5% setahun), Pinjaman Rumah (berdasarkan nilai hartanah pada 4.0% setahun), dan Pinjaman Perniagaan (untuk PKS pada 5.5% setahun). Setiap produk mempunyai pilihan tempoh fleksibel untuk memenuhi keperluan anda.',
+        answer: 'Kami menawarkan empat kategori: Pinjaman Peribadi (sehingga RM100,000 dari 4.88% setahun), Pinjaman Perniagaan (untuk PKS dari 5.5% setahun), Penyatuan Hutang (6–9% setahun), dan Pinjaman Kecemasan (pembiayaan peribadi pantas). Kami dilesenkan di bawah Akta Pemberi Pinjam Wang 1951.',
       },
       {
         category: 'services',
         question: 'Berapakah jumlah pinjaman maksimum yang boleh saya pinjam?',
-        answer: 'Jumlah pinjaman maksimum bergantung pada jenis pinjaman: Pinjaman Peribadi sehingga RM100,000, Pinjaman Kereta sehingga RM300,000, Pinjaman Rumah berdasarkan nilai hartanah (sehingga 90% pembiayaan), dan Pinjaman Perniagaan berdasarkan keperluan dan kelayakan perniagaan anda. Jumlah sebenar tertakluk kepada penilaian kredit.',
+        answer: 'Jumlah maksimum bergantung pada produk dan profil anda: Pinjaman Peribadi sehingga RM100,000, Pinjaman Perniagaan berdasarkan aliran tunai dan cagaran, Penyatuan Hutang biasanya sehingga RM200,000. Kelulusan akhir tertakluk kepada penilaian kredit.',
       },
       {
         category: 'services',
         question: 'Apakah kadar faedah anda?',
-        answer: 'Kadar rata kompetitif kami bermula dari: Pinjaman Peribadi pada 4.88% setahun, Pinjaman Kereta pada 3.5% setahun, Pinjaman Rumah pada 4.0% setahun, dan Pinjaman Perniagaan pada 5.5% setahun. Kadar sebenar mungkin berbeza berdasarkan profil kredit dan jumlah pinjaman anda.',
+        answer: 'Kadar indikatif: Pinjaman Peribadi dari 4.88% setahun, Pinjaman Perniagaan dari 5.5% setahun, Penyatuan Hutang 6–9% setahun. Kadar sebenar bergantung pada profil kredit, produk dipilih, dan mematuhi had berkanun di bawah Peraturan Pemberi Pinjam Wang.',
       },
       {
         category: 'services',
         question: 'Apakah tempoh pinjaman yang tersedia?',
-        answer: 'Tempoh berbeza mengikut jenis pinjaman: Pinjaman Peribadi: 1-7 tahun, Pinjaman Kereta: sehingga 9 tahun, Pinjaman Rumah: sehingga 35 tahun, Pinjaman Perniagaan: terma fleksibel berdasarkan keperluan perniagaan. Anda boleh memilih tempoh yang sesuai dengan bajet anda.',
+        answer: 'Tempoh ikut produk: Pinjaman Peribadi 1–7 tahun, Penyatuan Hutang 1–7 tahun, Pinjaman Perniagaan fleksibel ikut keperluan, Pinjaman Kecemasan 1–7 tahun. Tempoh lebih panjang mengurangkan bayaran bulanan tetapi meningkatkan jumlah faedah.',
       },
       // Application Process
       {
@@ -289,7 +289,7 @@ const pageContent = {
       {
         category: 'security',
         question: 'Bagaimana saya tahu ini adalah syarikat pinjaman yang sah?',
-        answer: 'GURU Credits adalah syarikat konsultasi berdaftar. Semua yuran dinyatakan dengan jelas. Kami hanya kutip yuran analisis RM30 melalui WhatsApp rasmi selepas penghantaran. Jika anda mempunyai kebimbangan, sila lawati pejabat kami atau hubungi kami melalui saluran rasmi.',
+        answer: 'GURU Credits beroperasi di bawah lesen Akta Pemberi Pinjam Wang 1951 yang dikeluarkan oleh KPKT. Semua yuran dinyatakan dengan jelas — RM30 yang disebut ialah caj salur lalu untuk mengambil laporan kredit CTOS anda dan dikutip hanya melalui WhatsApp rasmi selepas pengesahan butiran. Butiran lesen dan alamat perniagaan berdaftar boleh didapati atas permintaan melalui saluran rasmi.',
       },
       {
         category: 'security',

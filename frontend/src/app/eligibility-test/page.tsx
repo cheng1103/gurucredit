@@ -163,8 +163,8 @@ const pageContent = {
       title: 'Plan Your Next Step',
       button: 'Visit',
       items: [
-        { label: 'Use the Car Loan Calculator', href: '/tools/car-loan-calculator' },
-        { label: 'Use the Home Loan Calculator', href: '/tools/home-loan-calculator' },
+        { label: 'Use the DSR Calculator', href: '/calculator' },
+        { label: 'Compare Loans Side by Side', href: '/tools/compare' },
         { label: 'Read the Credit Score Improvement Guide', href: '/blog/how-to-improve-credit-score-malaysia' },
       ],
     },
@@ -305,8 +305,8 @@ const pageContent = {
       title: 'Langkah Seterusnya',
       button: 'Pergi',
       items: [
-        { label: 'Guna Kalkulator Pinjaman Kereta', href: '/tools/car-loan-calculator' },
-        { label: 'Guna Kalkulator Pinjaman Rumah', href: '/tools/home-loan-calculator' },
+        { label: 'Guna Kalkulator DSR', href: '/calculator' },
+        { label: 'Bandingkan Pinjaman', href: '/tools/compare' },
         { label: 'Baca Panduan Baiki Skor Kredit', href: '/blog/how-to-improve-credit-score-malaysia' },
       ],
     },

@@ -43,20 +43,6 @@ const content = {
         tag: 'Most used',
       },
       {
-        title: 'Home Loan Calculator',
-        description: 'Estimate mortgage payments and interest.',
-        href: '/tools/home-loan-calculator',
-        icon: Home,
-        tag: 'Mortgage',
-      },
-      {
-        title: 'Car Loan Calculator',
-        description: 'Plan repayments before you choose a car.',
-        href: '/tools/car-loan-calculator',
-        icon: Car,
-        tag: 'Auto',
-      },
-      {
         title: 'Loan Comparison Tool',
         description: 'Compare rates and fees across major banks.',
         href: '/tools/compare',
@@ -74,7 +60,7 @@ const content = {
     open: 'Open tool',
     cta: {
       title: 'Want expert validation?',
-      description: 'Get a full credit analysis and bank-matching plan for RM30.',
+      description: 'Get a full written credit analysis and a tailored loan offer for a RM30 CTOS fee.',
       primary: 'Get Expert Analysis',
       secondary: 'View Services',
     },
@@ -91,20 +77,6 @@ const content = {
         href: '/calculator',
         icon: Calculator,
         tag: 'Paling digunakan',
-      },
-      {
-        title: 'Kalkulator Pinjaman Rumah',
-        description: 'Anggar bayaran gadai janji dan faedah.',
-        href: '/tools/home-loan-calculator',
-        icon: Home,
-        tag: 'Rumah',
-      },
-      {
-        title: 'Kalkulator Pinjaman Kereta',
-        description: 'Rancang bayaran sebelum pilih kereta.',
-        href: '/tools/car-loan-calculator',
-        icon: Car,
-        tag: 'Auto',
       },
       {
         title: 'Alat Perbandingan Pinjaman',
@@ -124,7 +96,7 @@ const content = {
     open: 'Buka alat',
     cta: {
       title: 'Perlukan pengesahan pakar?',
-      description: 'Dapatkan analisis kredit penuh dan padanan bank dengan RM30.',
+      description: 'Dapatkan analisis kredit penuh dan struktur pinjaman dengan RM30.',
       primary: 'Dapatkan Analisis Pakar',
       secondary: 'Lihat Perkhidmatan',
     },

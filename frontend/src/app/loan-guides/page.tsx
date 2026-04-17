@@ -40,20 +40,6 @@ const pageContent = {
         stats: '90-day recovery plan',
       },
       {
-        title: 'Home Loan Checklist',
-        description: 'DSR planning, margin expectations, document prep, and bank comparison tips.',
-        href: '/loan-guides/home-loan',
-        icon: 'Home',
-        stats: 'Up to 90% financing',
-      },
-      {
-        title: 'Car Loan Preparation',
-        description: 'Down payment strategy, loan tenure choices, and dealer documentation guide.',
-        href: '/loan-guides/car-loan',
-        icon: 'CarFront',
-        stats: 'Tenure 5-9 years',
-      },
-      {
         title: 'Debt Consolidation Strategy',
         description: 'Lower monthly commitments by combining credit cards and personal loans.',
         href: '/loan-guides/debt-consolidation',
@@ -76,16 +62,6 @@ const pageContent = {
         href: '/calculator',
       },
       {
-        title: 'Home Loan Calculator',
-        description: 'Estimate monthly instalments and total interest.',
-        href: '/tools/home-loan-calculator',
-      },
-      {
-        title: 'Car Loan Calculator',
-        description: 'Plan your down payment and monthly instalments.',
-        href: '/tools/car-loan-calculator',
-      },
-      {
         title: 'Loan Comparison',
         description: 'Compare rate ranges and eligibility fast.',
         href: '/tools/compare',
@@ -93,7 +69,7 @@ const pageContent = {
     ],
     ctaTitle: 'Need a Personalized Plan?',
     ctaDescription:
-      'Get a RM30 eligibility analysis with CCRIS review, lender matching, and a customized checklist.',
+      'Get a RM30 eligibility analysis with CCRIS review, loan structuring, and a customized checklist.',
     ctaPrimary: 'Start Eligibility Review',
     ctaSecondary: 'Chat on WhatsApp',
   },
@@ -111,20 +87,6 @@ const pageContent = {
         href: '/loan-guides/credit-score',
         icon: 'CreditCard',
         stats: 'Pelan pemulihan 90 hari',
-      },
-      {
-        title: 'Senarai Semak Pinjaman Rumah',
-        description: 'Perancangan DSR, jangkaan margin, dokumen, dan perbandingan bank.',
-        href: '/loan-guides/home-loan',
-        icon: 'Home',
-        stats: 'Sehingga 90% pembiayaan',
-      },
-      {
-        title: 'Persediaan Pinjaman Kereta',
-        description: 'Strategi deposit, pilihan tempoh, dan panduan dokumen dealer.',
-        href: '/loan-guides/car-loan',
-        icon: 'CarFront',
-        stats: 'Tempoh 5-9 tahun',
       },
       {
         title: 'Strategi Penyatuan Hutang',
@@ -149,16 +111,6 @@ const pageContent = {
         href: '/calculator',
       },
       {
-        title: 'Kalkulator Pinjaman Rumah',
-        description: 'Anggar ansuran bulanan dan faedah.',
-        href: '/tools/home-loan-calculator',
-      },
-      {
-        title: 'Kalkulator Pinjaman Kereta',
-        description: 'Rancang deposit dan ansuran bulanan.',
-        href: '/tools/car-loan-calculator',
-      },
-      {
         title: 'Perbandingan Pinjaman',
         description: 'Banding kadar dan kelayakan dengan cepat.',
         href: '/tools/compare',
@@ -166,7 +118,7 @@ const pageContent = {
     ],
     ctaTitle: 'Perlukan Pelan Peribadi?',
     ctaDescription:
-      'Dapatkan analisis kelayakan RM30 dengan semakan CCRIS, padanan bank, dan senarai semak khusus.',
+      'Dapatkan analisis kelayakan RM30 dengan semakan CCRIS, struktur pinjaman, dan senarai semak khusus.',
     ctaPrimary: 'Mulakan Semakan Kelayakan',
     ctaSecondary: 'Chat di WhatsApp',
   },

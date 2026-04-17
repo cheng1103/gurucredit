@@ -16,7 +16,7 @@ const pageContent = {
     },
     notice: {
       title: 'Important Notice',
-      content: 'GURU Credits is a loan consultation and credit analysis service. We are NOT a bank, licensed money lender, or financial institution. We do not provide loans, approve loan applications, or make lending decisions. Our role is limited to analysis, consultation, and recommendations.',
+      content: 'GURU Credits operates under a Moneylenders Act 1951 license issued by KPKT. We provide credit analysis, loan matching, and lending services in compliance with the statutory interest-rate caps and borrower-protection rules set by the Moneylenders (Control and Licensing) Regulations. We are not a bank, and where a bank product is better suited to your profile we will refer you rather than extend credit ourselves.',
     },
     notFinancial: {
       title: 'Not Financial Advice',
@@ -97,7 +97,7 @@ const pageContent = {
     },
     notice: {
       title: 'Notis Penting',
-      content: 'GURU Credits adalah perkhidmatan konsultasi pinjaman dan analisis kredit. Kami BUKAN bank, pemberi pinjaman wang berlesen, atau institusi kewangan. Kami tidak menyediakan pinjaman, meluluskan permohonan pinjaman, atau membuat keputusan pemberian pinjaman. Peranan kami terhad kepada analisis, konsultasi, dan cadangan.',
+      content: 'GURU Credits beroperasi di bawah lesen Akta Pemberi Pinjam Wang 1951 yang dikeluarkan oleh KPKT. Kami menyediakan analisis kredit, padanan pinjaman, dan perkhidmatan pemberian pinjaman mengikut had kadar faedah berkanun dan peraturan perlindungan peminjam yang ditetapkan oleh Peraturan Pemberi Pinjam Wang (Kawalan dan Pelesenan). Kami bukan bank, dan apabila produk bank lebih sesuai dengan profil anda, kami akan merujuk anda dan bukannya memberikan kredit sendiri.',
     },
     notFinancial: {
       title: 'Bukan Nasihat Kewangan',

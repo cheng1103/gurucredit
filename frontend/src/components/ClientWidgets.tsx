@@ -22,7 +22,6 @@ const FloatingPromoWidget = dynamic(
   () => import('@/components/PromoBanner').then((mod) => mod.FloatingPromoWidget),
   { ssr: false },
 );
-
 export function ClientWidgets() {
   return (
     <>

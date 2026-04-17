@@ -22,17 +22,17 @@ import {
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { COMPANY, SEO, TRUST_BLOCK } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
-import { LoanProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
+import { FinancialProductJsonLd, LoanProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
 import { TrustPanel } from '@/components/TrustPanel';
 
 export const metadata = buildMetadata({
   title: 'Personal Loan Playbook',
   description:
-    'Personal loan guidance for Malaysians. Get DSR strategy, CCRIS/CTOS checks, and lender shortlists to unlock better personal financing terms.',
+    'Personal loan guidance for Malaysians. Get DSR strategy, CCRIS/CTOS checks, and loan offer structure to unlock better personal financing terms.',
   path: '/loans/personal',
   image: '/images/optimized/personal-loan.jpg',
   keywords:
-    'personal loan Malaysia, personal financing, DSR analysis, CCRIS CTOS, loan guidance, lender shortlist',
+    'personal loan Malaysia, personal financing, DSR analysis, CCRIS CTOS, loan guidance, tailored loan offer',
 });
 
 const pageContent = {
@@ -42,7 +42,7 @@ const pageContent = {
       title: 'Personal Loan',
       titleHighlight: 'Playbook',
       subtitle:
-        'Action plan, lender shortlist, and DSR strategy to unlock up to RM100,000 in personal financing at rates from 4.88% flat p.a.',
+        'Action plan, tailored loan offer, and DSR strategy to unlock up to RM100,000 in personal financing at rates from 4.88% flat p.a.',
     },
     stats: [
       { value: 'RM100k', label: 'Max Amount' },
@@ -141,7 +141,7 @@ const pageContent = {
     },
     cta: {
       title: 'Ready to Unlock RM100k?',
-      description: 'Start with a RM30 analysis that includes DSR review, CCRIS/CTOS audit, and lender shortlist.',
+      description: 'Start with a RM30 analysis that includes DSR review, CCRIS/CTOS audit, and tailored loan offer.',
       primary: 'Book My Analysis',
       secondary: 'Chat on WhatsApp',
     },
@@ -152,7 +152,7 @@ const pageContent = {
       title: 'Panduan Pinjaman',
       titleHighlight: 'Peribadi',
       subtitle:
-        'Pelan tindakan, senarai bank dan strategi DSR untuk mendapatkan sehingga RM100,000 dengan kadar bermula 4.88% setahun.',
+        'Pelan tindakan, tawaran pinjaman dan strategi DSR untuk mendapatkan sehingga RM100,000 dengan kadar bermula 4.88% setahun.',
     },
     stats: [
       { value: 'RM100k', label: 'Jumlah Maksimum' },
@@ -251,7 +251,7 @@ const pageContent = {
     },
     cta: {
       title: 'Sedia Dapatkan RM100k?',
-      description: 'Mulakan dengan analisis RM30 yang merangkumi semakan DSR, audit CCRIS/CTOS dan senarai bank.',
+      description: 'Mulakan dengan analisis RM30 yang merangkumi semakan DSR, audit CCRIS/CTOS dan tawaran pinjaman.',
       primary: 'Tempah Analisis Saya',
       secondary: 'Chat di WhatsApp',
     },
@@ -274,11 +274,25 @@ export default async function PersonalLoanPage() {
     <>
       <LoanProductJsonLd
         name="Personal Loan Malaysia"
-        description="Personal loan guidance with RM30 analysis, DSR strategy, and curated bank shortlist."
+        description="Personal loan guidance with RM30 analysis, DSR strategy, and tailored loan offer."
         interestRate="4.88% - 8.5% flat p.a."
         loanTerm="1-7 years"
         minAmount={5000}
         maxAmount={100000}
+      />
+      <FinancialProductJsonLd
+        url={`${SEO.url}/loans/personal`}
+        name="Personal Loan Malaysia"
+        description="Personal loan guidance with RM30 eligibility analysis, DSR strategy, and written loan offer tailored to your profile."
+        category="PersonalLoan"
+        aprMin={4.88}
+        aprMax={8.5}
+        termMonthsMin={12}
+        termMonthsMax={84}
+        minAmount={5000}
+        maxAmount={100000}
+        requiredCollateral="Unsecured (no collateral required)"
+        feeNote="RM30 one-time eligibility analysis fee. Lender processing and stamp duties apply per bank."
       />
       <WebPageJsonLd
         url={`${SEO.url}/loans/personal`}

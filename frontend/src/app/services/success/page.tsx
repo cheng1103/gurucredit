@@ -14,8 +14,9 @@ import {
   Download,
   Calculator,
 } from 'lucide-react';
-import { COMPANY, SERVICES } from '@/lib/constants';
+import { COMPANY, SEO, SERVICES } from '@/lib/constants';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
+import { WebPageJsonLd } from '@/components/JsonLd';
 import { ReferenceDetailsClient } from './ReferenceDetailsClient';
 
 const pageContent = {
@@ -177,16 +178,16 @@ const generateReference = () => {
 };
 
 type SuccessPageProps = {
-  searchParams: Record<string, string | string[] | undefined>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export default async function SuccessPage({ searchParams }: SuccessPageProps) {
   const language = await resolveRequestLanguage();
   const t = pageContent[language] ?? pageContent.en;
-  const serviceId =
-    typeof searchParams.service === 'string' ? searchParams.service : undefined;
+  const params = await searchParams;
+  const serviceId = typeof params.service === 'string' ? params.service : undefined;
   const referenceFromUrl =
-    typeof searchParams.ref === 'string' ? searchParams.ref.toUpperCase() : undefined;
+    typeof params.ref === 'string' ? params.ref.toUpperCase() : undefined;
   const referenceNumber = referenceFromUrl ?? generateReference();
   const service = SERVICES.find((s) => s.id === serviceId) || SERVICES[0];
   const whatsappLink = COMPANY.whatsappLink;
@@ -197,6 +198,16 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
 
   return (
     <div className="py-16 lg:py-24">
+      <WebPageJsonLd
+        url={`${SEO.url}/services/success`}
+        title="Application Submitted"
+        description="Your GURU Credits consultation request has been received. Save your reference number and we will follow up within 24 business hours."
+        breadcrumbItems={[
+          { name: 'Home', url: SEO.url },
+          { name: 'Services', url: `${SEO.url}/services` },
+          { name: 'Success', url: `${SEO.url}/services/success` },
+        ]}
+      />
       <div className="container max-w-2xl">
         <Card className="shadow-2xl border-2 overflow-hidden">
           <div className="bg-gradient-to-br from-green-500 to-emerald-600 text-white p-8 text-center relative overflow-hidden">

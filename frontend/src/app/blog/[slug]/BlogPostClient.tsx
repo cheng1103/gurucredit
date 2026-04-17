@@ -25,6 +25,7 @@ import { COMPANY, SEO } from '@/lib/constants';
 import { useLanguage } from '@/lib/i18n';
 import ReactMarkdown from 'react-markdown';
 import { ArticleJsonLd, WebPageJsonLd } from '@/components/JsonLd';
+import { getAuthorProfile } from '@/lib/authors';
 
 // Bilingual page content
 const pageContent = {
@@ -115,6 +116,15 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
   const CategoryIcon = categoryIcons[post.category] || BookOpen;
   const categoryLabel = getCategoryLabel(post.category);
 
+  const authorProfile = getAuthorProfile(post.author);
+  const authorRole = post.authorRole ?? authorProfile.role;
+  const authorBio = post.authorBio ?? authorProfile.bio;
+  const authorCredentials = post.authorCredentials ?? authorProfile.credentials;
+  const authorPhoto = post.authorPhoto ?? authorProfile.photo;
+  const reviewedBy = post.reviewedBy ?? `${COMPANY.name} Senior Consultant`;
+  const reviewedAt = post.reviewedAt ?? post.updatedAt ?? post.publishedAt;
+  const hasBeenUpdated = Boolean(post.updatedAt && post.updatedAt !== post.publishedAt);
+
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -143,7 +153,14 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
         description={post.excerpt}
         descriptionMs={post.excerptMs}
         author={post.author}
+        authorRole={post.authorRole}
+        authorBio={post.authorBio}
+        authorCredentials={post.authorCredentials}
+        authorPhoto={post.authorPhoto}
         publishedAt={post.publishedAt}
+        updatedAt={post.updatedAt}
+        reviewedBy={post.reviewedBy}
+        reviewedAt={post.reviewedAt}
         slug={post.slug}
         tags={post.tags}
         image={post.image}
@@ -182,8 +199,14 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
               </span>
               <span className="text-sm text-muted-foreground flex items-center gap-1">
                 <Calendar className="h-3 w-3" aria-hidden="true" />
-                {formatDate(post.publishedAt)}
+                {language === 'ms' ? 'Diterbitkan' : 'Published'} {formatDate(post.publishedAt)}
               </span>
+              {hasBeenUpdated && (
+                <span className="text-sm text-primary flex items-center gap-1 font-medium">
+                  <Calendar className="h-3 w-3" aria-hidden="true" />
+                  {language === 'ms' ? 'Dikemaskini' : 'Updated'} {formatDate(post.updatedAt!)}
+                </span>
+              )}
             </div>
 
             <h1 className="text-3xl lg:text-4xl font-bold mb-4">
@@ -196,20 +219,24 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
 
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <User className="h-5 w-5 text-primary" aria-hidden="true" />
+                <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden relative">
+                  {authorPhoto ? (
+                    <Image src={authorPhoto} alt={post.author} fill sizes="44px" className="object-cover" />
+                  ) : (
+                    <User className="h-5 w-5 text-primary" aria-hidden="true" />
+                  )}
                 </div>
                 <div>
-                  <p className="font-medium text-sm">{post.author}</p>
-                  <p className="text-sm text-muted-foreground">{COMPANY.name}</p>
+                  <p className="font-semibold text-sm text-foreground">{post.author}</p>
+                  <p className="text-xs text-muted-foreground">{authorRole}</p>
                 </div>
               </div>
               <div className="flex flex-col gap-1 text-xs text-muted-foreground">
                 <span>
-                  {t.reviewedBy}: {COMPANY.name} Research
+                  {t.reviewedBy}: <span className="font-medium text-foreground">{reviewedBy}</span>
                 </span>
                 <span>
-                  {t.lastReviewed}: {formatDate(post.publishedAt)}
+                  {t.lastReviewed}: {formatDate(reviewedAt)}
                 </span>
               </div>
               <div className="flex items-center gap-3">
@@ -315,6 +342,43 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
               {getContent(post)}
             </ReactMarkdown>
           </article>
+
+          {/* About the Author — E-E-A-T signal for YMYL */}
+          <div className="surface-card rounded-3xl p-6 md:p-8 shadow-lg border border-border/60">
+            <p className="eyebrow text-muted-foreground mb-4">
+              {language === 'ms' ? 'Tentang Penulis' : 'About the Author'}
+            </p>
+            <div className="flex items-start gap-5">
+              <div className="flex-shrink-0 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden relative">
+                {authorPhoto ? (
+                  <Image src={authorPhoto} alt={post.author} fill sizes="64px" className="object-cover" />
+                ) : (
+                  <User className="h-7 w-7 text-primary" aria-hidden="true" />
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-base text-foreground">{post.author}</p>
+                <p className="text-sm text-primary font-medium mb-2">{authorRole}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-3">{authorBio}</p>
+                {authorCredentials && (
+                  <p className="text-xs text-muted-foreground italic">
+                    {language === 'ms' ? 'Kepakaran' : 'Expertise'}: {authorCredentials}
+                  </p>
+                )}
+                <div className="mt-4 pt-4 border-t border-border/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-muted-foreground">
+                  <span>
+                    {t.reviewedBy}: <span className="font-medium text-foreground">{reviewedBy}</span>
+                  </span>
+                  <span>
+                    {hasBeenUpdated
+                      ? (language === 'ms' ? 'Dikemaskini' : 'Updated')
+                      : (language === 'ms' ? 'Diterbitkan' : 'Published')}{' '}
+                    {formatDate(post.updatedAt ?? post.publishedAt)}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Tags */}
           <div className="surface-card rounded-2xl p-5 flex flex-wrap gap-2">

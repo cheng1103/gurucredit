@@ -6,12 +6,13 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle, Hourglass, Send } from 'lucide-react';
+import { CheckCircle, Hourglass, Send, SearchX, MessageCircle, RefreshCw } from 'lucide-react';
+import Link from 'next/link';
 import { applicationsAPI } from '@/lib/api';
 import { toast } from 'sonner';
+import { COMPANY } from '@/lib/constants';
 import type { Language } from '@/lib/i18n/translations';
 import { useTranslation } from '@/lib/i18n';
-import { COMPANY } from '@/lib/constants';
 
 const content = {
   en: {
@@ -85,6 +86,7 @@ export default function StatusContent({ language }: StatusContentProps) {
   const { t: translate } = useTranslation();
   const [form, setForm] = useState({ referenceId: '', email: '' });
   const [loading, setLoading] = useState(false);
+  const [notFound, setNotFound] = useState(false);
   const [result, setResult] = useState<null | {
     id: string;
     applicantName: string;
@@ -98,6 +100,7 @@ export default function StatusContent({ language }: StatusContentProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setNotFound(false);
     if (!form.referenceId || !form.email) {
       toast.error(translate('toast.statusMissingFields'));
       return;
@@ -114,11 +117,21 @@ export default function StatusContent({ language }: StatusContentProps) {
       const message =
         (error as { response?: { data?: { message?: string } } })?.response?.data
           ?.message;
-      toast.error(message || translate('toast.statusLookup'));
+      // Surface a persistent "no match" panel instead of only a disappearing toast.
+      setNotFound(true);
       setResult(null);
+      if (message) {
+        toast.error(message);
+      }
     } finally {
       setLoading(false);
     }
+  };
+
+  const clearSearch = () => {
+    setForm({ referenceId: '', email: '' });
+    setNotFound(false);
+    setResult(null);
   };
 
   const formatDate = (value?: string) => {
@@ -188,6 +201,68 @@ export default function StatusContent({ language }: StatusContentProps) {
             </form>
           </CardContent>
         </Card>
+
+        {notFound && !result && (
+          <Card className="border border-amber-200 bg-amber-50/40">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-amber-900">
+                <SearchX className="h-5 w-5" />
+                {language === 'ms' ? 'Rujukan tidak dijumpai' : 'We could not find that reference'}
+              </CardTitle>
+              <CardDescription className="text-amber-800">
+                {language === 'ms'
+                  ? 'Kombinasi nombor rujukan dan e-mel tidak sepadan dengan sebarang permohonan kami. Periksa perkara berikut sebelum cuba semula:'
+                  : 'The reference number and email you entered do not match any application in our system. Double-check the items below before retrying.'}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              <ul className="space-y-2 text-sm text-amber-900">
+                <li className="flex gap-2">
+                  <span aria-hidden="true">·</span>
+                  <span>
+                    {language === 'ms'
+                      ? 'Nombor rujukan bermula dengan'
+                      : 'Reference numbers begin with'}{' '}
+                    <code className="font-mono font-semibold">GC</code>{' '}
+                    {language === 'ms' ? 'dan 14 aksara tambahan (contoh' : 'and 14 characters (e.g.'}{' '}
+                    <code className="font-mono font-semibold">GC20260418ABC123</code>)
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span aria-hidden="true">·</span>
+                  <span>
+                    {language === 'ms'
+                      ? 'Gunakan e-mel yang sama seperti semasa menghantar borang permohonan.'
+                      : 'Use the same email address you entered on the application form.'}
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span aria-hidden="true">·</span>
+                  <span>
+                    {language === 'ms'
+                      ? 'Permohonan baru dihantar mungkin mengambil beberapa minit untuk muncul.'
+                      : 'A newly submitted application may take a few minutes to appear.'}
+                  </span>
+                </li>
+              </ul>
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <Button type="button" variant="outline" onClick={clearSearch} className="rounded-full">
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                  {language === 'ms' ? 'Cuba sekali lagi' : 'Try again'}
+                </Button>
+                <Button
+                  asChild
+                  className="rounded-full bg-emerald-600 text-white hover:bg-emerald-500 border-0"
+                >
+                  <Link href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="mr-2 h-4 w-4" />
+                    {language === 'ms' ? 'Hubungi WhatsApp' : 'Ask us on WhatsApp'}
+                  </Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {result && (
           <Card className="surface-card">

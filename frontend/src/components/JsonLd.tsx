@@ -1,4 +1,5 @@
 import { COMPANY, SEO, SERVICES, FAQS, SERVICE_AREAS, SERVICE_AREA_LABEL } from '@/lib/constants';
+import { getAuthorProfile } from '@/lib/authors';
 
 const areaServedSchema = SERVICE_AREAS.map((area) => ({
   '@type': 'AdministrativeArea',
@@ -168,7 +169,14 @@ interface ArticleJsonLdProps {
   description: string;
   descriptionMs?: string;
   author: string;
+  authorRole?: string;
+  authorBio?: string;
+  authorCredentials?: string;
+  authorPhoto?: string;
   publishedAt: string;
+  updatedAt?: string;
+  reviewedBy?: string;
+  reviewedAt?: string;
   slug: string;
   tags: string[];
   image?: string;
@@ -180,13 +188,43 @@ export function ArticleJsonLd({
   description,
   descriptionMs,
   author,
+  authorRole,
+  authorBio,
+  authorCredentials,
+  authorPhoto,
   publishedAt,
+  updatedAt,
+  reviewedBy,
+  reviewedAt,
   slug,
   tags,
   image,
 }: ArticleJsonLdProps) {
   const resolvedImage = image ? new URL(image, SEO.url).toString() : undefined;
-  const schema = {
+  const profile = getAuthorProfile(author);
+  const resolvedRole = authorRole ?? profile.role;
+  const resolvedBio = authorBio ?? profile.bio;
+  const resolvedCredentials = authorCredentials ?? profile.credentials;
+  const resolvedAuthorImage = (authorPhoto ?? profile.photo)
+    ? new URL(authorPhoto ?? profile.photo!, SEO.url).toString()
+    : undefined;
+
+  const authorNode: Record<string, unknown> = {
+    '@type': 'Person',
+    name: author,
+    jobTitle: resolvedRole,
+    knowsAbout: profile.knowsAbout,
+    description: resolvedBio,
+    worksFor: { '@id': `${SEO.url}#organization` },
+  };
+  if (resolvedCredentials) authorNode.hasCredential = resolvedCredentials;
+  if (resolvedAuthorImage) authorNode.image = resolvedAuthorImage;
+  if (author.toLowerCase().includes('team') || author.toLowerCase().includes('desk') || author.toLowerCase().includes('lab')) {
+    // Team/desk bylines render as Person but their @type stays Person;
+    // the jobTitle = "Editorial collective" clarifies the nature.
+  }
+
+  const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     '@id': `${SEO.url}/blog/${slug}#article`,
@@ -196,10 +234,7 @@ export function ArticleJsonLd({
     description: description,
     abstract: descriptionMs,
     inLanguage: ['en-MY', 'ms-MY'],
-    author: {
-      '@type': 'Person',
-      name: author,
-    },
+    author: authorNode,
     publisher: {
       '@type': 'Organization',
       name: COMPANY.name,
@@ -209,7 +244,11 @@ export function ArticleJsonLd({
       },
     },
     datePublished: publishedAt,
-    dateModified: publishedAt,
+    dateModified: updatedAt ?? publishedAt,
+    ...(reviewedBy && {
+      reviewedBy: { '@type': 'Person', name: reviewedBy },
+    }),
+    ...(reviewedAt && { lastReviewed: reviewedAt }),
     ...(resolvedImage ? { image: [resolvedImage] } : {}),
     mainEntityOfPage: {
       '@type': 'WebPage',
@@ -427,6 +466,80 @@ interface LoanProductJsonLdProps {
   loanTerm: string;
   minAmount: number;
   maxAmount: number;
+}
+
+// Schema.org FinancialProduct / LoanOrCredit — the specific type Google uses
+// for loan rich results. Emitted alongside the generic Product schema.
+interface FinancialProductJsonLdProps {
+  url: string;
+  name: string;
+  description: string;
+  category: 'PersonalLoan' | 'MortgageLoan' | 'AutoLoan' | 'BusinessLoan';
+  aprMin: number;
+  aprMax: number;
+  termMonthsMin: number;
+  termMonthsMax: number;
+  minAmount: number;
+  maxAmount: number;
+  requiredCollateral?: string;
+  feeNote?: string;
+}
+
+export function FinancialProductJsonLd({
+  url,
+  name,
+  description,
+  category,
+  aprMin,
+  aprMax,
+  termMonthsMin,
+  termMonthsMax,
+  minAmount,
+  maxAmount,
+  requiredCollateral,
+  feeNote,
+}: FinancialProductJsonLdProps) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': ['FinancialProduct', 'LoanOrCredit'],
+    '@id': `${url}#financial-product`,
+    url,
+    name,
+    description,
+    category,
+    provider: { '@id': `${SEO.url}#organization` },
+    areaServed: areaServedSchema,
+    annualPercentageRate: {
+      '@type': 'QuantitativeValue',
+      minValue: aprMin,
+      maxValue: aprMax,
+      unitText: 'PERCENT',
+    },
+    loanTerm: {
+      '@type': 'QuantitativeValue',
+      minValue: termMonthsMin,
+      maxValue: termMonthsMax,
+      unitCode: 'MON',
+    },
+    amount: {
+      '@type': 'MonetaryAmount',
+      currency: 'MYR',
+      minValue: minAmount,
+      maxValue: maxAmount,
+    },
+    currency: 'MYR',
+    ...(requiredCollateral && { requiredCollateral }),
+    ...(feeNote && {
+      feesAndCommissionsSpecification: feeNote,
+    }),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
 }
 
 export function LoanProductJsonLd({ name, description, interestRate, loanTerm, minAmount, maxAmount }: LoanProductJsonLdProps) {

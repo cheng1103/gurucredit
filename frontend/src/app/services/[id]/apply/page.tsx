@@ -144,8 +144,6 @@ const pageContent = {
       chatWhatsApp: 'Chat with us on WhatsApp',
     },
     quickQuestions: {
-      referral: 'How did you hear about us?',
-      referralPlaceholder: 'Select an option',
       contactPreference: 'Preferred WhatsApp time',
       contactNote: 'We will prioritise contacting you within this window.',
     },
@@ -361,8 +359,6 @@ const pageContent = {
       chatWhatsApp: 'Sembang dengan kami di WhatsApp',
     },
     quickQuestions: {
-      referral: 'Bagaimana anda tahu tentang kami?',
-      referralPlaceholder: 'Pilih satu pilihan',
       contactPreference: 'Masa WhatsApp pilihan anda',
       contactNote: 'Kami akan cuba hubungi anda dalam tempoh ini.',
     },
@@ -525,7 +521,6 @@ export default function ServiceApplyPage() {
     loanPurpose: '',
     loanAmount: '',
     additionalNotes: '',
-    referralSource: '',
     contactPreference: 'any',
   });
 
@@ -560,6 +555,18 @@ export default function ServiceApplyPage() {
   const dsrStatusText = dsrStatus ? t.insights.status[dsrStatus] : null;
   const formattedIncome = monthlyIncomeValue ? `RM ${monthlyIncomeValue.toLocaleString()}` : '—';
   const formattedDebt = totalMonthlyDebt ? `RM ${totalMonthlyDebt.toLocaleString()}` : '—';
+
+  // Live-validation helpers for instant positive feedback
+  const isValidEmail = /^[\w.+-]+@[\w-]+\.[\w.-]+$/.test(formData.email.trim());
+  const isValidPhone = /^(\+?60|0)[0-9\s-]{8,14}$/.test(formData.phone.trim());
+
+  // Rough approvable estimate: cap monthly commitment at 60% DSR minus existing debts,
+  // annualise over the loan tenure range midpoint (~4 years) — informative, not binding.
+  const maxMonthlyPayment = Math.max(0, monthlyIncomeValue * 0.6 - totalMonthlyDebt);
+  const estimatedApprovable = maxMonthlyPayment > 0 ? Math.round(maxMonthlyPayment * 48) : null;
+  const formattedApprovable = estimatedApprovable
+    ? `RM ${Math.min(estimatedApprovable, 100000).toLocaleString()}`
+    : null;
   const dsrLabel = estimatedDSR !== null ? `${estimatedDSR.toFixed(1)}%` : '—';
 
   const openWhatsApp = () => {
@@ -649,7 +656,6 @@ export default function ServiceApplyPage() {
         loanPurpose: validatedData.loanPurpose || undefined,
         loanAmount: validatedData.loanAmount ? parseFloat(validatedData.loanAmount) : undefined,
         additionalNotes: validatedData.additionalNotes || undefined,
-        referralSource: validatedData.referralSource || undefined,
         contactPreference: validatedData.contactPreference || undefined,
       });
 
@@ -674,7 +680,6 @@ export default function ServiceApplyPage() {
         email: true,
         phone: true,
         serviceArea: true,
-        referralSource: true,
         contactPreference: true,
       });
       const result = validateForm(stepSchema, formData);
@@ -723,13 +728,6 @@ export default function ServiceApplyPage() {
     { value: 'business', label: t.form.business },
     { value: 'freelance', label: t.form.freelance },
   ];
-  const referralOptions = [
-    'Google Search',
-    'TikTok / Social Media',
-    'Friend / Referral',
-    'Repeat Customer',
-    'Other',
-  ];
   const contactPreferences = [
     { value: 'any', label: language === 'ms' ? 'Bila-bila masa' : 'Anytime' },
     { value: 'morning', label: language === 'ms' ? 'Pagi (9am-12pm)' : 'Morning (9am-12pm)' },
@@ -775,7 +773,7 @@ export default function ServiceApplyPage() {
               ))}
             </div>
           </div>
-          <Card className="p-4 surface-card">
+          <Card className="p-4 border border-border/70 bg-card">
             <div className="text-xs text-muted-foreground">{t.sidebar.analysisFee}</div>
             <div className="flex items-baseline gap-2 mt-2">
               <span className="text-3xl font-bold text-primary">RM{ANALYSIS_FEE}</span>
@@ -794,9 +792,19 @@ export default function ServiceApplyPage() {
 
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <Card className="shadow-lg border-2 surface-card">
-              <CardHeader className="bg-gradient-to-br from-primary/5 to-primary/10 border-b">
-                <ol className="flex flex-wrap gap-2 text-xs text-muted-foreground mb-3" aria-label="Application steps">
+            <Card className="shadow-lg border border-border/70 bg-card">
+              <CardHeader className="border-b border-border/60">
+                {/* Mobile: compact "Step N of 4" pill */}
+                <p className="sm:hidden text-xs font-semibold tracking-[0.14em] uppercase text-primary mb-3">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-primary/60 bg-primary/10 px-3 py-1">
+                    <span>{String(step).padStart(2, '0')} / 04</span>
+                    <span className="text-muted-foreground font-medium normal-case tracking-normal">
+                      {stepItems[step - 1]?.label}
+                    </span>
+                  </span>
+                </p>
+                {/* Desktop: full 4-step breadcrumb */}
+                <ol className="hidden sm:flex flex-wrap gap-2 text-xs text-muted-foreground mb-3" aria-label="Application steps">
                   {stepItems.map((item, index) => (
                     <li
                       key={item.label}
@@ -878,10 +886,16 @@ export default function ServiceApplyPage() {
                             value={formData.email}
                             onChange={(e) => handleFieldChange('email', e.target.value)}
                             onBlur={() => handleFieldBlur('email')}
-                            className={`pl-10 ${getFieldError(errors, 'email') ? 'border-red-500' : ''}`}
+                            className={`pl-10 pr-10 ${getFieldError(errors, 'email') ? 'border-red-500' : isValidEmail ? 'border-emerald-500/70' : ''}`}
                             autoComplete="email"
                             required
                           />
+                          {isValidEmail && !getFieldError(errors, 'email') && (
+                            <CheckCircle
+                              className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-600"
+                              aria-label="Valid email"
+                            />
+                          )}
                         </div>
                         {getFieldError(errors, 'email') ? (
                           <p className="text-sm text-red-500">{getFieldError(errors, 'email')}</p>
@@ -901,10 +915,16 @@ export default function ServiceApplyPage() {
                             value={formData.phone}
                             onChange={(e) => handleFieldChange('phone', e.target.value)}
                             onBlur={() => handleFieldBlur('phone')}
-                            className={`pl-10 ${getFieldError(errors, 'phone') ? 'border-red-500' : ''}`}
+                            className={`pl-10 pr-10 ${getFieldError(errors, 'phone') ? 'border-red-500' : isValidPhone ? 'border-emerald-500/70' : ''}`}
                             autoComplete="tel"
                             required
                           />
+                          {isValidPhone && !getFieldError(errors, 'phone') && (
+                            <CheckCircle
+                              className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-600"
+                              aria-label="Valid phone"
+                            />
+                          )}
                         </div>
                         {getFieldError(errors, 'phone') && (
                           <p className="text-sm text-red-500">{getFieldError(errors, 'phone')}</p>
@@ -935,24 +955,6 @@ export default function ServiceApplyPage() {
                         {getFieldError(errors, 'serviceArea') && (
                           <p className="text-sm text-red-500">{getFieldError(errors, 'serviceArea')}</p>
                         )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="referralSource">{t.quickQuestions.referral}</Label>
-                        <select
-                          id="referralSource"
-                          value={formData.referralSource}
-                          onChange={(e) => handleFieldChange('referralSource', e.target.value)}
-                          onBlur={() => handleFieldBlur('referralSource')}
-                          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-                        >
-                          <option value="">{t.quickQuestions.referralPlaceholder}</option>
-                          {referralOptions.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
                       </div>
 
                       <div className="space-y-2">
@@ -1209,12 +1211,6 @@ export default function ServiceApplyPage() {
                               {SERVICE_AREAS.find((area) => area.regionCode === formData.serviceArea)?.name ||
                                 formData.serviceArea}
                             </div>
-                            {formData.referralSource && (
-                              <>
-                                <div className="text-muted-foreground">{t.quickQuestions.referral}:</div>
-                                <div className="font-medium">{formData.referralSource}</div>
-                              </>
-                            )}
                             {formData.contactPreference && (
                               <>
                                 <div className="text-muted-foreground">{t.quickQuestions.contactPreference}:</div>
@@ -1327,8 +1323,8 @@ export default function ServiceApplyPage() {
 
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
-              <Card className="shadow-lg border-2 border-primary/20 surface-card">
-                <CardHeader className="bg-gradient-to-br from-primary to-primary/90 text-primary-foreground pb-4">
+              <Card className="shadow-lg border border-border/70 bg-card overflow-hidden">
+                <CardHeader className="bg-gradient-to-br from-primary to-primary/90 text-primary-foreground pb-4 rounded-t-xl">
                   <Badge className="bg-white/20 text-white border-0 w-fit mb-2">
                     <Star className="h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
                     {t.sidebar.selectedService}
@@ -1368,7 +1364,7 @@ export default function ServiceApplyPage() {
               </Card>
 
               {serviceData.spotlight && (
-                <Card className="border border-amber-200 shadow-sm surface-card">
+                <Card className="border border-amber-200 shadow-sm bg-card">
                   <CardContent className="p-4 space-y-3">
                     <p className="italic text-sm text-muted-foreground">{serviceData.spotlight.quote}</p>
                     <p className="text-xs text-muted-foreground">— {serviceData.spotlight.author}</p>
@@ -1379,7 +1375,7 @@ export default function ServiceApplyPage() {
                 </Card>
               )}
 
-              <Card className="border-primary/20 shadow-sm surface-card">
+              <Card className="border border-primary/20 shadow-sm bg-card">
                 <CardContent className="p-4 space-y-4">
                   <div className="flex items-center gap-2">
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -1392,11 +1388,11 @@ export default function ServiceApplyPage() {
                   <div className="space-y-3 text-sm">
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">{t.insights.income}</span>
-                      <span className="font-semibold">{formattedIncome}</span>
+                      <span className="font-semibold tabular-nums">{formattedIncome}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">{t.insights.debts}</span>
-                      <span className="font-semibold">{formattedDebt}</span>
+                      <span className="font-semibold tabular-nums">{formattedDebt}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">{t.insights.dsr}</span>
@@ -1404,6 +1400,23 @@ export default function ServiceApplyPage() {
                         {dsrLabel}
                       </span>
                     </div>
+                    {formattedApprovable && (
+                      <div className="pt-3 mt-2 border-t border-border/60">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs uppercase tracking-[0.15em] font-semibold text-primary">
+                            {language === 'ms' ? 'Anggaran boleh lulus' : 'Estimated approvable'}
+                          </span>
+                          <span className="font-display text-lg font-semibold text-primary tabular-nums">
+                            {formattedApprovable}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-muted-foreground italic mt-1 leading-relaxed">
+                          {language === 'ms'
+                            ? 'Anggaran sahaja — tertakluk kepada semakan kredit penuh dan CTOS.'
+                            : 'Rough estimate only — subject to full credit review and CTOS.'}
+                        </p>
+                      </div>
+                    )}
                   </div>
                   <p className="text-xs text-muted-foreground">
                     {estimatedDSR !== null ? dsrStatusText : t.insights.missing}
@@ -1411,7 +1424,7 @@ export default function ServiceApplyPage() {
                 </CardContent>
               </Card>
 
-              <Card className="border-green-200 shadow surface-card">
+              <Card className="border border-green-200 shadow-sm bg-card">
                 <CardContent className="p-5 space-y-4">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
@@ -1431,7 +1444,7 @@ export default function ServiceApplyPage() {
                 </CardContent>
               </Card>
 
-              <Card className="surface-card">
+              <Card className="border border-border/70 bg-card">
                 <CardContent className="p-4 space-y-3">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">

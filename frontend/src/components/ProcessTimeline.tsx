@@ -81,7 +81,7 @@ export function ProcessTimeline({ language }: { language: Language }) {
   const t = content[language] ?? content.en;
 
   return (
-    <section className="py-20 lg:py-24">
+    <section className="py-24 lg:py-32">
       <div className="container">
         {/* Header */}
         <div className="text-center mb-16">

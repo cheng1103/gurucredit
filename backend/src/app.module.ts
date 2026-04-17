@@ -17,6 +17,7 @@ import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { envValidationSchema } from './config/env.validation';
 import { AppLoggerService } from './common/logger/app-logger.service';
 import { SecurityModule } from './common/security/security.module';
+import { HealthModule } from './common/health/health.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { SecurityModule } from './common/security/security.module';
     AuditLogsModule,
     TeamMembersModule,
     SecurityModule,
+    HealthModule,
   ],
   providers: [
     AppLoggerService,

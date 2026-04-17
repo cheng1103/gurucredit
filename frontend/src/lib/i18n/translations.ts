@@ -53,7 +53,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Home Page
     'home.hero.badge': 'Your Trusted Loan Consultant',
     'home.hero.title': 'Credit Made Simple',
-    'home.hero.subtitle': 'Expert loan consultation services to help you secure the best financing options. From credit analysis to bank matching - we guide you every step of the way.',
+    'home.hero.subtitle': 'Licensed loan and credit services to help you secure the best financing options. From credit analysis to loan structuring - we guide you every step of the way.',
     'home.hero.cta': 'Start Your Application',
     'home.hero.secondary': 'Learn How It Works',
     'home.stats.clients': 'Clients Helped',
@@ -61,7 +61,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'home.stats.banks': 'Partner Banks',
     'home.stats.experience': 'Years Experience',
     'home.services.title': 'Our Services',
-    'home.services.subtitle': 'Comprehensive loan consultation services tailored to your needs',
+    'home.services.subtitle': 'Comprehensive loan and credit services tailored to your needs',
     'home.howItWorks.title': 'How It Works',
     'home.howItWorks.subtitle': 'Simple 4-step process to get lender-ready',
     'home.howItWorks.step1.title': 'Submit Application',
@@ -80,10 +80,10 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Services
     'services.title': 'Our Services',
-    'services.subtitle': 'Comprehensive loan consultation services',
+    'services.subtitle': 'Comprehensive loan and credit services',
     'services.creditAnalysis.title': 'Credit Analysis',
     'services.creditAnalysis.desc': 'Comprehensive credit report analysis with personalized recommendations',
-    'services.loanConsultation.title': 'Loan Consultation',
+    'services.loanConsultation.title': 'Credit Analysis & Loan Matching',
     'services.loanConsultation.desc': 'Expert guidance on loan options and application strategies',
     'services.bankMatching.title': 'Bank Matching',
     'services.bankMatching.desc': 'We match you with banks that fit your profile and goals',
@@ -92,11 +92,11 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // About
     'about.title': 'About Us',
-    'about.subtitle': 'Your trusted partner in loan consultation',
+    'about.subtitle': 'Your trusted licensed lender for credit solutions',
     'about.mission.title': 'Our Mission',
     'about.mission.desc': 'To simplify the loan process and help Malaysians achieve their financial goals',
     'about.vision.title': 'Our Vision',
-    'about.vision.desc': 'To be the most trusted loan consultation service in Malaysia',
+    'about.vision.desc': 'To be the most trusted licensed lender in Malaysia',
 
     // Contact
     'contact.title': 'Contact Us',
@@ -172,7 +172,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'rates.perAnnum': 'p.a.',
 
     // Footer
-    'footer.tagline': 'Your trusted loan consultation partner',
+    'footer.tagline': 'Your licensed lender in Malaysia',
     'footer.quickLinks': 'Quick Links',
     'footer.services': 'Services',
     'footer.tools': 'Tools',
@@ -232,7 +232,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Home Page
     'home.hero.badge': 'Perunding Pinjaman Dipercayai Anda',
     'home.hero.title': 'Kredit Mudah, Hidup Lebih Tenang',
-    'home.hero.subtitle': 'Perkhidmatan konsultasi pinjaman pakar untuk membantu anda mendapatkan pilihan pembiayaan terbaik. Dari analisis kredit hingga pemadanan bank - kami membimbing anda setiap langkah.',
+    'home.hero.subtitle': 'Perkhidmatan pinjaman dan kredit berlesen untuk membantu anda mendapatkan pilihan pembiayaan terbaik. Dari analisis kredit hingga pemadanan bank - kami membimbing anda setiap langkah.',
     'home.hero.cta': 'Mula Permohonan Anda',
     'home.hero.secondary': 'Ketahui Cara Ia Berfungsi',
     'home.stats.clients': 'Pelanggan Dibantu',
@@ -240,7 +240,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'home.stats.banks': 'Bank Rakan Kongsi',
     'home.stats.experience': 'Tahun Pengalaman',
     'home.services.title': 'Perkhidmatan Kami',
-    'home.services.subtitle': 'Perkhidmatan konsultasi pinjaman menyeluruh mengikut keperluan anda',
+    'home.services.subtitle': 'Perkhidmatan pinjaman dan kredit menyeluruh mengikut keperluan anda',
     'home.howItWorks.title': 'Cara Ia Berfungsi',
     'home.howItWorks.subtitle': 'Proses 4 langkah mudah untuk sedia ke bank',
     'home.howItWorks.step1.title': 'Hantar Permohonan',
@@ -259,7 +259,7 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Services
     'services.title': 'Perkhidmatan Kami',
-    'services.subtitle': 'Perkhidmatan konsultasi pinjaman menyeluruh',
+    'services.subtitle': 'Perkhidmatan pinjaman dan kredit menyeluruh',
     'services.creditAnalysis.title': 'Analisis Kredit',
     'services.creditAnalysis.desc': 'Analisis laporan kredit menyeluruh dengan cadangan peribadi',
     'services.loanConsultation.title': 'Konsultasi Pinjaman',
@@ -271,11 +271,11 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // About
     'about.title': 'Tentang Kami',
-    'about.subtitle': 'Rakan dipercayai anda dalam konsultasi pinjaman',
+    'about.subtitle': 'Pemberi pinjaman berlesen dipercayai anda',
     'about.mission.title': 'Misi Kami',
     'about.mission.desc': 'Memudahkan proses pinjaman dan membantu rakyat Malaysia mencapai matlamat kewangan',
     'about.vision.title': 'Visi Kami',
-    'about.vision.desc': 'Menjadi perkhidmatan konsultasi pinjaman paling dipercayai di Malaysia',
+    'about.vision.desc': 'Menjadi pemberi pinjaman berlesen paling dipercayai di Malaysia',
 
     // Contact
     'contact.title': 'Hubungi Kami',
@@ -351,7 +351,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'rates.perAnnum': 'setahun',
 
     // Footer
-    'footer.tagline': 'Rakan konsultasi pinjaman dipercayai anda',
+    'footer.tagline': 'Pemberi pinjaman berlesen anda di Malaysia',
     'footer.quickLinks': 'Pautan Pantas',
     'footer.services': 'Perkhidmatan',
     'footer.tools': 'Alat',

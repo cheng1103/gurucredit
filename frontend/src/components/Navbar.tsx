@@ -30,7 +30,7 @@ import {
 import { useState, useEffect } from 'react';
 import { COMPANY } from '@/lib/constants';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { useLanguage } from '@/lib/i18n';
+import { useLanguage, localeHref, PATHS } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
 // Navigation structure with dropdowns
@@ -47,8 +47,6 @@ const navContent = {
         description: 'Find the right loan for your needs',
         items: [
           { href: '/services/1/apply', label: 'Personal Loan', desc: 'Quick cash for any purpose', icon: CreditCard },
-          { href: '/services/2/apply', label: 'Car Loan', desc: 'Finance your dream car', icon: Car },
-          { href: '/services/3/apply', label: 'Home Loan', desc: 'Own your perfect home', icon: Home },
           { href: '/services/4/apply', label: 'Business Loan', desc: 'Grow your business', icon: Briefcase },
           { href: '/loans/debt-consolidation', label: 'Debt Consolidation', desc: 'Combine multiple debts', icon: Wallet },
           { href: '/loans/emergency', label: 'Emergency Loan', desc: 'Fast cash when you need it', icon: AlertCircle },
@@ -60,8 +58,6 @@ const navContent = {
         description: 'Free calculators and tools',
         items: [
           { href: '/calculator', label: 'DSR Calculator', desc: 'Check your debt ratio', icon: Calculator },
-          { href: '/tools/home-loan-calculator', label: 'Home Loan Calculator', desc: 'Calculate mortgage payments', icon: Home },
-          { href: '/tools/car-loan-calculator', label: 'Car Loan Calculator', desc: 'Plan your car financing', icon: Car },
           { href: '/eligibility-test', label: 'Eligibility Test', desc: 'Check if you qualify', icon: FileCheck },
           { href: '/compare', label: 'Compare Loans', desc: 'Find the best rates', icon: Scale },
         ],
@@ -76,7 +72,6 @@ const navContent = {
           { href: '/documents', label: 'Required Documents', desc: 'What you need to apply', icon: FileText },
           { href: '/glossary', label: 'Loan Glossary', desc: 'Understand loan terms', icon: HelpCircle },
           { href: '/partners', label: 'Bank Partners', desc: 'Our trusted partners', icon: Building2 },
-          { href: '/status', label: 'Track Application', desc: 'Check your RM30 analysis status', icon: Sparkles },
         ],
       },
       about: 'About',
@@ -96,8 +91,6 @@ const navContent = {
         description: 'Cari pinjaman yang sesuai',
         items: [
           { href: '/services/1/apply', label: 'Pinjaman Peribadi', desc: 'Wang tunai cepat', icon: CreditCard },
-          { href: '/services/2/apply', label: 'Pinjaman Kereta', desc: 'Miliki kereta impian', icon: Car },
-          { href: '/services/3/apply', label: 'Pinjaman Rumah', desc: 'Miliki rumah idaman', icon: Home },
           { href: '/services/4/apply', label: 'Pinjaman Perniagaan', desc: 'Kembangkan perniagaan', icon: Briefcase },
           { href: '/loans/debt-consolidation', label: 'Penyatuan Hutang', desc: 'Gabungkan hutang', icon: Wallet },
           { href: '/loans/emergency', label: 'Pinjaman Kecemasan', desc: 'Wang tunai segera', icon: AlertCircle },
@@ -109,8 +102,6 @@ const navContent = {
         description: 'Kalkulator dan alat percuma',
         items: [
           { href: '/calculator', label: 'Kalkulator DSR', desc: 'Semak nisbah hutang', icon: Calculator },
-          { href: '/tools/home-loan-calculator', label: 'Kalkulator Pinjaman Rumah', desc: 'Kira bayaran bulanan', icon: Home },
-          { href: '/tools/car-loan-calculator', label: 'Kalkulator Pinjaman Kereta', desc: 'Rancang pembiayaan kereta', icon: Car },
           { href: '/eligibility-test', label: 'Ujian Kelayakan', desc: 'Semak kelayakan anda', icon: FileCheck },
           { href: '/compare', label: 'Bandingkan Pinjaman', desc: 'Cari kadar terbaik', icon: Scale },
         ],
@@ -125,7 +116,6 @@ const navContent = {
           { href: '/documents', label: 'Dokumen Diperlukan', desc: 'Apa yang perlu', icon: FileText },
           { href: '/glossary', label: 'Glosari Pinjaman', desc: 'Fahami terma pinjaman', icon: HelpCircle },
           { href: '/partners', label: 'Rakan Bank', desc: 'Rakan dipercayai', icon: Building2 },
-          { href: '/status', label: 'Jejak Permohonan', desc: 'Semak status analisis RM30 anda', icon: Sparkles },
         ],
       },
       about: 'Tentang',
@@ -167,44 +157,16 @@ export function Navbar() {
           : 'bg-background'
       }`}
     >
-      {/* Top bar */}
-      <div className="hidden lg:block bg-primary text-primary-foreground">
-        <div className="container flex items-center justify-between h-9 text-xs">
-          <div className="flex items-center gap-4">
-            <Sparkles className="h-3 w-3" aria-hidden="true" />
-            <span>{t.topBar}</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href={COMPANY.phoneLink}
-              className="flex items-center gap-1.5 hover:opacity-80 transition-opacity"
-              aria-label={`Call us at ${COMPANY.phone}`}
-            >
-              <Phone className="h-3 w-3" aria-hidden="true" />
-              {COMPANY.phone}
-            </a>
-            <span className="opacity-50">|</span>
-            <a
-              href={COMPANY.whatsappLink}
-              className="flex items-center gap-1.5 hover:opacity-80 transition-opacity"
-            >
-              <MessageCircle className="h-3 w-3" aria-hidden="true" />
-              {t.whatsapp}
-            </a>
-          </div>
-        </div>
-      </div>
-
       {/* Main navbar */}
       <div className="container flex h-16 lg:h-18 items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link href="/" className="transition-transform hover:scale-105">
+          <Link href={localeHref(language, "/")} className="transition-transform hover:scale-105">
             <Logo size="sm" />
           </Link>
 
           {/* Desktop Nav with dropdowns */}
           <nav className="hidden lg:flex items-center gap-1">
-            <Link href="/" className={navigationMenuTriggerStyle()}>
+            <Link href={localeHref(language, "/")} className={navigationMenuTriggerStyle()}>
               {t.nav.home}
             </Link>
 
@@ -247,7 +209,7 @@ export function Navbar() {
                       return (
                         <Link
                           key={item.href}
-                          href={item.href}
+                          href={localeHref(language, item.href)}
                           className={cn(
                             'flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors',
                             isActive(item.href) && 'bg-primary/5 text-primary'
@@ -268,7 +230,7 @@ export function Navbar() {
                   </div>
                   <div className="mt-3 pt-3 border-t">
                     <Link
-                      href="/services"
+                      href={localeHref(language, "/services")}
                       className="flex items-center justify-center gap-2 text-sm text-primary hover:underline"
                     >
                       {t.nav.loans.viewAll}
@@ -318,7 +280,7 @@ export function Navbar() {
                       return (
                         <Link
                           key={item.href}
-                          href={item.href}
+                          href={localeHref(language, item.href)}
                           className={cn(
                             'flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors',
                             isActive(item.href) && 'bg-primary/5 text-primary'
@@ -339,7 +301,7 @@ export function Navbar() {
                   </div>
                   <div className="mt-3 pt-3 border-t">
                     <Link
-                      href="/tools"
+                      href={localeHref(language, "/tools")}
                       className="flex items-center justify-center gap-2 text-sm text-primary hover:underline"
                     >
                       {t.nav.tools.viewAll}
@@ -391,7 +353,7 @@ export function Navbar() {
                       return (
                         <Link
                           key={item.href}
-                          href={item.href}
+                          href={localeHref(language, item.href)}
                           className={cn(
                             'flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors',
                             isActive(item.href) && 'bg-primary/5 text-primary'
@@ -415,7 +377,7 @@ export function Navbar() {
             </div>
 
             <Link
-              href="/about"
+              href={localeHref(language, "/about")}
               className={cn(
                 navigationMenuTriggerStyle(),
                 isActive('/about') && 'text-primary'
@@ -424,7 +386,7 @@ export function Navbar() {
               {t.nav.about}
             </Link>
             <Link
-              href="/faq"
+              href={localeHref(language, "/faq")}
               className={cn(
                 navigationMenuTriggerStyle(),
                 isActive('/faq') && 'text-primary'
@@ -433,7 +395,7 @@ export function Navbar() {
               {t.nav.faq}
             </Link>
             <Link
-              href="/contact"
+              href={localeHref(language, "/contact")}
               className={cn(
                 navigationMenuTriggerStyle(),
                 isActive('/contact') && 'text-primary'
@@ -454,7 +416,7 @@ export function Navbar() {
               </a>
             </Button>
             <Button asChild className="font-semibold shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:scale-105 transition-all">
-              <Link href="/services/1/apply">
+              <Link href={localeHref(language, "/services/1/apply")}>
                 <Sparkles className="mr-1.5 h-4 w-4" aria-hidden="true" />
                 {t.getStarted}
               </Link>
@@ -477,7 +439,7 @@ export function Navbar() {
                   <div className="space-y-1">
                     {/* Home */}
                     <Link
-                      href="/"
+                      href={localeHref(language, "/")}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
                         'flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all',
@@ -518,7 +480,7 @@ export function Navbar() {
                             return (
                               <Link
                                 key={item.href}
-                                href={item.href}
+                                href={localeHref(language, item.href)}
                                 onClick={() => setMobileOpen(false)}
                                 className={cn(
                                   'flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-all',
@@ -560,7 +522,7 @@ export function Navbar() {
                       {expandedSection === 'tools' && (
                         <div className="ml-4 mt-1 space-y-1">
                           <Link
-                            href="/tools"
+                            href={localeHref(language, "/tools")}
                             onClick={() => setMobileOpen(false)}
                             className="flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-all text-primary/90 hover:text-primary hover:bg-muted/50"
                           >
@@ -572,7 +534,7 @@ export function Navbar() {
                             return (
                               <Link
                                 key={item.href}
-                                href={item.href}
+                                href={localeHref(language, item.href)}
                                 onClick={() => setMobileOpen(false)}
                                 className={cn(
                                   'flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-all',
@@ -618,7 +580,7 @@ export function Navbar() {
                             return (
                               <Link
                                 key={item.href}
-                                href={item.href}
+                                href={localeHref(language, item.href)}
                                 onClick={() => setMobileOpen(false)}
                                 className={cn(
                                   'flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-all',
@@ -638,7 +600,7 @@ export function Navbar() {
 
                     {/* About */}
                     <Link
-                      href="/about"
+                      href={localeHref(language, "/about")}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
                         'flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all',
@@ -653,7 +615,7 @@ export function Navbar() {
 
                     {/* FAQ */}
                     <Link
-                      href="/faq"
+                      href={localeHref(language, "/faq")}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
                         'flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all',
@@ -668,7 +630,7 @@ export function Navbar() {
 
                     {/* Contact */}
                     <Link
-                      href="/contact"
+                      href={localeHref(language, "/contact")}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
                         'flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all',
@@ -703,7 +665,7 @@ export function Navbar() {
                     WhatsApp
                   </Button>
                   <Button asChild className="w-full justify-center font-semibold">
-                    <Link href="/services/1/apply" onClick={() => setMobileOpen(false)}>
+                    <Link href={localeHref(language, "/services/1/apply")} onClick={() => setMobileOpen(false)}>
                       <Sparkles className="mr-1.5 h-4 w-4" aria-hidden="true" />
                       {t.getStarted}
                     </Link>

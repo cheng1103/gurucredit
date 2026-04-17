@@ -1,195 +1,68 @@
 import { MetadataRoute } from 'next';
 import { blogPosts } from '@/lib/blog-data';
 import { SEO } from '@/lib/constants';
+import { regionSlugs } from '@/lib/content/regions';
+
+type Alt = { [lang: string]: string };
+
+const buildAlternates = (path: string): Alt => ({
+  'en-MY': `${SEO.url}${path}`,
+  'ms-MY': `${SEO.url}${path}?lang=ms`,
+  'x-default': `${SEO.url}${path}`,
+});
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = SEO.url;
+  const base = SEO.url;
 
-  // Static pages
-  const staticPages = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/services`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/loan-guides`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/faq`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/calculator`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/tools`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/eligibility-test`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/tools/car-loan-calculator`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/tools/home-loan-calculator`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/tools/compare`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/compare`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/documents`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/glossary`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/partners`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/loans/debt-consolidation`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/loans/emergency`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/loans/personal`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/loans/car`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/loans/home`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/loan-guides/credit-score`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/loan-guides/home-loan`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/loan-guides/car-loan`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/loan-guides/debt-consolidation`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly' as const,
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/terms`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly' as const,
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/disclaimer`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly' as const,
-      priority: 0.3,
-    },
+  const staticEntries: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
+    { path: '', priority: 1, changeFrequency: 'weekly' },
+    { path: '/services', priority: 0.9, changeFrequency: 'weekly' },
+    { path: '/about', priority: 0.8, changeFrequency: 'monthly' },
+    { path: '/contact', priority: 0.8, changeFrequency: 'monthly' },
+    { path: '/blog', priority: 0.8, changeFrequency: 'weekly' },
+    { path: '/loan-guides', priority: 0.7, changeFrequency: 'monthly' },
+    { path: '/faq', priority: 0.7, changeFrequency: 'monthly' },
+    { path: '/calculator', priority: 0.7, changeFrequency: 'monthly' },
+    { path: '/tools', priority: 0.7, changeFrequency: 'monthly' },
+    { path: '/eligibility-test', priority: 0.7, changeFrequency: 'monthly' },
+    { path: '/tools/compare', priority: 0.6, changeFrequency: 'monthly' },
+    { path: '/compare', priority: 0.7, changeFrequency: 'monthly' },
+    { path: '/documents', priority: 0.6, changeFrequency: 'monthly' },
+    { path: '/glossary', priority: 0.6, changeFrequency: 'monthly' },
+    { path: '/partners', priority: 0.6, changeFrequency: 'monthly' },
+    { path: '/loans/debt-consolidation', priority: 0.8, changeFrequency: 'monthly' },
+    { path: '/loans/emergency', priority: 0.8, changeFrequency: 'monthly' },
+    { path: '/loans/personal', priority: 0.8, changeFrequency: 'monthly' },
+    { path: '/loan-guides/credit-score', priority: 0.7, changeFrequency: 'monthly' },
+    { path: '/loan-guides/debt-consolidation', priority: 0.7, changeFrequency: 'monthly' },
+    { path: '/privacy', priority: 0.3, changeFrequency: 'yearly' },
+    { path: '/terms', priority: 0.3, changeFrequency: 'yearly' },
+    { path: '/disclaimer', priority: 0.3, changeFrequency: 'yearly' },
   ];
 
-  // Blog posts
-  const blogPages = blogPosts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
+  const staticPages: MetadataRoute.Sitemap = staticEntries.map(({ path, priority, changeFrequency }) => ({
+    url: `${base}${path}`,
+    lastModified: new Date(),
+    changeFrequency,
+    priority,
+    alternates: { languages: buildAlternates(path) },
+  }));
+
+  const regionPages: MetadataRoute.Sitemap = regionSlugs.map((slug) => ({
+    url: `${base}/loans/my/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.75,
+    alternates: { languages: buildAlternates(`/loans/my/${slug}`) },
+  }));
+
+  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${base}/blog/${post.slug}`,
     lastModified: new Date(post.publishedAt),
     changeFrequency: 'monthly' as const,
     priority: 0.6,
+    alternates: { languages: buildAlternates(`/blog/${post.slug}`) },
   }));
 
-  return [...staticPages, ...blogPages];
+  return [...staticPages, ...regionPages, ...blogPages];
 }

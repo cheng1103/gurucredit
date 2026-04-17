@@ -1,8 +1,10 @@
+import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Logo, slogans } from '@/components/Logo';
 import { aboutContent } from './data';
+import { teamMembers } from './team-data';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -93,14 +95,16 @@ export default function AboutContent({ language }: AboutContentProps) {
             </div>
           </div>
 
-          <Card className="bg-gradient-to-br from-primary to-primary/90 text-primary-foreground shadow-2xl surface-card">
+          <Card className="bg-gradient-to-br from-primary to-primary/90 text-primary-foreground shadow-2xl border-0">
             <CardContent className="p-8">
               <div className="grid grid-cols-2 gap-8">
                 {t.stats.map((stat, index) => (
                   <div key={index} className="text-center">
-                    <div className="text-4xl lg:text-5xl font-bold mb-1">{stat.value}</div>
-                    <div className="font-medium mb-1">{stat.label}</div>
-                    <div className="text-xs opacity-70">{stat.description}</div>
+                    <div className="text-4xl lg:text-5xl font-bold mb-1 text-primary-foreground">
+                      {stat.value}
+                    </div>
+                    <div className="font-medium mb-1 text-primary-foreground">{stat.label}</div>
+                    <div className="text-xs text-primary-foreground/70">{stat.description}</div>
                   </div>
                 ))}
               </div>
@@ -179,6 +183,50 @@ export default function AboutContent({ language }: AboutContentProps) {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Meet the Team — E-E-A-T signal for YMYL */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <Badge variant="outline" className="mb-4 px-4 py-1.5">
+              <Target className="h-3 w-3 mr-1" />
+              {language === 'ms' ? 'Pasukan Kami' : 'Meet the Team'}
+            </Badge>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+              {language === 'ms' ? 'Orang sebenar di sebalik setiap pinjaman' : 'The people behind every loan we extend'}
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {language === 'ms'
+                ? 'Bukan bot, bukan outsource call-centre. Setiap permohonan disemak secara peribadi oleh salah seorang pegawai pinjaman di bawah ini.'
+                : 'No bots, no outsourced call centre. Every application is personally reviewed by one of the loan officers below.'}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {teamMembers.map((member) => (
+              <Card key={member.name} className="surface-card border border-border/70 shadow-sm hover:shadow-md transition-shadow">
+                <CardContent className="p-6 space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                      <Target className="h-5 w-5" aria-hidden="true" />
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="font-semibold text-base text-foreground">{member.role[language]}</h3>
+                      <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground font-medium mt-1">
+                        {member.yearsExperience}
+                        {language === 'ms' ? '+ tahun pengalaman' : '+ years experience'}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground italic leading-relaxed border-l-2 border-primary/40 pl-3">
+                    {member.credentials[language]}
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {member.bio[language]}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
 

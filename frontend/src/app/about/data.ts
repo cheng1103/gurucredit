@@ -4,7 +4,7 @@ export const aboutContent = {
       badge: 'About Us',
       title: 'About',
       titleHighlight: 'GURU Credits',
-      description: 'Your trusted loan consultation partner in Malaysia. We provide fast eligibility analysis and bank matching with indicative rates starting from 4.88% per annum.',
+      description: 'Your trusted loan consultation partner in Malaysia. We provide fast eligibility analysis and loan structuring with indicative rates starting from 4.88% per annum.',
     },
     mission: {
       badge: 'Our Mission',
@@ -57,7 +57,7 @@ export const aboutContent = {
       { year: '2020', title: 'Online Launch', description: 'Launched our online platform for faster eligibility analysis.' },
       { year: '2021', title: '500 Clients', description: 'Reached our first 500 guided applications milestone.' },
       { year: '2023', title: '1000+ Clients', description: 'Guided over 1000 applications for Malaysians nationwide.' },
-      { year: '2024', title: 'Expansion', description: 'Expanded our loan products to include car, home, and business loans.' },
+      { year: '2024', title: 'Expansion', description: 'Expanded our licensed lending capacity with broader business and consolidation products.' },
     ],
     values: {
       badge: 'What We Stand For',
@@ -126,16 +126,16 @@ export const aboutContent = {
       },
       otherServices: [
         {
-          title: 'Car Loan - From 3.5%',
-          description: 'Finance your dream car with competitive rates. New and used car financing available.',
-        },
-        {
-          title: 'Home Loan - From 4.0%',
-          description: 'Make your dream home a reality with our home financing solutions.',
-        },
-        {
           title: 'Business Loan - From 5.5%',
           description: 'Grow your business with flexible financing options for SMEs.',
+        },
+        {
+          title: 'Debt Consolidation - 6-9%',
+          description: 'Combine multiple high-interest debts into one manageable monthly payment.',
+        },
+        {
+          title: 'Emergency Loan',
+          description: 'Fast eligibility analysis for urgent financial needs.',
         },
       ],
       learnMore: 'Apply Now',
@@ -148,7 +148,7 @@ export const aboutContent = {
         {
           name: 'Ahmad R.',
           location: 'Kuala Lumpur',
-          text: 'Needed urgent cash for medical bills. GURU Credits delivered my analysis within 24 hours and guided me on the best lenders. The process was simple and the rate options were clear.',
+          text: 'Needed urgent cash for medical bills. GURU Credits delivered my analysis within 24 hours and structured a clear loan offer within their licensed facility. Simple process, transparent rate.',
           rating: 5,
         },
         {
@@ -178,7 +178,7 @@ export const aboutContent = {
       badge: 'Tentang Kami',
       title: 'Tentang',
       titleHighlight: 'GURU Credits',
-      description: 'Rakan konsultasi pinjaman dipercayai anda di Malaysia. Kami menyediakan analisis kelayakan pantas dan padanan bank dengan kadar indikatif bermula dari 4.88% setahun.',
+      description: 'Rakan konsultasi pinjaman dipercayai anda di Malaysia. Kami menyediakan analisis kelayakan pantas dan struktur pinjaman dengan kadar indikatif bermula dari 4.88% setahun.',
     },
     mission: {
       badge: 'Misi Kami',
@@ -300,16 +300,16 @@ export const aboutContent = {
       },
       otherServices: [
         {
-          title: 'Pinjaman Kereta - Dari 3.5%',
-          description: 'Biayai kereta impian anda dengan kadar kompetitif. Pembiayaan kereta baru dan terpakai tersedia.',
-        },
-        {
-          title: 'Pinjaman Rumah - Dari 4.0%',
-          description: 'Jadikan rumah impian anda kenyataan dengan penyelesaian pembiayaan rumah kami.',
-        },
-        {
           title: 'Pinjaman Perniagaan - Dari 5.5%',
           description: 'Kembangkan perniagaan anda dengan pilihan pembiayaan fleksibel untuk PKS.',
+        },
+        {
+          title: 'Penyatuan Hutang - 6-9%',
+          description: 'Gabungkan pelbagai hutang faedah tinggi menjadi satu bayaran bulanan yang terurus.',
+        },
+        {
+          title: 'Pinjaman Kecemasan',
+          description: 'Analisis kelayakan pantas untuk keperluan aliran tunai segera.',
         },
       ],
       learnMore: 'Mohon Sekarang',

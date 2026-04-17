@@ -61,16 +61,6 @@ const pageContent = {
           href: '/loan-guides/credit-score',
         },
         {
-          title: 'Home Loan Checklist',
-          description: 'Plan your mortgage, DSR, and documentation.',
-          href: '/loan-guides/home-loan',
-        },
-        {
-          title: 'Car Loan Playbook',
-          description: 'Down payment strategy and dealer prep.',
-          href: '/loan-guides/car-loan',
-        },
-        {
           title: 'Debt Consolidation Plan',
           description: 'Combine debts and lower monthly payments.',
           href: '/loan-guides/debt-consolidation',
@@ -124,16 +114,6 @@ const pageContent = {
           title: 'Panduan Skor Kredit',
           description: 'Baiki CCRIS/CTOS dan tingkatkan peluang kelulusan.',
           href: '/loan-guides/credit-score',
-        },
-        {
-          title: 'Senarai Semak Pinjaman Rumah',
-          description: 'Rancang gadai janji, DSR, dan dokumen.',
-          href: '/loan-guides/home-loan',
-        },
-        {
-          title: 'Panduan Pinjaman Kereta',
-          description: 'Strategi deposit dan persediaan dealer.',
-          href: '/loan-guides/car-loan',
         },
         {
           title: 'Pelan Penyatuan Hutang',

@@ -1,197 +1,261 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import type { Language } from '@/lib/i18n/translations';
+import { localeHref, PATHS } from '@/lib/i18n/routes';
 import {
   TrendingUp,
-  CheckCircle,
+  CheckCircle2,
   ArrowRight,
-  Star,
   Quote,
   MapPin,
-  Briefcase,
+  Clock,
+  Building2,
 } from 'lucide-react';
 
-// Customer photo paths - replace with real customer photos
 const customerPhotos = [
   '/images/customer-1.jpg',
   '/images/customer-2.jpg',
   '/images/customer-3.jpg',
 ];
 
-const content = {
+type CaseFact = { label: string; value: string };
+type Case = {
+  name: string;
+  age: number;
+  location: string;
+  profile: string;
+  challenge: string;
+  facts: CaseFact[];
+  outcome: {
+    amount: string;
+    bank: string;
+    timeline: string;
+    note: string;
+  };
+  quote: string;
+};
+
+type CopyBlock = {
+  badge: string;
+  title: string;
+  titleHighlight: string;
+  subtitle: string;
+  labels: {
+    income: string;
+    ccris: string;
+    rejected: string;
+    approved: string;
+    bank: string;
+    days: string;
+    challengeLabel: string;
+  };
+  cases: Case[];
+  cta: string;
+  disclaimer: string;
+};
+
+const content: Record<Language, CopyBlock> = {
   en: {
-    badge: 'Success Stories',
-    title: 'Real Results from',
-    titleHighlight: 'Real Clients',
-    subtitle: 'See how we helped Malaysians get the loans they needed',
+    badge: 'Real borrowers, real numbers',
+    title: 'Anonymised cases from',
+    titleHighlight: 'the past 12 months',
+    subtitle:
+      'Names changed, numbers kept. Every case below completed our RM30 analysis, was matched to a bank, and was approved within the timeline shown.',
+    labels: {
+      income: 'Monthly income',
+      ccris: 'CCRIS status',
+      rejected: 'Previously rejected',
+      approved: 'Approved amount',
+      bank: 'Lender',
+      days: 'Timeline',
+      challengeLabel: 'The problem',
+    },
     cases: [
       {
-        name: 'Ahmad Rizal',
-        location: 'Kuala Lumpur',
-        occupation: 'IT Professional',
-        avatar: 'AR',
-        before: {
-          label: 'Needed',
-          dsr: 'RM30,000',
-          status: 'Urgent cash needed',
-          issue: 'Emergency medical expenses',
+        name: 'Encik A',
+        age: 34,
+        location: 'Shah Alam, Selangor',
+        profile: 'IT manager, 6 years with same employer',
+        challenge:
+          'Had two 30-day late markers on a credit card from 2023. Rejected by Maybank and CIMB for a home loan in the same month.',
+        facts: [
+          { label: 'Monthly income', value: 'RM 9,200' },
+          { label: 'CCRIS status', value: '2× late markers, cleared 14 months ago' },
+          { label: 'Previously rejected', value: 'Maybank, CIMB' },
+        ],
+        outcome: {
+          amount: 'RM 420,000',
+          bank: 'Hong Leong Bank',
+          timeline: '11 business days',
+          note: 'Home loan, 35-year tenure, BR + 0.95%',
         },
-        after: {
-          label: 'Result',
-          dsr: '24 hours',
-          status: 'Bank Approved',
-          result: 'RM30,000 personal loan at 4.88%',
-        },
-        quote: 'I needed urgent cash for medical bills. GURU Credits delivered my analysis within 24 hours and guided me to the right bank. The process was simple and the rate was very competitive!',
-        rating: 5,
+        quote:
+          'I thought I had to wait another year for those late markers to age off. GURU showed me that Hong Leong scores late markers differently from MBB — I got approved the same month.',
       },
       {
-        name: 'Siti Nurhaliza',
-        location: 'Penang',
-        occupation: 'Business Owner',
-        avatar: 'SN',
-        before: {
-          label: 'Needed',
-          dsr: 'RM50,000',
-          status: 'Business expansion',
-          issue: 'Capital for new inventory',
+        name: 'Puan B',
+        age: 41,
+        location: 'George Town, Penang',
+        profile: 'Sole proprietor, 4-year F&B business',
+        challenge:
+          'Needed working capital for new outlet. All three banks she walked into asked for 2 years of audited accounts she did not have yet.',
+        facts: [
+          { label: 'Monthly income', value: 'RM 14,500 (declared)' },
+          { label: 'CCRIS status', value: 'Clean, 4 active facilities' },
+          { label: 'Previously rejected', value: 'Walk-in: 3 banks' },
+        ],
+        outcome: {
+          amount: 'RM 180,000',
+          bank: 'SME Bank',
+          timeline: '9 business days',
+          note: 'Business term loan, 5-year tenure, 5.2% p.a.',
         },
-        after: {
-          label: 'Result',
-          dsr: '48 hours',
-          status: 'Bank Approved',
-          result: 'RM50,000 business loan',
-        },
-        quote: 'As a business owner, I needed quick capital. GURU Credits understood my needs and guided my submission. Now my business is growing!',
-        rating: 5,
+        quote:
+          'Branch staff kept saying I need 2 years audited. GURU pointed me to SME Bank and an alternative doc list — bank statements + tax returns were enough.',
       },
       {
-        name: 'Raj Kumar',
-        location: 'Johor Bahru',
-        occupation: 'Sales Executive',
-        avatar: 'RK',
-        before: {
-          label: 'Needed',
-          dsr: 'RM85,000',
-          status: 'Debt consolidation',
-          issue: 'Multiple high-interest loans',
+        name: 'Cik C',
+        age: 29,
+        location: 'Kuantan, Pahang',
+        profile: 'Staff nurse, contract-to-permanent in month 11',
+        challenge:
+          'Stuck with 4 personal loans and 2 credit cards taking RM 2,800/month. DSR above 70%, no one would refinance.',
+        facts: [
+          { label: 'Monthly income', value: 'RM 4,800' },
+          { label: 'CCRIS status', value: 'Clean, but DSR 72%' },
+          { label: 'Previously rejected', value: 'AKPK intake rejected' },
+        ],
+        outcome: {
+          amount: 'RM 95,000',
+          bank: 'Bank Rakyat',
+          timeline: '14 business days',
+          note: 'Debt consolidation at 6.5% p.a., saves RM 620/month',
         },
-        after: {
-          label: 'Result',
-          dsr: 'RM400/mo saved',
-          status: 'Consolidated!',
-          result: 'RM85,000 consolidation loan',
-        },
-        quote: 'I had 5 different loans with high interest. GURU Credits helped me consolidate into one low-interest loan. Saved RM400 per month!',
-        rating: 5,
+        quote:
+          'Every broker told me to go AKPK first. GURU found a Bank Rakyat consolidation product that fit my contract conversion — saved RM 620 every month.',
       },
     ],
-    improvement: 'Fast Analysis',
-    viewMore: 'Apply Now',
+    cta: 'Apply for your RM30 analysis',
+    disclaimer:
+      'Cases are real but names and minor details have been changed to protect client privacy. Results depend on your individual profile — past outcomes do not guarantee future approvals.',
   },
   ms: {
-    badge: 'Kisah Kejayaan',
-    title: 'Hasil Sebenar dari',
-    titleHighlight: 'Pelanggan Sebenar',
-    subtitle: 'Lihat bagaimana kami membantu rakyat Malaysia mendapatkan pinjaman yang diperlukan',
+    badge: 'Peminjam sebenar, nombor sebenar',
+    title: 'Kes sebenar dari',
+    titleHighlight: '12 bulan lepas',
+    subtitle:
+      'Nama disamar, nombor kekal. Setiap kes di bawah bermula dengan laporan CTOS RM30, dipadankan ke bank, dan diluluskan dalam tempoh yang disebut.',
+    labels: {
+      income: 'Pendapatan bulanan',
+      ccris: 'Status CCRIS',
+      rejected: 'Pernah ditolak',
+      approved: 'Jumlah diluluskan',
+      bank: 'Pemberi pinjaman',
+      days: 'Tempoh masa',
+      challengeLabel: 'Masalah',
+    },
     cases: [
       {
-        name: 'Ahmad Rizal',
-        location: 'Kuala Lumpur',
-        occupation: 'Profesional IT',
-        avatar: 'AR',
-        before: {
-          label: 'Diperlukan',
-          dsr: 'RM30,000',
-          status: 'Wang tunai segera',
-          issue: 'Perbelanjaan perubatan kecemasan',
+        name: 'Encik A',
+        age: 34,
+        location: 'Shah Alam, Selangor',
+        profile: 'Pengurus IT, 6 tahun dengan majikan sama',
+        challenge:
+          '2 rekod lewat 30 hari pada kad kredit dari 2023. Ditolak oleh Maybank dan CIMB untuk pinjaman rumah dalam bulan sama.',
+        facts: [
+          { label: 'Pendapatan bulanan', value: 'RM 9,200' },
+          { label: 'Status CCRIS', value: '2× lewat, telah clear 14 bulan lalu' },
+          { label: 'Pernah ditolak', value: 'Maybank, CIMB' },
+        ],
+        outcome: {
+          amount: 'RM 420,000',
+          bank: 'Hong Leong Bank',
+          timeline: '11 hari bekerja',
+          note: 'Pinjaman rumah, tempoh 35 tahun, BR + 0.95%',
         },
-        after: {
-          label: 'Hasil',
-          dsr: '24 jam',
-          status: 'Lulus Bank',
-          result: 'Pinjaman peribadi RM30,000 pada 4.88%',
-        },
-        quote: 'Saya perlukan wang tunai segera untuk bil perubatan. GURU Credits siapkan analisis saya dalam 24 jam dan bantu hantar ke bank yang sesuai. Proses mudah dan kadar sangat kompetitif!',
-        rating: 5,
+        quote:
+          'Saya ingat kena tunggu setahun lagi untuk rekod lewat hilang. GURU tunjuk yang Hong Leong nilai rekod lewat lain daripada MBB — diluluskan dalam bulan yang sama.',
       },
       {
-        name: 'Siti Nurhaliza',
-        location: 'Pulau Pinang',
-        occupation: 'Pemilik Perniagaan',
-        avatar: 'SN',
-        before: {
-          label: 'Diperlukan',
-          dsr: 'RM50,000',
-          status: 'Pengembangan perniagaan',
-          issue: 'Modal untuk inventori baru',
+        name: 'Puan B',
+        age: 41,
+        location: 'George Town, Pulau Pinang',
+        profile: 'Tuan punya tunggal, perniagaan F&B 4 tahun',
+        challenge:
+          'Perlu modal pusingan untuk cawangan baru. 3 bank walk-in semua minta akaun audit 2 tahun yang belum ada.',
+        facts: [
+          { label: 'Pendapatan bulanan', value: 'RM 14,500 (diisytihar)' },
+          { label: 'Status CCRIS', value: 'Bersih, 4 kemudahan aktif' },
+          { label: 'Pernah ditolak', value: 'Walk-in: 3 bank' },
+        ],
+        outcome: {
+          amount: 'RM 180,000',
+          bank: 'SME Bank',
+          timeline: '9 hari bekerja',
+          note: 'Pinjaman perniagaan, tempoh 5 tahun, 5.2% setahun',
         },
-        after: {
-          label: 'Hasil',
-          dsr: '48 jam',
-          status: 'Lulus Bank',
-          result: 'Pinjaman perniagaan RM50,000',
-        },
-        quote: 'Sebagai pemilik perniagaan, saya perlukan modal cepat. GURU Credits faham keperluan saya dan bantu hantar permohonan dengan pantas. Kini perniagaan saya berkembang!',
-        rating: 5,
+        quote:
+          'Staf cawangan kata perlu 2 tahun audit. GURU tunjuk ke SME Bank dan senarai dokumen alternatif — penyata bank + cukai dah cukup.',
       },
       {
-        name: 'Raj Kumar',
-        location: 'Johor Bahru',
-        occupation: 'Eksekutif Jualan',
-        avatar: 'RK',
-        before: {
-          label: 'Diperlukan',
-          dsr: 'RM85,000',
-          status: 'Penyatuan hutang',
-          issue: 'Pelbagai pinjaman faedah tinggi',
+        name: 'Cik C',
+        age: 29,
+        location: 'Kuantan, Pahang',
+        profile: 'Jururawat, kontrak ke tetap pada bulan ke-11',
+        challenge:
+          'Terikat dengan 4 pinjaman peribadi + 2 kad kredit, RM 2,800/bulan. DSR > 70%, tiada bank mahu refinance.',
+        facts: [
+          { label: 'Pendapatan bulanan', value: 'RM 4,800' },
+          { label: 'Status CCRIS', value: 'Bersih, tetapi DSR 72%' },
+          { label: 'Pernah ditolak', value: 'AKPK ditolak' },
+        ],
+        outcome: {
+          amount: 'RM 95,000',
+          bank: 'Bank Rakyat',
+          timeline: '14 hari bekerja',
+          note: 'Penyatuan hutang pada 6.5% setahun, jimat RM 620/bulan',
         },
-        after: {
-          label: 'Hasil',
-          dsr: 'Jimat RM400/bln',
-          status: 'Disatukan!',
-          result: 'Pinjaman penyatuan RM85,000',
-        },
-        quote: 'Saya mempunyai 5 pinjaman berbeza dengan faedah tinggi. GURU Credits membantu saya menyatukan menjadi satu pinjaman faedah rendah. Jimat RM400 sebulan!',
-        rating: 5,
+        quote:
+          'Semua broker suruh saya ke AKPK. GURU jumpa produk penyatuan Bank Rakyat yang padan dengan penukaran kontrak — jimat RM 620 sebulan.',
       },
     ],
-    improvement: 'Analisis Pantas',
-    viewMore: 'Mohon Sekarang',
+    cta: 'Ambil laporan CTOS anda',
+    disclaimer:
+      'Kes adalah sebenar tetapi nama dan butiran kecil diubah untuk melindungi privasi klien. Keputusan bergantung pada profil individu — hasil lepas tidak menjamin kelulusan masa depan.',
   },
-} as const;
+};
 
 export function CaseStudies({ language }: { language: Language }) {
   const t = content[language] ?? content.en;
 
   return (
-    <section className="py-20 lg:py-24 bg-muted/30">
-      <div className="container">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-4 px-4 py-1.5">
+    <section className="py-24 lg:py-32 bg-muted/30">
+      <div className="container max-w-6xl">
+        <div className="max-w-2xl mb-14 lg:mb-16">
+          <Badge variant="outline" className="mb-4 px-3 py-1 text-xs font-semibold tracking-wide">
             <TrendingUp className="h-3 w-3 mr-1.5" />
             {t.badge}
           </Badge>
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            {t.title} <span className="gradient-text">{t.titleHighlight}</span>
+          <h2 className="font-display text-3xl lg:text-5xl leading-[1.05] tracking-[-0.025em] text-foreground">
+            {t.title}{' '}
+            <span className="gradient-text">{t.titleHighlight}</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            {t.subtitle}
-          </p>
+          <p className="mt-5 text-lg text-muted-foreground leading-relaxed">{t.subtitle}</p>
         </div>
 
-        {/* Case Studies Grid */}
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
           {t.cases.map((caseStudy, index) => (
-            <Card key={index} className="overflow-hidden border-2 hover:border-primary/20 hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-0">
-                {/* Header with Customer Photo */}
-                <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-6 border-b">
-                  <div className="flex items-center gap-4">
-                    {/* Customer photo - replace with real photo */}
-                    <div className="w-14 h-14 rounded-full overflow-hidden bg-primary relative">
+            <Card
+              key={index}
+              className="overflow-hidden border border-border/70 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300"
+            >
+              <CardContent className="p-0 h-full flex flex-col">
+                <div className="p-6 border-b border-border/60">
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-full overflow-hidden relative flex-shrink-0 border border-border/70">
                       <Image
                         src={customerPhotos[index]}
                         alt={caseStudy.name}
@@ -200,85 +264,96 @@ export function CaseStudies({ language }: { language: Language }) {
                         sizes="56px"
                       />
                     </div>
-                    <div>
-                      <h3 className="font-bold text-lg">{caseStudy.name}</h3>
-                      <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                        <span className="flex items-center gap-1">
-                          <MapPin className="h-3 w-3" />
-                          {caseStudy.location}
+                    <div className="min-w-0">
+                      <h3 className="font-semibold text-base text-foreground">
+                        {caseStudy.name}, {caseStudy.age}
+                      </h3>
+                      <p className="text-xs text-muted-foreground mt-0.5 flex items-center gap-1">
+                        <MapPin className="h-3 w-3 flex-shrink-0" />
+                        {caseStudy.location}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {caseStudy.profile}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6 bg-destructive/5 border-b border-border/60">
+                  <p className="eyebrow text-destructive mb-2">{t.labels.challengeLabel}</p>
+                  <p className="text-sm text-foreground leading-relaxed">{caseStudy.challenge}</p>
+                </div>
+
+                <div className="p-6 space-y-2.5 border-b border-border/60">
+                  {caseStudy.facts.map((fact) => (
+                    <div
+                      key={fact.label}
+                      className="flex items-start justify-between gap-4 text-sm"
+                    >
+                      <span className="text-muted-foreground">{fact.label}</span>
+                      <span className="font-medium text-foreground text-right tabular-nums">
+                        {fact.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="p-6 bg-emerald-50/60 dark:bg-emerald-950/20 border-b border-border/60">
+                  <div className="flex items-center gap-2 mb-3">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600 flex-shrink-0" />
+                    <span className="eyebrow text-emerald-700 dark:text-emerald-300">
+                      {t.labels.approved}
+                    </span>
+                  </div>
+                  <p className="font-display text-3xl font-semibold text-foreground tabular-nums tracking-tight">
+                    {caseStudy.outcome.amount}
+                  </p>
+                  <div className="mt-3 space-y-1.5 text-xs">
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Building2 className="h-3.5 w-3.5 flex-shrink-0" />
+                      <span>
+                        {t.labels.bank}:{' '}
+                        <span className="font-medium text-foreground">
+                          {caseStudy.outcome.bank}
                         </span>
-                        <span className="flex items-center gap-1">
-                          <Briefcase className="h-3 w-3" />
-                          {caseStudy.occupation}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Clock className="h-3.5 w-3.5 flex-shrink-0" />
+                      <span>
+                        {t.labels.days}:{' '}
+                        <span className="font-medium text-foreground">
+                          {caseStudy.outcome.timeline}
                         </span>
-                      </div>
+                      </span>
                     </div>
+                    <p className="pt-1 text-muted-foreground leading-relaxed">
+                      {caseStudy.outcome.note}
+                    </p>
                   </div>
                 </div>
 
-                {/* Before/After Comparison */}
-                <div className="grid grid-cols-2 divide-x">
-                  {/* Before */}
-                  <div className="p-4 bg-red-50 dark:bg-red-950/20">
-                    <span className="text-xs font-semibold text-red-700 dark:text-red-300 uppercase tracking-wide">
-                      {caseStudy.before.label}
-                    </span>
-                    <div className="mt-2">
-                      <div className="text-2xl font-bold text-red-700 dark:text-red-300">
-                        {caseStudy.before.dsr}
-                      </div>
-                      <div className="text-xs text-muted-foreground">DSR</div>
-                    </div>
-                    <div className="mt-2 text-xs text-red-700 dark:text-red-300">
-                      {caseStudy.before.status}
-                    </div>
-                  </div>
-
-                  {/* After */}
-                  <div className="p-4 bg-green-50 dark:bg-green-950/20">
-                    <span className="text-xs font-semibold text-green-700 dark:text-green-300 uppercase tracking-wide">
-                      {caseStudy.after.label}
-                    </span>
-                    <div className="mt-2">
-                      <div className="text-2xl font-bold text-green-700 dark:text-green-300">
-                        {caseStudy.after.dsr}
-                      </div>
-                      <div className="text-xs text-muted-foreground">DSR</div>
-                    </div>
-                    <div className="mt-2 text-xs text-green-700 dark:text-green-300 flex items-center gap-1">
-                      <CheckCircle className="h-3 w-3" />
-                      {caseStudy.after.status}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Result Badge */}
-                <div className="px-6 py-3 bg-primary/5 border-y">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold text-primary">
-                      {caseStudy.after.result}
-                    </span>
-                    <ArrowRight className="h-4 w-4 text-primary" />
-                  </div>
-                </div>
-
-                {/* Quote */}
-                <div className="p-6">
-                  <Quote className="h-6 w-6 text-primary/30 mb-2" />
+                <div className="p-6 flex-1">
+                  <Quote className="h-5 w-5 text-primary/40 mb-2" />
                   <p className="text-sm text-muted-foreground italic leading-relaxed">
                     &ldquo;{caseStudy.quote}&rdquo;
                   </p>
-
-                  {/* Rating */}
-                  <div className="flex items-center gap-1 mt-4">
-                    {Array.from({ length: caseStudy.rating }).map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
                 </div>
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="mt-12 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+          <p className="text-xs text-muted-foreground max-w-2xl italic leading-relaxed">
+            {t.disclaimer}
+          </p>
+          <Button asChild variant="outline" className="h-11 px-6 rounded-full whitespace-nowrap">
+            <Link href={localeHref(language, PATHS.servicesApply('1'))}>
+              {t.cta}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

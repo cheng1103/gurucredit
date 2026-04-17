@@ -10,7 +10,7 @@ export default async function DocumentsPage() {
       <WebPageJsonLd
         url={`${SEO.url}/documents`}
         title="Document Checklist"
-        description="Prepare loan application documents for personal, car, home, and business loans in Malaysia."
+        description="Prepare loan application documents for personal, business, and debt consolidation loans in Malaysia."
         image="/images/cta-bg.jpg"
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },

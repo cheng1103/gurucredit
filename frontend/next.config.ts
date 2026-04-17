@@ -199,25 +199,24 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60 * 60 * 24 * 7, // 7 days
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'plus.unsplash.com',
-      },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'plus.unsplash.com' },
+      { protocol: 'https', hostname: 'api.qrserver.com' },
+      { protocol: 'https', hostname: '**.railway.app' },
+      { protocol: 'https', hostname: '**.up.railway.app' },
     ],
   },
 
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
+  reactStrictMode: true,
 
   // Experimental features for better performance
   experimental: {
     optimizeCss: false,
     externalDir: true,
+    optimizePackageImports: ['lucide-react', 'framer-motion', '@tanstack/react-query'],
   },
   transpilePackages: ['@guru/shared-config'],
   turbopack: {

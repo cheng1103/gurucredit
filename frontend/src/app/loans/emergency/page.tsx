@@ -18,13 +18,13 @@ import {
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { COMPANY, SEO, TRUST_BLOCK } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
-import { LoanProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
+import { FinancialProductJsonLd, LoanProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
 import { TrustPanel } from '@/components/TrustPanel';
 
 export const metadata = buildMetadata({
   title: 'Emergency Loan Guidance',
   description:
-    'Emergency loan support for Malaysians. Get fast eligibility checks, DSR planning, and lender matching for urgent funding needs.',
+    'Emergency loan support for Malaysians. Get fast eligibility checks, DSR planning, and loan structuring for urgent funding needs.',
   path: '/loans/emergency',
   image: '/images/optimized/personal-loan.jpg',
   keywords:
@@ -317,6 +317,20 @@ export default async function EmergencyLoanPage() {
         loanTerm="1-7 years"
         minAmount={5000}
         maxAmount={50000}
+      />
+      <FinancialProductJsonLd
+        url={`${SEO.url}/loans/emergency`}
+        name="Emergency Personal Loan Malaysia"
+        description="Fast eligibility analysis and loan structuring for urgent financial needs in Malaysia, with same-day document guidance."
+        category="PersonalLoan"
+        aprMin={4.88}
+        aprMax={9.0}
+        termMonthsMin={12}
+        termMonthsMax={84}
+        minAmount={5000}
+        maxAmount={50000}
+        requiredCollateral="Unsecured (no collateral required)"
+        feeNote="RM30 eligibility analysis. Lender origination and stamp duty fees apply."
       />
       <WebPageJsonLd
         url={`${SEO.url}/loans/emergency`}

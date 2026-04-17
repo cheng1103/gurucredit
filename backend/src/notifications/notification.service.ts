@@ -60,11 +60,12 @@ export class NotificationService {
       const message =
         'SMTP configuration missing. Notifications will not be sent.';
       if (this.isProduction) {
-        throw new Error(
-          `${message} Set SMTP_* environment variables in production.`,
+        this.logger.error(
+          `${message} Set SMTP_* environment variables to enable outbound mail. Falling back to structured log notifications.`,
         );
+      } else {
+        this.logger.warn(`${message} Running in fallback logging mode.`);
       }
-      this.logger.warn(`${message} Running in fallback logging mode.`);
     }
   }
 

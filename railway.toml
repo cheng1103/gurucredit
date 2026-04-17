@@ -1,0 +1,21 @@
+# Railway deployment config for the backend service.
+# The repo is a monorepo (npm workspaces). This config tells Railway to
+# install the root workspace (which pulls in @guru/shared-config + backend
+# + frontend + admin as workspaces), then build only the backend.
+#
+# Frontend and admin deploy to Vercel and are NOT built here — we just let
+# the workspace install complete so the workspace graph resolves.
+
+[build]
+builder = "NIXPACKS"
+# 1. npm install at repo root — the `prepare` script builds @guru/shared-config
+#    and the scripts/link-shared-config.js step copies its dist into
+#    backend/node_modules. Then we run prisma generate + nest build.
+buildCommand = "npm install --include=dev && cd backend && npx prisma generate && npm run build"
+
+[deploy]
+startCommand = "cd backend && npm run start:prod"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 30
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3

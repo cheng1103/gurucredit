@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import path from "path";
 
 function ensureSecureApiUrl(url: string) {
   // Allow http for localhost / development. Enforce HTTPS only in production and non-localhost hosts.
@@ -215,12 +214,7 @@ const nextConfig: NextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizeCss: false,
-    externalDir: true,
     optimizePackageImports: ['lucide-react', 'framer-motion', '@tanstack/react-query'],
-  },
-  transpilePackages: ['@guru/shared-config'],
-  turbopack: {
-    root: path.resolve(__dirname, '..'),
   },
   async headers() {
     return [

@@ -46,7 +46,7 @@ export class NotificationService {
     this.fromAddress =
       this.configService.get<string>('SMTP_FROM') || 'no-reply@guru-credit.com';
     this.whatsapp =
-      this.configService.get<string>('COMPANY_WHATSAPP') || '+60112748389';
+      this.configService.get<string>('COMPANY_WHATSAPP') || '+601127486389';
 
     if (host && port && user && pass) {
       this.transporter = nodemailer.createTransport({

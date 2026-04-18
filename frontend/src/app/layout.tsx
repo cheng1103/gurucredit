@@ -108,13 +108,7 @@ export const metadata: Metadata = {
       "msvalidate.01": process.env.NEXT_PUBLIC_BING_VERIFICATION ?? "",
     },
   },
-  icons: {
-    icon: [
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
-      { url: "/favicon.png", type: "image/png", sizes: "64x64" },
-    ],
-    apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
-  },
+  // icons are auto-detected from src/app/icon.png, apple-icon.png, favicon.ico
   other: {
     "geo.region": "MY-14,MY-10",
     "geo.placename": "Malaysia",

@@ -51,7 +51,14 @@ const buildConnectSrc = () => {
   const sources = new Set(["'self'"]);
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   if (apiUrl) {
-    sources.add(apiUrl);
+    // Use the origin (not the full URL with `/api`) so sub-paths like
+    // /api/auth/login are allowed. CSP path matching only matches exactly
+    // when the path does not end with a slash.
+    try {
+      sources.add(new URL(apiUrl).origin);
+    } catch {
+      sources.add(apiUrl);
+    }
   }
   parseSources(process.env.NEXT_PUBLIC_CSP_CONNECT_SRC).forEach((src) =>
     sources.add(src),

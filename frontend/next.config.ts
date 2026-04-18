@@ -50,7 +50,14 @@ const formatKeyword = (value: string) =>
 const buildConnectSrc = () => {
   const sources = new Set(["'self'"]);
   if (apiUrl) {
-    sources.add(apiUrl);
+    // Use the origin (no path) so CSP matches any sub-path like /api/auth/login.
+    // CSP path matching is path-prefix only when the path ends with a slash;
+    // a bare `https://host/api` would only match the exact path /api.
+    try {
+      sources.add(new URL(apiUrl).origin);
+    } catch {
+      sources.add(apiUrl);
+    }
   }
   parseSources(process.env.NEXT_PUBLIC_CSP_CONNECT_SRC).forEach((src) =>
     sources.add(src),

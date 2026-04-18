@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 127.0.0.1 -p 3002",
     "dev:local": "next dev -H 127.0.0.1 -p 3002",
-    "build": "TURBOPACK=0 next build",
+    "build": "next build --webpack",
     "start": "next start -H 127.0.0.1 -p 3002",
     "start:local": "next start -H 127.0.0.1 -p 3002",
     "lint": "eslint",
@@ -13,7 +13,6 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@guru/shared-config": "file:../packages/shared-config",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.15",

@@ -45,18 +45,20 @@ export function HeroSection({ t, language }: Props) {
 
   return (
     <section className="relative overflow-hidden bg-background">
-      {/* Full-bleed atmospheric photo, heavily washed */}
+      {/* Full-bleed atmospheric hero photo */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div
-          className="absolute inset-0 opacity-[0.18] saturate-[0.8]"
+          className="absolute inset-0"
           style={{
             backgroundImage: "url('/images/hero/hero-shutterstock.jpg')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
         />
-        {/* Whiten / fade to background so text stays readable */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/75 via-background/85 to-background" />
+        {/* Readability overlay — lighter on top, stronger toward bottom so
+            text above the fold keeps contrast while the photo remains visible */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background/92 via-background/70 to-background/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/60 to-background" />
       </div>
 
       {/* Subtle grid + radial washes */}
@@ -134,7 +136,7 @@ export function HeroSection({ t, language }: Props) {
               </HeroStep>
 
               <HeroStep variant="fade">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-6 pt-10 border-t border-border/60">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 p-5 sm:p-6 rounded-2xl border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_8px_32px_-12px_rgba(15,23,42,0.15)]">
                   {t.stats.map((stat, index) => {
                     const parsed = parseStatValue(stat.value);
                     return (
@@ -168,8 +170,8 @@ export function HeroSection({ t, language }: Props) {
 
           <div className="lg:col-span-5 lg:pt-12">
             <HeroVisual
-              imageSrc="/images/hero/hero-shutterstock.jpg"
-              imageAlt="Loan advisory consultation — review of bills, tax, and budget statements"
+              imageSrc="/images/optimized/hero-bg.webp"
+              imageAlt="Loan advisory consultation"
               quoteKicker={language === 'ms' ? 'Pendekatan Kami' : 'Our Approach'}
               quote={
                 language === 'ms'

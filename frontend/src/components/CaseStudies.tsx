@@ -232,8 +232,10 @@ export function CaseStudies({ language }: { language: Language }) {
   const t = content[language] ?? content.en;
 
   return (
-    <section className="py-24 lg:py-32 bg-muted/30">
-      <div className="container max-w-6xl">
+    <section className="relative py-24 lg:py-32 mesh-bg section-accent-top overflow-hidden">
+      <div aria-hidden="true" className="absolute -top-24 right-10 w-[32rem] h-[32rem] bg-primary/[0.06] rounded-full blur-[120px] pointer-events-none" />
+      <div aria-hidden="true" className="absolute bottom-0 -left-20 w-[28rem] h-[28rem] bg-accent/[0.06] rounded-full blur-[120px] pointer-events-none" />
+      <div className="container max-w-6xl relative">
         <div className="max-w-2xl mb-14 lg:mb-16">
           <Badge variant="outline" className="mb-4 px-3 py-1 text-xs font-semibold tracking-wide">
             <TrendingUp className="h-3 w-3 mr-1.5" />
@@ -250,8 +252,12 @@ export function CaseStudies({ language }: { language: Language }) {
           {t.cases.map((caseStudy, index) => (
             <Card
               key={index}
-              className="overflow-hidden border border-border/70 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300"
+              className="group relative overflow-hidden border border-white/60 bg-white/60 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(15,23,42,0.18)] hover:shadow-[0_24px_60px_-12px_rgba(59,130,246,0.28)] hover:border-primary/40 hover:-translate-y-1 transition-all duration-300"
             >
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-60"
+              />
               <CardContent className="p-0 h-full flex flex-col">
                 <div className="p-6 border-b border-border/60">
                   <div className="flex items-start gap-4">

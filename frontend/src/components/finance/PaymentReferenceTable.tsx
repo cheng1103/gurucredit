@@ -71,10 +71,10 @@ export function PaymentReferenceTable({ language }: Props) {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-foreground/[0.03] border-b border-border/60">
+                <tr className="bg-gradient-to-r from-primary/90 via-primary to-accent/90 border-b border-primary/30">
                   <th
                     scope="col"
-                    className="sticky left-0 z-10 bg-foreground/[0.03] text-left px-5 py-4 font-semibold text-[11px] uppercase tracking-[0.18em] text-muted-foreground whitespace-nowrap"
+                    className="sticky left-0 z-10 bg-primary/95 text-left px-5 py-4 font-semibold text-[11px] uppercase tracking-[0.2em] text-primary-foreground whitespace-nowrap"
                   >
                     {amountHeader}
                   </th>
@@ -82,9 +82,12 @@ export function PaymentReferenceTable({ language }: Props) {
                     <th
                       key={yr}
                       scope="col"
-                      className="text-center px-4 py-4 font-semibold text-[11px] uppercase tracking-[0.18em] text-muted-foreground whitespace-nowrap"
+                      className="text-center px-4 py-4 font-semibold text-[11px] uppercase tracking-[0.2em] text-primary-foreground whitespace-nowrap"
                     >
-                      {yr} {yearsAbbr}
+                      <span className="inline-flex items-center gap-1">
+                        <span className="tabular-nums">{yr}</span>
+                        <span className="opacity-75">{yearsAbbr}</span>
+                      </span>
                     </th>
                   ))}
                 </tr>

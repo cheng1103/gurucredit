@@ -426,7 +426,7 @@ export function Navbar() {
           {/* Mobile Menu */}
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon" className="h-10 w-10" aria-label="Open menu">
+              <Button variant="ghost" size="icon" className="h-10 w-10" aria-label={language === 'ms' ? 'Buka menu' : 'Open menu'}>
                 <Menu className="h-5 w-5" aria-hidden="true" />
               </Button>
             </SheetTrigger>

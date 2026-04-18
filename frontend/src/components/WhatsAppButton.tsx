@@ -3,6 +3,22 @@
 import { useState, useEffect, useMemo } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { COMPANY } from '@/lib/constants';
+import { useLanguage } from '@/lib/i18n';
+
+const T = {
+  en: {
+    chattingNow: 'chatting now',
+    tooltipTitle: 'Need help? Chat with us!',
+    tooltipBody: 'Get instant answers via WhatsApp',
+    aria: 'Chat on WhatsApp',
+  },
+  ms: {
+    chattingNow: 'sedang berbual',
+    tooltipTitle: 'Perlukan bantuan? Chat dengan kami!',
+    tooltipBody: 'Jawapan segera melalui WhatsApp',
+    aria: 'Chat di WhatsApp',
+  },
+};
 
 // Drifts slowly between 8–15 so it feels "live" without looking fake
 function useChattingCount() {
@@ -26,6 +42,8 @@ function useChattingCount() {
 }
 
 export function WhatsAppButton() {
+  const { language } = useLanguage();
+  const t = T[language];
   const [isVisible, setIsVisible] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [hasShownTooltip, setHasShownTooltip] = useState(false);
@@ -65,7 +83,7 @@ export function WhatsAppButton() {
           <span className="relative rounded-full bg-emerald-500 h-2 w-2" />
         </span>
         <span className="tabular-nums font-semibold text-foreground">{chattingCount}</span>
-        <span className="text-muted-foreground">chatting now</span>
+        <span className="text-muted-foreground">{t.chattingNow}</span>
       </div>
 
       {/* Tooltip */}
@@ -78,8 +96,8 @@ export function WhatsAppButton() {
             >
               <X className="h-3 w-3" />
             </button>
-            <p className="text-sm font-medium text-gray-900 mb-1">Need help? Chat with us!</p>
-            <p className="text-xs text-gray-500">Get instant answers via WhatsApp</p>
+            <p className="text-sm font-medium text-gray-900 mb-1">{t.tooltipTitle}</p>
+            <p className="text-xs text-gray-500">{t.tooltipBody}</p>
             {/* Arrow */}
             <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white border-b border-r transform rotate-45" />
           </div>
@@ -92,7 +110,7 @@ export function WhatsAppButton() {
         target="_blank"
         rel="noopener noreferrer"
         className="group relative flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20BD5A] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
-        aria-label="Chat on WhatsApp"
+        aria-label={t.aria}
       >
         {/* Outer breathing halo */}
         <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-40 animate-[wa-breath_2.4s_ease-in-out_infinite]" />

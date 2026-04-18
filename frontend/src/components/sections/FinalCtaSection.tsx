@@ -14,7 +14,7 @@ export function FinalCtaSection({ t, language }: { t: HomeContent; language: Lan
       <div className="absolute inset-0">
         <Image
           src="/images/optimized/cta-bg.webp"
-          alt="Apply for a loan"
+          alt={language === 'ms' ? 'Mohon pinjaman' : 'Apply for a loan'}
           fill
           sizes="100vw"
           className="object-cover"

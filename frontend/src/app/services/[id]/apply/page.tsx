@@ -804,7 +804,7 @@ export default function ServiceApplyPage() {
                   </span>
                 </p>
                 {/* Desktop: full 4-step breadcrumb */}
-                <ol className="hidden sm:flex flex-wrap gap-2 text-xs text-muted-foreground mb-3" aria-label="Application steps">
+                <ol className="hidden sm:flex flex-wrap gap-2 text-xs text-muted-foreground mb-3" aria-label={language === 'ms' ? 'Langkah permohonan' : 'Application steps'}>
                   {stepItems.map((item, index) => (
                     <li
                       key={item.label}
@@ -893,7 +893,7 @@ export default function ServiceApplyPage() {
                           {isValidEmail && !getFieldError(errors, 'email') && (
                             <CheckCircle
                               className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-600"
-                              aria-label="Valid email"
+                              aria-label={language === 'ms' ? 'E-mel sah' : 'Valid email'}
                             />
                           )}
                         </div>
@@ -922,7 +922,7 @@ export default function ServiceApplyPage() {
                           {isValidPhone && !getFieldError(errors, 'phone') && (
                             <CheckCircle
                               className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-600"
-                              aria-label="Valid phone"
+                              aria-label={language === 'ms' ? 'Telefon sah' : 'Valid phone'}
                             />
                           )}
                         </div>

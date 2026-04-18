@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/lib/i18n';
 
 export function BackToTop() {
+  const { language } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export function BackToTop() {
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-4 pointer-events-none'
       )}
-      aria-label="Back to top"
+      aria-label={language === 'ms' ? 'Ke atas' : 'Back to top'}
     >
       <ArrowUp className="h-5 w-5" />
     </Button>

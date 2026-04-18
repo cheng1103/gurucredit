@@ -87,12 +87,16 @@ const content = {
     title: 'What Our Clients Say',
     subtitle: 'Join over 1,000+ satisfied Malaysians who have successfully navigated their loan applications with our help.',
     approved: 'Result',
+    prev: 'Previous testimonial',
+    next: 'Next testimonial',
   },
   ms: {
     badge: 'Kisah Kejayaan',
     title: 'Apa Kata Pelanggan Kami',
     subtitle: 'Sertai lebih 1,000+ rakyat Malaysia yang berjaya menavigasi permohonan pinjaman dengan bantuan kami.',
     approved: 'Hasil',
+    prev: 'Testimoni sebelumnya',
+    next: 'Testimoni seterusnya',
   },
 };
 
@@ -215,8 +219,8 @@ export function TestimonialCarousel() {
                         size="icon"
                         onClick={handlePrevious}
                         className="h-10 w-10 rounded-full"
-                        aria-label="Previous testimonial"
-                        title="Previous testimonial"
+                        aria-label={t.prev}
+                        title={t.prev}
                       >
                         <ChevronLeft className="h-5 w-5" />
                       </Button>
@@ -225,8 +229,8 @@ export function TestimonialCarousel() {
                         size="icon"
                         onClick={handleNext}
                         className="h-10 w-10 rounded-full"
-                        aria-label="Next testimonial"
-                        title="Next testimonial"
+                        aria-label={t.next}
+                        title={t.next}
                       >
                         <ChevronRight className="h-5 w-5" />
                       </Button>

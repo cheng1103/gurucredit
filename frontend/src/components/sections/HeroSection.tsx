@@ -45,20 +45,18 @@ export function HeroSection({ t, language }: Props) {
 
   return (
     <section className="relative overflow-hidden bg-background">
-      {/* Full-bleed atmospheric hero photo */}
+      {/* Full-bleed atmospheric hero photo — kept very faint */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 opacity-[0.16] saturate-[0.85]"
           style={{
             backgroundImage: "url('/images/hero/hero-shutterstock.jpg')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
         />
-        {/* Readability overlay — lighter on top, stronger toward bottom so
-            text above the fold keeps contrast while the photo remains visible */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background/92 via-background/70 to-background/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/60 to-background" />
+        {/* Light wash to soften the bottom edge into the page */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
       </div>
 
       <HeroSpotlight />

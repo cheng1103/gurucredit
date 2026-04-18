@@ -234,6 +234,59 @@ html {
   50% { transform: scale(1.35); opacity: 0; }
 }
 
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(30px, -20px, 0) scale(1.1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
+}
+
+.section-accent-top {
+  position: relative;
+}
+.section-accent-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 48rem;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    oklch(0.45 0.12 250 / 0.4),
+    oklch(0.75 0.15 85 / 0.3),
+    transparent
+  );
+}
+
+.mesh-bg {
+  background-color: oklch(0.99 0.003 240);
+  background-image:
+    radial-gradient(at 20% 15%, oklch(0.75 0.15 85 / 0.08) 0, transparent 45%),
+    radial-gradient(at 85% 25%, oklch(0.45 0.12 250 / 0.08) 0, transparent 45%),
+    radial-gradient(at 70% 85%, oklch(0.6 0.15 160 / 0.07) 0, transparent 45%),
+    radial-gradient(at 15% 75%, oklch(0.7 0.12 30 / 0.06) 0, transparent 45%);
+}
+
 .surface-card {
   background: oklch(1 0 0 / 0.82);
   backdrop-filter: blur(14px);

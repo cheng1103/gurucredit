@@ -44,12 +44,39 @@ export function HeroSection({ t, language }: Props) {
     : 'We analyse your DSR, CCRIS/CTOS file and structure a loan offer that fits your profile — directly from us as your licensed lender.';
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden bg-background">
+      {/* Full-bleed atmospheric photo, heavily washed */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 opacity-[0.18] saturate-[0.8]"
+          style={{
+            backgroundImage: "url('/images/hero/hero-shutterstock.jpg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        {/* Whiten / fade to background so text stays readable */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/75 via-background/85 to-background" />
+      </div>
+
+      {/* Subtle grid + radial washes */}
       <div className="absolute inset-0 hero-backdrop hero-backdrop-mask pointer-events-none" aria-hidden="true" />
       <HeroSpotlight />
+
+      {/* Film grain for cinematic texture */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none opacity-[0.07] mix-blend-overlay"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>\")",
+        }}
+      />
+
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 right-0 w-[40rem] h-[40rem] bg-primary/[0.06] rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-20 w-[30rem] h-[30rem] bg-accent/[0.07] rounded-full blur-3xl" />
+        <div className="absolute -top-40 right-0 w-[40rem] h-[40rem] bg-primary/[0.08] rounded-full blur-3xl animate-[drift_18s_ease-in-out_infinite]" />
+        <div className="absolute -bottom-40 -left-20 w-[30rem] h-[30rem] bg-accent/[0.09] rounded-full blur-3xl animate-[drift_22s_ease-in-out_infinite_reverse]" />
+        <div className="absolute top-1/3 left-1/4 w-[20rem] h-[20rem] bg-emerald-500/[0.05] rounded-full blur-3xl" />
       </div>
 
       <div className="container relative pt-10 lg:pt-14 pb-20 lg:pb-28">
@@ -141,8 +168,8 @@ export function HeroSection({ t, language }: Props) {
 
           <div className="lg:col-span-5 lg:pt-12">
             <HeroVisual
-              imageSrc="/images/optimized/hero-bg.webp"
-              imageAlt="Loan advisory consultation"
+              imageSrc="/images/hero/hero-shutterstock.jpg"
+              imageAlt="Loan advisory consultation — review of bills, tax, and budget statements"
               quoteKicker={language === 'ms' ? 'Pendekatan Kami' : 'Our Approach'}
               quote={
                 language === 'ms'

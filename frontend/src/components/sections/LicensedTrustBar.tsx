@@ -38,18 +38,28 @@ export function LicensedTrustBar({ language }: { language: Language }) {
   return (
     <section
       aria-label={language === 'ms' ? 'Kredibiliti' : 'Trust signals'}
-      className="border-y border-border/70 bg-muted/40"
+      className="relative border-y border-border/70 bg-gradient-to-r from-muted/40 via-background to-muted/40 overflow-hidden"
     >
-      <div className="container">
+      {/* Animated top accent rule */}
+      <span
+        aria-hidden="true"
+        className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+      />
+      {/* Subtle animated shimmer sweeping across */}
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 opacity-[0.4] pointer-events-none bg-[linear-gradient(110deg,transparent_20%,rgba(59,130,246,0.06)_50%,transparent_80%)] bg-[length:200%_100%] animate-[shimmer_8s_ease-in-out_infinite]"
+      />
+      <div className="container relative">
         <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2.5 sm:gap-x-8 sm:gap-y-3 py-4 text-[12px] sm:text-[13px]">
           {items.map((item, i) => {
             const Icon = item.icon;
             return (
               <li
                 key={i}
-                className="inline-flex items-center gap-2 text-muted-foreground"
+                className="group inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground cursor-default"
               >
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-primary ring-1 ring-primary/15 transition-all group-hover:bg-primary group-hover:text-primary-foreground group-hover:ring-primary group-hover:scale-110">
                   <Icon className="h-3.5 w-3.5" aria-hidden="true" />
                 </span>
                 <span className="font-medium text-foreground">{item.text[language]}</span>

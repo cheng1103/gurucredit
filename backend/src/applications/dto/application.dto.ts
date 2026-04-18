@@ -111,9 +111,10 @@ export class CreatePublicApplicationDto {
   @Sanitize(100)
   jobTitle?: string;
 
-  @ApiProperty({ example: 5000 })
+  @ApiProperty({ example: 5000, required: false })
+  @IsOptional()
   @IsNumber()
-  monthlyIncome: number;
+  monthlyIncome?: number;
 
   @ApiProperty({ example: 1000, required: false })
   @IsOptional()

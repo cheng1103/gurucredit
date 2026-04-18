@@ -15,14 +15,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -35,7 +27,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { applicationsAPI } from '@/lib/api';
 import { SERVICE_AREA_FILTERS, formatServiceArea } from '@/lib/serviceAreas';
 import { toast } from 'sonner';
-import { Search, Eye, Edit, Loader2, Filter, AlertTriangle, Download } from 'lucide-react';
+import { Search, Eye, Edit, Loader2, Filter, AlertTriangle, Download, Phone, Mail, MapPin, Target, Calendar, User as UserIcon, Copy } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { StatusBadge } from '@/components/StatusBadge';
 import { EmptyState } from '@/components/EmptyState';
@@ -57,6 +49,7 @@ interface Application {
   applicantName: string;
   applicantEmail: string;
   applicantPhone?: string;
+  loanPurpose?: string;
   referralSource?: string;
   contactPreference?: string;
   service: {
@@ -443,174 +436,264 @@ function ApplicationsPageContent() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg ring-1 ring-black/5 dark:ring-white/10">
-          <CardContent className="p-0">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[40px]">
-                    <input
-                      type="checkbox"
-                      checked={allSelected}
-                      onChange={(e) => toggleSelectAll(e.target.checked)}
-                      aria-label="Select all applications"
-                    />
-                  </TableHead>
-                  <TableHead>Client</TableHead>
-                  <TableHead>Service</TableHead>
-                  <TableHead>Service Area</TableHead>
-                  <TableHead>Income</TableHead>
-                  <TableHead>Loan Amount</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Follow-up</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {loading
-                  ? Array.from({ length: 5 }).map((_, idx) => (
-                      <TableRow key={`loading-${idx}`}>
-                      <TableCell colSpan={10}>
-                        <Skeleton className="h-8 w-full" />
-                      </TableCell>
-                      </TableRow>
-                    ))
-                  : applications.length === 0
-                    ? (
-                        <TableRow>
-                          <TableCell colSpan={10}>
-                            <EmptyState
-                              title="No applications found"
-                              description="Try adjusting your filters or check back later."
-                              action={{
-                                label: 'Reset filters',
-                                onClick: () => {
-                                  setStatusFilter('all');
-                                  setSearch('');
-                                  setAreaFilter('all');
-                                  fetchApplications();
-                                },
-                                variant: 'outline',
-                              }}
-                            />
-                          </TableCell>
-                        </TableRow>
-                      )
-                    : sortedApplications.map((app) => {
-                        const overdue = isOverdue(app, Date.now());
-                        const follow = followUpMeta(app, Date.now());
-                        return (
-                          <TableRow
-                            key={app.id}
-                            className={overdue ? 'bg-amber-50/80 dark:bg-amber-900/10' : undefined}
-                          >
-                          <TableCell>
-                            <input
-                              type="checkbox"
-                              checked={selectedIds.includes(app.id)}
-                              onChange={() => toggleSelection(app.id)}
-                              aria-label={`Select application ${getContactName(app)}`}
-                            />
-                          </TableCell>
-                          <TableCell>
-                            <div className="space-y-1">
-                              <p className="font-medium">{getContactName(app)}</p>
-                              <p className="text-xs text-muted-foreground">
-                                {getContactEmail(app)}
-                              </p>
-                              {overdue && (
-                                <p className="flex items-center gap-1 text-[11px] font-semibold text-amber-700">
-                                  <AlertTriangle className="h-3 w-3" />
-                                  Follow up overdue
-                                </p>
-                              )}
-                              {!overdue && ['PENDING', 'IN_REVIEW'].includes(app.status) && (
-                                <p className="text-[11px] text-emerald-700">
-                                  SLA on track
-                                </p>
-                              )}
-                              {(app.referralSource || app.contactPreference) && (
-                                <p className="text-[11px] text-muted-foreground/80">
-                                  {app.referralSource && <span>Src: {app.referralSource}</span>}
-                                  {app.referralSource && app.contactPreference && <span> • </span>}
-                                  {app.contactPreference && (
-                                    <span>
-                                      Pref:{' '}
-                                      {contactPreferenceLabels[app.contactPreference] ||
-                                        app.contactPreference}
-                                    </span>
-                                  )}
-                                </p>
-                              )}
-                            </div>
-                          </TableCell>
-                          <TableCell className="text-sm text-muted-foreground">
-                            {app.service.name}
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant="secondary" className="border border-border/60 bg-muted/40">
-                              {formatServiceArea(app.serviceArea)}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>
-                            {app.monthlyIncome ? `RM ${app.monthlyIncome.toLocaleString()}` : '—'}
-                          </TableCell>
-                          <TableCell>
-                            {app.loanAmount ? `RM ${app.loanAmount.toLocaleString()}` : '—'}
-                          </TableCell>
-                          <TableCell>
-                            <StatusBadge status={app.status} />
-                          </TableCell>
-                          <TableCell>
-                            {app.followUpAt ? (
-                              <div className="text-xs">
-                                <p className={follow.overdue ? 'text-rose-600 font-semibold' : follow.soon ? 'text-amber-700 font-semibold' : 'text-muted-foreground'}>
-                                  {follow.overdue ? 'Overdue' : follow.soon ? 'Due soon' : 'Scheduled'}
-                                </p>
-                                <p className="text-muted-foreground">
-                                  {new Date(app.followUpAt).toLocaleDateString()}
-                                </p>
-                              </div>
-                            ) : (
-                              <span className="text-xs text-muted-foreground">—</span>
-                            )}
-                          </TableCell>
-                          <TableCell>{new Date(app.createdAt).toLocaleDateString()}</TableCell>
-                          <TableCell className="text-right">
-                            <div className="flex justify-end gap-2">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => router.push(`/applications/${app.id}`)}
-                              >
-                                <Eye className="h-4 w-4" />
-                              </Button>
-                              {(app.status === 'PENDING' || app.status === 'IN_REVIEW') && (
-                                <Button size="sm" onClick={() => openAnalysisDialog(app)}>
-                                  <Edit className="mr-1 h-4 w-4" />
-                                  Analyze
-                                </Button>
-                              )}
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      );
-                      })}
-              </TableBody>
-            </Table>
-            <Pagination
-              page={page}
-              pageSize={pageSize}
-              total={totalApplications}
-              onPageChange={setPage}
-              onPageSizeChange={(size) => {
-                setPageSize(size);
-                setPage(1);
-              }}
+        {applications.length > 0 && (
+          <div className="flex items-center gap-3 px-1 text-xs text-muted-foreground">
+            <input
+              type="checkbox"
+              checked={allSelected}
+              onChange={(e) => toggleSelectAll(e.target.checked)}
+              aria-label="Select all applications"
+              className="h-4 w-4"
             />
-          </CardContent>
-        </Card>
+            <span>Select all {applications.length} on this page</span>
+          </div>
+        )}
+
+        {loading ? (
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <Skeleton key={`loading-${idx}`} className="h-64 w-full rounded-xl" />
+            ))}
+          </div>
+        ) : applications.length === 0 ? (
+          <Card>
+            <CardContent className="py-10">
+              <EmptyState
+                title="No applications found"
+                description="Try adjusting your filters or check back later."
+                action={{
+                  label: 'Reset filters',
+                  onClick: () => {
+                    setStatusFilter('all');
+                    setSearch('');
+                    setAreaFilter('all');
+                    fetchApplications();
+                  },
+                  variant: 'outline',
+                }}
+              />
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {sortedApplications.map((app) => {
+              const overdue = isOverdue(app, Date.now());
+              const follow = followUpMeta(app, Date.now());
+              const phone = app.applicantPhone?.trim();
+              const phoneDigits = phone?.replace(/[^\d+]/g, '') ?? '';
+              const whatsappLink = phoneDigits
+                ? `https://wa.me/${phoneDigits.replace(/^\+/, '')}`
+                : null;
+              return (
+                <Card
+                  key={app.id}
+                  className={`group relative overflow-hidden border shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5 ${
+                    overdue ? 'border-amber-300 bg-amber-50/40 dark:bg-amber-900/10' : 'border-border/70'
+                  }`}
+                >
+                  {/* Accent stripe by status */}
+                  <div
+                    aria-hidden="true"
+                    className={`absolute inset-y-0 left-0 w-1 ${
+                      app.status === 'COMPLETED'
+                        ? 'bg-emerald-500'
+                        : app.status === 'IN_REVIEW'
+                          ? 'bg-blue-500'
+                          : app.status === 'REJECTED'
+                            ? 'bg-rose-500'
+                            : 'bg-amber-500'
+                    }`}
+                  />
+                  <CardContent className="space-y-4 p-5 pl-6">
+                    {/* Header: checkbox + name + status */}
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3 min-w-0">
+                        <input
+                          type="checkbox"
+                          checked={selectedIds.includes(app.id)}
+                          onChange={() => toggleSelection(app.id)}
+                          aria-label={`Select application ${getContactName(app)}`}
+                          className="mt-1 h-4 w-4 shrink-0"
+                        />
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2">
+                            <UserIcon className="h-4 w-4 text-muted-foreground shrink-0" />
+                            <p className="truncate text-base font-semibold">
+                              {getContactName(app)}
+                            </p>
+                          </div>
+                          <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+                            <Calendar className="h-3 w-3" />
+                            {new Date(app.createdAt).toLocaleDateString('en-MY', {
+                              day: '2-digit',
+                              month: 'short',
+                              year: 'numeric',
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                      <StatusBadge status={app.status} />
+                    </div>
+
+                    {/* Contact block — highlighted for easy screenshot */}
+                    <div className="rounded-lg border border-border/60 bg-background p-3 space-y-2 text-sm">
+                      {phone && (
+                        <div className="flex items-center justify-between gap-2">
+                          <a
+                            href={`tel:${phoneDigits}`}
+                            className="flex items-center gap-2 font-semibold text-foreground hover:text-primary transition-colors"
+                          >
+                            <Phone className="h-4 w-4 text-emerald-600" />
+                            <span className="tabular-nums">{phone}</span>
+                          </a>
+                          <div className="flex items-center gap-1">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigator.clipboard.writeText(phone);
+                                toast.success('Phone copied');
+                              }}
+                              className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                              aria-label="Copy phone number"
+                            >
+                              <Copy className="h-3.5 w-3.5" />
+                            </button>
+                            {whatsappLink && (
+                              <a
+                                href={whatsappLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="rounded bg-emerald-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white hover:bg-emerald-500"
+                              >
+                                WA
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      {getContactEmail(app) && (
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <Mail className="h-3.5 w-3.5 shrink-0" />
+                          <span className="truncate">{getContactEmail(app)}</span>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <MapPin className="h-3.5 w-3.5 shrink-0" />
+                        <span>{formatServiceArea(app.serviceArea)}</span>
+                      </div>
+                    </div>
+
+                    {/* Loan ask */}
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="rounded-lg border border-border/60 bg-background p-3">
+                        <p className="flex items-center gap-1 text-[10px] uppercase tracking-wider text-muted-foreground">
+                          <Target className="h-3 w-3" />
+                          Loan Purpose
+                        </p>
+                        <p className="mt-1 text-sm font-semibold leading-tight break-words">
+                          {app.loanPurpose || '—'}
+                        </p>
+                      </div>
+                      <div className="rounded-lg border border-border/60 bg-background p-3">
+                        <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                          Loan Amount
+                        </p>
+                        <p className="mt-1 text-sm font-semibold tabular-nums">
+                          {app.loanAmount ? `RM ${app.loanAmount.toLocaleString()}` : '—'}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Secondary info */}
+                    {(app.monthlyIncome || app.referralSource || app.contactPreference) && (
+                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
+                        {app.monthlyIncome ? (
+                          <span>
+                            Income:{' '}
+                            <span className="font-semibold text-foreground tabular-nums">
+                              RM {app.monthlyIncome.toLocaleString()}
+                            </span>
+                          </span>
+                        ) : null}
+                        {app.referralSource && <span>Src: {app.referralSource}</span>}
+                        {app.contactPreference && (
+                          <span>
+                            {contactPreferenceLabels[app.contactPreference] ||
+                              app.contactPreference}
+                          </span>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Status chips */}
+                    <div className="flex flex-wrap gap-1.5">
+                      {overdue && (
+                        <Badge className="bg-amber-100 text-amber-700 border-amber-200">
+                          <AlertTriangle className="h-3 w-3 mr-1" />
+                          Follow up overdue
+                        </Badge>
+                      )}
+                      {!overdue && ['PENDING', 'IN_REVIEW'].includes(app.status) && (
+                        <Badge variant="secondary" className="bg-emerald-50 text-emerald-700 border-emerald-200">
+                          SLA on track
+                        </Badge>
+                      )}
+                      {app.followUpAt && (
+                        <Badge
+                          variant="secondary"
+                          className={
+                            follow.overdue
+                              ? 'bg-rose-50 text-rose-700 border-rose-200'
+                              : follow.soon
+                                ? 'bg-amber-50 text-amber-700 border-amber-200'
+                                : 'bg-muted'
+                          }
+                        >
+                          {follow.overdue ? 'Overdue: ' : follow.soon ? 'Due soon: ' : 'Follow-up: '}
+                          {new Date(app.followUpAt).toLocaleDateString('en-MY', {
+                            day: '2-digit',
+                            month: 'short',
+                          })}
+                        </Badge>
+                      )}
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex gap-2 pt-2 border-t border-border/50">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => router.push(`/applications/${app.id}`)}
+                        className="flex-1"
+                      >
+                        <Eye className="mr-1 h-4 w-4" />
+                        View
+                      </Button>
+                      {(app.status === 'PENDING' || app.status === 'IN_REVIEW') && (
+                        <Button size="sm" onClick={() => openAnalysisDialog(app)} className="flex-1">
+                          <Edit className="mr-1 h-4 w-4" />
+                          Analyze
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        )}
+
+        <Pagination
+          page={page}
+          pageSize={pageSize}
+          total={totalApplications}
+          onPageChange={setPage}
+          onPageSizeChange={(size) => {
+            setPageSize(size);
+            setPage(1);
+          }}
+        />
 
         {/* Analysis Dialog */}
         <Dialog open={showAnalysisDialog} onOpenChange={setShowAnalysisDialog}>

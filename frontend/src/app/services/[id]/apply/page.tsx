@@ -644,10 +644,12 @@ export default function ServiceApplyPage() {
         email: validatedData.email,
         phone: validatedData.phone,
         serviceArea: validatedData.serviceArea,
-        employmentType: validatedData.employmentType,
+        employmentType: validatedData.employmentType || 'employed',
         employerName: validatedData.employerName || undefined,
         jobTitle: validatedData.jobTitle || undefined,
-        monthlyIncome: parseFloat(validatedData.monthlyIncome) || 0,
+        monthlyIncome: validatedData.monthlyIncome
+          ? parseFloat(validatedData.monthlyIncome) || 0
+          : 0,
         houseLoan: parseFloat(validatedData.houseLoan || '0') || 0,
         carLoan: parseFloat(validatedData.carLoan || '0') || 0,
         personalLoan: parseFloat(validatedData.personalLoan || '0') || 0,
@@ -1323,46 +1325,6 @@ export default function ServiceApplyPage() {
 
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
-              <Card className="shadow-lg border border-border/70 bg-card overflow-hidden">
-                <CardHeader className="bg-gradient-to-br from-primary to-primary/90 text-primary-foreground pb-4 rounded-t-xl">
-                  <Badge className="bg-white/20 text-white border-0 w-fit mb-2">
-                    <Star className="h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
-                    {t.sidebar.selectedService}
-                  </Badge>
-                  <CardTitle className="text-lg">{serviceData.name}</CardTitle>
-
-                  {/* Analysis Fee - RM30 */}
-                  <div className="mt-4 p-3 bg-white/10 rounded-lg">
-                    <p className="text-xs opacity-80 mb-1">{t.sidebar.analysisFee}</p>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold">RM{ANALYSIS_FEE}</span>
-                      <span className="text-sm opacity-80">{t.sidebar.oneTime}</span>
-                    </div>
-                  </div>
-
-                  {/* Loan Rate Reference */}
-                  <div className="mt-3 text-sm opacity-80">
-                    <span>{t.sidebar.loanRate}: </span>
-                    <span className="font-semibold">{loanRates[serviceId]}% </span>
-                    <span className="text-xs">{t.sidebar.rateNote}</span>
-                  </div>
-                </CardHeader>
-                <CardContent className="p-4">
-                  <h4 className="font-medium text-sm mb-3">{t.sidebar.included}</h4>
-                  <ul className="space-y-2">
-                    {t.sidebar.analysisFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2 text-sm">
-                        <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-4 text-xs text-muted-foreground bg-muted/40 border border-dashed rounded-md p-3">
-                    {t.sidebar.paymentNote}
-                  </div>
-                </CardContent>
-              </Card>
-
               {serviceData.spotlight && (
                 <Card className="border border-amber-200 shadow-sm bg-card">
                   <CardContent className="p-4 space-y-3">

@@ -99,7 +99,7 @@ export const loanApplicationSchema = z.object({
   }),
   employmentType: z.enum(EMPLOYMENT_TYPES, {
     message: 'Please select an employment type',
-  }),
+  }).optional().or(z.literal('')),
   employerName: z
     .string()
     .max(100, 'Company name is too long')
@@ -114,13 +114,14 @@ export const loanApplicationSchema = z.object({
     .or(z.literal('')),
   monthlyIncome: z
     .string()
-    .min(1, 'Monthly income is required')
-    .refine((val) => !isNaN(parseFloat(val)) && parseFloat(val) > 0, {
+    .refine((val) => val === '' || (!isNaN(parseFloat(val)) && parseFloat(val) > 0), {
       message: 'Please enter a valid income amount',
     })
-    .refine((val) => parseFloat(val) <= 10000000, {
+    .refine((val) => val === '' || parseFloat(val) <= 10000000, {
       message: 'Income amount seems too high',
-    }),
+    })
+    .optional()
+    .or(z.literal('')),
   houseLoan: z
     .string()
     .refine((val) => val === '' || (!isNaN(parseFloat(val)) && parseFloat(val) >= 0), {

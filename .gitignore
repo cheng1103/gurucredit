@@ -27,3 +27,4 @@ Thumbs.db
 
 # Generated assets
 public/images/optimized/
+.vercel

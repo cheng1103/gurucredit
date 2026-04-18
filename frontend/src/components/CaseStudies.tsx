@@ -16,9 +16,9 @@ import {
 } from 'lucide-react';
 
 const customerPhotos = [
-  '/images/customer-1.jpg',
-  '/images/customer-2.jpg',
-  '/images/customer-3.jpg',
+  '/images/customers/indian-male-34.jpg',
+  '/images/customers/chinese-male-41.jpg',
+  '/images/customers/malay-male-29.jpg',
 ];
 
 type CaseFact = { label: string; value: string };
@@ -75,7 +75,7 @@ const content: Record<Language, CopyBlock> = {
     },
     cases: [
       {
-        name: 'Encik A',
+        name: 'Encik Rajesh K.',
         age: 34,
         location: 'Shah Alam, Selangor',
         profile: 'IT manager, 6 years with same employer',
@@ -96,7 +96,7 @@ const content: Record<Language, CopyBlock> = {
           'I thought I had to wait another year for those late markers to age off. GURU showed me that Hong Leong scores late markers differently from MBB — I got approved the same month.',
       },
       {
-        name: 'Puan B',
+        name: 'Encik Tan W.M.',
         age: 41,
         location: 'George Town, Penang',
         profile: 'Sole proprietor, 4-year F&B business',
@@ -117,7 +117,7 @@ const content: Record<Language, CopyBlock> = {
           'Branch staff kept saying I need 2 years audited. GURU pointed me to SME Bank and an alternative doc list — bank statements + tax returns were enough.',
       },
       {
-        name: 'Cik C',
+        name: 'Encik Faiz H.',
         age: 29,
         location: 'Kuantan, Pahang',
         profile: 'Staff nurse, contract-to-permanent in month 11',
@@ -159,7 +159,7 @@ const content: Record<Language, CopyBlock> = {
     },
     cases: [
       {
-        name: 'Encik A',
+        name: 'Encik Rajesh K.',
         age: 34,
         location: 'Shah Alam, Selangor',
         profile: 'Pengurus IT, 6 tahun dengan majikan sama',
@@ -180,7 +180,7 @@ const content: Record<Language, CopyBlock> = {
           'Saya ingat kena tunggu setahun lagi untuk rekod lewat hilang. GURU tunjuk yang Hong Leong nilai rekod lewat lain daripada MBB — diluluskan dalam bulan yang sama.',
       },
       {
-        name: 'Puan B',
+        name: 'Encik Tan W.M.',
         age: 41,
         location: 'George Town, Pulau Pinang',
         profile: 'Tuan punya tunggal, perniagaan F&B 4 tahun',
@@ -201,7 +201,7 @@ const content: Record<Language, CopyBlock> = {
           'Staf cawangan kata perlu 2 tahun audit. GURU tunjuk ke SME Bank dan senarai dokumen alternatif — penyata bank + cukai dah cukup.',
       },
       {
-        name: 'Cik C',
+        name: 'Encik Faiz H.',
         age: 29,
         location: 'Kuantan, Pahang',
         profile: 'Jururawat, kontrak ke tetap pada bulan ke-11',

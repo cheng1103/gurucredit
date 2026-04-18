@@ -14,7 +14,7 @@ export function BlogSection({ t, language }: Props) {
   const locale = language === 'ms' ? 'ms-MY' : 'en-MY';
 
   return (
-    <section className="py-16 lg:py-20 bg-muted/30">
+    <section className="py-16 lg:py-20">
       <div className="container">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-10">
           <div>

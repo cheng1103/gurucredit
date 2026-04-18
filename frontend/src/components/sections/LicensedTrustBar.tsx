@@ -38,7 +38,7 @@ export function LicensedTrustBar({ language }: { language: Language }) {
   return (
     <section
       aria-label={language === 'ms' ? 'Kredibiliti' : 'Trust signals'}
-      className="relative border-y border-border/70 bg-gradient-to-r from-muted/40 via-background to-muted/40 overflow-hidden"
+      className="relative border-y border-border/70 overflow-hidden"
     >
       {/* Animated top accent rule */}
       <span

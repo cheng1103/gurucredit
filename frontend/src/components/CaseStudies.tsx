@@ -232,9 +232,7 @@ export function CaseStudies({ language }: { language: Language }) {
   const t = content[language] ?? content.en;
 
   return (
-    <section className="relative py-24 lg:py-32 mesh-bg section-accent-top overflow-hidden">
-      <div aria-hidden="true" className="absolute -top-24 right-10 w-[32rem] h-[32rem] bg-primary/[0.06] rounded-full blur-[120px] pointer-events-none" />
-      <div aria-hidden="true" className="absolute bottom-0 -left-20 w-[28rem] h-[28rem] bg-accent/[0.06] rounded-full blur-[120px] pointer-events-none" />
+    <section className="relative py-24 lg:py-32 section-accent-top overflow-hidden">
       <div className="container max-w-6xl relative">
         <div className="max-w-2xl mb-14 lg:mb-16">
           <Badge variant="outline" className="mb-4 px-3 py-1 text-xs font-semibold tracking-wide">

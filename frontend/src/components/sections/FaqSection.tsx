@@ -9,9 +9,7 @@ import { FaqAccordion } from './FaqAccordion';
 
 export function FaqSection({ t, language }: { t: HomeContent; language: Language }) {
   return (
-    <section className="relative py-24 lg:py-32 mesh-bg section-accent-top overflow-hidden">
-      <div aria-hidden="true" className="absolute top-0 right-0 w-96 h-96 bg-accent/[0.06] rounded-full blur-3xl pointer-events-none" />
-      <div aria-hidden="true" className="absolute bottom-0 left-0 w-96 h-96 bg-primary/[0.06] rounded-full blur-3xl pointer-events-none" />
+    <section className="relative py-24 lg:py-32 section-accent-top overflow-hidden">
       <div className="container relative">
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 py-1.5 px-4">

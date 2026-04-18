@@ -61,8 +61,6 @@ export function HeroSection({ t, language }: Props) {
         <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/60 to-background" />
       </div>
 
-      {/* Subtle grid + radial washes */}
-      <div className="absolute inset-0 hero-backdrop hero-backdrop-mask pointer-events-none" aria-hidden="true" />
       <HeroSpotlight />
 
       {/* Film grain for cinematic texture */}

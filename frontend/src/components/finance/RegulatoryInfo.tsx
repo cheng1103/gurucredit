@@ -58,7 +58,7 @@ const icons = [Building, HandCoins, Scale];
 export function RegulatoryInfo({ language }: { language: Language }) {
   const t = content[language];
   return (
-    <section className="py-14 lg:py-16 bg-muted/30">
+    <section className="py-14 lg:py-16">
       <div className="container">
         <div className="max-w-5xl mx-auto">
           <div className="mb-8 text-center">

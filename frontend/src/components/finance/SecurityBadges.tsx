@@ -50,7 +50,7 @@ export function SecurityBadges({ language, bare = false }: { language: Language;
   );
   if (bare) return <div>{body}</div>;
   return (
-    <section className="py-14 bg-gradient-to-b from-background to-muted/40">
+    <section className="py-14">
       <div className="container max-w-5xl mx-auto text-center">{body}</div>
     </section>
   );

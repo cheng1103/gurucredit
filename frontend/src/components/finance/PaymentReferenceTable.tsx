@@ -36,10 +36,7 @@ export function PaymentReferenceTable({ language }: Props) {
     : 'Figures rounded to nearest RM. Processing, stamp duty and insurance fees not included.';
 
   return (
-    <section className="relative py-20 lg:py-28 mesh-bg section-accent-top overflow-hidden">
-      {/* Decorative orbs */}
-      <div aria-hidden="true" className="absolute -top-32 -right-24 w-[28rem] h-[28rem] bg-primary/[0.05] rounded-full blur-3xl pointer-events-none" />
-      <div aria-hidden="true" className="absolute -bottom-40 -left-20 w-[24rem] h-[24rem] bg-accent/[0.05] rounded-full blur-3xl pointer-events-none" />
+    <section className="relative py-20 lg:py-28 section-accent-top overflow-hidden">
       <div className="container relative">
         <div className="max-w-3xl mb-12">
           <div className="flex items-center gap-3 text-xs uppercase tracking-[0.22em] text-muted-foreground mb-6">

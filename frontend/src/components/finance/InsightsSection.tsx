@@ -80,7 +80,7 @@ export function InsightsSection({ language }: { language: Language }) {
   const locale = language === 'ms' ? 'ms-MY' : 'en-MY';
 
   return (
-    <section className="py-24 lg:py-32 bg-muted/30">
+    <section className="py-24 lg:py-32">
       <div className="container">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-end mb-14">
           <div className="lg:col-span-7">

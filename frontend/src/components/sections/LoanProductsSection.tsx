@@ -18,8 +18,6 @@ const featureImages = [
 export function LoanProductsSection({ t }: { t: HomeContent }) {
   return (
     <section className="relative py-24 lg:py-32 section-accent-top overflow-hidden">
-      <div aria-hidden="true" className="absolute inset-0 pointer-events-none bg-gradient-to-b from-muted/40 via-background to-muted/30" />
-      <div aria-hidden="true" className="absolute top-20 left-1/2 -translate-x-1/2 w-[60rem] h-[30rem] bg-primary/[0.04] rounded-full blur-[120px] pointer-events-none" />
       <div className="container relative">
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 px-4 py-1.5">

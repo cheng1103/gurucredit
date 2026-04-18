@@ -200,7 +200,7 @@ export function PreApprovalCalculator() {
   };
 
   return (
-    <section className="py-16 bg-muted/30">
+    <section className="py-16">
       <div className="container">
         <div className="text-center mb-10">
           <Badge variant="secondary" className="mb-4">

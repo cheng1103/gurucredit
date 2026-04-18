@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Language } from '@/lib/i18n/translations';
-import { SEO, TRUST_BLOCK } from '@/lib/constants';
+import { SEO, TRUST_BLOCK, COMPANY } from '@/lib/constants';
 import { WebPageJsonLd } from '@/components/JsonLd';
 import { TrustPanel } from '@/components/TrustPanel';
 import {
@@ -198,7 +198,7 @@ export default function ServicesContent({ language }: Props) {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground/40">
-              <Link href="https://wa.me/601127486389" target="_blank" rel="noreferrer">
+              <Link href={COMPANY.whatsappLink} target="_blank" rel="noreferrer">
                 {t.cta.secondary}
               </Link>
             </Button>

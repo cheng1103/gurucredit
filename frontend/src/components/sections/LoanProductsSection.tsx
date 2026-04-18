@@ -10,8 +10,8 @@ const featureColors = [
   'from-emerald-500 to-emerald-600',
 ];
 const featureImages = [
-  '/images/optimized/personal-loan.webp',
-  '/images/optimized/business-loan.webp',
+  '/images/loans/personal-loan.jpg',
+  '/images/loans/business-loan.jpg',
   '/images/optimized/cta-bg.webp',
 ];
 

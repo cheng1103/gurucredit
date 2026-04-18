@@ -157,6 +157,30 @@ export class ApplicationsService {
     return undefined;
   }
 
+  // Frontend uses catalog slugs ("1"/"2"/"3"/"4") for /services/[id]/apply URLs
+  // while the DB stores real Mongo ObjectIds. If the caller already sent a
+  // 24-char hex id, trust it. Otherwise resolve to the first active service
+  // (ELIGIBILITY_ANALYSIS — the RM30 CTOS analysis product is what we actually
+  // capture leads for from any loan page).
+  private async resolveServiceId(raw: string): Promise<string> {
+    if (typeof raw === 'string' && /^[0-9a-fA-F]{24}$/.test(raw)) {
+      return raw;
+    }
+    const preferred = await this.prisma.service.findFirst({
+      where: { type: 'ELIGIBILITY_ANALYSIS', isActive: true },
+      select: { id: true },
+    });
+    if (preferred) return preferred.id;
+    const anyActive = await this.prisma.service.findFirst({
+      where: { isActive: true },
+      select: { id: true },
+    });
+    if (anyActive) return anyActive.id;
+    throw new NotFoundException(
+      'No active service configured for public applications. Run `npm run seed --workspace=backend`.',
+    );
+  }
+
   // Public application - anonymous submissions
   async createPublic(dto: CreatePublicApplicationDto) {
     // Calculate total existing debts
@@ -167,10 +191,12 @@ export class ApplicationsService {
       (dto.creditCard || 0) +
       (dto.otherDebts || 0);
 
+    const serviceId = await this.resolveServiceId(dto.serviceId);
+
     // Create the application
     const application = await this.prisma.application.create({
       data: {
-        serviceId: dto.serviceId,
+        serviceId,
         applicantName: dto.name,
         applicantEmail: dto.email,
         applicantPhone: dto.phone,

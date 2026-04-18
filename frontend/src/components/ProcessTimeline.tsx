@@ -1,45 +1,28 @@
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { Language } from '@/lib/i18n/translations';
 import Link from 'next/link';
-import {
-  FileText,
-  Search,
-  CheckCircle,
-  ArrowRight,
-  Clock,
-  Sparkles,
-} from 'lucide-react';
+import { CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
+import { ProcessTimelineSteps, type ProcessStep } from './ProcessTimelineSteps';
 
-const content = {
+const content: Record<Language, {
+  badge: string;
+  title: string;
+  titleHighlight: string;
+  subtitle: string;
+  steps: ProcessStep[];
+  cta: string;
+  guarantee: string;
+}> = {
   en: {
     badge: 'Simple Process',
     title: 'How It',
     titleHighlight: 'Works',
     subtitle: 'Get lender-ready in just 3 simple steps',
     steps: [
-      {
-        step: '01',
-        title: 'Apply Online',
-        description: 'Fill out our simple online form with your basic information',
-        time: '5 minutes',
-        icon: FileText,
-      },
-      {
-        step: '02',
-        title: 'Quick Review',
-        description: 'Our team reviews your application and processes it quickly',
-        time: '24 hours',
-        icon: Search,
-      },
-      {
-        step: '03',
-        title: 'Submit to Bank',
-        description: 'We help submit to the right lenders and guide your follow-up',
-        time: 'Same-day submission',
-        icon: CheckCircle,
-      },
+      { step: '01', title: 'Apply Online', description: 'Fill out our simple online form with your basic information', time: '5 minutes', iconKey: 'fileText' },
+      { step: '02', title: 'Quick Review', description: 'Our team reviews your application and processes it quickly', time: '24 hours', iconKey: 'search' },
+      { step: '03', title: 'Submit to Bank', description: 'We help submit to the right lenders and guide your follow-up', time: 'Same-day submission', iconKey: 'checkCircle' },
     ],
     cta: 'Apply Now',
     guarantee: 'Competitive rates from 4.88% flat rate',
@@ -50,32 +33,14 @@ const content = {
     titleHighlight: 'Berfungsi',
     subtitle: 'Sedia untuk bank dalam 3 langkah mudah',
     steps: [
-      {
-        step: '01',
-        title: 'Mohon Dalam Talian',
-        description: 'Isi borang dalam talian mudah kami dengan maklumat asas anda',
-        time: '5 minit',
-        icon: FileText,
-      },
-      {
-        step: '02',
-        title: 'Semakan Pantas',
-        description: 'Pasukan kami menyemak permohonan anda dan memproses dengan cepat',
-        time: '24 jam',
-        icon: Search,
-      },
-      {
-        step: '03',
-        title: 'Hantar ke Bank',
-        description: 'Kami bantu hantar ke bank yang sesuai dan pandu susulan',
-        time: 'Hantaran hari sama',
-        icon: CheckCircle,
-      },
+      { step: '01', title: 'Mohon Dalam Talian', description: 'Isi borang dalam talian mudah kami dengan maklumat asas anda', time: '5 minit', iconKey: 'fileText' },
+      { step: '02', title: 'Semakan Pantas', description: 'Pasukan kami menyemak permohonan anda dan memproses dengan cepat', time: '24 jam', iconKey: 'search' },
+      { step: '03', title: 'Hantar ke Bank', description: 'Kami bantu hantar ke bank yang sesuai dan pandu susulan', time: 'Hantaran hari sama', iconKey: 'checkCircle' },
     ],
     cta: 'Mohon Sekarang',
     guarantee: 'Kadar kompetitif dari 4.88% kadar rata',
   },
-} as const;
+};
 
 export function ProcessTimeline({ language }: { language: Language }) {
   const t = content[language] ?? content.en;
@@ -99,54 +64,8 @@ export function ProcessTimeline({ language }: { language: Language }) {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Connection Line */}
           <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-primary/20 via-primary to-primary/20 -translate-y-1/2" />
-
-          <div className="grid md:grid-cols-3 gap-8 relative">
-            {t.steps.map((step, index) => {
-              const Icon = step.icon;
-              return (
-                <div key={index} className="relative">
-                  <Card className="h-full border-2 hover:border-primary/30 hover:shadow-xl transition-all duration-300 group">
-                    <CardContent className="pt-8 pb-6 px-6 text-center">
-                      {/* Step Number */}
-                      <div className="absolute -top-5 left-1/2 -translate-x-1/2">
-                        <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                          {step.step}
-                        </div>
-                      </div>
-
-                      {/* Icon */}
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/20 flex items-center justify-center mx-auto mb-6 mt-4 group-hover:from-primary/20 group-hover:to-primary/30 transition-colors">
-                        <Icon className="h-8 w-8 text-primary" />
-                      </div>
-
-                      {/* Content */}
-                      <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-                      <p className="text-muted-foreground mb-4 leading-relaxed">
-                        {step.description}
-                      </p>
-
-                      {/* Time Badge */}
-                      <Badge variant="secondary" className="gap-1">
-                        <Clock className="h-3 w-3" />
-                        {step.time}
-                      </Badge>
-                    </CardContent>
-                  </Card>
-
-                  {/* Arrow for larger screens */}
-                  {index < 2 && (
-                    <div className="hidden lg:flex absolute top-1/2 -right-4 -translate-y-1/2 z-10">
-                      <div className="w-8 h-8 rounded-full bg-background border-2 border-primary/30 flex items-center justify-center">
-                        <ArrowRight className="h-4 w-4 text-primary" />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+          <ProcessTimelineSteps steps={t.steps} />
         </div>
 
         {/* CTA */}

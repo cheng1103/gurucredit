@@ -95,8 +95,15 @@ export function HeroSection({ t, language }: Props) {
               {t.stats.map((stat, index) => {
                 const parsed = parseStatValue(stat.value);
                 return (
-                  <div key={index} className="space-y-1.5">
-                    <div className="font-display text-3xl lg:text-[2.5rem] font-semibold text-foreground tabular-nums tracking-tight leading-none">
+                  <div
+                    key={index}
+                    className="group relative space-y-1.5 cursor-default rounded-lg -mx-2 px-2 py-2 transition-all duration-300 hover:bg-primary/[0.04] hover:-translate-y-0.5"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-2 right-2 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    />
+                    <div className="font-display text-3xl lg:text-[2.5rem] font-semibold text-foreground tabular-nums tracking-tight leading-none transition-colors duration-300 group-hover:text-primary">
                       <AnimatedCounter
                         end={parsed.number}
                         suffix={parsed.suffix}
@@ -105,7 +112,7 @@ export function HeroSection({ t, language }: Props) {
                         duration={1600}
                       />
                     </div>
-                    <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground leading-snug">
+                    <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground leading-snug transition-colors duration-300 group-hover:text-foreground">
                       {stat.label}
                     </div>
                   </div>

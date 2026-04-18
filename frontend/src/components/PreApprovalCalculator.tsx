@@ -145,7 +145,8 @@ export function PreApprovalCalculator() {
   const [commitments, setCommitments] = useState<string>('');
   const [loanAmount, setLoanAmount] = useState<number>(50000);
   const [tenure, setTenure] = useState<number>(5);
-  const [showResults, setShowResults] = useState(false);
+
+  const hasIncome = parseFloat(income) > 0;
 
   const calculation = useMemo(() => {
     const incomeNum = parseFloat(income) || 0;
@@ -158,16 +159,6 @@ export function PreApprovalCalculator() {
       tenureYears: tenure,
     });
   }, [income, commitments, loanAmount, tenure]);
-
-  const handleCalculate = () => {
-    if (calculation) {
-      setShowResults(true);
-    }
-  };
-
-  const handleReset = () => {
-    setShowResults(false);
-  };
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-MY', {
@@ -221,15 +212,9 @@ export function PreApprovalCalculator() {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <AnimatePresence mode="wait">
-            {!showResults ? (
-              <motion.div
-                key="form"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-              >
-                <Card>
+          <div>
+            <div>
+              <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Calculator className="h-5 w-5 text-primary" />
@@ -335,26 +320,29 @@ export function PreApprovalCalculator() {
                       </div>
                     </div>
 
-                    <Button
-                      onClick={handleCalculate}
-                      size="lg"
-                      className="w-full"
-                      disabled={!income}
-                    >
-                      {t.calculate}
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                    {!hasIncome && (
+                      <div className="rounded-xl border border-dashed border-border/70 bg-muted/40 p-6 text-center text-sm text-muted-foreground">
+                        {language === 'ms'
+                          ? '💡 Masukkan pendapatan bulanan untuk lihat kelayakan secara langsung — jumlah dan tempoh boleh dilaraskan bila-bila masa.'
+                          : '💡 Enter your monthly income to see eligibility update live as you adjust the sliders.'}
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="results"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-              >
-                <Card className={`border-2 ${getStatusColor()}`}>
+              </div>
+            </div>
+
+            <AnimatePresence>
+              {hasIncome && calculation && (
+                <motion.div
+                  key="results"
+                  initial={{ opacity: 0, y: 30, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -20, scale: 0.98 }}
+                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                  className="mt-6"
+                >
+                <Card className={`border-2 ${getStatusColor()} transition-colors`}>
                   <CardContent className="pt-8">
                     {/* Status Header */}
                     <div className="text-center mb-8">
@@ -454,25 +442,20 @@ export function PreApprovalCalculator() {
                       </div>
                     )}
 
-                    {/* Action Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <Button onClick={handleReset} variant="outline" className="flex-1">
-                        {t.tryAgain}
+                    {/* Action Button */}
+                    {calculation?.status !== 'declined' && (
+                      <Button asChild size="lg" className="w-full">
+                        <Link href="/services/1/apply">
+                          {t.applyNow}
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
                       </Button>
-                      {calculation?.status !== 'declined' && (
-                        <Button asChild className="flex-1">
-                          <Link href="/services/1/apply">
-                            {t.applyNow}
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </Link>
-                        </Button>
-                      )}
-                    </div>
+                    )}
                   </CardContent>
                 </Card>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                </motion.div>
+              )}
+            </AnimatePresence>
         </div>
       </div>
     </section>

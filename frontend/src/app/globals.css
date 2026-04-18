@@ -229,6 +229,11 @@ html {
   -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
 }
 
+@keyframes wa-breath {
+  0%, 100% { transform: scale(1); opacity: 0.35; }
+  50% { transform: scale(1.35); opacity: 0; }
+}
+
 .surface-card {
   background: oklch(1 0 0 / 0.82);
   backdrop-filter: blur(14px);

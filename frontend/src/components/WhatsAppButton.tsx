@@ -59,17 +59,18 @@ export function WhatsAppButton() {
         href={COMPANY.whatsappLink}
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20BD5A] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+        className="group relative flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20BD5A] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
         aria-label="Chat on WhatsApp"
       >
-        <MessageCircle className="h-7 w-7 text-white" fill="white" />
-
-        {/* Pulse animation */}
-        <span className="absolute w-14 h-14 rounded-full bg-[#25D366] animate-ping opacity-25" />
+        {/* Outer breathing halo */}
+        <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-40 animate-[wa-breath_2.4s_ease-in-out_infinite]" />
+        {/* Ping ring */}
+        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-25" />
+        <MessageCircle className="relative h-7 w-7 text-white" fill="white" />
       </a>
 
       {/* Online indicator */}
-      <span className="absolute top-0 right-0 w-4 h-4 bg-green-400 border-2 border-white rounded-full" />
+      <span className="absolute top-0 right-0 w-4 h-4 bg-green-400 border-2 border-white rounded-full animate-pulse" />
     </div>
   );
 }

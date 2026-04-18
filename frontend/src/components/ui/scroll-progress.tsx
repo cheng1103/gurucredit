@@ -20,11 +20,14 @@ export function ScrollProgress() {
   return (
     <div
       aria-hidden="true"
-      className="fixed top-0 left-0 right-0 z-50 h-0.5 bg-transparent pointer-events-none"
+      className="fixed top-0 left-0 right-0 z-50 h-[3px] bg-transparent pointer-events-none"
     >
       <div
-        className="h-full bg-primary transition-[width] duration-100 ease-out"
-        style={{ width: `${progress}%` }}
+        className="h-full bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] transition-[width] duration-100 ease-out shadow-[0_0_12px_rgba(59,130,246,0.4)]"
+        style={{
+          width: `${progress}%`,
+          backgroundPosition: `${100 - progress}% 0`,
+        }}
       />
     </div>
   );

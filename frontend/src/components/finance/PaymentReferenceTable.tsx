@@ -87,7 +87,7 @@ export function PaymentReferenceTable({ language }: Props) {
                 {ROWS.map((row, rowIdx) => (
                   <tr
                     key={row.amount}
-                    className={`border-b border-border/40 last:border-0 transition-colors hover:bg-primary/[0.03] ${rowIdx % 2 === 1 ? 'bg-foreground/[0.015]' : ''}`}
+                    className={`border-b border-border/40 last:border-0 transition-all duration-300 hover:bg-primary/[0.05] hover:shadow-[inset_0_0_0_1px_rgba(59,130,246,0.2),0_8px_24px_-8px_rgba(15,23,42,0.15)] hover:scale-[1.01] hover:relative hover:z-10 ${rowIdx % 2 === 1 ? 'bg-foreground/[0.015]' : ''}`}
                   >
                     <th
                       scope="row"

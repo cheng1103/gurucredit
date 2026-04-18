@@ -18,6 +18,7 @@ import { RiskWarning } from '@/components/finance/RiskWarning';
 import { RateDisclosure } from '@/components/finance/RateDisclosure';
 import { TrustSecuritySection } from '@/components/finance/TrustSecuritySection';
 import { Rm30DeliverablesSection } from '@/components/finance/Rm30DeliverablesSection';
+import { PaymentReferenceTable } from '@/components/finance/PaymentReferenceTable';
 import { CaseStudies } from '@/components/CaseStudies';
 
 export const revalidate = 300;
@@ -48,6 +49,8 @@ export default async function HomePage() {
       <LicensedTrustBar language={language} />
 
       <Rm30DeliverablesSection language={language} />
+
+      <PaymentReferenceTable language={language} />
 
       <LoanProductsSection t={t} />
 

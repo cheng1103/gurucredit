@@ -41,10 +41,11 @@ export function HeroSection({ t, language }: Props) {
     : 'We analyse your DSR, CCRIS/CTOS file and structure a loan offer that fits your profile — directly from us as your licensed lender.';
 
   return (
-    <section className="relative overflow-hidden bg-background">
+    <section className="relative overflow-hidden">
+      <div className="absolute inset-0 hero-backdrop hero-backdrop-mask pointer-events-none" aria-hidden="true" />
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 right-0 w-[40rem] h-[40rem] bg-primary/[0.04] rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-20 w-[30rem] h-[30rem] bg-accent/[0.05] rounded-full blur-3xl" />
+        <div className="absolute -top-40 right-0 w-[40rem] h-[40rem] bg-primary/[0.06] rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-20 w-[30rem] h-[30rem] bg-accent/[0.07] rounded-full blur-3xl" />
       </div>
 
       <div className="container relative pt-10 lg:pt-14 pb-20 lg:pb-28">

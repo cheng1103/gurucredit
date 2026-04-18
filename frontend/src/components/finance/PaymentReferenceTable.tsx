@@ -1,4 +1,5 @@
 import type { Language } from '@/lib/i18n/translations';
+import { AnimatedCounter } from '@/components/AnimatedCounter';
 
 type Props = { language: Language };
 
@@ -14,7 +15,9 @@ const ROWS: { amount: number; payments: number[] }[] = [
   { amount: 100000, payments: [8740, 4573, 3184, 2490, 2073, 1796, 1597] },
 ];
 
-const formatRM = (n: number) => `RM ${n.toLocaleString('en-MY')}`;
+function RmCounter({ value }: { value: number }) {
+  return <AnimatedCounter end={value} prefix="RM " duration={1800} />;
+}
 
 export function PaymentReferenceTable({ language }: Props) {
   const kicker = language === 'ms' ? 'Rujukan Bayaran Bulanan' : 'Monthly Payment Reference';
@@ -93,12 +96,12 @@ export function PaymentReferenceTable({ language }: Props) {
                       scope="row"
                       className="sticky left-0 z-[1] bg-inherit text-left px-5 py-5 font-display text-base font-semibold text-foreground tabular-nums whitespace-nowrap"
                     >
-                      {formatRM(row.amount)}
+                      <RmCounter value={row.amount} />
                     </th>
                     {row.payments.map((p, idx) => (
                       <td key={idx} className="text-center px-4 py-5 whitespace-nowrap">
                         <div className="font-display text-base font-semibold text-foreground tabular-nums leading-tight">
-                          {formatRM(p)}
+                          <RmCounter value={p} />
                         </div>
                         <div className="text-[11px] text-muted-foreground mt-0.5">
                           {perMonthLabel}

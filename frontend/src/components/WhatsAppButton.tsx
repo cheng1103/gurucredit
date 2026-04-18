@@ -1,13 +1,35 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { COMPANY } from '@/lib/constants';
+
+// Drifts slowly between 8–15 so it feels "live" without looking fake
+function useChattingCount() {
+  const initial = useMemo(() => 8 + Math.floor(Math.random() * 6), []);
+  const [count, setCount] = useState(initial);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount((prev) => {
+        const delta = Math.random() < 0.5 ? -1 : 1;
+        const next = prev + delta;
+        if (next < 8) return 8;
+        if (next > 15) return 15;
+        return next;
+      });
+    }, 12000 + Math.random() * 6000);
+    return () => clearInterval(id);
+  }, []);
+
+  return count;
+}
 
 export function WhatsAppButton() {
   const [isVisible, setIsVisible] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [hasShownTooltip, setHasShownTooltip] = useState(false);
+  const chattingCount = useChattingCount();
 
   useEffect(() => {
     // Show button after scroll
@@ -36,6 +58,16 @@ export function WhatsAppButton() {
 
   return (
     <div className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}>
+      {/* Live chatting count chip */}
+      <div className="absolute bottom-full right-0 mb-2 flex items-center gap-2 rounded-full bg-white/95 backdrop-blur shadow-md border border-border/60 pl-2 pr-3 py-1.5 text-xs whitespace-nowrap animate-in fade-in slide-in-from-bottom-1 duration-500">
+        <span className="relative flex h-2 w-2">
+          <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-75" />
+          <span className="relative rounded-full bg-emerald-500 h-2 w-2" />
+        </span>
+        <span className="tabular-nums font-semibold text-foreground">{chattingCount}</span>
+        <span className="text-muted-foreground">chatting now</span>
+      </div>
+
       {/* Tooltip */}
       {showTooltip && (
         <div className="absolute bottom-16 right-0 mb-2 animate-in fade-in slide-in-from-bottom-2 duration-300">

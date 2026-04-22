@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
@@ -17,7 +16,6 @@ import { useLanguage } from '@/lib/i18n';
 import { COMPANY, SERVICE_AREAS } from '@/lib/constants';
 import { loanApplicationSchema, validateForm, getFieldError } from '@/lib/validation';
 import {
-  Activity,
   Loader2,
   User,
   Mail,
@@ -29,7 +27,6 @@ import {
   ArrowRight,
   Shield,
   Clock,
-  Star,
   Building2,
   MessageCircle,
 } from 'lucide-react';
@@ -45,19 +42,16 @@ const pageContent = {
     steps: {
       personalInfo: 'Personal Info',
       employment: 'Employment',
-      financial: 'Financial',
       review: 'Review',
     },
     stepTitles: {
       personalInfo: 'Personal Information',
-      employment: 'Employment Details',
-      financial: 'Financial Information',
+      employment: 'Employment & Loan',
       review: 'Review & Submit',
     },
     stepDescriptions: {
       personalInfo: 'Please provide your contact details',
-      employment: 'Tell us about your employment',
-      financial: 'Help us understand your financial situation',
+      employment: 'Tell us about your employment and how much you want to borrow',
       review: 'Review your information before submitting',
     },
     form: {
@@ -82,22 +76,12 @@ const pageContent = {
       jobPlaceholder: 'Your position',
       monthlyIncome: 'Monthly Net Income (RM)',
       incomeNote: 'Your take-home pay after all deductions',
-      debtNote: 'Enter your monthly debt payments. Leave blank or enter 0 if not applicable.',
-      houseLoan: 'House Loan (RM/month)',
-      carLoan: 'Car Loan (RM/month)',
-      personalLoan: 'Personal Loan (RM/month)',
-      creditCard: 'Credit Card (min payment)',
-      otherDebts: 'Other Debts (PTPTN, etc.)',
       desiredAmount: 'Desired Loan Amount (RM)',
-      loanPurpose: 'Loan Purpose',
-      purposes: ['House', 'Car', 'Personal', 'Business', 'Education', 'Other'],
-      additionalNotes: 'Additional Notes (optional)',
-      additionalNotesPlaceholder: "Any additional information you'd like us to know...",
+      desiredAmountNote: 'How much do you want to borrow?',
     },
     reviewSection: {
       personalInfo: 'Personal Information',
-      employmentDetails: 'Employment Details',
-      financialSummary: 'Financial Summary',
+      employmentDetails: 'Employment & Loan Details',
       name: 'Name',
       email: 'Email',
       phone: 'Phone',
@@ -105,9 +89,7 @@ const pageContent = {
       type: 'Type',
       company: 'Company',
       income: 'Income',
-      totalDebt: 'Total Monthly Debt',
-      loanPurpose: 'Loan Purpose',
-      desiredAmount: 'Desired Amount',
+      desiredAmount: 'Loan Amount',
     },
     security: {
       title: 'Your data is secure',
@@ -157,17 +139,11 @@ const pageContent = {
       ],
     },
     insights: {
-      title: 'Instant eligibility snapshot',
+      title: 'Your application snapshot',
       income: 'Monthly income',
-      debts: 'Total monthly debts',
-      dsr: 'Estimated DSR',
-      missing: 'Provide income and debt figures to preview your DSR instantly.',
-      status: {
-        excellent: 'Comfort zone – strong approval odds',
-        good: 'Healthy – most banks are comfortable',
-        warning: 'Manageable – we’ll optimise before submission',
-        high: 'Tight – we’ll coach you before submitting',
-      },
+      loanAsk: 'Loan amount requested',
+      ctosNote:
+        'We will pull your CTOS & CCRIS reports to calculate your DSR and approval chances. No need to key in your existing debts here.',
     },
     whatsappHelper: {
       title: 'Prefer WhatsApp?',
@@ -260,19 +236,16 @@ const pageContent = {
     steps: {
       personalInfo: 'Maklumat Peribadi',
       employment: 'Pekerjaan',
-      financial: 'Kewangan',
       review: 'Semakan',
     },
     stepTitles: {
       personalInfo: 'Maklumat Peribadi',
-      employment: 'Butiran Pekerjaan',
-      financial: 'Maklumat Kewangan',
+      employment: 'Pekerjaan & Pinjaman',
       review: 'Semak & Hantar',
     },
     stepDescriptions: {
       personalInfo: 'Sila berikan butiran hubungan anda',
-      employment: 'Beritahu kami tentang pekerjaan anda',
-      financial: 'Bantu kami memahami situasi kewangan anda',
+      employment: 'Beritahu kami tentang pekerjaan anda dan jumlah yang ingin dipinjam',
       review: 'Semak maklumat anda sebelum menghantar',
     },
     form: {
@@ -297,22 +270,12 @@ const pageContent = {
       jobPlaceholder: 'Posisi anda',
       monthlyIncome: 'Pendapatan Bersih Bulanan (RM)',
       incomeNote: 'Gaji bersih anda selepas semua potongan',
-      debtNote: 'Masukkan bayaran hutang bulanan anda. Biarkan kosong atau masukkan 0 jika tidak berkenaan.',
-      houseLoan: 'Pinjaman Rumah (RM/bulan)',
-      carLoan: 'Pinjaman Kereta (RM/bulan)',
-      personalLoan: 'Pinjaman Peribadi (RM/bulan)',
-      creditCard: 'Kad Kredit (bayaran min)',
-      otherDebts: 'Hutang Lain (PTPTN, dll.)',
       desiredAmount: 'Jumlah Pinjaman Dikehendaki (RM)',
-      loanPurpose: 'Tujuan Pinjaman',
-      purposes: ['Rumah', 'Kereta', 'Peribadi', 'Perniagaan', 'Pendidikan', 'Lain-lain'],
-      additionalNotes: 'Nota Tambahan (pilihan)',
-      additionalNotesPlaceholder: 'Sebarang maklumat tambahan yang anda ingin kami ketahui...',
+      desiredAmountNote: 'Berapa jumlah yang anda ingin pinjam?',
     },
     reviewSection: {
       personalInfo: 'Maklumat Peribadi',
-      employmentDetails: 'Butiran Pekerjaan',
-      financialSummary: 'Ringkasan Kewangan',
+      employmentDetails: 'Pekerjaan & Pinjaman',
       name: 'Nama',
       email: 'E-mel',
       phone: 'Telefon',
@@ -320,9 +283,7 @@ const pageContent = {
       type: 'Jenis',
       company: 'Syarikat',
       income: 'Pendapatan',
-      totalDebt: 'Jumlah Hutang Bulanan',
-      loanPurpose: 'Tujuan Pinjaman',
-      desiredAmount: 'Jumlah Dikehendaki',
+      desiredAmount: 'Jumlah Pinjaman',
     },
     security: {
       title: 'Data anda selamat',
@@ -372,17 +333,11 @@ const pageContent = {
       ],
     },
     insights: {
-      title: 'Gambaran kelayakan segera',
+      title: 'Ringkasan permohonan anda',
       income: 'Pendapatan bulanan',
-      debts: 'Jumlah hutang bulanan',
-      dsr: 'Anggaran DSR',
-      missing: 'Isikan pendapatan dan hutang untuk melihat DSR anda serta-merta.',
-      status: {
-        excellent: 'Zon selesa – peluang kelulusan tinggi',
-        good: 'Sihat – kebanyakan bank selesa',
-        warning: 'Terkawal – kami akan optimakan sebelum hantar',
-        high: 'Ketat – kami akan bimbing sebelum hantar',
-      },
+      loanAsk: 'Jumlah pinjaman dikehendaki',
+      ctosNote:
+        'Kami akan tarik laporan CTOS & CCRIS untuk mengira DSR dan peluang kelulusan anda. Tidak perlu isikan hutang sedia ada di sini.',
     },
     whatsappHelper: {
       title: 'Lebih suka WhatsApp?',
@@ -468,8 +423,6 @@ const pageContent = {
   },
 };
 
-type DsrStatus = 'excellent' | 'good' | 'warning' | 'high';
-
 // Loan interest rates (for display)
 const loanRates: Record<string, number> = {
   '1': 4.88,
@@ -513,14 +466,7 @@ export default function ServiceApplyPage() {
     employerName: '',
     jobTitle: '',
     monthlyIncome: '',
-    houseLoan: '',
-    carLoan: '',
-    personalLoan: '',
-    creditCard: '',
-    otherDebts: '',
-    loanPurpose: '',
     loanAmount: '',
-    additionalNotes: '',
     contactPreference: 'any',
   });
 
@@ -528,46 +474,14 @@ export default function ServiceApplyPage() {
     const parsed = parseFloat(value);
     return Number.isFinite(parsed) ? parsed : 0;
   };
-  const totalMonthlyDebt =
-    parseAmount(formData.houseLoan) +
-    parseAmount(formData.carLoan) +
-    parseAmount(formData.personalLoan) +
-    parseAmount(formData.creditCard) +
-    parseAmount(formData.otherDebts);
   const monthlyIncomeValue = parseAmount(formData.monthlyIncome);
-  const estimatedDSR =
-    monthlyIncomeValue > 0 ? Math.min(999, (totalMonthlyDebt / monthlyIncomeValue) * 100) : null;
-  const getDsrStatus = (value: number | null): DsrStatus | null => {
-    if (value === null) return null;
-    if (value <= 35) return 'excellent';
-    if (value <= 50) return 'good';
-    if (value <= 65) return 'warning';
-    return 'high';
-  };
-  const dsrStatus = getDsrStatus(estimatedDSR);
-  const statusBadgeClasses: Record<DsrStatus, string> = {
-    excellent: 'bg-emerald-100 text-emerald-700',
-    good: 'bg-blue-100 text-blue-700',
-    warning: 'bg-amber-100 text-amber-700',
-    high: 'bg-rose-100 text-rose-700',
-  };
-  const dsrBadgeClass = dsrStatus ? statusBadgeClasses[dsrStatus] : 'bg-muted text-muted-foreground';
-  const dsrStatusText = dsrStatus ? t.insights.status[dsrStatus] : null;
+  const loanAmountValue = parseAmount(formData.loanAmount);
   const formattedIncome = monthlyIncomeValue ? `RM ${monthlyIncomeValue.toLocaleString()}` : '—';
-  const formattedDebt = totalMonthlyDebt ? `RM ${totalMonthlyDebt.toLocaleString()}` : '—';
+  const formattedLoanAmount = loanAmountValue ? `RM ${loanAmountValue.toLocaleString()}` : '—';
 
   // Live-validation helpers for instant positive feedback
   const isValidEmail = /^[\w.+-]+@[\w-]+\.[\w.-]+$/.test(formData.email.trim());
   const isValidPhone = /^(\+?60|0)[0-9\s-]{8,14}$/.test(formData.phone.trim());
-
-  // Rough approvable estimate: cap monthly commitment at 60% DSR minus existing debts,
-  // annualise over the loan tenure range midpoint (~4 years) — informative, not binding.
-  const maxMonthlyPayment = Math.max(0, monthlyIncomeValue * 0.6 - totalMonthlyDebt);
-  const estimatedApprovable = maxMonthlyPayment > 0 ? Math.round(maxMonthlyPayment * 48) : null;
-  const formattedApprovable = estimatedApprovable
-    ? `RM ${Math.min(estimatedApprovable, 100000).toLocaleString()}`
-    : null;
-  const dsrLabel = estimatedDSR !== null ? `${estimatedDSR.toFixed(1)}%` : '—';
 
   const openWhatsApp = () => {
     if (typeof window === 'undefined') return;
@@ -650,14 +564,7 @@ export default function ServiceApplyPage() {
         monthlyIncome: validatedData.monthlyIncome
           ? parseFloat(validatedData.monthlyIncome) || 0
           : 0,
-        houseLoan: parseFloat(validatedData.houseLoan || '0') || 0,
-        carLoan: parseFloat(validatedData.carLoan || '0') || 0,
-        personalLoan: parseFloat(validatedData.personalLoan || '0') || 0,
-        creditCard: parseFloat(validatedData.creditCard || '0') || 0,
-        otherDebts: parseFloat(validatedData.otherDebts || '0') || 0,
-        loanPurpose: validatedData.loanPurpose || undefined,
-        loanAmount: validatedData.loanAmount ? parseFloat(validatedData.loanAmount) : undefined,
-        additionalNotes: validatedData.additionalNotes || undefined,
+        loanAmount: parseFloat(validatedData.loanAmount),
         contactPreference: validatedData.contactPreference || undefined,
       });
 
@@ -704,6 +611,7 @@ export default function ServiceApplyPage() {
         employerName: true,
         jobTitle: true,
         monthlyIncome: true,
+        loanAmount: true,
       });
       const result = validateForm(stepSchema, formData);
       if (!result.success) {
@@ -714,6 +622,7 @@ export default function ServiceApplyPage() {
           employerName: true,
           jobTitle: true,
           monthlyIncome: true,
+          loanAmount: true,
         }));
         toast.error(t.toast.enterIncome);
         return;
@@ -739,7 +648,6 @@ export default function ServiceApplyPage() {
   const stepItems = [
     { label: t.steps.personalInfo, description: t.stepDescriptions.personalInfo },
     { label: t.steps.employment, description: t.stepDescriptions.employment },
-    { label: t.steps.financial, description: t.stepDescriptions.financial },
     { label: t.steps.review, description: t.stepDescriptions.review },
   ];
 
@@ -796,16 +704,16 @@ export default function ServiceApplyPage() {
           <div className="lg:col-span-2">
             <Card className="shadow-lg border border-border/70 bg-card">
               <CardHeader className="border-b border-border/60">
-                {/* Mobile: compact "Step N of 4" pill */}
+                {/* Mobile: compact "Step N of 3" pill */}
                 <p className="sm:hidden text-xs font-semibold tracking-[0.14em] uppercase text-primary mb-3">
                   <span className="inline-flex items-center gap-2 rounded-full border border-primary/60 bg-primary/10 px-3 py-1">
-                    <span>{String(step).padStart(2, '0')} / 04</span>
+                    <span>{String(step).padStart(2, '0')} / 03</span>
                     <span className="text-muted-foreground font-medium normal-case tracking-normal">
                       {stepItems[step - 1]?.label}
                     </span>
                   </span>
                 </p>
-                {/* Desktop: full 4-step breadcrumb */}
+                {/* Desktop: full 3-step breadcrumb */}
                 <ol className="hidden sm:flex flex-wrap gap-2 text-xs text-muted-foreground mb-3" aria-label={language === 'ms' ? 'Langkah permohonan' : 'Application steps'}>
                   {stepItems.map((item, index) => (
                     <li
@@ -823,18 +731,16 @@ export default function ServiceApplyPage() {
                 <CardTitle className="text-xl">
                   {step === 1 && t.stepTitles.personalInfo}
                   {step === 2 && t.stepTitles.employment}
-                  {step === 3 && t.stepTitles.financial}
-                  {step === 4 && t.stepTitles.review}
+                  {step === 3 && t.stepTitles.review}
                 </CardTitle>
                 <CardDescription>
                   {step === 1 && t.stepDescriptions.personalInfo}
                   {step === 2 && t.stepDescriptions.employment}
-                  {step === 3 && t.stepDescriptions.financial}
-                  {step === 4 && t.stepDescriptions.review}
+                  {step === 3 && t.stepDescriptions.review}
                 </CardDescription>
 
                 <Progress
-                  value={(step / 4) * 100}
+                  value={(step / 3) * 100}
                   max={100}
                   className="mt-4 text-primary"
                 />
@@ -1058,142 +964,34 @@ export default function ServiceApplyPage() {
                           <p className="text-xs text-muted-foreground">{t.form.incomeNote}</p>
                         )}
                       </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="loanAmount">{t.form.desiredAmount} *</Label>
+                        <div className="relative">
+                          <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                          <Input
+                            id="loanAmount"
+                            type="number"
+                            placeholder="50000"
+                            value={formData.loanAmount}
+                            onChange={(e) => handleFieldChange('loanAmount', e.target.value)}
+                            onBlur={() => handleFieldBlur('loanAmount')}
+                            className={`pl-10 ${getFieldError(errors, 'loanAmount') ? 'border-red-500' : ''}`}
+                            inputMode="numeric"
+                            min="0"
+                            required
+                          />
+                        </div>
+                        {getFieldError(errors, 'loanAmount') ? (
+                          <p className="text-sm text-red-500">{getFieldError(errors, 'loanAmount')}</p>
+                        ) : (
+                          <p className="text-xs text-muted-foreground">{t.form.desiredAmountNote}</p>
+                        )}
+                      </div>
                     </>
                   )}
 
                   {step === 3 && (
-                    <>
-                      <div className="p-4 bg-muted/50 rounded-lg mb-4">
-                        <p className="text-sm text-muted-foreground">{t.form.debtNote}</p>
-                      </div>
-                      <div className="rounded-xl border border-primary/10 bg-white/80 p-4">
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-muted-foreground">{t.insights.dsr}</span>
-                          <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${dsrBadgeClass}`}>
-                            {dsrLabel}
-                          </span>
-                        </div>
-                        <p className="text-xs text-muted-foreground mt-2">
-                          {estimatedDSR !== null ? dsrStatusText : t.insights.missing}
-                        </p>
-                      </div>
-
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="houseLoan">{t.form.houseLoan}</Label>
-                          <Input
-                            id="houseLoan"
-                            type="number"
-                            placeholder="0"
-                            value={formData.houseLoan}
-                            onChange={(e) => handleFieldChange('houseLoan', e.target.value)}
-                            onBlur={() => handleFieldBlur('houseLoan')}
-                            inputMode="numeric"
-                            min="0"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="carLoan">{t.form.carLoan}</Label>
-                          <Input
-                            id="carLoan"
-                            type="number"
-                            placeholder="0"
-                            value={formData.carLoan}
-                            onChange={(e) => handleFieldChange('carLoan', e.target.value)}
-                            onBlur={() => handleFieldBlur('carLoan')}
-                            inputMode="numeric"
-                            min="0"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="personalLoan">{t.form.personalLoan}</Label>
-                          <Input
-                            id="personalLoan"
-                            type="number"
-                            placeholder="0"
-                            value={formData.personalLoan}
-                            onChange={(e) => handleFieldChange('personalLoan', e.target.value)}
-                            onBlur={() => handleFieldBlur('personalLoan')}
-                            inputMode="numeric"
-                            min="0"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="creditCard">{t.form.creditCard}</Label>
-                          <Input
-                            id="creditCard"
-                            type="number"
-                            placeholder="0"
-                            value={formData.creditCard}
-                            onChange={(e) => handleFieldChange('creditCard', e.target.value)}
-                            onBlur={() => handleFieldBlur('creditCard')}
-                            inputMode="numeric"
-                            min="0"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="otherDebts">{t.form.otherDebts}</Label>
-                          <Input
-                            id="otherDebts"
-                            type="number"
-                            placeholder="0"
-                            value={formData.otherDebts}
-                            onChange={(e) => handleFieldChange('otherDebts', e.target.value)}
-                            onBlur={() => handleFieldBlur('otherDebts')}
-                            inputMode="numeric"
-                            min="0"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="loanAmount">{t.form.desiredAmount}</Label>
-                          <Input
-                            id="loanAmount"
-                            type="number"
-                            placeholder="100000"
-                            value={formData.loanAmount}
-                            onChange={(e) => handleFieldChange('loanAmount', e.target.value)}
-                            onBlur={() => handleFieldBlur('loanAmount')}
-                            inputMode="numeric"
-                            min="0"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="loanPurpose">{t.form.loanPurpose}</Label>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                          {t.form.purposes.map((purpose) => (
-                            <button
-                              key={purpose}
-                              type="button"
-                              onClick={() => handleFieldChange('loanPurpose', purpose)}
-                              className={`p-2 rounded-lg border text-sm transition-all ${
-                                formData.loanPurpose === purpose
-                                  ? 'border-primary bg-primary/5 text-primary font-medium'
-                                  : 'border-border hover:border-primary/50'
-                              }`}
-                            >
-                              {purpose}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="additionalNotes">{t.form.additionalNotes}</Label>
-                        <Textarea
-                          id="additionalNotes"
-                          placeholder={t.form.additionalNotesPlaceholder}
-                          value={formData.additionalNotes}
-                          onChange={(e) => handleFieldChange('additionalNotes', e.target.value)}
-                          onBlur={() => handleFieldBlur('additionalNotes')}
-                          rows={3}
-                        />
-                      </div>
-                    </>
-                  )}
-
-                  {step === 4 && (
                     <>
                       <div className="space-y-4">
                         <div className="p-4 bg-muted/50 rounded-lg">
@@ -1243,38 +1041,8 @@ export default function ServiceApplyPage() {
                             )}
                             <div className="text-muted-foreground">{t.reviewSection.income}:</div>
                             <div className="font-medium">RM {parseInt(formData.monthlyIncome || '0').toLocaleString()}</div>
-                          </div>
-                        </div>
-
-                        <div className="p-4 bg-muted/50 rounded-lg">
-                          <h4 className="font-semibold mb-3 flex items-center gap-2">
-                            <DollarSign className="h-4 w-4 text-primary" />
-                            {t.reviewSection.financialSummary}
-                          </h4>
-                          <div className="grid grid-cols-2 gap-2 text-sm">
-                            <div className="text-muted-foreground">{t.reviewSection.totalDebt}:</div>
-                            <div className="font-medium">
-                              RM{' '}
-                              {(
-                                (parseInt(formData.houseLoan || '0') || 0) +
-                                (parseInt(formData.carLoan || '0') || 0) +
-                                (parseInt(formData.personalLoan || '0') || 0) +
-                                (parseInt(formData.creditCard || '0') || 0) +
-                                (parseInt(formData.otherDebts || '0') || 0)
-                              ).toLocaleString()}
-                            </div>
-                            {formData.loanPurpose && (
-                              <>
-                                <div className="text-muted-foreground">{t.reviewSection.loanPurpose}:</div>
-                                <div className="font-medium">{formData.loanPurpose}</div>
-                              </>
-                            )}
-                            {formData.loanAmount && (
-                              <>
-                                <div className="text-muted-foreground">{t.reviewSection.desiredAmount}:</div>
-                                <div className="font-medium">RM {parseInt(formData.loanAmount).toLocaleString()}</div>
-                              </>
-                            )}
+                            <div className="text-muted-foreground">{t.reviewSection.desiredAmount}:</div>
+                            <div className="font-medium">RM {parseInt(formData.loanAmount || '0').toLocaleString()}</div>
                           </div>
                         </div>
                       </div>
@@ -1298,7 +1066,7 @@ export default function ServiceApplyPage() {
                         {t.navigation.back}
                       </Button>
                     )}
-                    {step < 4 ? (
+                    {step < 3 ? (
                       <Button type="button" onClick={nextStep} className="flex-1 btn-gradient text-primary-foreground">
                         {t.navigation.next}
                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -1341,7 +1109,7 @@ export default function ServiceApplyPage() {
                 <CardContent className="p-4 space-y-4">
                   <div className="flex items-center gap-2">
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <Activity className="h-5 w-5 text-primary" />
+                      <Shield className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-semibold text-sm">{t.insights.title}</p>
@@ -1353,36 +1121,11 @@ export default function ServiceApplyPage() {
                       <span className="font-semibold tabular-nums">{formattedIncome}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">{t.insights.debts}</span>
-                      <span className="font-semibold tabular-nums">{formattedDebt}</span>
+                      <span className="text-muted-foreground">{t.insights.loanAsk}</span>
+                      <span className="font-semibold tabular-nums">{formattedLoanAmount}</span>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">{t.insights.dsr}</span>
-                      <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${dsrBadgeClass}`}>
-                        {dsrLabel}
-                      </span>
-                    </div>
-                    {formattedApprovable && (
-                      <div className="pt-3 mt-2 border-t border-border/60">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs uppercase tracking-[0.15em] font-semibold text-primary">
-                            {language === 'ms' ? 'Anggaran boleh lulus' : 'Estimated approvable'}
-                          </span>
-                          <span className="font-display text-lg font-semibold text-primary tabular-nums">
-                            {formattedApprovable}
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-muted-foreground italic mt-1 leading-relaxed">
-                          {language === 'ms'
-                            ? 'Anggaran sahaja — tertakluk kepada semakan kredit penuh dan CTOS.'
-                            : 'Rough estimate only — subject to full credit review and CTOS.'}
-                        </p>
-                      </div>
-                    )}
                   </div>
-                  <p className="text-xs text-muted-foreground">
-                    {estimatedDSR !== null ? dsrStatusText : t.insights.missing}
-                  </p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{t.insights.ctosNote}</p>
                 </CardContent>
               </Card>
 

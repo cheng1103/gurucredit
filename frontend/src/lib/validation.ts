@@ -122,63 +122,15 @@ export const loanApplicationSchema = z.object({
     })
     .optional()
     .or(z.literal('')),
-  houseLoan: z
-    .string()
-    .refine((val) => val === '' || (!isNaN(parseFloat(val)) && parseFloat(val) >= 0), {
-      message: 'Please enter a valid amount',
-    })
-    .optional()
-    .or(z.literal('')),
-  carLoan: z
-    .string()
-    .refine((val) => val === '' || (!isNaN(parseFloat(val)) && parseFloat(val) >= 0), {
-      message: 'Please enter a valid amount',
-    })
-    .optional()
-    .or(z.literal('')),
-  personalLoan: z
-    .string()
-    .refine((val) => val === '' || (!isNaN(parseFloat(val)) && parseFloat(val) >= 0), {
-      message: 'Please enter a valid amount',
-    })
-    .optional()
-    .or(z.literal('')),
-  creditCard: z
-    .string()
-    .refine((val) => val === '' || (!isNaN(parseFloat(val)) && parseFloat(val) >= 0), {
-      message: 'Please enter a valid amount',
-    })
-    .optional()
-    .or(z.literal('')),
-  otherDebts: z
-    .string()
-    .refine((val) => val === '' || (!isNaN(parseFloat(val)) && parseFloat(val) >= 0), {
-      message: 'Please enter a valid amount',
-    })
-    .optional()
-    .or(z.literal('')),
-  loanPurpose: z
-    .string()
-    .max(50, 'Loan purpose is too long')
-    .transform((val) => sanitizeAndLimit(val, 50))
-    .optional()
-    .or(z.literal('')),
   loanAmount: z
     .string()
-    .refine((val) => val === '' || (!isNaN(parseFloat(val)) && parseFloat(val) > 0), {
+    .min(1, 'Please enter how much you want to borrow')
+    .refine((val) => !isNaN(parseFloat(val)) && parseFloat(val) > 0, {
       message: 'Please enter a valid loan amount',
     })
-    .refine((val) => val === '' || parseFloat(val) <= 10000000, {
+    .refine((val) => parseFloat(val) <= 10000000, {
       message: 'Loan amount seems too high',
-    })
-    .optional()
-    .or(z.literal('')),
-  additionalNotes: z
-    .string()
-    .max(1000, 'Notes are too long')
-    .transform((val) => sanitizeAndLimit(val, 1000))
-    .optional()
-    .or(z.literal('')),
+    }),
   referralSource: z
     .enum(referralSources, { error: () => ({ message: 'Please select a source from the list' }) })
     .optional()

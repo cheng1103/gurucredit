@@ -19,6 +19,10 @@ import {
   MessageCircle,
   User,
   ChevronRight,
+  CheckCircle2,
+  FileText,
+  ShieldCheck,
+  ListChecks,
 } from 'lucide-react';
 import { blogCategories, type BlogPost } from '@/lib/blog-data';
 import { COMPANY, SEO } from '@/lib/constants';
@@ -48,6 +52,16 @@ const pageContent = {
     },
     relatedArticles: 'Related Articles',
     read: 'Read',
+    snapshot: {
+      label: 'Article Snapshot',
+      title: 'Before you read',
+      keyPoints: 'Key points',
+      actionList: 'Action checklist',
+      trustBox: 'Why this is reliable',
+      trustText:
+        'Reviewed for Malaysian borrower context, with official sources and practical lending checks.',
+      sources: 'Official references',
+    },
   },
   ms: {
     backToBlog: 'Kembali ke Blog',
@@ -68,6 +82,16 @@ const pageContent = {
     },
     relatedArticles: 'Artikel Berkaitan',
     read: 'Baca',
+    snapshot: {
+      label: 'Ringkasan Artikel',
+      title: 'Sebelum anda baca',
+      keyPoints: 'Perkara penting',
+      actionList: 'Senarai tindakan',
+      trustBox: 'Mengapa ini boleh dipercayai',
+      trustText:
+        'Disemak untuk konteks peminjam Malaysia, dengan sumber rasmi dan semakan pinjaman praktikal.',
+      sources: 'Rujukan rasmi',
+    },
   },
 };
 
@@ -83,6 +107,66 @@ const categoryColors: Record<string, string> = {
   guide: 'bg-sky-100/80 text-sky-900 border-sky-200/60',
   news: 'bg-emerald-100/80 text-emerald-900 border-emerald-200/60',
   analysis: 'bg-slate-100/90 text-slate-900 border-slate-200/70',
+};
+
+const defaultSnapshot = {
+  en: {
+    points: [
+      'Written for Malaysian borrowers comparing loan and credit decisions.',
+      'Includes practical checks you can use before contacting a lender.',
+      'Reviewed with financial education and responsible borrowing in mind.',
+    ],
+    actions: ['Check your documents', 'Review your credit record', 'Compare the repayment impact'],
+    sources: ['Bank Negara Malaysia', 'AKPK', 'Official lender documents'],
+  },
+  ms: {
+    points: [
+      'Ditulis untuk peminjam Malaysia yang membandingkan pinjaman dan keputusan kredit.',
+      'Mengandungi semakan praktikal sebelum menghubungi lender.',
+      'Disemak dengan fokus pendidikan kewangan dan pinjaman bertanggungjawab.',
+    ],
+    actions: ['Semak dokumen anda', 'Semak rekod kredit', 'Banding kesan ansuran'],
+    sources: ['Bank Negara Malaysia', 'AKPK', 'Dokumen rasmi lender'],
+  },
+};
+
+const postSnapshots: Record<
+  string,
+  {
+    en: { points: string[]; actions: string[]; sources: string[] };
+    ms: { points: string[]; actions: string[]; sources: string[] };
+  }
+> = {
+  'personal-loan-malaysia-approval-checklist-2026': {
+    en: {
+      points: [
+        'OPR was 2.75% as at 7 May 2026, but approval still depends on your profile.',
+        'A complete CCRIS/CTOS and document review should happen before applying.',
+        'Multiple applications in a short window can weaken an otherwise workable profile.',
+      ],
+      actions: [
+        'Calculate commitments against net income',
+        'Prepare 3 to 6 months bank statements',
+        'Shortlist one or two suitable lenders first',
+        'Pause if there is a fresh missed payment',
+      ],
+      sources: ['Google Search Central', 'Bank Negara Malaysia', 'data.gov.my', 'AKPK'],
+    },
+    ms: {
+      points: [
+        'OPR ialah 2.75% setakat 7 Mei 2026, tetapi kelulusan masih bergantung pada profil anda.',
+        'Semakan CCRIS/CTOS dan dokumen lengkap patut dibuat sebelum memohon.',
+        'Banyak permohonan dalam masa singkat boleh melemahkan profil yang sebenarnya masih boleh dipertimbang.',
+      ],
+      actions: [
+        'Kira komitmen berbanding pendapatan bersih',
+        'Sediakan penyata bank 3 hingga 6 bulan',
+        'Pilih satu atau dua lender yang sesuai dahulu',
+        'Tunggu jika baru ada lewat bayar',
+      ],
+      sources: ['Google Search Central', 'Bank Negara Malaysia', 'data.gov.my', 'AKPK'],
+    },
+  },
 };
 
 interface BlogPostClientProps {
@@ -115,6 +199,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
 
   const CategoryIcon = categoryIcons[post.category] || BookOpen;
   const categoryLabel = getCategoryLabel(post.category);
+  const snapshot = postSnapshots[post.slug]?.[language] ?? defaultSnapshot[language];
 
   const authorProfile = getAuthorProfile(post.author);
   const authorRole = post.authorRole ?? authorProfile.role;
@@ -278,6 +363,59 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
             </div>
           </div>
+
+          <section className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+            <div className="surface-card rounded-3xl p-6 shadow-lg border border-primary/10">
+              <div className="flex items-center gap-2 text-primary mb-3">
+                <ListChecks className="h-5 w-5" aria-hidden="true" />
+                <span className="eyebrow">{t.snapshot.label}</span>
+              </div>
+              <h2 className="text-2xl font-bold mb-5">{t.snapshot.title}</h2>
+              <div className="grid gap-3">
+                {snapshot.points.map((point) => (
+                  <div key={point} className="flex gap-3 rounded-2xl bg-muted/50 p-4">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" aria-hidden="true" />
+                    <p className="text-sm leading-relaxed text-muted-foreground">{point}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              <div className="surface-card rounded-3xl p-5 shadow-lg border border-border/70">
+                <div className="flex items-center gap-2 mb-4">
+                  <FileText className="h-5 w-5 text-primary" aria-hidden="true" />
+                  <h3 className="font-semibold">{t.snapshot.actionList}</h3>
+                </div>
+                <ul className="space-y-3">
+                  {snapshot.actions.map((action) => (
+                    <li key={action} className="flex gap-2 text-sm text-muted-foreground">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                      <span>{action}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="rounded-3xl border border-emerald-200/70 bg-emerald-50/70 p-5 shadow-sm">
+                <div className="flex items-center gap-2 mb-2 text-emerald-900">
+                  <ShieldCheck className="h-5 w-5" aria-hidden="true" />
+                  <h3 className="font-semibold">{t.snapshot.trustBox}</h3>
+                </div>
+                <p className="text-sm text-emerald-800 mb-4">{t.snapshot.trustText}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-emerald-900 mb-2">
+                  {t.snapshot.sources}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {snapshot.sources.map((source) => (
+                    <Badge key={source} variant="outline" className="bg-white/70 text-emerald-900 border-emerald-200">
+                      {source}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
 
           {/* Article Content */}
           <article className="surface-card rounded-3xl p-6 md:p-8 shadow-lg prose prose-lg max-w-none">

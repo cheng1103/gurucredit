@@ -130,7 +130,7 @@ const pageContent = {
       title: 'Looking for Something Else?',
       items: [
         { label: 'Check Our Services', href: '/services', description: 'View pricing and packages' },
-        { label: 'Try DSR Calculator', href: '/calculator', description: 'Free debt ratio calculator' },
+        { label: 'Try Eligibility Test', href: '/eligibility-test', description: 'Quick loan readiness check' },
         { label: 'Read FAQs', href: '/faq', description: 'Common questions answered' },
       ],
       button: 'Learn More',
@@ -236,7 +236,7 @@ const pageContent = {
       title: 'Mencari Sesuatu Yang Lain?',
       items: [
         { label: 'Semak Perkhidmatan Kami', href: '/services', description: 'Lihat harga dan pakej' },
-        { label: 'Cuba Kalkulator DSR', href: '/calculator', description: 'Kalkulator nisbah hutang percuma' },
+        { label: 'Cuba Ujian Kelayakan', href: '/eligibility-test', description: 'Semakan kelayakan pinjaman pantas' },
         { label: 'Baca Soalan Lazim', href: '/faq', description: 'Soalan biasa dijawab' },
       ],
       button: 'Ketahui Lebih Lanjut',

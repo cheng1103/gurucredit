@@ -77,9 +77,9 @@ const pageContent = {
       'Ignoring PTPTN or telco arrears',
     ],
     toolsTitle: 'Helpful Tools',
-    toolsDescription: 'Free calculators to keep your DSR healthy.',
+    toolsDescription: 'Free resources to keep your DSR healthy.',
     tools: [
-      { title: 'DSR Calculator', href: '/calculator' },
+      { title: 'DSR Guide', href: '/blog/understanding-dsr-debt-service-ratio' },
       { title: 'Eligibility Test', href: '/eligibility-test' },
       { title: 'Loan Comparison', href: '/tools/compare' },
     ],
@@ -156,9 +156,9 @@ const pageContent = {
       'Mengabaikan tunggakan PTPTN atau telco',
     ],
     toolsTitle: 'Alat Berguna',
-    toolsDescription: 'Kalkulator percuma untuk jaga DSR anda.',
+    toolsDescription: 'Sumber percuma untuk jaga DSR anda.',
     tools: [
-      { title: 'Kalkulator DSR', href: '/calculator' },
+      { title: 'Panduan DSR', href: '/blog/understanding-dsr-debt-service-ratio' },
       { title: 'Ujian Kelayakan', href: '/eligibility-test' },
       { title: 'Perbandingan Pinjaman', href: '/tools/compare' },
     ],

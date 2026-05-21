@@ -163,7 +163,7 @@ const pageContent = {
       title: 'Plan Your Next Step',
       button: 'Visit',
       items: [
-        { label: 'Use the DSR Calculator', href: '/calculator' },
+        { label: 'Read the DSR Guide', href: '/blog/understanding-dsr-debt-service-ratio' },
         { label: 'Compare Loans Side by Side', href: '/tools/compare' },
         { label: 'Read the Credit Score Improvement Guide', href: '/blog/how-to-improve-credit-score-malaysia' },
       ],
@@ -305,7 +305,7 @@ const pageContent = {
       title: 'Langkah Seterusnya',
       button: 'Pergi',
       items: [
-        { label: 'Guna Kalkulator DSR', href: '/calculator' },
+        { label: 'Baca Panduan DSR', href: '/blog/understanding-dsr-debt-service-ratio' },
         { label: 'Bandingkan Pinjaman', href: '/tools/compare' },
         { label: 'Baca Panduan Baiki Skor Kredit', href: '/blog/how-to-improve-credit-score-malaysia' },
       ],

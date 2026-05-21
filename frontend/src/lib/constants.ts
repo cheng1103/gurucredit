@@ -426,7 +426,6 @@ export const COMPANY_TIMELINE = [
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
-  { href: '/calculator', label: 'DSR Calculator' },
   { href: '/about', label: 'About' },
   { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
@@ -435,7 +434,6 @@ export const NAV_LINKS = [
 // Footer Links
 export const FOOTER_QUICK_LINKS = [
   { href: '/services', label: 'Our Services' },
-  { href: '/calculator', label: 'DSR Calculator' },
   { href: '/compare', label: 'Compare Loans' },
   { href: '/documents', label: 'Document Checklist' },
   { href: '/glossary', label: 'Financial Glossary' },

@@ -9,8 +9,6 @@ import { WebPageJsonLd } from '@/components/JsonLd';
 import { TrustPanel } from '@/components/TrustPanel';
 import {
   Calculator,
-  Home,
-  Car,
   Scale,
   FileCheck,
   Sparkles,
@@ -35,13 +33,6 @@ const content = {
     description:
       'Fast calculators and comparison tools built for Malaysia borrowers. Estimate payments, compare bank rates, and check eligibility before you apply.',
     tools: [
-      {
-        title: 'DSR Calculator',
-        description: 'Check your debt service ratio and affordability.',
-        href: '/calculator',
-        icon: Calculator,
-        tag: 'Most used',
-      },
       {
         title: 'Loan Comparison Tool',
         description: 'Compare rates and fees across major banks.',
@@ -71,13 +62,6 @@ const content = {
     description:
       'Kalkulator dan alat perbandingan pantas untuk peminjam di Malaysia. Anggar bayaran, banding kadar, dan semak kelayakan sebelum memohon.',
     tools: [
-      {
-        title: 'Kalkulator DSR',
-        description: 'Semak nisbah hutang dan kemampuan anda.',
-        href: '/calculator',
-        icon: Calculator,
-        tag: 'Paling digunakan',
-      },
       {
         title: 'Alat Perbandingan Pinjaman',
         description: 'Bandingkan kadar dan yuran bank utama.',

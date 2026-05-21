@@ -123,10 +123,10 @@ export default async function RegionPage({ params }: { params: Params }) {
                   <ArrowUpRight className="ml-2 h-4 w-4" />
                 </Link>
                 <Link
-                  href="/calculator"
+                  href="/eligibility-test"
                   className="text-sm font-semibold text-foreground hover:text-primary transition-colors inline-flex items-center gap-2"
                 >
-                  {language === 'ms' ? 'Kalkulator DSR' : 'DSR Calculator'}
+                  {language === 'ms' ? 'Ujian Kelayakan' : 'Eligibility Test'}
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </div>

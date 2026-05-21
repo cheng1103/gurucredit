@@ -292,7 +292,7 @@ export default async function PersonalLoanPage() {
         minAmount={5000}
         maxAmount={100000}
         requiredCollateral="Unsecured (no collateral required)"
-        feeNote="RM30 one-time eligibility analysis fee. Lender processing and stamp duties apply per bank."
+        feeNote="Eligibility analysis fee. Lender processing and stamp duties apply per bank."
       />
       <WebPageJsonLd
         url={`${SEO.url}/loans/personal`}

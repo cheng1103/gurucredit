@@ -22,7 +22,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/blog', priority: 0.8, changeFrequency: 'weekly' },
     { path: '/loan-guides', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/faq', priority: 0.7, changeFrequency: 'monthly' },
-    { path: '/calculator', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/tools', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/eligibility-test', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/tools/compare', priority: 0.6, changeFrequency: 'monthly' },

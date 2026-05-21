@@ -52,14 +52,14 @@ const pageContent = {
       'Step-by-step action plans tailored to Malaysian lending rules.',
       'Key numbers to benchmark DSR, margin of finance, and approval timelines.',
       'Mistakes to avoid before submitting to banks.',
-      'Recommended tools and calculators to estimate affordability.',
+      'Recommended tools and articles to estimate readiness.',
     ],
     toolsTitle: 'Helpful Tools',
     tools: [
       {
-        title: 'DSR Calculator',
-        description: 'Check how much debt you can carry safely.',
-        href: '/calculator',
+        title: 'Eligibility Test',
+        description: 'Check whether your profile is ready before applying.',
+        href: '/eligibility-test',
       },
       {
         title: 'Loan Comparison',
@@ -101,14 +101,14 @@ const pageContent = {
       'Pelan tindakan langkah demi langkah ikut garis panduan bank Malaysia.',
       'Nombor penting untuk DSR, margin pembiayaan, dan garis masa kelulusan.',
       'Kesilapan yang perlu dielakkan sebelum hantar permohonan.',
-      'Alat dan kalkulator yang disyorkan untuk anggaran kemampuan.',
+      'Alat dan artikel yang disyorkan untuk anggaran kesediaan.',
     ],
     toolsTitle: 'Alat Berguna',
     tools: [
       {
-        title: 'Kalkulator DSR',
-        description: 'Semak berapa banyak hutang yang selamat.',
-        href: '/calculator',
+        title: 'Ujian Kelayakan',
+        description: 'Semak sama ada profil anda bersedia sebelum memohon.',
+        href: '/eligibility-test',
       },
       {
         title: 'Perbandingan Pinjaman',

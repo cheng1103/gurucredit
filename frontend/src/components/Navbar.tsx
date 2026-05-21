@@ -19,7 +19,6 @@ import {
   Briefcase,
   Wallet,
   AlertCircle,
-  Calculator,
   FileCheck,
   Scale,
   BookOpen,
@@ -57,7 +56,6 @@ const navContent = {
         title: 'Tools',
         description: 'Free calculators and tools',
         items: [
-          { href: '/calculator', label: 'DSR Calculator', desc: 'Check your debt ratio', icon: Calculator },
           { href: '/eligibility-test', label: 'Eligibility Test', desc: 'Check if you qualify', icon: FileCheck },
           { href: '/compare', label: 'Compare Loans', desc: 'Find the best rates', icon: Scale },
         ],
@@ -101,7 +99,6 @@ const navContent = {
         title: 'Alat',
         description: 'Kalkulator dan alat percuma',
         items: [
-          { href: '/calculator', label: 'Kalkulator DSR', desc: 'Semak nisbah hutang', icon: Calculator },
           { href: '/eligibility-test', label: 'Ujian Kelayakan', desc: 'Semak kelayakan anda', icon: FileCheck },
           { href: '/compare', label: 'Bandingkan Pinjaman', desc: 'Cari kadar terbaik', icon: Scale },
         ],
@@ -526,7 +523,7 @@ export function Navbar() {
                             onClick={() => setMobileOpen(false)}
                             className="flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-all text-primary/90 hover:text-primary hover:bg-muted/50"
                           >
-                            <Calculator className="h-4 w-4" />
+                            <FileCheck className="h-4 w-4" />
                             {t.nav.tools.viewAll}
                           </Link>
                           {t.nav.tools.items.map((item) => {

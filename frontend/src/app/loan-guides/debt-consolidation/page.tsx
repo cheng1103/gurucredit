@@ -80,7 +80,7 @@ const pageContent = {
     toolsTitle: 'Useful Tools',
     toolsDescription: 'Run scenarios before you commit.',
     tools: [
-      { title: 'DSR Calculator', href: '/calculator' },
+      { title: 'DSR Guide', href: '/blog/understanding-dsr-debt-service-ratio' },
       { title: 'Eligibility Test', href: '/eligibility-test' },
       { title: 'Loan Comparison', href: '/tools/compare' },
     ],
@@ -159,7 +159,7 @@ const pageContent = {
     toolsTitle: 'Alat Berguna',
     toolsDescription: 'Jalankan simulasi sebelum komit.',
     tools: [
-      { title: 'Kalkulator DSR', href: '/calculator' },
+      { title: 'Panduan DSR', href: '/blog/understanding-dsr-debt-service-ratio' },
       { title: 'Ujian Kelayakan', href: '/eligibility-test' },
       { title: 'Perbandingan Pinjaman', href: '/tools/compare' },
     ],

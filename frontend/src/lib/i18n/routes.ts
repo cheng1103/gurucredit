@@ -65,7 +65,6 @@ export const PATHS = {
 
   // tools
   tools: '/tools',
-  calculator: '/calculator',
   toolsCompare: '/tools/compare',
 
   // info

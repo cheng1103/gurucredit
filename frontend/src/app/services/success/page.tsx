@@ -87,7 +87,7 @@ const pageContent = {
     },
     buttons: {
       backHome: 'Back to Home',
-      tryCalculator: 'Try DSR Calculator',
+      tryCalculator: 'Take Eligibility Test',
     },
     proTip:
       "Pro tip: Make sure to check your spam/junk folder if you don't see our email within 30 minutes.",
@@ -159,7 +159,7 @@ const pageContent = {
     },
     buttons: {
       backHome: 'Kembali ke Laman Utama',
-      tryCalculator: 'Cuba Kalkulator DSR',
+      tryCalculator: 'Cuba Ujian Kelayakan',
     },
     proTip:
       'Petua: Pastikan anda menyemak folder spam/junk jika anda tidak melihat e-mel kami dalam masa 30 minit.',
@@ -351,7 +351,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
                 </Link>
               </Button>
               <Button asChild className="gap-2">
-                <Link href="/calculator">
+                <Link href="/eligibility-test">
                   <Calculator className="h-4 w-4" />
                   {t.buttons.tryCalculator}
                 </Link>

@@ -220,13 +220,13 @@ export const homeContent: Record<Language, HomeContent> = {
     },
     resources: {
       badge: 'Tools & Guides',
-      title: 'Plan with Calculators & Articles',
+      title: 'Plan with Tools & Articles',
       openTool: 'Open Tool',
       items: [
         {
-          tool: 'DSR Calculator',
-          description: 'Check your debt service ratio and borrowing headroom.',
-          toolLink: '/calculator',
+          tool: 'Eligibility Test',
+          description: 'Check your profile and borrowing readiness before applying.',
+          toolLink: '/eligibility-test',
           guide: 'Understand DSR in plain English',
           guideLink: '/blog/understanding-dsr-debt-service-ratio',
         },
@@ -399,13 +399,13 @@ export const homeContent: Record<Language, HomeContent> = {
     },
     resources: {
       badge: 'Alat & Panduan',
-      title: 'Rancang dengan Kalkulator & Artikel',
+      title: 'Rancang dengan Alat & Artikel',
       openTool: 'Buka Alat',
       items: [
         {
-          tool: 'Kalkulator DSR',
-          description: 'Semak nisbah khidmat hutang dan ruang pinjaman anda.',
-          toolLink: '/calculator',
+          tool: 'Ujian Kelayakan',
+          description: 'Semak profil dan kesediaan pinjaman sebelum memohon.',
+          toolLink: '/eligibility-test',
           guide: 'Fahami DSR dengan mudah',
           guideLink: '/blog/understanding-dsr-debt-service-ratio',
         },

@@ -60,7 +60,7 @@ const footerContent = {
     tools: {
       title: 'Free Tools',
       items: [
-        { href: '/calculator', label: 'DSR Calculator' },
+        { href: '/eligibility-test', label: 'Eligibility Test' },
         { href: '/eligibility-test', label: 'Eligibility Test' },
         { href: '/compare', label: 'Compare Loans' },
         { href: '/glossary', label: 'Loan Glossary' },
@@ -120,7 +120,7 @@ const footerContent = {
     tools: {
       title: 'Alat Percuma',
       items: [
-        { href: '/calculator', label: 'Kalkulator DSR' },
+        { href: '/eligibility-test', label: 'Ujian Kelayakan' },
         { href: '/eligibility-test', label: 'Ujian Kelayakan' },
         { href: '/compare', label: 'Bandingkan Pinjaman' },
         { href: '/glossary', label: 'Glosari Pinjaman' },

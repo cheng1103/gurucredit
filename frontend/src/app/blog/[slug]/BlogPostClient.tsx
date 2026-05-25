@@ -47,7 +47,7 @@ const pageContent = {
     cta: {
       title: 'Need Expert Help?',
       description: 'Have questions about loans, credit, or financial planning? Our team is here to help.',
-      viewServices: 'View Services',
+      viewServices: 'Start Eligibility Review',
       whatsapp: 'WhatsApp Us',
     },
     relatedArticles: 'Related Articles',
@@ -77,7 +77,7 @@ const pageContent = {
     cta: {
       title: 'Perlukan Bantuan Pakar?',
       description: 'Ada soalan tentang pinjaman, kredit, atau perancangan kewangan? Pasukan kami sedia membantu.',
-      viewServices: 'Lihat Perkhidmatan',
+      viewServices: 'Mulakan Semakan Kelayakan',
       whatsapp: 'WhatsApp Kami',
     },
     relatedArticles: 'Artikel Berkaitan',
@@ -137,6 +137,96 @@ const postSnapshots: Record<
     ms: { points: string[]; actions: string[]; sources: string[] };
   }
 > = {
+  'emergency-loan-malaysia-safe-options-2026': {
+    en: {
+      points: [
+        'Urgent cash should still go through lender verification and written repayment terms.',
+        'A smaller targeted loan is safer than borrowing extra because approval is offered.',
+        'Upfront payment requests and guaranteed approval claims are major warning signs.',
+      ],
+      actions: [
+        'Confirm the exact emergency amount',
+        'Prepare payslips and bank statements',
+        'Verify the lender before sending money',
+        'Ask for total repayment in writing',
+      ],
+      sources: ['KPKT', 'AKPK', 'Google Search Central'],
+    },
+    ms: {
+      points: [
+        'Tunai segera masih perlu melalui semakan lender dan terma bayaran bertulis.',
+        'Jumlah kecil yang tepat lebih selamat daripada pinjam lebih kerana tawaran ada.',
+        'Bayaran awal dan janji kelulusan pasti ialah tanda amaran besar.',
+      ],
+      actions: [
+        'Sahkan jumlah kecemasan sebenar',
+        'Sediakan payslip dan penyata bank',
+        'Sahkan lender sebelum hantar wang',
+        'Minta jumlah bayaran keseluruhan bertulis',
+      ],
+      sources: ['KPKT', 'AKPK', 'Google Search Central'],
+    },
+  },
+  'licensed-money-lender-malaysia-checklist-2026': {
+    en: {
+      points: [
+        'The word "licensed" in an ad is not proof; borrowers should verify through official channels.',
+        'Safe comparison means checking disbursed amount, total repayment, tenure and late charges.',
+        'Personal-account transfers and upfront payment requests are high-risk signals.',
+      ],
+      actions: [
+        'Ask for company and license details',
+        'Check through KPKT channels',
+        'Review the written agreement',
+        'Keep all chat and payment records',
+      ],
+      sources: ['KPKT', 'AKPK', 'Google Search Central'],
+    },
+    ms: {
+      points: [
+        'Perkataan "berlesen" dalam iklan bukan bukti; peminjam perlu semak melalui saluran rasmi.',
+        'Perbandingan selamat perlu melihat jumlah diterima, jumlah bayaran, tempoh dan caj lewat.',
+        'Pindahan ke akaun peribadi dan bayaran awal ialah isyarat berisiko tinggi.',
+      ],
+      actions: [
+        'Minta butiran syarikat dan lesen',
+        'Semak melalui saluran KPKT',
+        'Baca perjanjian bertulis',
+        'Simpan rekod chat dan bayaran',
+      ],
+      sources: ['KPKT', 'AKPK', 'Google Search Central'],
+    },
+  },
+  'personal-loan-self-employed-malaysia-2026': {
+    en: {
+      points: [
+        'Self-employed approval depends on proof, not only actual income.',
+        'Six months of clean bank statement patterns can be stronger than one high-sales month.',
+        'Business records, SSM and platform payouts help lenders verify income faster.',
+      ],
+      actions: [
+        'Separate business and personal money flows',
+        'Build 3 to 6 months clean statements',
+        'Prepare invoices or platform payout records',
+        'Apply using average income, not best month',
+      ],
+      sources: ['AKPK', 'data.gov.my', 'Google Search Central'],
+    },
+    ms: {
+      points: [
+        'Kelulusan bekerja sendiri bergantung pada bukti, bukan pendapatan sebenar sahaja.',
+        'Corak penyata bank 6 bulan yang bersih lebih kuat daripada satu bulan jualan tinggi.',
+        'Rekod bisnes, SSM dan payout platform membantu lender sahkan pendapatan lebih cepat.',
+      ],
+      actions: [
+        'Asingkan aliran duit bisnes dan peribadi',
+        'Bina penyata bersih 3 hingga 6 bulan',
+        'Sediakan invois atau rekod payout platform',
+        'Mohon berdasarkan purata pendapatan, bukan bulan terbaik',
+      ],
+      sources: ['AKPK', 'data.gov.my', 'Google Search Central'],
+    },
+  },
   'personal-loan-malaysia-approval-checklist-2026': {
     en: {
       points: [
@@ -536,7 +626,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button asChild className="btn-gradient text-white shadow-md">
-                  <Link href="/services">
+                  <Link href="/services/1/apply">
                     {t.cta.viewServices}
                     <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                   </Link>

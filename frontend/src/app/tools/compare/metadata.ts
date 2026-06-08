@@ -8,5 +8,5 @@ export const metadata: Metadata = buildMetadata({
   path: '/tools/compare',
   image: '/images/cta-bg.jpg',
   keywords:
-    'loan comparison Malaysia, compare loan rates, bank offers, loan instalment',
+    'GURU Credits loan comparison, loan comparison Malaysia, compare loan rates Malaysia, compare bank loans Malaysia, bank offers Malaysia, loan instalment comparison, personal loan comparison Malaysia, debt consolidation comparison Malaysia',
 });

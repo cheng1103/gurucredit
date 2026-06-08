@@ -32,7 +32,7 @@ export const metadata = buildMetadata({
   path: '/loans/personal',
   image: '/images/optimized/personal-loan.jpg',
   keywords:
-    'personal loan Malaysia, personal financing, DSR analysis, CCRIS CTOS, loan guidance, tailored loan offer',
+    'GURU Credits personal loan, GURU Credits Malaysia personal financing, personal loan Malaysia, personal financing Malaysia, personal loan for bad credit Malaysia, personal loan for self employed Malaysia, pinjaman peribadi Malaysia, pinjaman peribadi lulus cepat, CCRIS CTOS personal loan, loan eligibility personal loan Malaysia, DSR analysis personal loan',
 });
 
 const pageContent = {

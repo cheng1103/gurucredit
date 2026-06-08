@@ -28,7 +28,7 @@ export const metadata = buildMetadata({
   path: '/loans/debt-consolidation',
   image: '/images/optimized/personal-loan.jpg',
   keywords:
-    'debt consolidation Malaysia, consolidate loans, lower interest rate, DSR strategy, repayment plan',
+    'GURU Credits debt consolidation, debt consolidation Malaysia, debt consolidation loan Malaysia, consolidate credit card debt Malaysia, debt restructuring Malaysia, penyatuan hutang Malaysia, lower monthly payment Malaysia, lower interest debt Malaysia, DSR strategy debt consolidation, debt consolidation for bad credit Malaysia',
 });
 
 const pageContent = {

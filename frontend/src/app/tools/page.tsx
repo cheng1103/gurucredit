@@ -23,7 +23,7 @@ export const metadata = buildMetadata({
   path: '/tools',
   image: '/images/hero-bg.jpg',
   keywords:
-    'loan calculator Malaysia, DSR calculator, loan comparison, financing tools',
+    'GURU Credits tools, loan tools Malaysia, loan comparison Malaysia, financing tools Malaysia, loan eligibility test Malaysia, compare loan rates Malaysia, bank loan comparison Malaysia, monthly instalment comparison Malaysia',
 });
 
 const content = {

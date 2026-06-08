@@ -4,7 +4,7 @@ import { SEO } from '@/lib/constants';
 export const metadata: Metadata = {
   title: 'Loan Eligibility Test',
   description: 'Take our free loan eligibility test to check your chances of loan approval. Get instant results and personalized recommendations.',
-  keywords: 'loan eligibility test, loan approval check, credit check Malaysia, loan qualification, eligibility assessment',
+  keywords: 'GURU Credits eligibility test, loan eligibility test Malaysia, loan approval check Malaysia, credit check Malaysia, loan qualification Malaysia, personal loan eligibility Malaysia, CTOS CCRIS eligibility check, free loan assessment Malaysia',
   openGraph: {
     title: 'Loan Eligibility Test | GURU Credits',
     description: 'Take our free loan eligibility test to check your chances of loan approval.',

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     'Licensed personal, business, and debt consolidation loans nationwide. Start with an RM30 CTOS report — written analysis and a structured offer within 24 hours.',
   keywords:
-    'licensed money lender Malaysia, personal loan, business loan, debt consolidation, Moneylenders Act 1951, CTOS report, GURU Credits',
+    'GURU Credits services, GURU Credits Malaysia, licensed money lender Malaysia, personal loan Malaysia, business loan Malaysia, debt consolidation Malaysia, Moneylenders Act 1951, CTOS report Malaysia, loan consultation Malaysia, loan eligibility review Malaysia, KPKT licensed lender Malaysia',
   openGraph: {
     title: 'Malaysia Loan Services | GURU Credits',
     description:

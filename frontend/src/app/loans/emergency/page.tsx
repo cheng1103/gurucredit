@@ -28,7 +28,7 @@ export const metadata = buildMetadata({
   path: '/loans/emergency',
   image: '/images/optimized/personal-loan.jpg',
   keywords:
-    'emergency loan Malaysia, urgent cash loan, fast analysis, DSR analysis, loan guidance',
+    'GURU Credits emergency loan, emergency loan Malaysia, urgent cash loan Malaysia, same day emergency loan Malaysia, fast approval loan Malaysia, pinjaman kecemasan Malaysia, pinjaman segera Malaysia, emergency personal loan bad credit Malaysia, urgent cash loan Kuala Lumpur, fast loan eligibility Malaysia',
 });
 
 const pageContent = {

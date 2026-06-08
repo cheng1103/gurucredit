@@ -137,6 +137,36 @@ const postSnapshots: Record<
     ms: { points: string[]; actions: string[]; sources: string[] };
   }
 > = {
+  'personal-loan-malaysia-complete-guide-2026': {
+    en: {
+      points: [
+        'This guide combines personal loan Malaysia, bad credit, self-employed, CCRIS, CTOS, emergency loan and licensed lender search intent in one article.',
+        'It is written as a borrower decision guide, not just a keyword page.',
+        'Use it to decide whether you need cleanup, debt consolidation, a smaller loan amount, or a safer lender route.',
+      ],
+      actions: [
+        'Check CCRIS and CTOS first',
+        'List your current monthly commitments',
+        'Match the loan route to your actual problem',
+        'Apply once with a complete file',
+      ],
+      sources: ['AKPK', 'KPKT', 'data.gov.my', 'Google Search Central'],
+    },
+    ms: {
+      points: [
+        'Panduan ini menggabungkan niat carian pinjaman peribadi Malaysia, kredit lemah, bekerja sendiri, CCRIS, CTOS, pinjaman kecemasan dan lender berlesen dalam satu artikel.',
+        'Ia ditulis sebagai panduan keputusan peminjam, bukan sekadar halaman kata kunci.',
+        'Gunakan ia untuk tentukan sama ada anda perlu pembersihan fail, penyatuan hutang, jumlah pinjaman lebih kecil, atau laluan lender yang lebih selamat.',
+      ],
+      actions: [
+        'Semak CCRIS dan CTOS dahulu',
+        'Senaraikan komitmen bulanan semasa',
+        'Padankan laluan pinjaman dengan masalah sebenar',
+        'Mohon sekali dengan fail lengkap',
+      ],
+      sources: ['AKPK', 'KPKT', 'data.gov.my', 'Google Search Central'],
+    },
+  },
   'emergency-loan-malaysia-safe-options-2026': {
     en: {
       points: [

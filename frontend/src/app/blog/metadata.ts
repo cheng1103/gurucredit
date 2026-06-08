@@ -4,7 +4,7 @@ import { SEO } from '@/lib/constants';
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Read the latest articles on credit tips, loan guides, market analysis, and financial advice from GURU Credits experts.',
-  keywords: 'loan blog, credit tips, DSR guide, home loan tips, personal loan advice, Malaysia finance blog',
+  keywords: 'GURU Credits blog, GURU Credits articles, loan blog Malaysia, credit tips Malaysia, DSR guide Malaysia, home loan tips Malaysia, personal loan advice Malaysia, CCRIS CTOS guide Malaysia, debt consolidation tips Malaysia, Malaysia finance blog',
   openGraph: {
     title: 'Blog | GURU Credits',
     description: 'Read the latest articles on credit tips, loan guides, and financial advice.',

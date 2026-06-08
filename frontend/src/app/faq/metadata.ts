@@ -4,7 +4,7 @@ import { SEO } from '@/lib/constants';
 export const metadata: Metadata = {
   title: 'Frequently Asked Questions',
   description: 'Find answers to common questions about loan consultation, DSR calculation, CCRIS, CTOS, and our services at GURU Credits.',
-  keywords: 'loan FAQ, DSR questions, CCRIS FAQ, CTOS questions, loan consultation FAQ, Malaysia loan help',
+  keywords: 'GURU Credits FAQ, loan FAQ Malaysia, DSR questions Malaysia, CCRIS FAQ, CTOS questions, loan consultation FAQ, licensed money lender FAQ Malaysia, Malaysia loan help',
   openGraph: {
     title: 'FAQ | GURU Credits',
     description: 'Find answers to common questions about loan consultation and credit analysis.',

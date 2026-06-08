@@ -465,7 +465,7 @@ export const SEO = {
   defaultDescription:
     'Nationwide loan consultation and DSR analysis across Malaysia. RM30 eligibility check, fast 24-hour turnaround, home loan, car loan, business loan, and debt consolidation guidance with tailored loan offers.',
   keywords:
-    'personal loan Malaysia, home loan Malaysia, car loan Malaysia, business loan Malaysia, debt consolidation Malaysia, credit score Malaysia, loan consultant Malaysia, pinjaman peribadi Malaysia, GURU Credits',
+    'GURU Credits, GURU Credits Malaysia, GURU Credits loan consultant, GURU Credits personal loan, GURU Credits debt consolidation, guru-credit.com, guru credit malaysia, loan consultant Malaysia, personal loan Malaysia, home loan Malaysia, car loan Malaysia, business loan Malaysia, debt consolidation Malaysia, credit score Malaysia, pinjaman peribadi Malaysia, licensed money lender Malaysia, personal loan for bad credit Malaysia, emergency loan Malaysia, self employed personal loan Malaysia, CCRIS CTOS check Malaysia, loan eligibility check Malaysia',
   url: 'https://guru-credit.com',
   locale: 'en_MY',
   shareImage: '/images/optimized/logo.jpg',
@@ -475,7 +475,7 @@ export const SEO = {
       defaultDescription:
         'Perundingan pinjaman dan analisis DSR seluruh Malaysia. Semakan kelayakan RM30, laporan pantas 24 jam, panduan pinjaman rumah, kereta, perniagaan, dan penyatuan hutang dengan tawaran pinjaman yang sesuai.',
       keywords:
-        'pinjaman peribadi Malaysia, pinjaman rumah Malaysia, pinjaman kereta Malaysia, pinjaman perniagaan Malaysia, penyatuan hutang Malaysia, skor kredit Malaysia, konsultasi pinjaman Malaysia, GURU Credits',
+        'GURU Credits, GURU Credits Malaysia, guru credit malaysia, guru-credit.com, GURU Credits pinjaman peribadi, GURU Credits penyatuan hutang, pinjaman peribadi Malaysia, pinjaman rumah Malaysia, pinjaman kereta Malaysia, pinjaman perniagaan Malaysia, penyatuan hutang Malaysia, skor kredit Malaysia, konsultasi pinjaman Malaysia, pemberi pinjam wang berlesen Malaysia, pinjaman kecemasan Malaysia, semakan kelayakan pinjaman Malaysia, pinjaman peribadi CTOS CCRIS, pinjaman bekerja sendiri Malaysia',
     },
   },
 };

@@ -30,6 +30,7 @@ import { useLanguage } from '@/lib/i18n';
 import ReactMarkdown from 'react-markdown';
 import { ArticleJsonLd, WebPageJsonLd } from '@/components/JsonLd';
 import { getAuthorProfile } from '@/lib/authors';
+import { VerifyTrustCard } from '@/components/VerifyTrustCard';
 
 // Bilingual page content
 const pageContent = {
@@ -638,6 +639,8 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
             </div>
           </div>
 
+          <VerifyTrustCard language={language} compact />
+
           {/* Tags */}
           <div className="surface-card rounded-2xl p-5 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
@@ -656,7 +659,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button asChild className="btn-gradient text-white shadow-md">
-                  <Link href="/services/1/apply">
+                  <Link href="/eligibility-test">
                     {t.cta.viewServices}
                     <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                   </Link>

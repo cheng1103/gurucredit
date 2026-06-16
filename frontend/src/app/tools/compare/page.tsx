@@ -640,7 +640,7 @@ export default function ComparePage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Button asChild size="lg" className="btn-gradient text-white shadow-md">
-                    <Link href="/services/1/apply">
+                    <Link href="/eligibility-test">
                       {t.cta.getAnalysis}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>

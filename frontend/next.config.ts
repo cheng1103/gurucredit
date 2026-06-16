@@ -223,6 +223,13 @@ const nextConfig: NextConfig = {
     optimizeCss: false,
     optimizePackageImports: ['lucide-react', 'framer-motion', '@tanstack/react-query'],
   },
+  async redirects() {
+    return [
+      { source: '/calculator', destination: '/eligibility-test', permanent: true },
+      { source: '/dsr-calculator', destination: '/eligibility-test', permanent: true },
+      { source: '/loan-calculator', destination: '/tools/compare', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

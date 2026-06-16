@@ -20,6 +20,7 @@ import { TrustSecuritySection } from '@/components/finance/TrustSecuritySection'
 import { Rm30DeliverablesSection } from '@/components/finance/Rm30DeliverablesSection';
 import { PaymentReferenceTable } from '@/components/finance/PaymentReferenceTable';
 import { CaseStudies } from '@/components/CaseStudies';
+import { VerifyTrustCard } from '@/components/VerifyTrustCard';
 
 export const revalidate = 300;
 
@@ -47,6 +48,12 @@ export default async function HomePage() {
       <HeroSection t={t} language={language} />
 
       <LicensedTrustBar language={language} />
+
+      <section className="py-8 lg:py-10">
+        <div className="container">
+          <VerifyTrustCard language={language} compact />
+        </div>
+      </section>
 
       <Rm30DeliverablesSection language={language} />
 

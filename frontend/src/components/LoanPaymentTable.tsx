@@ -163,7 +163,7 @@ export function LoanPaymentTable({ language }: { language: Language }) {
               {t.note}
             </p>
             <Button asChild className="shrink-0 shadow-lg shadow-primary/20">
-              <Link href="/services/1/apply">
+              <Link href="/eligibility-test">
                 {t.cta}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

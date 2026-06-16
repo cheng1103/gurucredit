@@ -24,74 +24,74 @@ const content: Record<
   }
 > = {
   en: {
-    eyebrow: 'What the RM30 covers',
-    title: 'Your CTOS credit report — and the full analysis that sits on top.',
+    eyebrow: 'What you receive in the first 48 hours',
+    title: 'A written review, a document plan, and a clear next step.',
     subtitle:
-      'The RM30 is a pass-through charge for pulling your CTOS credit report from the reporting agency. The CCRIS read, DSR recalculation, loan structuring, and written recommendation are all bundled into our licensed lending service at no extra cost.',
+      'We do not leave borrowers guessing. After we review your profile, we explain the likely route, the friction points, and what to prepare before any formal submission.',
     items: [
       {
-        title: 'Your full CTOS credit report (pass-through cost)',
-        desc: 'The RM30 is the exact fee CTOS charges to pull your report. It is not our revenue — we pass it through to the credit reporting agency.',
+        title: 'Borrower profile snapshot',
+        desc: 'A practical read on income strength, current commitments, and the main issues likely to affect approval.',
       },
       {
-        title: 'CCRIS + CTOS interpretation, written out line by line',
-        desc: 'We explain every late marker, special attention code, and trade-line — not just a raw PDF dump. Bundled, no extra charge.',
+        title: 'CCRIS, CTOS, and DSR interpretation',
+        desc: 'A written explanation of the file signals that matter most, with a clearer view of affordability and lender fit.',
       },
       {
-        title: 'DSR recalculated against our lending criteria',
-        desc: 'Your debt-service ratio reviewed against our licensed lending rules — with a clear view of the maximum facility we can extend to you.',
+        title: 'Priority document checklist',
+        desc: 'You will know what to send first, what can wait, and which missing items are most likely to slow the case down.',
       },
       {
-        title: 'Tailored loan structure — our offer to you',
-        desc: 'Recommended tenure, rate band within statutory caps, repayment plan, and maximum approvable amount under our licensed facility.',
+        title: 'Suggested route and amount range',
+        desc: 'Instead of a vague promise, we outline the route that looks most workable for your profile and commitment level.',
       },
       {
-        title: 'Estimated monthly repayment + approvable amount',
-        desc: 'Realistic figures you can plan around — rate range, tenure, and a back-of-envelope amortisation.',
+        title: 'Official WhatsApp follow-up',
+        desc: 'The consultant continues the review with written next steps, clarifications, and secure document handling through official channels.',
       },
       {
-        title: 'Delivered via email + WhatsApp within 24h',
-        desc: 'The RM30 is collected only after we confirm your details on our official WhatsApp — never through this website.',
+        title: 'Verified process and payment guidance',
+        desc: 'If a report or review fee applies, we explain it only through our official WhatsApp after confirming your details.',
       },
     ],
     footNote:
-      'The RM30 covers the CTOS report pull and is non-refundable once the report has been generated. Even if no product fits, you keep the report and the written analysis.',
-    cta: 'Pull my CTOS report & start',
+      'No payment is collected on this website. Borrowers should verify the process, the official contact details, and the next step before sending documents or money.',
+    cta: 'Start eligibility review',
   },
   ms: {
-    eyebrow: 'Apa yang RM30 meliputi',
-    title: 'Laporan kredit CTOS anda — dan analisis penuh di atasnya.',
+    eyebrow: 'Apa yang anda terima dalam 48 jam pertama',
+    title: 'Semakan bertulis, pelan dokumen, dan langkah seterusnya yang jelas.',
     subtitle:
-      'RM30 adalah caj salur lalu untuk mengambil laporan kredit CTOS anda daripada agensi pelaporan. Pembacaan CCRIS, pengiraan semula DSR, penstrukturan pinjaman dan cadangan bertulis disertakan dalam perkhidmatan pemberian pinjaman berlesen kami tanpa kos tambahan.',
+      'Kami tidak biarkan peminjam meneka. Selepas kami semak profil anda, kami terangkan laluan yang lebih sesuai, titik geseran utama, dan apa yang perlu disediakan sebelum penghantaran rasmi.',
     items: [
       {
-        title: 'Laporan CTOS penuh anda (kos salur lalu)',
-        desc: 'RM30 adalah yuran tepat yang dikenakan CTOS untuk laporan tersebut — bukan pendapatan kami. Kami menyalurkannya kepada agensi.',
+        title: 'Ringkasan profil peminjam',
+        desc: 'Bacaan praktikal tentang kekuatan pendapatan, komitmen semasa, dan isu utama yang mungkin menjejaskan kelulusan.',
       },
       {
-        title: 'Tafsiran CCRIS + CTOS, baris demi baris',
-        desc: 'Kami jelaskan setiap rekod lewat, kod perhatian khas, dan akaun — bukan hanya PDF mentah. Disertakan tanpa caj tambahan.',
+        title: 'Tafsiran CCRIS, CTOS, dan DSR',
+        desc: 'Penjelasan bertulis tentang isyarat fail yang paling penting, dengan gambaran yang lebih jelas tentang kemampuan dan kesesuaian lender.',
       },
       {
-        title: 'DSR dikira semula ikut kriteria pinjaman kami',
-        desc: 'DSR dinilai mengikut peraturan pemberian pinjaman berlesen kami — dengan pandangan jelas tentang had kemudahan yang boleh kami berikan kepada anda.',
+        title: 'Senarai semak dokumen ikut keutamaan',
+        desc: 'Anda akan tahu dokumen mana perlu dihantar dahulu, mana boleh tunggu, dan item mana paling berpotensi melambatkan kes.',
       },
       {
-        title: 'Struktur pinjaman disesuaikan — tawaran kami',
-        desc: 'Tempoh yang disyorkan, jalur kadar dalam had berkanun, pelan bayaran, dan jumlah maksimum boleh diluluskan di bawah kemudahan berlesen kami.',
+        title: 'Cadangan laluan dan julat jumlah',
+        desc: 'Daripada janji kabur, kami terangkan laluan yang kelihatan paling sesuai untuk profil dan tahap komitmen anda.',
       },
       {
-        title: 'Anggaran bayaran bulanan + jumlah boleh lulus',
-        desc: 'Nombor yang realistik — julat kadar, tempoh, dan kiraan amortisasi ringkas.',
+        title: 'Susulan WhatsApp rasmi',
+        desc: 'Perunding akan teruskan semakan dengan langkah bertulis, penjelasan lanjut, dan pengendalian dokumen yang selamat melalui saluran rasmi.',
       },
       {
-        title: 'Dihantar melalui e-mel + WhatsApp dalam 24 jam',
-        desc: 'RM30 dikutip hanya selepas kami mengesahkan butiran anda di WhatsApp rasmi — tidak pernah melalui laman web.',
+        title: 'Panduan proses dan bayaran yang disahkan',
+        desc: 'Jika ada yuran laporan atau semakan yang berkaitan, kami terangkan hanya melalui WhatsApp rasmi selepas butiran anda disahkan.',
       },
     ],
     footNote:
-      'RM30 meliputi pengambilan laporan CTOS dan tidak boleh dikembalikan setelah laporan dijana. Walaupun tiada produk sesuai, anda kekal dengan laporan dan analisis bertulis.',
-    cta: 'Ambil laporan CTOS saya',
+      'Tiada bayaran dikutip di laman web ini. Peminjam patut sahkan proses, maklumat hubungan rasmi, dan langkah seterusnya sebelum menghantar dokumen atau wang.',
+    cta: 'Mulakan semakan kelayakan',
   },
 };
 
@@ -100,7 +100,7 @@ const icons = [FileSearch, Gauge, Building2, Wallet, MessageCircle, ShieldCheck]
 export function Rm30DeliverablesSection({ language }: { language: Language }) {
   const t = content[language];
   return (
-    <section className="py-24 lg:py-32 bg-background">
+    <section data-nosnippet className="py-24 lg:py-32 bg-background">
       <div className="container max-w-6xl">
         <div className="max-w-2xl mb-14 lg:mb-16">
           <p className="eyebrow text-muted-foreground mb-4">{t.eyebrow}</p>
@@ -138,7 +138,7 @@ export function Rm30DeliverablesSection({ language }: { language: Language }) {
             size="lg"
             className="h-12 px-8 text-sm font-semibold tracking-wide uppercase rounded-full whitespace-nowrap"
           >
-            <Link href={localeHref(language, PATHS.servicesApply('1'))}>
+            <Link href={localeHref(language, PATHS.eligibilityTest)}>
               {t.cta}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>

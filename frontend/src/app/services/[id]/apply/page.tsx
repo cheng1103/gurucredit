@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,7 @@ import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
 import { toast } from 'sonner';
 import { applicationsAPI } from '@/lib/api';
+import { trackEvent } from '@/lib/analytics';
 import { useLanguage } from '@/lib/i18n';
 import { COMPANY, SERVICE_AREAS } from '@/lib/constants';
 import { loanApplicationSchema, validateForm, getFieldError } from '@/lib/validation';
@@ -40,18 +41,18 @@ const pageContent = {
       description: 'The service you are looking for does not exist.',
     },
     steps: {
-      personalInfo: 'Personal Info',
-      employment: 'Employment',
+      personalInfo: 'Quick Check',
+      employment: 'Contact Details',
       review: 'Review',
     },
     stepTitles: {
-      personalInfo: 'Personal Information',
-      employment: 'Employment & Loan',
+      personalInfo: 'Quick Approval Check',
+      employment: 'Contact & Work Details',
       review: 'Review & Submit',
     },
     stepDescriptions: {
-      personalInfo: 'Please provide your contact details',
-      employment: 'Tell us about your employment and how much you want to borrow',
+      personalInfo: 'Tell us your state, income, and loan amount first',
+      employment: 'Add your contact details so our consultant can reach you',
       review: 'Review your information before submitting',
     },
     form: {
@@ -234,18 +235,18 @@ const pageContent = {
       description: 'Perkhidmatan yang anda cari tidak wujud.',
     },
     steps: {
-      personalInfo: 'Maklumat Peribadi',
-      employment: 'Pekerjaan',
+      personalInfo: 'Semakan Pantas',
+      employment: 'Butiran Hubungan',
       review: 'Semakan',
     },
     stepTitles: {
-      personalInfo: 'Maklumat Peribadi',
-      employment: 'Pekerjaan & Pinjaman',
+      personalInfo: 'Semakan Kelayakan Pantas',
+      employment: 'Butiran Hubungan & Kerja',
       review: 'Semak & Hantar',
     },
     stepDescriptions: {
-      personalInfo: 'Sila berikan butiran hubungan anda',
-      employment: 'Beritahu kami tentang pekerjaan anda dan jumlah yang ingin dipinjam',
+      personalInfo: 'Berikan negeri, pendapatan, dan jumlah pinjaman dahulu',
+      employment: 'Tambah butiran hubungan supaya perunding kami boleh hubungi anda',
       review: 'Semak maklumat anda sebelum menghantar',
     },
     form: {
@@ -478,6 +479,15 @@ export default function ServiceApplyPage() {
   const loanAmountValue = parseAmount(formData.loanAmount);
   const formattedIncome = monthlyIncomeValue ? `RM ${monthlyIncomeValue.toLocaleString()}` : '—';
   const formattedLoanAmount = loanAmountValue ? `RM ${loanAmountValue.toLocaleString()}` : '—';
+  const incomeBand = monthlyIncomeValue
+    ? monthlyIncomeValue < 3000
+      ? 'below-rm3000'
+      : monthlyIncomeValue < 5000
+        ? 'rm3000-rm5000'
+        : monthlyIncomeValue < 8000
+          ? 'rm5000-rm8000'
+          : 'above-rm8000'
+    : 'unknown';
 
   // Live-validation helpers for instant positive feedback
   const isValidEmail = /^[\w.+-]+@[\w-]+\.[\w.-]+$/.test(formData.email.trim());
@@ -485,11 +495,21 @@ export default function ServiceApplyPage() {
 
   const openWhatsApp = () => {
     if (typeof window === 'undefined') return;
+    trackEvent('apply_whatsapp_click', { service_id: serviceId, language });
     const popup = window.open(whatsappLink, '_blank', 'noopener,noreferrer');
     if (!popup) {
       window.location.href = whatsappLink;
     }
   };
+
+  useEffect(() => {
+    if (!serviceData) return;
+    trackEvent('service_apply_start', {
+      service_id: serviceId,
+      service_name: serviceData.name,
+      language,
+    });
+  }, [language, serviceData, serviceId]);
   const setFieldError = (field: string, message?: string) => {
     setErrors((prev) => {
       const next = { ...prev };
@@ -502,8 +522,20 @@ export default function ServiceApplyPage() {
     });
   };
   const validateSingleField = (field: keyof typeof formData, value?: string) => {
+    const fieldValue = value ?? formData[field];
+
+    if (field === 'monthlyIncome') {
+      if (!fieldValue.trim()) {
+        setFieldError(
+          'monthlyIncome',
+          language === 'ms' ? 'Sila masukkan pendapatan bulanan anda' : 'Please enter your monthly income',
+        );
+        return false;
+      }
+    }
+
     const fieldSchema = loanApplicationSchema.shape[field];
-    const result = fieldSchema.safeParse(value ?? formData[field]);
+    const result = fieldSchema.safeParse(fieldValue);
     if (result.success) {
       setFieldError(field as string, undefined);
       return true;
@@ -539,6 +571,15 @@ export default function ServiceApplyPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!formData.monthlyIncome.trim()) {
+      setErrors((prev) => ({
+        ...prev,
+        monthlyIncome: language === 'ms' ? 'Sila masukkan pendapatan bulanan anda' : 'Please enter your monthly income',
+      }));
+      toast.error(t.toast.fillRequired);
+      return;
+    }
+
     // Validate form data before submission
     const validation = validateForm(loanApplicationSchema, formData);
     if (!validation.success) {
@@ -568,6 +609,12 @@ export default function ServiceApplyPage() {
         contactPreference: validatedData.contactPreference || undefined,
       });
 
+      trackEvent('apply_submit_success', {
+        service_id: serviceId,
+        employment_type: formData.employmentType,
+        income_band: incomeBand,
+        language,
+      });
       toast.success(t.toast.success);
       const referenceId = response.data?.id;
       const successUrl = referenceId
@@ -584,12 +631,52 @@ export default function ServiceApplyPage() {
 
   const nextStep = () => {
     if (step === 1) {
+      const nextErrors: Record<string, string> = {};
+
+      if (!formData.monthlyIncome.trim()) {
+        nextErrors.monthlyIncome = language === 'ms'
+          ? 'Sila masukkan pendapatan bulanan anda'
+          : 'Please enter your monthly income';
+      } else if (!loanApplicationSchema.shape.monthlyIncome.safeParse(formData.monthlyIncome).success) {
+        nextErrors.monthlyIncome = language === 'ms'
+          ? 'Sila masukkan pendapatan bulanan yang sah'
+          : 'Please enter a valid monthly income';
+      }
+
+      if (!loanApplicationSchema.shape.loanAmount.safeParse(formData.loanAmount).success) {
+        nextErrors.loanAmount = language === 'ms'
+          ? 'Sila masukkan jumlah pinjaman yang sah'
+          : 'Please enter a valid loan amount';
+      }
+
+      if (Object.keys(nextErrors).length > 0) {
+        setErrors((prev) => ({ ...prev, ...nextErrors }));
+        setTouched((prev) => ({
+          ...prev,
+          serviceArea: true,
+          monthlyIncome: true,
+          loanAmount: true,
+          contactPreference: true,
+        }));
+        toast.error(t.toast.fillRequired);
+        return;
+      }
+
+      trackEvent('apply_step_1_complete', {
+        service_id: serviceId,
+        service_area: formData.serviceArea,
+        income_band: incomeBand,
+        loan_amount: loanAmountValue || 0,
+        language,
+      });
+    }
+
+    if (step === 2) {
       const stepSchema = loanApplicationSchema.pick({
         name: true,
         email: true,
         phone: true,
-        serviceArea: true,
-        contactPreference: true,
+        employmentType: true,
       });
       const result = validateForm(stepSchema, formData);
       if (!result.success) {
@@ -599,35 +686,19 @@ export default function ServiceApplyPage() {
           name: true,
           email: true,
           phone: true,
-          serviceArea: true,
+          employmentType: true,
         }));
         toast.error(t.toast.fillRequired);
         return;
       }
-    }
-    if (step === 2) {
-      const stepSchema = loanApplicationSchema.pick({
-        employmentType: true,
-        employerName: true,
-        jobTitle: true,
-        monthlyIncome: true,
-        loanAmount: true,
+
+      trackEvent('apply_step_2_complete', {
+        service_id: serviceId,
+        employment_type: formData.employmentType,
+        language,
       });
-      const result = validateForm(stepSchema, formData);
-      if (!result.success) {
-        setErrors((prev) => ({ ...prev, ...result.errors }));
-        setTouched((prev) => ({
-          ...prev,
-          employmentType: true,
-          employerName: true,
-          jobTitle: true,
-          monthlyIncome: true,
-          loanAmount: true,
-        }));
-        toast.error(t.toast.enterIncome);
-        return;
-      }
     }
+
     setStep(step + 1);
   };
 
@@ -763,24 +834,155 @@ export default function ServiceApplyPage() {
                 <CardContent className="p-6 space-y-6">
                   {step === 1 && (
                     <>
+                      <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 text-sm text-muted-foreground">
+                        {language === 'ms'
+                          ? 'Mula dengan maklumat yang paling penting: negeri, pendapatan bersih bulanan, dan jumlah pinjaman yang anda perlukan.'
+                          : 'Start with the decision-making basics: your state, monthly take-home income, and the amount you need.'}
+                      </div>
+
                       <div className="space-y-2">
-                        <Label htmlFor="name">{t.form.fullName} *</Label>
-                        <div className="relative">
-                          <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="name"
-                            placeholder={t.form.fullNamePlaceholder}
-                            value={formData.name}
-                            onChange={(e) => handleFieldChange('name', e.target.value)}
-                            onBlur={() => handleFieldBlur('name')}
-                            className={`pl-10 ${getFieldError(errors, 'name') ? 'border-red-500' : ''}`}
-                            autoComplete="name"
-                            required
-                          />
+                        <Label htmlFor="serviceArea">{t.form.serviceArea.label} *</Label>
+                        <select
+                          id="serviceArea"
+                          value={formData.serviceArea}
+                          onChange={(e) => handleFieldChange('serviceArea', e.target.value)}
+                          onBlur={() => handleFieldBlur('serviceArea')}
+                          className={`w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
+                            getFieldError(errors, 'serviceArea') ? 'border-red-500 focus-visible:ring-red-500/40' : ''
+                          }`}
+                          aria-invalid={!!getFieldError(errors, 'serviceArea')}
+                        >
+                          {SERVICE_AREAS.map((area) => (
+                            <option key={area.regionCode} value={area.regionCode}>
+                              {area.name}
+                            </option>
+                          ))}
+                        </select>
+                        <p className="text-xs text-muted-foreground">{t.form.serviceArea.helper}</p>
+                      </div>
+
+                      <div className="grid gap-6 md:grid-cols-2">
+                        <div className="space-y-2">
+                          <Label htmlFor="monthlyIncome">{t.form.monthlyIncome} *</Label>
+                          <div className="relative">
+                            <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input
+                              id="monthlyIncome"
+                              type="number"
+                              placeholder="5000"
+                              value={formData.monthlyIncome}
+                              onChange={(e) => handleFieldChange('monthlyIncome', e.target.value)}
+                              onBlur={() => handleFieldBlur('monthlyIncome')}
+                              className={`pl-10 ${getFieldError(errors, 'monthlyIncome') ? 'border-red-500' : ''}`}
+                              inputMode="numeric"
+                              min="0"
+                              required
+                            />
+                          </div>
+                          {getFieldError(errors, 'monthlyIncome') ? (
+                            <p className="text-sm text-red-500">{getFieldError(errors, 'monthlyIncome')}</p>
+                          ) : (
+                            <p className="text-xs text-muted-foreground">{t.form.incomeNote}</p>
+                          )}
                         </div>
-                        {getFieldError(errors, 'name') && (
-                          <p className="text-sm text-red-500">{getFieldError(errors, 'name')}</p>
-                        )}
+
+                        <div className="space-y-2">
+                          <Label htmlFor="loanAmount">{t.form.desiredAmount} *</Label>
+                          <div className="relative">
+                            <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input
+                              id="loanAmount"
+                              type="number"
+                              placeholder="50000"
+                              value={formData.loanAmount}
+                              onChange={(e) => handleFieldChange('loanAmount', e.target.value)}
+                              onBlur={() => handleFieldBlur('loanAmount')}
+                              className={`pl-10 ${getFieldError(errors, 'loanAmount') ? 'border-red-500' : ''}`}
+                              inputMode="numeric"
+                              min="0"
+                              required
+                            />
+                          </div>
+                          {getFieldError(errors, 'loanAmount') ? (
+                            <p className="text-sm text-red-500">{getFieldError(errors, 'loanAmount')}</p>
+                          ) : (
+                            <p className="text-xs text-muted-foreground">{t.form.desiredAmountNote}</p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>{t.quickQuestions.contactPreference}</Label>
+                        <div className="grid grid-cols-2 gap-2">
+                          {contactPreferences.map((pref) => (
+                            <button
+                              key={pref.value}
+                              type="button"
+                              onClick={() => handleFieldChange('contactPreference', pref.value)}
+                              className={`rounded-lg border p-2 text-xs transition-all sm:text-sm ${
+                                formData.contactPreference === pref.value
+                                  ? 'border-primary bg-primary/5 font-medium text-primary'
+                                  : 'border-border hover:border-primary/40'
+                              }`}
+                            >
+                              {pref.label}
+                            </button>
+                          ))}
+                        </div>
+                        <p className="text-xs text-muted-foreground">{t.quickQuestions.contactNote}</p>
+                      </div>
+                    </>
+                  )}
+
+                  {step === 2 && (
+                    <>
+                      <div className="grid gap-6 md:grid-cols-2">
+                        <div className="space-y-2">
+                          <Label htmlFor="name">{t.form.fullName} *</Label>
+                          <div className="relative">
+                            <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input
+                              id="name"
+                              placeholder={t.form.fullNamePlaceholder}
+                              value={formData.name}
+                              onChange={(e) => handleFieldChange('name', e.target.value)}
+                              onBlur={() => handleFieldBlur('name')}
+                              className={`pl-10 ${getFieldError(errors, 'name') ? 'border-red-500' : ''}`}
+                              autoComplete="name"
+                              required
+                            />
+                          </div>
+                          {getFieldError(errors, 'name') && (
+                            <p className="text-sm text-red-500">{getFieldError(errors, 'name')}</p>
+                          )}
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="phone">{t.form.phone} *</Label>
+                          <div className="relative">
+                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input
+                              id="phone"
+                              type="tel"
+                              placeholder="+60 12-345 6789"
+                              value={formData.phone}
+                              onChange={(e) => handleFieldChange('phone', e.target.value)}
+                              onBlur={() => handleFieldBlur('phone')}
+                              className={`pl-10 pr-10 ${getFieldError(errors, 'phone') ? 'border-red-500' : isValidPhone ? 'border-emerald-500/70' : ''}`}
+                              autoComplete="tel"
+                              required
+                            />
+                            {isValidPhone && !getFieldError(errors, 'phone') && (
+                              <CheckCircle
+                                className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-600"
+                                aria-label={language === 'ms' ? 'Telefon sah' : 'Valid phone'}
+                              />
+                            )}
+                          </div>
+                          {getFieldError(errors, 'phone') && (
+                            <p className="text-sm text-red-500">{getFieldError(errors, 'phone')}</p>
+                          )}
+                        </div>
                       </div>
 
                       <div className="space-y-2">
@@ -813,85 +1015,6 @@ export default function ServiceApplyPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="phone">{t.form.phone} *</Label>
-                        <div className="relative">
-                          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="phone"
-                            type="tel"
-                            placeholder="+60 12-345 6789"
-                            value={formData.phone}
-                            onChange={(e) => handleFieldChange('phone', e.target.value)}
-                            onBlur={() => handleFieldBlur('phone')}
-                            className={`pl-10 pr-10 ${getFieldError(errors, 'phone') ? 'border-red-500' : isValidPhone ? 'border-emerald-500/70' : ''}`}
-                            autoComplete="tel"
-                            required
-                          />
-                          {isValidPhone && !getFieldError(errors, 'phone') && (
-                            <CheckCircle
-                              className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-600"
-                              aria-label={language === 'ms' ? 'Telefon sah' : 'Valid phone'}
-                            />
-                          )}
-                        </div>
-                        {getFieldError(errors, 'phone') && (
-                          <p className="text-sm text-red-500">{getFieldError(errors, 'phone')}</p>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="serviceArea">{t.form.serviceArea.label} *</Label>
-                        <select
-                          id="serviceArea"
-                          value={formData.serviceArea}
-                          onChange={(e) =>
-                            handleFieldChange('serviceArea', e.target.value)
-                          }
-                          onBlur={() => handleFieldBlur('serviceArea')}
-                          className={`w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
-                            getFieldError(errors, 'serviceArea') ? 'border-red-500 focus-visible:ring-red-500/40' : ''
-                          }`}
-                          aria-invalid={!!getFieldError(errors, 'serviceArea')}
-                        >
-                          {SERVICE_AREAS.map((area) => (
-                            <option key={area.regionCode} value={area.regionCode}>
-                              {area.name}
-                            </option>
-                          ))}
-                        </select>
-                        <p className="text-xs text-muted-foreground">{t.form.serviceArea.helper}</p>
-                        {getFieldError(errors, 'serviceArea') && (
-                          <p className="text-sm text-red-500">{getFieldError(errors, 'serviceArea')}</p>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label>{t.quickQuestions.contactPreference}</Label>
-                        <div className="grid grid-cols-2 gap-2">
-                          {contactPreferences.map((pref) => (
-                            <button
-                              key={pref.value}
-                              type="button"
-                              onClick={() => handleFieldChange('contactPreference', pref.value)}
-                              className={`p-2 rounded-lg border text-xs sm:text-sm transition-all ${
-                                formData.contactPreference === pref.value
-                                  ? 'border-primary bg-primary/5 text-primary font-medium'
-                                  : 'border-border hover:border-primary/40'
-                              }`}
-                            >
-                              {pref.label}
-                            </button>
-                          ))}
-                        </div>
-                        <p className="text-xs text-muted-foreground">{t.quickQuestions.contactNote}</p>
-                      </div>
-
-                    </>
-                  )}
-
-                  {step === 2 && (
-                    <>
-                      <div className="space-y-2">
                         <Label>{t.form.employmentType} *</Label>
                         <div className="grid grid-cols-2 gap-3">
                           {employmentTypes.map((type) => (
@@ -899,7 +1022,7 @@ export default function ServiceApplyPage() {
                               key={type.value}
                               type="button"
                               onClick={() => setFormData({ ...formData, employmentType: type.value })}
-                              className={`p-3 rounded-lg border-2 text-sm font-medium transition-all ${
+                              className={`rounded-lg border-2 p-3 text-sm font-medium transition-all ${
                                 formData.employmentType === type.value
                                   ? 'border-primary bg-primary/5 text-primary'
                                   : 'border-border hover:border-primary/50'
@@ -911,82 +1034,36 @@ export default function ServiceApplyPage() {
                         </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="employerName">{t.form.companyName}</Label>
-                        <div className="relative">
-                          <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="employerName"
-                            placeholder={t.form.companyPlaceholder}
-                            value={formData.employerName}
-                            onChange={(e) => handleFieldChange('employerName', e.target.value)}
-                            onBlur={() => handleFieldBlur('employerName')}
-                            className="pl-10"
-                          />
+                      <div className="grid gap-6 md:grid-cols-2">
+                        <div className="space-y-2">
+                          <Label htmlFor="employerName">{t.form.companyName}</Label>
+                          <div className="relative">
+                            <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input
+                              id="employerName"
+                              placeholder={t.form.companyPlaceholder}
+                              value={formData.employerName}
+                              onChange={(e) => handleFieldChange('employerName', e.target.value)}
+                              onBlur={() => handleFieldBlur('employerName')}
+                              className="pl-10"
+                            />
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="jobTitle">{t.form.jobTitle}</Label>
-                        <div className="relative">
-                          <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="jobTitle"
-                            placeholder={t.form.jobPlaceholder}
-                            value={formData.jobTitle}
-                            onChange={(e) => handleFieldChange('jobTitle', e.target.value)}
-                            onBlur={() => handleFieldBlur('jobTitle')}
-                            className="pl-10"
-                          />
+                        <div className="space-y-2">
+                          <Label htmlFor="jobTitle">{t.form.jobTitle}</Label>
+                          <div className="relative">
+                            <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input
+                              id="jobTitle"
+                              placeholder={t.form.jobPlaceholder}
+                              value={formData.jobTitle}
+                              onChange={(e) => handleFieldChange('jobTitle', e.target.value)}
+                              onBlur={() => handleFieldBlur('jobTitle')}
+                              className="pl-10"
+                            />
+                          </div>
                         </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="monthlyIncome">{t.form.monthlyIncome} *</Label>
-                        <div className="relative">
-                          <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="monthlyIncome"
-                            type="number"
-                            placeholder="5000"
-                            value={formData.monthlyIncome}
-                            onChange={(e) => handleFieldChange('monthlyIncome', e.target.value)}
-                            onBlur={() => handleFieldBlur('monthlyIncome')}
-                            className={`pl-10 ${getFieldError(errors, 'monthlyIncome') ? 'border-red-500' : ''}`}
-                            inputMode="numeric"
-                            min="0"
-                            required
-                          />
-                        </div>
-                        {getFieldError(errors, 'monthlyIncome') ? (
-                          <p className="text-sm text-red-500">{getFieldError(errors, 'monthlyIncome')}</p>
-                        ) : (
-                          <p className="text-xs text-muted-foreground">{t.form.incomeNote}</p>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="loanAmount">{t.form.desiredAmount} *</Label>
-                        <div className="relative">
-                          <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="loanAmount"
-                            type="number"
-                            placeholder="50000"
-                            value={formData.loanAmount}
-                            onChange={(e) => handleFieldChange('loanAmount', e.target.value)}
-                            onBlur={() => handleFieldBlur('loanAmount')}
-                            className={`pl-10 ${getFieldError(errors, 'loanAmount') ? 'border-red-500' : ''}`}
-                            inputMode="numeric"
-                            min="0"
-                            required
-                          />
-                        </div>
-                        {getFieldError(errors, 'loanAmount') ? (
-                          <p className="text-sm text-red-500">{getFieldError(errors, 'loanAmount')}</p>
-                        ) : (
-                          <p className="text-xs text-muted-foreground">{t.form.desiredAmountNote}</p>
-                        )}
                       </div>
                     </>
                   )}

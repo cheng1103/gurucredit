@@ -13,6 +13,7 @@ import {
   MapPin,
   Clock,
   Building2,
+  ListChecks,
 } from 'lucide-react';
 
 const customerPhotos = [
@@ -29,6 +30,7 @@ type Case = {
   profile: string;
   challenge: string;
   facts: CaseFact[];
+  actions: string[];
   outcome: {
     amount: string;
     bank: string;
@@ -51,6 +53,7 @@ type CopyBlock = {
     bank: string;
     days: string;
     challengeLabel: string;
+    actionLabel: string;
   };
   cases: Case[];
   cta: string;
@@ -59,11 +62,11 @@ type CopyBlock = {
 
 const content: Record<Language, CopyBlock> = {
   en: {
-    badge: 'Real borrowers, real numbers',
+    badge: 'Real borrower case summaries',
     title: 'Anonymised cases from',
     titleHighlight: 'the past 12 months',
     subtitle:
-      'Names changed, numbers kept. Every case below completed our RM30 analysis, was matched to a bank, and was approved within the timeline shown.',
+      'Names changed, numbers kept. Each case below shows the borrower profile, the blocker we identified, and the action taken before submission.',
     labels: {
       income: 'Monthly income',
       ccris: 'CCRIS status',
@@ -72,6 +75,7 @@ const content: Record<Language, CopyBlock> = {
       bank: 'Lender',
       days: 'Timeline',
       challengeLabel: 'The problem',
+      actionLabel: 'What we changed',
     },
     cases: [
       {
@@ -85,6 +89,11 @@ const content: Record<Language, CopyBlock> = {
           { label: 'Monthly income', value: 'RM 9,200' },
           { label: 'CCRIS status', value: '2× late markers, cleared 14 months ago' },
           { label: 'Previously rejected', value: 'Maybank, CIMB' },
+        ],
+        actions: [
+          'Reviewed the late-payment pattern against lender scoring differences.',
+          'Prepared a cleaner submission pack with payslips, bank statements, and an explanation note.',
+          'Matched the case to a lender with a more workable appetite for older cleared markers.',
         ],
         outcome: {
           amount: 'RM 420,000',
@@ -107,6 +116,11 @@ const content: Record<Language, CopyBlock> = {
           { label: 'CCRIS status', value: 'Clean, 4 active facilities' },
           { label: 'Previously rejected', value: 'Walk-in: 3 banks' },
         ],
+        actions: [
+          'Reworked the file around bank statements, tax records, and consistent cash flow evidence.',
+          'Removed banks that were too audit-heavy for this stage of the business.',
+          'Prepared a tighter checklist before submission to avoid repeated walk-ins and mixed messaging.',
+        ],
         outcome: {
           amount: 'RM 180,000',
           bank: 'SME Bank',
@@ -128,6 +142,11 @@ const content: Record<Language, CopyBlock> = {
           { label: 'CCRIS status', value: 'Clean, but DSR 72%' },
           { label: 'Previously rejected', value: 'AKPK intake rejected' },
         ],
+        actions: [
+          'Recalculated DSR facility by facility instead of relying on rough estimates.',
+          'Shifted the case from a generic refinance angle to a debt-consolidation route.',
+          'Timed the submission around the contract-to-permanent transition and supporting documents.',
+        ],
         outcome: {
           amount: 'RM 95,000',
           bank: 'Bank Rakyat',
@@ -138,16 +157,16 @@ const content: Record<Language, CopyBlock> = {
           'Every broker told me to go AKPK first. GURU found a Bank Rakyat consolidation product that fit my contract conversion — saved RM 620 every month.',
       },
     ],
-    cta: 'Apply for your RM30 analysis',
+    cta: 'Start eligibility review',
     disclaimer:
       'Cases are real but names and minor details have been changed to protect client privacy. Results depend on your individual profile — past outcomes do not guarantee future approvals.',
   },
   ms: {
-    badge: 'Peminjam sebenar, nombor sebenar',
+    badge: 'Ringkasan kes peminjam sebenar',
     title: 'Kes sebenar dari',
     titleHighlight: '12 bulan lepas',
     subtitle:
-      'Nama disamar, nombor kekal. Setiap kes di bawah bermula dengan laporan CTOS RM30, dipadankan ke bank, dan diluluskan dalam tempoh yang disebut.',
+      'Nama disamar, nombor kekal. Setiap kes di bawah menunjukkan profil peminjam, halangan yang dikenal pasti, dan tindakan yang dibuat sebelum penghantaran.',
     labels: {
       income: 'Pendapatan bulanan',
       ccris: 'Status CCRIS',
@@ -156,6 +175,7 @@ const content: Record<Language, CopyBlock> = {
       bank: 'Pemberi pinjaman',
       days: 'Tempoh masa',
       challengeLabel: 'Masalah',
+      actionLabel: 'Apa yang kami ubah',
     },
     cases: [
       {
@@ -169,6 +189,11 @@ const content: Record<Language, CopyBlock> = {
           { label: 'Pendapatan bulanan', value: 'RM 9,200' },
           { label: 'Status CCRIS', value: '2× lewat, telah clear 14 bulan lalu' },
           { label: 'Pernah ditolak', value: 'Maybank, CIMB' },
+        ],
+        actions: [
+          'Semak corak bayaran lewat itu berdasarkan perbezaan cara lender menilai rekod lama.',
+          'Sediakan fail yang lebih bersih dengan payslip, penyata bank, dan nota penjelasan.',
+          'Padankan kes ini kepada lender yang lebih sesuai untuk rekod lama yang sudah diselesaikan.',
         ],
         outcome: {
           amount: 'RM 420,000',
@@ -191,6 +216,11 @@ const content: Record<Language, CopyBlock> = {
           { label: 'Status CCRIS', value: 'Bersih, 4 kemudahan aktif' },
           { label: 'Pernah ditolak', value: 'Walk-in: 3 bank' },
         ],
+        actions: [
+          'Susun semula fail menggunakan penyata bank, rekod cukai, dan bukti aliran tunai yang konsisten.',
+          'Keluarkan bank yang terlalu bergantung pada audit untuk tahap perniagaan ini.',
+          'Sediakan senarai semak yang lebih ketat sebelum penghantaran supaya tidak perlu ulang walk-in.',
+        ],
         outcome: {
           amount: 'RM 180,000',
           bank: 'SME Bank',
@@ -212,6 +242,11 @@ const content: Record<Language, CopyBlock> = {
           { label: 'Status CCRIS', value: 'Bersih, tetapi DSR 72%' },
           { label: 'Pernah ditolak', value: 'AKPK ditolak' },
         ],
+        actions: [
+          'Kira semula DSR mengikut setiap kemudahan, bukan hanya anggaran kasar.',
+          'Tukar pendekatan daripada refinance umum kepada laluan penyatuan hutang yang lebih sesuai.',
+          'Susun masa penghantaran ikut penukaran kontrak ke tetap dan dokumen sokongan.',
+        ],
         outcome: {
           amount: 'RM 95,000',
           bank: 'Bank Rakyat',
@@ -222,7 +257,7 @@ const content: Record<Language, CopyBlock> = {
           'Semua broker suruh saya ke AKPK. GURU jumpa produk penyatuan Bank Rakyat yang padan dengan penukaran kontrak — jimat RM 620 sebulan.',
       },
     ],
-    cta: 'Ambil laporan CTOS anda',
+    cta: 'Mulakan semakan kelayakan',
     disclaimer:
       'Kes adalah sebenar tetapi nama dan butiran kecil diubah untuk melindungi privasi klien. Keputusan bergantung pada profil individu — hasil lepas tidak menjamin kelulusan masa depan.',
   },
@@ -232,7 +267,7 @@ export function CaseStudies({ language }: { language: Language }) {
   const t = content[language] ?? content.en;
 
   return (
-    <section className="relative py-24 lg:py-32 section-accent-top overflow-hidden">
+    <section data-nosnippet className="relative py-24 lg:py-32 section-accent-top overflow-hidden">
       <div className="container max-w-6xl relative">
         <div className="max-w-2xl mb-14 lg:mb-16">
           <Badge variant="outline" className="mb-4 px-3 py-1 text-xs font-semibold tracking-wide">
@@ -302,6 +337,21 @@ export function CaseStudies({ language }: { language: Language }) {
                   ))}
                 </div>
 
+                <div className="p-6 bg-primary/5 border-b border-border/60">
+                  <div className="flex items-center gap-2 mb-3">
+                    <ListChecks className="h-4 w-4 text-primary flex-shrink-0" />
+                    <span className="eyebrow text-primary">{t.labels.actionLabel}</span>
+                  </div>
+                  <ul className="space-y-2.5 text-sm text-foreground">
+                    {caseStudy.actions.map((action) => (
+                      <li key={action} className="flex items-start gap-2.5">
+                        <CheckCircle2 className="h-4 w-4 mt-0.5 text-primary shrink-0" />
+                        <span className="leading-relaxed">{action}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
                 <div className="p-6 bg-emerald-50/60 dark:bg-emerald-950/20 border-b border-border/60">
                   <div className="flex items-center gap-2 mb-3">
                     <CheckCircle2 className="h-4 w-4 text-emerald-600 flex-shrink-0" />
@@ -353,7 +403,7 @@ export function CaseStudies({ language }: { language: Language }) {
             {t.disclaimer}
           </p>
           <Button asChild variant="outline" className="h-11 px-6 rounded-full whitespace-nowrap">
-            <Link href={localeHref(language, PATHS.servicesApply('1'))}>
+            <Link href={localeHref(language, PATHS.eligibilityTest)}>
               {t.cta}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>

@@ -445,7 +445,7 @@ export function PreApprovalCalculator() {
                     {/* Action Button */}
                     {calculation?.status !== 'declined' && (
                       <Button asChild size="lg" className="w-full">
-                        <Link href="/services/1/apply">
+                        <Link href="/eligibility-test">
                           {t.applyNow}
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>

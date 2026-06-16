@@ -39,7 +39,7 @@ const content: Record<Language, { title: string; badge: string; subtitle: string
 export function RateDisclosure({ language }: { language: Language }) {
   const t = content[language];
   return (
-    <section className="py-16 lg:py-20">
+    <section data-nosnippet className="py-16 lg:py-20">
       <div className="container">
         <div className="text-center mb-10">
           <Badge variant="outline" className="mb-4 px-4 py-1.5">

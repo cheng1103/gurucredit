@@ -440,7 +440,7 @@ export const FOOTER_QUICK_LINKS = [
 ];
 
 export const FOOTER_SERVICE_LINKS = [
-  { href: '/services/1/apply', label: 'Personal Loan' },
+  { href: '/loans/personal', label: 'Personal Loan' },
   { href: '/services/4/apply', label: 'Business Loan' },
 ];
 
@@ -461,9 +461,9 @@ export const FOOTER_RESOURCE_LINKS = [
 // SEO Metadata
 export const SEO = {
   siteName: 'GURU Credits',
-  defaultTitle: 'GURU Credits - Malaysia-wide Loan Guidance (From 4.88%)',
+  defaultTitle: 'GURU Credits | Personal Loan, Debt Consolidation & Credit Review Malaysia',
   defaultDescription:
-    'Nationwide loan consultation and DSR analysis across Malaysia. RM30 eligibility check, fast 24-hour turnaround, home loan, car loan, business loan, and debt consolidation guidance with tailored loan offers.',
+    'Compare personal loan, debt consolidation, and credit review options across Malaysia. Check approval chances, CCRIS or CTOS issues, and the right loan route before you apply.',
   keywords:
     'GURU Credits, GURU Credits Malaysia, GURU Credits loan consultant, GURU Credits personal loan, GURU Credits debt consolidation, guru-credit.com, guru credit malaysia, loan consultant Malaysia, personal loan Malaysia, home loan Malaysia, car loan Malaysia, business loan Malaysia, debt consolidation Malaysia, credit score Malaysia, pinjaman peribadi Malaysia, licensed money lender Malaysia, personal loan for bad credit Malaysia, emergency loan Malaysia, self employed personal loan Malaysia, CCRIS CTOS check Malaysia, loan eligibility check Malaysia',
   url: 'https://guru-credit.com',
@@ -471,9 +471,9 @@ export const SEO = {
   shareImage: '/images/optimized/logo.jpg',
   translations: {
     ms: {
-      defaultTitle: 'GURU Credits - Panduan Pinjaman Seluruh Malaysia (Dari 4.88%)',
+      defaultTitle: 'GURU Credits | Pinjaman Peribadi, Penyatuan Hutang & Semakan Kredit Malaysia',
       defaultDescription:
-        'Perundingan pinjaman dan analisis DSR seluruh Malaysia. Semakan kelayakan RM30, laporan pantas 24 jam, panduan pinjaman rumah, kereta, perniagaan, dan penyatuan hutang dengan tawaran pinjaman yang sesuai.',
+        'Banding pilihan pinjaman peribadi, penyatuan hutang, dan semakan kredit di seluruh Malaysia. Semak peluang lulus, isu CCRIS atau CTOS, dan laluan pinjaman yang lebih sesuai sebelum memohon.',
       keywords:
         'GURU Credits, GURU Credits Malaysia, guru credit malaysia, guru-credit.com, GURU Credits pinjaman peribadi, GURU Credits penyatuan hutang, pinjaman peribadi Malaysia, pinjaman rumah Malaysia, pinjaman kereta Malaysia, pinjaman perniagaan Malaysia, penyatuan hutang Malaysia, skor kredit Malaysia, konsultasi pinjaman Malaysia, pemberi pinjam wang berlesen Malaysia, pinjaman kecemasan Malaysia, semakan kelayakan pinjaman Malaysia, pinjaman peribadi CTOS CCRIS, pinjaman bekerja sendiri Malaysia',
     },

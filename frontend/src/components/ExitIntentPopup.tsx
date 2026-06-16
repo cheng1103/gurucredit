@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useTranslation } from '@/lib/i18n';
 import { leadsAPI } from '@/lib/api';
+import { trackEvent } from '@/lib/analytics';
 import { SERVICE_AREA_CODES, SERVICE_AREA_LABELS } from '@/lib/form-options';
 
 const content = {
@@ -63,6 +64,9 @@ export function ExitIntentPopup() {
       const hasSeenPopup = sessionStorage.getItem('exitPopupSeen');
       if (!hasSeenPopup) {
         setIsVisible(true);
+        trackEvent('exit_popup_open', {
+          page_path: typeof window !== 'undefined' ? window.location.pathname : '/',
+        });
         sessionStorage.setItem('exitPopupSeen', 'true');
       }
     }
@@ -106,6 +110,10 @@ export function ExitIntentPopup() {
         source: 'EXIT_INTENT',
         pageUrl: typeof window !== 'undefined' ? window.location.pathname : undefined,
         language,
+      });
+      trackEvent('exit_popup_submit', {
+        service_area: serviceArea,
+        page_path: typeof window !== 'undefined' ? window.location.pathname : '/',
       });
       setIsSubmitted(true);
 

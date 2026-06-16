@@ -14,7 +14,7 @@ const content = {
       'The link may be broken, the page may have moved, or you may have mistyped the URL. Our site covers personal loans, business financing, debt consolidation, and eligibility analysis — one of these might be what you were looking for.',
     suggestedTitle: 'You might be looking for:',
     suggestions: [
-      { label: 'Start my RM30 CTOS analysis', href: '/services/1/apply', primary: true },
+      { label: 'Start eligibility review', href: '/eligibility-test', primary: true },
       { label: 'Personal loan playbook', href: '/loans/personal' },
       { label: 'Debt consolidation guidance', href: '/loans/debt-consolidation' },
       { label: 'Eligibility test', href: '/eligibility-test' },
@@ -31,7 +31,7 @@ const content = {
       'Pautan mungkin telah rosak, halaman telah dipindahkan, atau anda tersalah URL. Laman kami meliputi pinjaman peribadi, pembiayaan perniagaan, penyatuan hutang, dan analisis kelayakan — salah satu mungkin yang anda cari.',
     suggestedTitle: 'Mungkin anda mahu:',
     suggestions: [
-      { label: 'Mulakan analisis CTOS RM30', href: '/services/1/apply', primary: true },
+      { label: 'Mulakan semakan kelayakan', href: '/eligibility-test', primary: true },
       { label: 'Panduan pinjaman peribadi', href: '/loans/personal' },
       { label: 'Panduan penyatuan hutang', href: '/loans/debt-consolidation' },
       { label: 'Ujian kelayakan', href: '/eligibility-test' },

@@ -40,7 +40,7 @@ export function FinalCtaSection({ t, language }: { t: HomeContent; language: Lan
               asChild
               className="h-14 px-9 text-base font-semibold bg-white text-primary hover:bg-white/90 shadow-xl transition-all"
             >
-              <Link href={localeHref(language, PATHS.servicesApply('1'))}>
+              <Link href={localeHref(language, PATHS.eligibilityTest)}>
                 {t.cta.primary}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
@@ -56,11 +56,11 @@ export function FinalCtaSection({ t, language }: { t: HomeContent; language: Lan
               </Link>
             </Button>
           </div>
-          <p className="mt-8 inline-flex items-center gap-2 text-xs text-white/80 tracking-[0.14em] uppercase font-medium">
+          <p data-nosnippet className="mt-8 inline-flex items-center gap-2 text-xs text-white/80 tracking-[0.14em] uppercase font-medium">
             <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
             {language === 'ms'
-              ? 'Tiada bayaran di laman · Yuran CTOS RM30 melalui WhatsApp rasmi selepas pengesahan'
-              : 'No payment on this website · RM30 CTOS fee settled via official WhatsApp after confirmation'}
+              ? 'Tiada bayaran di laman · Langkah seterusnya diterangkan melalui WhatsApp rasmi selepas semakan profil'
+              : 'No payment on this website · Next steps are explained through official WhatsApp after profile review'}
           </p>
         </div>
       </div>

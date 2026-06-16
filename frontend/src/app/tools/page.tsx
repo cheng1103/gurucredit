@@ -51,7 +51,7 @@ const content = {
     open: 'Open tool',
     cta: {
       title: 'Want expert validation?',
-      description: 'Get a full written credit analysis and a tailored loan offer for a RM30 CTOS fee.',
+      description: 'Get a written credit review, clearer loan strategy, and guidance on the next best step for your profile.',
       primary: 'Get Expert Analysis',
       secondary: 'View Services',
     },
@@ -80,7 +80,7 @@ const content = {
     open: 'Buka alat',
     cta: {
       title: 'Perlukan pengesahan pakar?',
-      description: 'Dapatkan analisis kredit penuh dan struktur pinjaman dengan RM30.',
+      description: 'Dapatkan semakan kredit bertulis, strategi pinjaman yang lebih jelas, dan panduan langkah seterusnya untuk profil anda.',
       primary: 'Dapatkan Analisis Pakar',
       secondary: 'Lihat Perkhidmatan',
     },
@@ -172,7 +172,7 @@ export default async function ToolsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild className="btn-gradient text-white shadow-md">
-                <Link href="/services/1/apply">
+                <Link href="/eligibility-test">
                   {t.cta.primary}
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                 </Link>

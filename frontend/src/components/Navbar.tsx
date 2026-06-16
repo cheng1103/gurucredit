@@ -25,6 +25,7 @@ import {
   FileText,
   Building2,
   HelpCircle,
+  Shield,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { COMPANY } from '@/lib/constants';
@@ -35,7 +36,7 @@ import { cn } from '@/lib/utils';
 // Navigation structure with dropdowns
 const navContent = {
   en: {
-    topBar: 'Fast & Easy Loans from 4.88% | 24hr Approval | RM30 via WhatsApp only',
+    topBar: 'Licensed loan guidance | Quick eligibility review | WhatsApp support',
     whatsapp: 'WhatsApp Us',
     getStarted: 'Apply Now',
     needHelp: 'Need help? Call us at',
@@ -45,7 +46,7 @@ const navContent = {
         title: 'Loans',
         description: 'Find the right loan for your needs',
         items: [
-          { href: '/services/1/apply', label: 'Personal Loan', desc: 'Quick cash for any purpose', icon: CreditCard },
+          { href: '/loans/personal', label: 'Personal Loan', desc: 'Quick cash for any purpose', icon: CreditCard },
           { href: '/services/4/apply', label: 'Business Loan', desc: 'Grow your business', icon: Briefcase },
           { href: '/loans/debt-consolidation', label: 'Debt Consolidation', desc: 'Combine multiple debts', icon: Wallet },
           { href: '/loans/emergency', label: 'Emergency Loan', desc: 'Fast cash when you need it', icon: AlertCircle },
@@ -70,6 +71,7 @@ const navContent = {
           { href: '/documents', label: 'Required Documents', desc: 'What you need to apply', icon: FileText },
           { href: '/glossary', label: 'Loan Glossary', desc: 'Understand loan terms', icon: HelpCircle },
           { href: '/partners', label: 'Bank Partners', desc: 'Our trusted partners', icon: Building2 },
+          { href: '/verify-us', label: 'Verify Us', desc: 'Check office, process, and trust signals', icon: Shield },
         ],
       },
       about: 'About',
@@ -78,7 +80,7 @@ const navContent = {
     },
   },
   ms: {
-    topBar: 'Pinjaman Cepat & Mudah dari 4.88% | Kelulusan 24 Jam | RM30 hanya melalui WhatsApp',
+    topBar: 'Panduan pinjaman berlesen | Semakan kelayakan pantas | Sokongan WhatsApp',
     whatsapp: 'WhatsApp Kami',
     getStarted: 'Mohon Sekarang',
     needHelp: 'Perlukan bantuan? Hubungi kami di',
@@ -88,7 +90,7 @@ const navContent = {
         title: 'Pinjaman',
         description: 'Cari pinjaman yang sesuai',
         items: [
-          { href: '/services/1/apply', label: 'Pinjaman Peribadi', desc: 'Wang tunai cepat', icon: CreditCard },
+          { href: '/loans/personal', label: 'Pinjaman Peribadi', desc: 'Wang tunai cepat', icon: CreditCard },
           { href: '/services/4/apply', label: 'Pinjaman Perniagaan', desc: 'Kembangkan perniagaan', icon: Briefcase },
           { href: '/loans/debt-consolidation', label: 'Penyatuan Hutang', desc: 'Gabungkan hutang', icon: Wallet },
           { href: '/loans/emergency', label: 'Pinjaman Kecemasan', desc: 'Wang tunai segera', icon: AlertCircle },
@@ -113,6 +115,7 @@ const navContent = {
           { href: '/documents', label: 'Dokumen Diperlukan', desc: 'Apa yang perlu', icon: FileText },
           { href: '/glossary', label: 'Glosari Pinjaman', desc: 'Fahami terma pinjaman', icon: HelpCircle },
           { href: '/partners', label: 'Rakan Bank', desc: 'Rakan dipercayai', icon: Building2 },
+          { href: '/verify-us', label: 'Sahkan Kami', desc: 'Semak pejabat, proses, dan isyarat kepercayaan', icon: Shield },
         ],
       },
       about: 'Tentang',
@@ -413,7 +416,7 @@ export function Navbar() {
               </a>
             </Button>
             <Button asChild className="font-semibold shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:scale-105 transition-all">
-              <Link href={localeHref(language, "/services/1/apply")}>
+              <Link href={localeHref(language, "/eligibility-test")}>
                 <Sparkles className="mr-1.5 h-4 w-4" aria-hidden="true" />
                 {t.getStarted}
               </Link>
@@ -662,7 +665,7 @@ export function Navbar() {
                     WhatsApp
                   </Button>
                   <Button asChild className="w-full justify-center font-semibold">
-                    <Link href={localeHref(language, "/services/1/apply")} onClick={() => setMobileOpen(false)}>
+                    <Link href={localeHref(language, "/eligibility-test")} onClick={() => setMobileOpen(false)}>
                       <Sparkles className="mr-1.5 h-4 w-4" aria-hidden="true" />
                       {t.getStarted}
                     </Link>

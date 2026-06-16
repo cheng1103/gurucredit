@@ -159,6 +159,12 @@ export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
+  const sortedPosts = [...blogPosts].sort((a, b) => {
+    const aDate = new Date(a.updatedAt ?? a.publishedAt).getTime();
+    const bDate = new Date(b.updatedAt ?? b.publishedAt).getTime();
+    return bDate - aDate;
+  });
+
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     return date.toLocaleDateString(language === 'ms' ? 'ms-MY' : 'en-MY', {
@@ -177,7 +183,7 @@ export default function BlogPage() {
   const getTitle = (post: BlogPost) => language === 'ms' ? post.titleMs : post.title;
   const getExcerpt = (post: BlogPost) => language === 'ms' ? post.excerptMs : post.excerpt;
 
-  const filteredPosts = blogPosts.filter((post) => {
+  const filteredPosts = sortedPosts.filter((post) => {
     const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
     const title = getTitle(post);
     const excerpt = getExcerpt(post);
@@ -189,7 +195,7 @@ export default function BlogPage() {
     return matchesCategory && matchesSearch;
   });
 
-  const featuredPost = blogPosts[0];
+  const featuredPost = sortedPosts[0];
 
   return (
     <div className="relative py-16 lg:py-24 overflow-hidden">
@@ -380,7 +386,7 @@ export default function BlogPage() {
         <Card className="p-6 mb-12 surface-card">
           <h3 className="font-semibold mb-4">{t.popularTopics}</h3>
           <div className="flex flex-wrap gap-2">
-            {Array.from(new Set(blogPosts.flatMap((post) => post.tags)))
+            {Array.from(new Set(sortedPosts.flatMap((post) => post.tags)))
               .slice(0, 15)
               .map((tag) => (
                 <Badge

@@ -10,7 +10,9 @@ import type { Language } from '@/lib/i18n/translations';
 type Props = { t: HomeContent; language: Language };
 
 export function BlogSection({ t, language }: Props) {
-  const latestPosts = blogPosts.slice(0, 3);
+  const latestPosts = [...blogPosts]
+    .sort((a, b) => new Date(b.updatedAt ?? b.publishedAt).getTime() - new Date(a.updatedAt ?? a.publishedAt).getTime())
+    .slice(0, 3);
   const locale = language === 'ms' ? 'ms-MY' : 'en-MY';
 
   return (

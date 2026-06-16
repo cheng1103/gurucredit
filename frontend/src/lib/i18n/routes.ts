@@ -61,6 +61,10 @@ export const PATHS = {
   loanGuide: {
     creditScore: '/loan-guides/credit-score',
     debtConsolidation: '/loan-guides/debt-consolidation',
+    ccrisCtos: '/loan-guides/ccris-ctos',
+    loanRejectionRecovery: '/loan-guides/loan-rejection-recovery',
+    selfEmployedIncomeProof: '/loan-guides/self-employed-income-proof',
+    topic: (slug: string) => `/loan-guides/topics/${slug}`,
   },
 
   // tools
@@ -69,6 +73,10 @@ export const PATHS = {
 
   // info
   compare: '/compare',
+  verifyUs: '/verify-us',
+  editorialPolicy: '/editorial-policy',
+  reviewMethodology: '/review-methodology',
+  serviceAreas: '/service-areas',
   documents: '/documents',
   glossary: '/glossary',
   partners: '/partners',

@@ -30,13 +30,13 @@ const footerContent = {
     newsletter: {
       title: 'Stay Updated',
       subtitle: 'Get the latest tips on loan eligibility and financial planning.',
-      paymentNotice: 'Reminder: RM30 eligibility fee is collected only via our official WhatsApp chat after you submit your form.',
+      paymentNotice: 'Reminder: any applicable review fee is explained only through our official WhatsApp after you submit your form.',
       placeholder: 'Enter your email',
       button: 'Subscribe',
     },
     slogan: slogans.en,
     sloganMs: slogans.ms,
-    description: `Fast and easy personal loans with competitive rates from 4.88% for ${SERVICE_AREA_LABEL}. Your trusted nationwide lending partner.`,
+    description: `Fast and clear loan guidance for ${SERVICE_AREA_LABEL}. Your trusted nationwide lending partner.`,
     quickLinks: {
       title: 'Quick Links',
       items: [
@@ -45,13 +45,15 @@ const footerContent = {
         { href: '/faq', label: 'FAQ' },
         { href: '/blog', label: 'Blog' },
         { href: '/loan-guides', label: 'Loan Guides' },
+        { href: '/service-areas', label: 'Service Areas' },
         { href: '/partners', label: 'Bank Partners' },
+        { href: '/verify-us', label: 'Verify Us' },
       ],
     },
     loanProducts: {
       title: 'Loan Products',
       items: [
-        { href: '/services/1/apply', label: 'Personal Loan' },
+        { href: '/loans/personal', label: 'Personal Loan' },
         { href: '/services/4/apply', label: 'Business Loan' },
         { href: '/loans/debt-consolidation', label: 'Debt Consolidation' },
         { href: '/loans/emergency', label: 'Emergency Loan' },
@@ -90,13 +92,13 @@ const footerContent = {
     newsletter: {
       title: 'Kekal Terkini',
       subtitle: 'Dapatkan tips terkini tentang kelayakan pinjaman dan perancangan kewangan.',
-      paymentNotice: 'Peringatan: Yuran semakan RM30 hanya dikutip melalui WhatsApp rasmi kami selepas borang dihantar.',
+      paymentNotice: 'Peringatan: sebarang yuran semakan yang berkaitan hanya diterangkan melalui WhatsApp rasmi kami selepas borang dihantar.',
       placeholder: 'Masukkan e-mel anda',
       button: 'Langgan',
     },
     slogan: slogans.ms,
     sloganMs: slogans.en,
-    description: `Pinjaman peribadi pantas dan mudah dengan kadar kompetitif dari 4.88% untuk ${SERVICE_AREA_LABEL}. Rakan pinjaman dipercayai anda di seluruh negara.`,
+    description: `Panduan pinjaman yang pantas dan jelas untuk ${SERVICE_AREA_LABEL}. Rakan pinjaman dipercayai anda di seluruh negara.`,
     quickLinks: {
       title: 'Pautan Pantas',
       items: [
@@ -105,13 +107,15 @@ const footerContent = {
         { href: '/faq', label: 'Soalan Lazim' },
         { href: '/blog', label: 'Blog' },
         { href: '/loan-guides', label: 'Panduan Pinjaman' },
+        { href: '/service-areas', label: 'Kawasan Perkhidmatan' },
         { href: '/partners', label: 'Rakan Bank' },
+        { href: '/verify-us', label: 'Sahkan Kami' },
       ],
     },
     loanProducts: {
       title: 'Produk Pinjaman',
       items: [
-        { href: '/services/1/apply', label: 'Pinjaman Peribadi' },
+        { href: '/loans/personal', label: 'Pinjaman Peribadi' },
         { href: '/services/4/apply', label: 'Pinjaman Perniagaan' },
         { href: '/loans/debt-consolidation', label: 'Penyatuan Hutang' },
         { href: '/loans/emergency', label: 'Pinjaman Kecemasan' },
@@ -186,7 +190,7 @@ export function Footer() {
               <p className="opacity-90">
                 {t.newsletter.subtitle}
               </p>
-              <p className="mt-2 text-xs text-white/80">
+              <p data-nosnippet className="mt-2 text-xs text-white/80">
                 {t.newsletter.paymentNotice}
               </p>
             </div>

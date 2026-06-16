@@ -555,7 +555,7 @@ export default async function EmergencyLoanPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button asChild size="lg" className="btn-gradient text-primary-foreground shadow-lg shadow-primary/25">
-                    <Link href="/services/1/apply">
+                    <Link href="/eligibility-test">
                       {t.cta.primary}
                       <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                     </Link>

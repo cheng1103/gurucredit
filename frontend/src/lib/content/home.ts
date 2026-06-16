@@ -95,7 +95,7 @@ export const homeContent: Record<Language, HomeContent> = {
       titleHighlight: 'Loan Guidance',
       titleEnd: 'When You Need It',
       subtitle:
-        'RM30 CTOS report with DSR insights, CCRIS/CTOS review, and a loan offer structured to your profile. Direct from your licensed lender — decisions as fast as 24h.',
+        'CCRIS/CTOS review, DSR insights, and a loan plan structured to your profile. Direct from your licensed lender with written guidance as fast as 24 hours.',
       cta: 'Start Eligibility Check',
       secondary: 'Estimate Monthly Payment',
       whatsapp: 'Chat on WhatsApp',
@@ -197,7 +197,7 @@ export const homeContent: Record<Language, HomeContent> = {
         {
           question: 'What types of loans do you offer?',
           answer:
-            'We are a licensed money lender under the Moneylenders Act 1951 offering personal loans, business financing for SMEs, and debt consolidation. Rates start from 4.88% flat p.a., within statutory caps and based on your credit profile.',
+            'We are a licensed money lender under the Moneylenders Act 1951 offering personal loans, business financing for SMEs, and debt consolidation, with approval subject to your credit profile and documentation.',
         },
         {
           question: 'How long does the approval take?',
@@ -247,11 +247,11 @@ export const homeContent: Record<Language, HomeContent> = {
       ],
     },
     cta: {
-      badge: '24-hour written report · RM30 CTOS fee',
-      title: 'Get your credit report and written analysis before the end of the day.',
+      badge: 'Written review · official WhatsApp follow-up',
+      title: 'Get a written eligibility review before you send full documents.',
       subtitle:
-        'Submit the form, settle the RM30 CTOS report fee through our official WhatsApp after we confirm your details, and receive a full written analysis within 24 business hours: CCRIS + CTOS interpretation, DSR across lending criteria, and a tailored loan recommendation.',
-      primary: 'Pull My CTOS Report',
+        'Start with your profile first. We then explain the likely route, the main blockers, and what to prepare next through our official channels before any formal submission.',
+      primary: 'Start Eligibility Review',
       secondary: 'Ask on WhatsApp First',
     },
     risk: {
@@ -275,7 +275,7 @@ export const homeContent: Record<Language, HomeContent> = {
       titleHighlight: 'Panduan Pinjaman',
       titleEnd: 'Saat Anda Perlukan',
       subtitle:
-        'Laporan CTOS RM30 dengan analisis DSR, semakan CCRIS/CTOS dan tawaran pinjaman distrukturkan ikut profil anda. Terus daripada pemberi pinjaman berlesen — keputusan sepantas 24 jam.',
+        'Semakan CCRIS/CTOS, analisis DSR, dan pelan pinjaman yang distrukturkan ikut profil anda. Terus daripada pemberi pinjaman berlesen dengan panduan bertulis sepantas 24 jam.',
       cta: 'Mulakan Semakan Kelayakan',
       secondary: 'Anggar Bayaran Bulanan',
       whatsapp: 'Sembang WhatsApp',
@@ -426,11 +426,11 @@ export const homeContent: Record<Language, HomeContent> = {
       ],
     },
     cta: {
-      badge: 'Laporan bertulis 24 jam · Yuran CTOS RM30',
-      title: 'Dapatkan laporan kredit dan analisis bertulis sebelum akhir hari.',
+      badge: 'Semakan bertulis · susulan WhatsApp rasmi',
+      title: 'Dapatkan semakan kelayakan bertulis sebelum hantar dokumen penuh.',
       subtitle:
-        'Hantar borang, bayar yuran laporan CTOS RM30 melalui WhatsApp rasmi selepas pengesahan butiran, dan terima analisis bertulis penuh dalam 24 jam bekerja: tafsiran CCRIS + CTOS, DSR mengikut kriteria pinjaman, dan cadangan pinjaman yang disesuaikan.',
-      primary: 'Ambil Laporan CTOS Saya',
+        'Mulakan dengan profil anda dahulu. Selepas itu kami terangkan laluan yang lebih sesuai, halangan utama, dan apa yang perlu disediakan melalui saluran rasmi sebelum sebarang penghantaran rasmi.',
+      primary: 'Mulakan Semakan Kelayakan',
       secondary: 'Tanya di WhatsApp Dulu',
     },
     risk: {

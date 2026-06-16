@@ -314,7 +314,7 @@ export default function AboutContent({ language }: AboutContentProps) {
                   ))}
                 </ul>
                 <Button className="w-full mt-6 btn-gradient text-primary-foreground" asChild>
-                  <Link href="/services/1/apply">{t.services.mainService.button}</Link>
+                  <Link href="/eligibility-test">{t.services.mainService.button}</Link>
                 </Button>
               </CardContent>
             </Card>

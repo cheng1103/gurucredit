@@ -105,5 +105,6 @@ export const leadsAPI = {
     source?: string;
     pageUrl?: string;
     language?: string;
+    notes?: string;
   }) => api.post('/leads', data),
 };

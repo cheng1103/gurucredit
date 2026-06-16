@@ -71,7 +71,7 @@ export function ProcessTimeline({ language }: { language: Language }) {
         {/* CTA */}
         <div className="text-center mt-12">
           <Button size="lg" asChild className="h-14 px-10 text-lg font-semibold shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:scale-105 transition-all">
-            <Link href="/services/1/apply">
+            <Link href="/eligibility-test">
               {t.cta}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>

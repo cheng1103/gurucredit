@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -18,6 +19,13 @@ import { COMPANY, SEO, SERVICES } from '@/lib/constants';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { WebPageJsonLd } from '@/components/JsonLd';
 import { ReferenceDetailsClient } from './ReferenceDetailsClient';
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 const pageContent = {
   en: {

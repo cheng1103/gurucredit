@@ -7,6 +7,7 @@ import { Language } from '@/lib/i18n/translations';
 import { SEO, TRUST_BLOCK, COMPANY } from '@/lib/constants';
 import { WebPageJsonLd } from '@/components/JsonLd';
 import { TrustPanel } from '@/components/TrustPanel';
+import { VerifyTrustCard } from '@/components/VerifyTrustCard';
 import {
   FileText,
   Calculator,
@@ -174,12 +175,13 @@ export default function ServicesContent({ language }: Props) {
       </section>
 
       <section className="py-16">
-        <div className="container">
+        <div className="container space-y-6">
           <TrustPanel
             title={trust.title}
             description={trust.description}
             items={trust.items}
           />
+          <VerifyTrustCard language={language} />
         </div>
       </section>
 

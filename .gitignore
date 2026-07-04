@@ -28,3 +28,12 @@ Thumbs.db
 # Generated assets
 public/images/optimized/
 .vercel
+
+# Lighthouse / audit reports (regenerated artifacts, not source)
+lighthouse-report*.html
+lighthouse-report*.json
+**/lighthouse-report.report.*
+
+# Playwright output
+test-results/
+playwright-report/

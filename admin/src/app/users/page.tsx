@@ -498,7 +498,7 @@ export default function UsersPage() {
                     type="password"
                     value={newUser.password}
                     onChange={(e) => setNewUser((prev) => ({ ...prev, password: e.target.value }))}
-                    placeholder="At least 8 characters"
+                    placeholder="At least 6 characters"
                   />
                 </div>
                 <div className="grid gap-2">

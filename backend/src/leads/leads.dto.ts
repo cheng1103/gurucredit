@@ -32,6 +32,11 @@ export class CreateLeadDto {
   @IsString()
   @Sanitize(20)
   language?: string;
+
+  @IsOptional()
+  @IsString()
+  @Sanitize(500)
+  notes?: string;
 }
 
 export class UpdateLeadStatusDto {

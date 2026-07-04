@@ -20,6 +20,7 @@ export class LeadsService {
         source: dto.source || 'EXIT_INTENT',
         pageUrl: dto.pageUrl,
         language: dto.language,
+        notes: dto.notes,
       },
     });
   }

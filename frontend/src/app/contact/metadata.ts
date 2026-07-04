@@ -17,7 +17,5 @@ export const metadata: Metadata = {
     title: 'Contact Us | GURU Credits',
     description: 'Get in touch with GURU Credits for professional loan consultation services.',
   },
-  alternates: {
-    canonical: `${SEO.url}/contact`,
-  },
+  // canonical + hreflang inherited from the root layout (localeAlternates)
 };

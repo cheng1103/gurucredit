@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -31,13 +31,7 @@ export async function generateMetadata({ params }: TopicPageProps): Promise<Meta
   return {
     title: topic.title,
     description: topic.description,
-    alternates: {
-      canonical: canonicalUrl,
-      languages: {
-        'en-MY': canonicalUrl,
-        'ms-MY': `${canonicalUrl}?lang=ms`,
-      },
-    },
+    // canonical + hreflang inherited from the root layout (localeAlternates)
     openGraph: {
       title: `${topic.title} | ${SEO.siteName}`,
       description: topic.description,
@@ -185,14 +179,14 @@ export default async function GuideTopicPage({ params }: TopicPageProps) {
             </CardHeader>
             <CardContent className="space-y-3">
               {topic.related.map((item) => (
-                <Link
+                <LocaleLink
                   key={item.href}
                   href={item.href}
                   className="flex items-center justify-between rounded-xl border border-border/60 bg-white/80 px-4 py-3 text-sm transition-colors hover:border-primary/40"
                 >
                   <span className="font-medium text-foreground">{language === 'ms' ? item.titleMs : item.title}</span>
                   <ArrowRight className="h-4 w-4 text-primary" />
-                </Link>
+                </LocaleLink>
               ))}
             </CardContent>
           </Card>
@@ -212,10 +206,10 @@ export default async function GuideTopicPage({ params }: TopicPageProps) {
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Button asChild className="btn-gradient text-white shadow-md">
-                  <Link href="/eligibility-test">
+                  <LocaleLink href="/eligibility-test">
                     {language === 'ms' ? 'Mulakan semakan kelayakan' : 'Start eligibility review'}
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
+                  </LocaleLink>
                 </Button>
                 <Button asChild variant="outline">
                   <a href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">

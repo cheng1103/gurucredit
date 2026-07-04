@@ -8,13 +8,27 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Globe } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
-import { languages } from '@/lib/i18n/translations';
+import { languages, type Language } from '@/lib/i18n/translations';
+import { localeHref } from '@/lib/i18n/routes';
 
 export function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const currentLang = languages.find((l) => l.code === language);
+
+  const handleSelect = (code: Language) => {
+    setLanguage(code);
+    // With URL-prefixed locales on, move to the localized URL so the choice is
+    // crawlable/shareable; when the flag is off this is a no-op path.
+    const target = localeHref(code, pathname || '/');
+    if (target !== pathname) {
+      router.push(target);
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -29,7 +43,7 @@ export function LanguageSwitcher() {
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
-            onClick={() => setLanguage(lang.code)}
+            onClick={() => handleSelect(lang.code)}
             className={language === lang.code ? 'bg-accent' : ''}
           >
             <span className="mr-2">{lang.flag}</span>

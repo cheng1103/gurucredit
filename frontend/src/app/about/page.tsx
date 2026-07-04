@@ -1,15 +1,10 @@
 import AboutContent from './AboutContent';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
-import { ReviewJsonLd, WebPageJsonLd } from '@/components/JsonLd';
-import { SEO, TESTIMONIALS } from '@/lib/constants';
+import { WebPageJsonLd } from '@/components/JsonLd';
+import { SEO } from '@/lib/constants';
 
 export default async function AboutPage() {
   const language = await resolveRequestLanguage();
-  const reviews = TESTIMONIALS.map((t) => ({
-    author: `${t.name}${t.location ? `, ${t.location}` : ''}`,
-    rating: t.rating,
-    reviewBody: t.text,
-  }));
   return (
     <>
       <WebPageJsonLd
@@ -22,7 +17,6 @@ export default async function AboutPage() {
           { name: 'About', url: `${SEO.url}/about` },
         ]}
       />
-      <ReviewJsonLd reviews={reviews} />
       <AboutContent language={language} />
     </>
   );

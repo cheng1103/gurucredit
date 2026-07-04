@@ -17,7 +17,5 @@ export const metadata: Metadata = {
     title: 'FAQ | GURU Credits',
     description: 'Find answers to common questions about loan consultation and credit analysis.',
   },
-  alternates: {
-    canonical: `${SEO.url}/faq`,
-  },
+  // canonical + hreflang inherited from the root layout (localeAlternates)
 };

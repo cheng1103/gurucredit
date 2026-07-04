@@ -8,14 +8,11 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
 import {
   Menu,
-  Phone,
   ChevronRight,
   ChevronDown,
   MessageCircle,
   Sparkles,
   CreditCard,
-  Car,
-  Home,
   Briefcase,
   Wallet,
   AlertCircle,
@@ -30,7 +27,7 @@ import {
 import { useState, useEffect } from 'react';
 import { COMPANY } from '@/lib/constants';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { useLanguage, localeHref, PATHS } from '@/lib/i18n';
+import { useLanguage, localeHref } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
 
 // Navigation structure with dropdowns

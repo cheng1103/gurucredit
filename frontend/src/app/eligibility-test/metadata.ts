@@ -17,7 +17,5 @@ export const metadata: Metadata = {
     title: 'Loan Eligibility Test | GURU Credits',
     description: 'Take our free loan eligibility test to check your chances of loan approval.',
   },
-  alternates: {
-    canonical: `${SEO.url}/eligibility-test`,
-  },
+  // canonical + hreflang inherited from the root layout (localeAlternates)
 };

@@ -1,16 +1,18 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Space_Grotesk, Plus_Jakarta_Sans, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { SEO } from "@/lib/constants";
+import { localeAlternates } from "@/lib/seo";
+import { resolveRequestLanguage } from "@/lib/i18n/server";
 import { Providers } from "@/components/Providers";
 import {
   OrganizationJsonLd,
   WebsiteJsonLd,
   ServicesJsonLd,
-  FAQJsonLd,
   GeoCoverageJsonLd,
 } from "@/components/JsonLd";
 import { ClientWidgets } from "@/components/ClientWidgets";
@@ -50,91 +52,95 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-export const metadata: Metadata = {
-  title: {
-    default: SEO.defaultTitle,
-    template: `%s | ${SEO.siteName}`,
-  },
-  description: SEO.defaultDescription,
-  keywords: SEO.keywords,
-  authors: [{ name: SEO.siteName }],
-  creator: SEO.siteName,
-  metadataBase: new URL(SEO.url),
-  openGraph: {
-    type: "website",
-    locale: SEO.locale,
-    alternateLocale: ["ms_MY"],
-    url: SEO.url,
-    title: SEO.defaultTitle,
-    description: SEO.defaultDescription,
-    siteName: SEO.siteName,
-    images: [
-      {
-        url: defaultOgImage,
-        width: 1200,
-        height: 630,
-        alt: SEO.siteName,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: SEO.defaultTitle,
-    description: SEO.defaultDescription,
-    images: [defaultOgImage],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+export async function generateMetadata(): Promise<Metadata> {
+  const headerStore = await headers();
+  const locale = headerStore.get("x-gc-locale") === "ms" ? "ms" : "en";
+  const path = headerStore.get("x-gc-path") ?? "/";
+
+  const ms = locale === "ms" ? SEO.translations.ms : null;
+  const title = ms?.defaultTitle ?? SEO.defaultTitle;
+  const description = ms?.defaultDescription ?? SEO.defaultDescription;
+  const keywords = ms?.keywords ?? SEO.keywords;
+
+  return {
+    title: {
+      default: title,
+      template: `%s | ${SEO.siteName}`,
+    },
+    description,
+    keywords,
+    authors: [{ name: SEO.siteName }],
+    creator: SEO.siteName,
+    metadataBase: new URL(SEO.url),
+    openGraph: {
+      type: "website",
+      locale: locale === "ms" ? "ms_MY" : SEO.locale,
+      alternateLocale: locale === "ms" ? [SEO.locale] : ["ms_MY"],
+      url: SEO.url,
+      title,
+      description,
+      siteName: SEO.siteName,
+      images: [
+        {
+          url: defaultOgImage,
+          width: 1200,
+          height: 630,
+          alt: SEO.siteName,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [defaultOgImage],
+    },
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-  },
-  alternates: {
-    canonical: SEO.url,
-    languages: {
-      "en-MY": SEO.url,
-      "ms-MY": `${SEO.url}?lang=ms`,
-      "x-default": SEO.url,
+    alternates: localeAlternates(locale, path),
+    verification: {
+      google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
+      other: {
+        "msvalidate.01": process.env.NEXT_PUBLIC_BING_VERIFICATION ?? "",
+      },
     },
-  },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
+    // icons are auto-detected from src/app/icon.png, apple-icon.png, favicon.ico
     other: {
-      "msvalidate.01": process.env.NEXT_PUBLIC_BING_VERIFICATION ?? "",
+      "geo.region": "MY-14,MY-10",
+      "geo.placename": "Malaysia",
+      "geo.position": "3.1390;101.6869",
+      ICBM: "3.1390, 101.6869",
     },
-  },
-  // icons are auto-detected from src/app/icon.png, apple-icon.png, favicon.ico
-  other: {
-    "geo.region": "MY-14,MY-10",
-    "geo.placename": "Malaysia",
-    "geo.position": "3.1390;101.6869",
-    ICBM: "3.1390, 101.6869",
-  },
-};
+  };
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await resolveRequestLanguage();
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
         <ServicesJsonLd />
-        <FAQJsonLd />
         <GeoCoverageJsonLd />
       </head>
       <body
         className={`${bodyFont.variable} ${displayFont.variable} ${cjkFont.variable} font-sans antialiased`}
       >
-        <Providers>
+        <Providers initialLanguage={locale}>
           <div className="relative flex min-h-screen flex-col">
             <a
               href="#main-content"

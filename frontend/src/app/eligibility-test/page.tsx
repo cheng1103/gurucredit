@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import {
   Target,
   ArrowRight,
@@ -539,10 +539,10 @@ export default function EligibilityTestPage() {
                   <div key={index} className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 border rounded-xl p-4">
                     <p className="font-medium">{item.label}</p>
                     <Button asChild size="sm">
-                      <Link href={item.href}>
+                      <LocaleLink href={item.href}>
                         {t.resources.button}
                         <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
+                      </LocaleLink>
                     </Button>
                   </div>
                 ))}
@@ -558,10 +558,10 @@ export default function EligibilityTestPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Button asChild size="lg" className="btn-gradient text-primary-foreground shadow-lg shadow-primary/25">
-                    <Link href="/services/1/apply">
+                    <LocaleLink href="/services/1/apply">
                       {t.cta.getAnalysis}
                       <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
+                    </LocaleLink>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
                     <a href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">

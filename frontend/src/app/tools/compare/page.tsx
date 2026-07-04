@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import {
   Building2,
   Calculator,
@@ -640,15 +640,15 @@ export default function ComparePage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Button asChild size="lg" className="btn-gradient text-white shadow-md">
-                    <Link href="/eligibility-test">
+                    <LocaleLink href="/eligibility-test">
                       {t.cta.getAnalysis}
                       <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
+                    </LocaleLink>
                   </Button>
                   <Button variant="outline" size="lg" asChild className="border-primary/30">
-                    <Link href="/eligibility-test">
+                    <LocaleLink href="/eligibility-test">
                       {t.cta.eligibilityTest}
-                    </Link>
+                    </LocaleLink>
                   </Button>
                 </div>
               </CardContent>

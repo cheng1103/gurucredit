@@ -1,8 +1,8 @@
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, BookOpen, CheckCircle, Compass, CreditCard, Layers, ShieldCheck, Sparkles } from 'lucide-react';
+import { ArrowRight, BookOpen, CheckCircle, Compass, CreditCard, ShieldCheck, Sparkles } from 'lucide-react';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { COMPANY, SEO, TRUST_BLOCK } from '@/lib/constants';
 import { WebPageJsonLd } from '@/components/JsonLd';
@@ -158,7 +158,7 @@ export default async function LoanGuidesPage() {
                 </CardHeader>
                 <CardContent>
                   <Button asChild className="btn-gradient text-white shadow-md">
-                    <Link href={href}>{t.readGuide}<ArrowRight className="ml-2 h-4 w-4" /></Link>
+                    <LocaleLink href={href}>{t.readGuide}<ArrowRight className="ml-2 h-4 w-4" /></LocaleLink>
                   </Button>
                 </CardContent>
               </Card>
@@ -188,13 +188,13 @@ export default async function LoanGuidesPage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 {t.authorityLinks.map((item) => (
-                  <Link key={item.href} href={item.href} className="flex items-center justify-between rounded-xl border border-border/60 bg-white/80 px-4 py-3 text-sm transition-colors hover:border-primary/40">
+                  <LocaleLink key={item.href} href={item.href} className="flex items-center justify-between rounded-xl border border-border/60 bg-white/80 px-4 py-3 text-sm transition-colors hover:border-primary/40">
                     <div>
                       <p className="font-medium text-foreground">{item.title}</p>
                       <p className="text-xs text-muted-foreground">{item.description}</p>
                     </div>
                     <ArrowRight className="h-4 w-4 text-primary" />
-                  </Link>
+                  </LocaleLink>
                 ))}
               </CardContent>
             </Card>
@@ -205,7 +205,7 @@ export default async function LoanGuidesPage() {
               <CardContent>
                 <p className="text-sm text-muted-foreground">{t.ctaDescription}</p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <Button asChild className="btn-gradient text-white shadow-md"><Link href="/eligibility-test">{t.ctaPrimary}<ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+                  <Button asChild className="btn-gradient text-white shadow-md"><LocaleLink href="/eligibility-test">{t.ctaPrimary}<ArrowRight className="ml-2 h-4 w-4" /></LocaleLink></Button>
                   <Button asChild variant="outline"><a href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">{t.ctaSecondary}</a></Button>
                 </div>
               </CardContent>

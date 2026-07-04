@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import {
   HelpCircle,
   ChevronDown,
@@ -467,10 +467,10 @@ export default function FaqContent({ language }: FAQProps) {
                     </a>
                   </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link href="/contact">
+                  <LocaleLink href="/contact">
                     {t.cta.contact}
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
+                  </LocaleLink>
                 </Button>
               </div>
             </CardContent>
@@ -489,7 +489,7 @@ export default function FaqContent({ language }: FAQProps) {
                 {t.quickLinks.eligibility.description}
               </p>
               <Button variant="outline" size="sm" asChild>
-                <Link href="/services">{t.quickLinks.eligibility.button}</Link>
+                <LocaleLink href="/services">{t.quickLinks.eligibility.button}</LocaleLink>
               </Button>
             </CardContent>
           </Card>
@@ -504,7 +504,7 @@ export default function FaqContent({ language }: FAQProps) {
                 {t.quickLinks.calculator.description}
               </p>
               <Button variant="outline" size="sm" asChild>
-                <Link href="/services">{t.quickLinks.calculator.button}</Link>
+                <LocaleLink href="/services">{t.quickLinks.calculator.button}</LocaleLink>
               </Button>
             </CardContent>
           </Card>
@@ -519,7 +519,7 @@ export default function FaqContent({ language }: FAQProps) {
                 {t.quickLinks.about.description}
               </p>
               <Button variant="outline" size="sm" asChild>
-                <Link href="/about">{t.quickLinks.about.button}</Link>
+                <LocaleLink href="/about">{t.quickLinks.about.button}</LocaleLink>
               </Button>
             </CardContent>
           </Card>

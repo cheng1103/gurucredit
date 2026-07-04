@@ -31,9 +31,6 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   const ogImage = post.image ? new URL(post.image, SEO.url).toString() : defaultOgImage;
   const canonicalUrl = `${SEO.url}/blog/${post.slug}`;
-  const malayUrl = `${canonicalUrl}?lang=ms`;
-  const msTitle = post.titleMs ?? post.title;
-  const msDescription = post.excerptMs ?? post.excerpt;
 
   return {
     title: post.title,
@@ -45,7 +42,6 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       description: post.excerpt,
       type: 'article',
       locale: SEO.locale,
-      alternateLocale: ['ms_MY'],
       publishedTime: post.publishedAt,
       authors: [post.author],
       tags: post.tags,
@@ -66,21 +62,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       description: post.excerpt,
       images: [ogImage],
     },
-    alternates: {
-      canonical: canonicalUrl,
-      languages: {
-        'en-MY': canonicalUrl,
-        'ms-MY': malayUrl,
-      },
-    },
-    other: {
-      'description:ms': msDescription,
-      'og:title:ms': msTitle,
-      'og:description:ms': msDescription,
-      'twitter:title:ms': msTitle,
-      'twitter:description:ms': msDescription,
-      'link:alternate:ms-MY': malayUrl,
-    },
+    // canonical + hreflang inherited from the root layout (localeAlternates)
   } satisfies Metadata;
 }
 

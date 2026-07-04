@@ -22,7 +22,7 @@ import {
   Building2,
   CreditCard,
 } from 'lucide-react';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 
 const content = {
   en: {
@@ -445,10 +445,10 @@ export function PreApprovalCalculator() {
                     {/* Action Button */}
                     {calculation?.status !== 'declined' && (
                       <Button asChild size="lg" className="w-full">
-                        <Link href="/eligibility-test">
+                        <LocaleLink href="/eligibility-test">
                           {t.applyNow}
                           <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
+                        </LocaleLink>
                       </Button>
                     )}
                   </CardContent>

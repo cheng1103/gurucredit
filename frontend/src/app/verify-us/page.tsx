@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -298,10 +298,10 @@ export default async function VerifyUsPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               {t.sections.official.items.map((item) => (
-                <Link key={item.href} href={item.href} className="flex items-center justify-between rounded-2xl border border-primary/10 bg-white/70 p-4 text-sm hover:border-primary/30">
+                <LocaleLink key={item.href} href={item.href} className="flex items-center justify-between rounded-2xl border border-primary/10 bg-white/70 p-4 text-sm hover:border-primary/30">
                   <span>{item.label}</span>
                   <ExternalLink className="h-4 w-4 text-primary" />
-                </Link>
+                </LocaleLink>
               ))}
             </CardContent>
           </Card>
@@ -325,7 +325,7 @@ export default async function VerifyUsPage() {
           <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">{t.cta.subtitle}</p>
           <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
             <Button asChild className="btn-gradient text-primary-foreground">
-              <Link href="/eligibility-test">{t.cta.primary}</Link>
+              <LocaleLink href="/eligibility-test">{t.cta.primary}</LocaleLink>
             </Button>
             <Button asChild variant="outline">
               <a href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">{t.cta.secondary}</a>

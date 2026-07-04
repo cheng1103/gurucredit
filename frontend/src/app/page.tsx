@@ -1,8 +1,7 @@
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { homeContent } from '@/lib/content/home';
 import { SEO } from '@/lib/constants';
-import { WebPageJsonLd, ReviewJsonLd } from '@/components/JsonLd';
-import { TESTIMONIALS } from '@/lib/constants';
+import { WebPageJsonLd } from '@/components/JsonLd';
 
 import { HeroSection } from '@/components/sections/HeroSection';
 import { LicensedTrustBar } from '@/components/sections/LicensedTrustBar';
@@ -36,13 +35,6 @@ export default async function HomePage() {
         description={SEO.defaultDescription}
         breadcrumbItems={[{ name: 'Home', url: SEO.url }]}
         faqItems={t.faq.items}
-      />
-      <ReviewJsonLd
-        reviews={TESTIMONIALS.map((tm) => ({
-          author: tm.name,
-          rating: tm.rating,
-          reviewBody: tm.text,
-        }))}
       />
 
       <HeroSection t={t} language={language} />

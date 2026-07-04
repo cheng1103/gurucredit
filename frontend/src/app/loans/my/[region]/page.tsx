@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { ArrowUpRight, MapPin, ExternalLink, Building2, Landmark, Users } from 'lucide-react';
 import { getRegion, regionSlugs, formatMYR, regionMetaLabel } from '@/lib/content/regions';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
@@ -38,13 +38,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title,
     description,
-    alternates: {
-      canonical: url,
-      languages: {
-        'en-MY': url,
-        'ms-MY': `${url}?lang=ms`,
-      },
-    },
+    // canonical + hreflang inherited from the root layout (localeAlternates)
     openGraph: {
       title: `${prefix} ${name}`,
       description,
@@ -85,15 +79,15 @@ export default async function RegionPage({ params }: { params: Params }) {
           <nav className="text-xs text-muted-foreground mb-8" aria-label="Breadcrumb">
             <ol className="flex items-center gap-2">
               <li>
-                <Link href="/" className="hover:text-foreground transition-colors">
+                <LocaleLink href="/" className="hover:text-foreground transition-colors">
                   {language === 'ms' ? 'Laman Utama' : 'Home'}
-                </Link>
+                </LocaleLink>
               </li>
               <li>/</li>
               <li>
-                <Link href="/loans/personal" className="hover:text-foreground transition-colors">
+                <LocaleLink href="/loans/personal" className="hover:text-foreground transition-colors">
                   {language === 'ms' ? 'Pinjaman' : 'Loans'}
-                </Link>
+                </LocaleLink>
               </li>
               <li>/</li>
               <li className="text-foreground">{name}</li>
@@ -115,20 +109,20 @@ export default async function RegionPage({ params }: { params: Params }) {
                 {region.localContext[language]}
               </p>
               <div className="flex items-center gap-5 mt-8">
-                <Link
+                <LocaleLink
                   href="/services"
                   className="inline-flex items-center h-12 px-7 rounded-full bg-primary text-primary-foreground text-sm font-semibold tracking-wide uppercase hover:bg-primary/90 transition-colors"
                 >
                   {language === 'ms' ? 'Mulakan Analisis' : 'Start Analysis'}
                   <ArrowUpRight className="ml-2 h-4 w-4" />
-                </Link>
-                <Link
+                </LocaleLink>
+                <LocaleLink
                   href="/eligibility-test"
                   className="text-sm font-semibold text-foreground hover:text-primary transition-colors inline-flex items-center gap-2"
                 >
                   {language === 'ms' ? 'Ujian Kelayakan' : 'Eligibility Test'}
                   <ArrowUpRight className="h-4 w-4" />
-                </Link>
+                </LocaleLink>
               </div>
             </div>
 
@@ -466,13 +460,13 @@ export default async function RegionPage({ params }: { params: Params }) {
               ? 'Yuran RM30. Analisis bertulis dalam 24 jam. Yuran hanya diterima melalui WhatsApp rasmi selepas penghantaran.'
               : 'RM30 flat fee. Written analysis in 24 hours. Fee is collected only through official WhatsApp after submission.'}
           </p>
-          <Link
+          <LocaleLink
             href="/services"
             className="inline-flex items-center h-12 px-8 rounded-full bg-primary text-primary-foreground text-sm font-semibold tracking-wide uppercase hover:bg-primary/90 transition-colors"
           >
             {language === 'ms' ? 'Mulakan Analisis' : 'Start Analysis'}
             <ArrowUpRight className="ml-2 h-4 w-4" />
-          </Link>
+          </LocaleLink>
         </div>
       </section>
     </div>

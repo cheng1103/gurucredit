@@ -5,29 +5,34 @@ export const LOCALE_PREFIX_ENABLED =
 
 export const SUPPORTED_LOCALES = ['en', 'ms'] as const;
 
+// English is the default locale and lives at un-prefixed paths (`/about`).
+// Only non-default locales get a URL prefix (`/ms/about`).
+export const DEFAULT_LOCALE: Language = 'en';
+
 /**
  * Produce a locale-aware href.
  *
  * When `NEXT_PUBLIC_LOCALE_PREFIX_ENABLED` is not `"true"` this returns the
- * path unchanged — matching the current cookie-based routing — so it is
- * safe to sprinkle across the codebase ahead of the full URL migration.
+ * path unchanged — matching the cookie-only routing — so it is safe to sprinkle
+ * across the codebase ahead of the URL migration.
  *
  * When the flag is on:
- *   - `/` becomes `/{locale}`
- *   - Idempotent: passing an already-prefixed path is a no-op
- *   - Strips a mismatched locale prefix before re-prefixing
+ *   - the default locale (`en`) stays un-prefixed: `/about`
+ *   - other locales are prefixed: `/ms/about`, and `/` becomes `/ms`
+ *   - idempotent and strips any existing locale prefix before re-prefixing
  */
 export function localeHref(locale: Language, path: string): string {
   if (!LOCALE_PREFIX_ENABLED) return path;
 
-  if (path === '/' || path === '') return `/${locale}`;
+  // Normalise: drop any existing locale prefix so we start from the bare path.
+  const stripped = path.replace(/^\/(en|ms)(?=\/|$)/, '') || '/';
 
-  if (path === `/${locale}` || path.startsWith(`/${locale}/`)) {
-    return path;
+  if (locale === DEFAULT_LOCALE) {
+    return stripped;
   }
 
-  const stripped = path.replace(/^\/(en|ms)(?=\/|$)/, '');
-  return `/${locale}${stripped || ''}`;
+  if (stripped === '/') return `/${locale}`;
+  return `/${locale}${stripped}`;
 }
 
 /**

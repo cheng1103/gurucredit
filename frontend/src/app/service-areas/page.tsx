@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -66,7 +66,7 @@ export default async function ServiceAreasPage() {
                     <div className="rounded-xl border border-border/60 bg-white/70 p-3"><p className="text-xs text-muted-foreground mb-1">{t.price}</p><p className="font-semibold text-foreground tabular-nums">{formatMYR(region.metrics.medianPropertyPriceMYR)}</p></div>
                   </div>
                   <div className="flex items-center gap-3 text-xs text-muted-foreground"><Building2 className="h-4 w-4" /><span>{region.primaryCity}</span><Wallet className="h-4 w-4 ml-2" /><span>DSR {region.metrics.dsrMedianPercent}%</span></div>
-                  <Button asChild className="w-full btn-gradient text-white shadow-md"><Link href={`/loans/my/${region.slug}`}>{t.cta}<ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+                  <Button asChild className="w-full btn-gradient text-white shadow-md"><LocaleLink href={`/loans/my/${region.slug}`}>{t.cta}<ArrowRight className="ml-2 h-4 w-4" /></LocaleLink></Button>
                 </CardContent>
               </Card>
             );

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -137,10 +137,10 @@ export default async function ToolsPage() {
                     <p className="text-sm text-muted-foreground">{tool.description}</p>
                   </div>
                   <Button asChild variant="ghost" className="px-0 text-primary w-fit">
-                    <Link href={tool.href}>
+                    <LocaleLink href={tool.href}>
                       {t.open}
                       <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                    </Link>
+                    </LocaleLink>
                   </Button>
                 </CardContent>
               </Card>
@@ -172,13 +172,13 @@ export default async function ToolsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild className="btn-gradient text-white shadow-md">
-                <Link href="/eligibility-test">
+                <LocaleLink href="/eligibility-test">
                   {t.cta.primary}
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                </Link>
+                </LocaleLink>
               </Button>
               <Button asChild variant="outline" className="border-primary/30">
-                <Link href="/services">{t.cta.secondary}</Link>
+                <LocaleLink href="/services">{t.cta.secondary}</LocaleLink>
               </Button>
             </div>
           </div>

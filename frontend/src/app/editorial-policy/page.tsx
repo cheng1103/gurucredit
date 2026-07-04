@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -131,7 +131,7 @@ export default async function EditorialPolicyPage() {
           ))}
         </div>
         <div className="mt-10">
-          <Button asChild className="btn-gradient text-white shadow-md"><Link href="/review-methodology">{t.cta}<ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+          <Button asChild className="btn-gradient text-white shadow-md"><LocaleLink href="/review-methodology">{t.cta}<ArrowRight className="ml-2 h-4 w-4" /></LocaleLink></Button>
         </div>
       </section>
     </main>

@@ -24,7 +24,7 @@ export function OrganizationJsonLd() {
     name: COMPANY.name,
     description: SEO.defaultDescription,
     url: SEO.url,
-    logo: `${SEO.url}/logo.png`,
+    logo: `${SEO.url}/logo.jpg`,
     telephone: COMPANY.phone,
     email: COMPANY.email,
     address: {
@@ -240,7 +240,7 @@ export function ArticleJsonLd({
       name: COMPANY.name,
       logo: {
         '@type': 'ImageObject',
-        url: `${SEO.url}/logo.png`,
+        url: `${SEO.url}/logo.jpg`,
       },
     },
     datePublished: publishedAt,
@@ -572,63 +572,6 @@ export function LoanProductJsonLd({ name, description, interestRate, loanTerm, m
         value: loanTerm,
       },
     ],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      reviewCount: '1000',
-      bestRating: '5',
-      worstRating: '1',
-    },
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-}
-
-// Review/Testimonial Schema
-interface ReviewJsonLdProps {
-  reviews: Array<{
-    author: string;
-    rating: number;
-    reviewBody: string;
-    datePublished?: string;
-  }>;
-}
-
-export function ReviewJsonLd({ reviews }: ReviewJsonLdProps) {
-  const avgRating = reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length;
-
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: COMPANY.name,
-    areaServed: areaServedSchema,
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: avgRating.toFixed(1),
-      reviewCount: reviews.length.toString(),
-      bestRating: '5',
-      worstRating: '1',
-    },
-    review: reviews.map((review) => ({
-      '@type': 'Review',
-      author: {
-        '@type': 'Person',
-        name: review.author,
-      },
-      reviewRating: {
-        '@type': 'Rating',
-        ratingValue: review.rating,
-        bestRating: 5,
-        worstRating: 1,
-      },
-      reviewBody: review.reviewBody,
-      datePublished: review.datePublished || new Date().toISOString().split('T')[0],
-    })),
   };
 
   return (
@@ -653,11 +596,6 @@ export function CalculatorJsonLd() {
       priceCurrency: 'MYR',
     },
     description: 'Free loan calculator to estimate monthly payments, total interest, and amortization schedule for personal loans, car loans, and home loans in Malaysia.',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '500',
-    },
   };
 
   return (

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { ArrowUpRight, TrendingUp, LineChart, BarChart3 } from 'lucide-react';
 import type { Language } from '@/lib/i18n/translations';
 
@@ -107,7 +107,7 @@ export function InsightsSection({ language }: { language: Language }) {
               year: 'numeric',
             });
             return (
-              <Link
+              <LocaleLink
                 key={insight.href}
                 href={insight.href}
                 className="group flex flex-col rounded-lg border border-border/70 bg-card p-7 hover:border-foreground/40 transition-colors"
@@ -131,19 +131,19 @@ export function InsightsSection({ language }: { language: Language }) {
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </span>
                 </div>
-              </Link>
+              </LocaleLink>
             );
           })}
         </div>
 
         <div className="mt-12 text-center">
-          <Link
+          <LocaleLink
             href="/blog"
             className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors"
           >
             {t.cta}
             <ArrowUpRight className="h-4 w-4" />
-          </Link>
+          </LocaleLink>
         </div>
       </div>
     </section>

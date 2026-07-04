@@ -2,9 +2,8 @@ import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import {
-  Building2,
   ArrowRight,
   Shield,
   TrendingUp,
@@ -334,10 +333,10 @@ export default async function PartnersPage() {
                   </div>
                   <div className="mt-4">
                     <Button asChild size="sm" variant="ghost" className="px-0 text-primary">
-                      <Link href="/services">
+                      <LocaleLink href="/services">
                         {t.viewProducts}
                         <ArrowRight className="ml-1 h-4 w-4" />
-                      </Link>
+                      </LocaleLink>
                     </Button>
                   </div>
                 </CardContent>
@@ -381,10 +380,10 @@ export default async function PartnersPage() {
             <h2 className="text-2xl lg:text-3xl font-bold mb-4">{t.cta.title}</h2>
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">{t.cta.subtitle}</p>
             <Button size="lg" asChild className="btn-gradient text-white shadow-md">
-              <Link href="/services">
+              <LocaleLink href="/services">
                 {t.cta.button}
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+              </LocaleLink>
             </Button>
           </div>
         </div>

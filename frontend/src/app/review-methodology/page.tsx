@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -73,7 +73,7 @@ export default async function ReviewMethodologyPage() {
       />
       <section className="relative overflow-hidden border-b"><div className="absolute inset-0 hero-grid opacity-30" aria-hidden="true" /><div className="container relative py-16 lg:py-20 max-w-5xl"><Badge className="bg-primary/10 text-primary border-primary/20">{t.badge}</Badge><h1 className="mt-4 text-4xl md:text-5xl font-semibold tracking-tight"><span className="gradient-text">{t.title}</span></h1><p className="mt-5 text-lg text-muted-foreground max-w-3xl">{t.subtitle}</p></div></section>
       <section className="container py-16 max-w-5xl"><div className="flex items-center gap-3 mb-8"><ClipboardList className="h-5 w-5 text-primary" /><h2 className="text-2xl font-semibold">{t.stepsTitle}</h2></div><div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">{t.steps.map((step) => (<Card key={step.title} className="surface-card border-border/60 shadow-sm"><CardHeader><CardTitle className="text-lg">{step.title}</CardTitle></CardHeader><CardContent><p className="text-sm text-muted-foreground">{step.description}</p></CardContent></Card>))}</div></section>
-      <section className="container pb-16 max-w-5xl"><div className="grid gap-6 md:grid-cols-2">{t.notes.map((note) => { const Icon = note.icon; return <Card key={note.title} className="surface-card border-border/60 shadow-sm"><CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Icon className="h-5 w-5 text-primary" />{note.title}</CardTitle></CardHeader><CardContent><p className="text-sm text-muted-foreground">{note.text}</p></CardContent></Card>; })}</div><div className="mt-10"><Button asChild className="btn-gradient text-white shadow-md"><Link href="/service-areas">{t.cta}<ArrowRight className="ml-2 h-4 w-4" /></Link></Button></div></section>
+      <section className="container pb-16 max-w-5xl"><div className="grid gap-6 md:grid-cols-2">{t.notes.map((note) => { const Icon = note.icon; return <Card key={note.title} className="surface-card border-border/60 shadow-sm"><CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Icon className="h-5 w-5 text-primary" />{note.title}</CardTitle></CardHeader><CardContent><p className="text-sm text-muted-foreground">{note.text}</p></CardContent></Card>; })}</div><div className="mt-10"><Button asChild className="btn-gradient text-white shadow-md"><LocaleLink href="/service-areas">{t.cta}<ArrowRight className="ml-2 h-4 w-4" /></LocaleLink></Button></div></section>
     </main>
   );
 }

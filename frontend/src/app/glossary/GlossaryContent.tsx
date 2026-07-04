@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -750,10 +750,10 @@ export default function GlossaryContent({ language }: GlossaryContentProps) {
               {t.cta.description}
             </p>
             <Button size="lg" className="btn-gradient text-white shadow-md font-semibold" asChild>
-              <Link href="/contact">
+              <LocaleLink href="/contact">
                 {t.cta.button}
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+              </LocaleLink>
             </Button>
           </div>
         </div>

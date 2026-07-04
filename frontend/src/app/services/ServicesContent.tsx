@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -64,13 +64,13 @@ export default function ServicesContent({ language }: Props) {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button asChild size="lg" className="btn-gradient text-primary-foreground">
-                <Link href={`/services/${t.services[0]?.id ?? '1'}/apply`}>
+                <LocaleLink href={`/services/${t.services[0]?.id ?? '1'}/apply`}>
                   {t.header.primaryCta}
                   <Calculator className="h-4 w-4 ml-2" />
-                </Link>
+                </LocaleLink>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary/30">
-                <Link href="/eligibility-test">{t.header.secondaryCta}</Link>
+                <LocaleLink href="/eligibility-test">{t.header.secondaryCta}</LocaleLink>
               </Button>
             </div>
 
@@ -194,15 +194,15 @@ export default function ServicesContent({ language }: Props) {
           <p className="max-w-2xl mx-auto text-primary-foreground/80">{t.cta.subtitle}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="btn-gradient text-primary-foreground">
-              <Link href={`/services/${t.services[0]?.id ?? '1'}/apply`}>
+              <LocaleLink href={`/services/${t.services[0]?.id ?? '1'}/apply`}>
                 {t.cta.primary}
                 <Calculator className="h-4 w-4 ml-2" />
-              </Link>
+              </LocaleLink>
             </Button>
             <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground/40">
-              <Link href={COMPANY.whatsappLink} target="_blank" rel="noreferrer">
+              <LocaleLink href={COMPANY.whatsappLink} target="_blank" rel="noreferrer">
                 {t.cta.secondary}
-              </Link>
+              </LocaleLink>
             </Button>
           </div>
         </div>

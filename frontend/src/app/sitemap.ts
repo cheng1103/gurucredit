@@ -3,17 +3,47 @@ import { blogPosts } from '@/lib/blog-data';
 import { guideTopics } from '@/lib/guide-topics';
 import { SEO } from '@/lib/constants';
 import { regionSlugs } from '@/lib/content/regions';
+import { LOCALE_PREFIX_ENABLED } from '@/lib/i18n/routes';
 
 type Alt = { [lang: string]: string };
 
-const buildAlternates = (path: string): Alt => ({
-  'en-MY': `${SEO.url}${path}`,
-  'ms-MY': `${SEO.url}${path}?lang=ms`,
-  'x-default': `${SEO.url}${path}`,
-});
+// Stable lastmod for pages without a per-item content date. Bump this when
+// static/region/topic content is meaningfully revised — do NOT use `new Date()`
+// here, which would stamp every page as "modified now" on each build and make
+// the lastmod signal worthless to search engines.
+const LAST_CONTENT_UPDATE = new Date('2026-06-25T00:00:00Z');
+
+const buildAlternates = (path: string): Alt => {
+  const languages: Alt = {
+    'en-MY': `${SEO.url}${path}`,
+    'x-default': `${SEO.url}${path}`,
+  };
+  if (LOCALE_PREFIX_ENABLED) {
+    languages['ms-MY'] = `${SEO.url}/ms${path}`;
+  }
+  return languages;
+};
+
+type EntryMeta = {
+  priority: number;
+  changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'];
+  lastModified: Date;
+};
+
+// One logical path → an English entry plus, when locale prefixes are on, its
+// `/ms` counterpart. Both carry the full hreflang set so the two URLs cross-link.
+const localizedEntries = (path: string, meta: EntryMeta): MetadataRoute.Sitemap => {
+  const languages = buildAlternates(path);
+  const entries: MetadataRoute.Sitemap = [
+    { url: `${SEO.url}${path}`, ...meta, alternates: { languages } },
+  ];
+  if (LOCALE_PREFIX_ENABLED) {
+    entries.push({ url: `${SEO.url}/ms${path}`, ...meta, alternates: { languages } });
+  }
+  return entries;
+};
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = SEO.url;
 
   const staticEntries: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
     { path: '', priority: 1, changeFrequency: 'weekly' },
@@ -47,37 +77,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/disclaimer', priority: 0.3, changeFrequency: 'yearly' },
   ];
 
-  const staticPages: MetadataRoute.Sitemap = staticEntries.map(({ path, priority, changeFrequency }) => ({
-    url: `${base}${path}`,
-    lastModified: new Date(),
-    changeFrequency,
-    priority,
-    alternates: { languages: buildAlternates(path) },
-  }));
+  const staticPages: MetadataRoute.Sitemap = staticEntries.flatMap(({ path, priority, changeFrequency }) =>
+    localizedEntries(path, { priority, changeFrequency, lastModified: LAST_CONTENT_UPDATE }),
+  );
 
-  const regionPages: MetadataRoute.Sitemap = regionSlugs.map((slug) => ({
-    url: `${base}/loans/my/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.75,
-    alternates: { languages: buildAlternates(`/loans/my/${slug}`) },
-  }));
+  const regionPages: MetadataRoute.Sitemap = regionSlugs.flatMap((slug) =>
+    localizedEntries(`/loans/my/${slug}`, {
+      priority: 0.75,
+      changeFrequency: 'monthly',
+      lastModified: LAST_CONTENT_UPDATE,
+    }),
+  );
 
-  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${base}/blog/${post.slug}`,
-    lastModified: new Date(post.updatedAt ?? post.publishedAt),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-    alternates: { languages: buildAlternates(`/blog/${post.slug}`) },
-  }));
+  const blogPages: MetadataRoute.Sitemap = blogPosts.flatMap((post) =>
+    localizedEntries(`/blog/${post.slug}`, {
+      priority: 0.7,
+      changeFrequency: 'monthly',
+      lastModified: new Date(post.updatedAt ?? post.publishedAt),
+    }),
+  );
 
-  const topicPages: MetadataRoute.Sitemap = guideTopics.map((topic) => ({
-    url: `${base}/loan-guides/topics/${topic.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.72,
-    alternates: { languages: buildAlternates(`/loan-guides/topics/${topic.slug}`) },
-  }));
+  const topicPages: MetadataRoute.Sitemap = guideTopics.flatMap((topic) =>
+    localizedEntries(`/loan-guides/topics/${topic.slug}`, {
+      priority: 0.72,
+      changeFrequency: 'monthly',
+      lastModified: LAST_CONTENT_UPDATE,
+    }),
+  );
 
   return [...staticPages, ...regionPages, ...blogPages, ...topicPages];
 }

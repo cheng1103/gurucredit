@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -26,10 +26,10 @@ export function BlogSection({ t, language }: Props) {
             <h2 className="text-3xl lg:text-4xl font-bold">{t.blog.title}</h2>
           </div>
           <Button variant="outline" asChild>
-            <Link href="/blog">
+            <LocaleLink href="/blog">
               {t.blog.cta}
               <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
+            </LocaleLink>
           </Button>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
@@ -56,10 +56,10 @@ export function BlogSection({ t, language }: Props) {
                   </p>
                   <div className="mt-auto">
                     <Button variant="link" asChild className="px-0">
-                      <Link href={`/blog/${post.slug}`}>
+                      <LocaleLink href={`/blog/${post.slug}`}>
                         {t.blog.readArticle}
                         <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
+                      </LocaleLink>
                     </Button>
                   </div>
                 </CardContent>

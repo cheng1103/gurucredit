@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import {
   BookOpen,
   Search,
@@ -250,10 +250,10 @@ export default function BlogPage() {
                 </span>
               </div>
               <Button asChild className="w-fit btn-gradient text-primary-foreground">
-                <Link href={`/blog/${featuredPost.slug}`}>
+                <LocaleLink href={`/blog/${featuredPost.slug}`}>
                   {t.featured.button}
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                </LocaleLink>
               </Button>
             </div>
             <div className="relative min-h-[220px] lg:min-h-full">
@@ -335,11 +335,11 @@ export default function BlogPage() {
                         {post.readTime} {t.min}
                       </span>
                     </div>
-                    <Link href={`/blog/${post.slug}`}>
+                    <LocaleLink href={`/blog/${post.slug}`}>
                       <h3 className="font-semibold text-lg group-hover:text-primary transition-colors line-clamp-2">
                         {getTitle(post)}
                       </h3>
-                    </Link>
+                    </LocaleLink>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
@@ -350,13 +350,13 @@ export default function BlogPage() {
                         <Calendar className="h-3 w-3" />
                         {formatDate(post.publishedAt)}
                       </span>
-                      <Link
+                      <LocaleLink
                         href={`/blog/${post.slug}`}
                         className="text-sm text-primary font-medium flex items-center gap-1 hover:underline"
                       >
                         {t.readMore}
                         <ChevronRight className="h-3 w-3" />
-                      </Link>
+                      </LocaleLink>
                     </div>
                   </CardContent>
                 </Card>
@@ -408,19 +408,19 @@ export default function BlogPage() {
               <p className="text-sm text-muted-foreground">{t.loanGuides.description}</p>
             </div>
             <Button asChild variant="outline" size="sm">
-              <Link href="/loan-guides">{t.loanGuides.cta}</Link>
+              <LocaleLink href="/loan-guides">{t.loanGuides.cta}</LocaleLink>
             </Button>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             {t.loanGuides.items.map((guide) => (
-              <Link
+              <LocaleLink
                 key={guide.href}
                 href={guide.href}
                 className="rounded-2xl border bg-white/70 p-4 text-sm transition hover:border-primary/40 hover:shadow-sm"
               >
                 <p className="font-semibold text-foreground mb-1">{guide.title}</p>
                 <p className="text-muted-foreground">{guide.description}</p>
-              </Link>
+              </LocaleLink>
             ))}
           </div>
         </Card>
@@ -433,15 +433,15 @@ export default function BlogPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button asChild size="lg" className="btn-gradient text-primary-foreground">
-              <Link href="/services">
+              <LocaleLink href="/services">
                 {t.cta.viewServices}
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+              </LocaleLink>
             </Button>
             <Button asChild variant="outline" size="lg">
-              <Link href="/contact">
+              <LocaleLink href="/contact">
                 {t.cta.contactUs}
-              </Link>
+              </LocaleLink>
             </Button>
           </div>
         </Card>

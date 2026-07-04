@@ -66,8 +66,18 @@ const getInitialLanguage = (): Language => {
   return 'en';
 };
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
+export function LanguageProvider({
+  children,
+  initialLanguage,
+}: {
+  children: React.ReactNode;
+  initialLanguage?: Language;
+}) {
+  // When the server resolved the locale (URL-prefixed routing or Accept-Language),
+  // seed with it so SSR and the first client paint agree — no hydration flash.
+  const [language, setLanguageState] = useState<Language>(
+    () => initialLanguage ?? getInitialLanguage(),
+  );
 
   // Hydrate from persisted value/browser settings on first client render
   useEffect(() => {
@@ -78,6 +88,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     const queryLang = getQueryLanguage();
     if (queryLang && queryLang !== language) {
       setLanguageState(queryLang);
+      return;
+    }
+
+    // The server already picked the locale (from the URL prefix or headers);
+    // don't let a stale localStorage/browser value override it.
+    if (initialLanguage) {
       return;
     }
 

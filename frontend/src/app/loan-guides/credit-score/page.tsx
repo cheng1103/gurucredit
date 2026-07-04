@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -307,10 +307,10 @@ export default async function CreditScoreGuidePage() {
             </CardHeader>
             <CardContent className="space-y-3">
               {t.tools.map((tool) => (
-                <Link key={tool.href} href={tool.href} className="flex items-center justify-between rounded-lg border border-border/60 bg-white/70 px-4 py-3 text-sm hover:border-primary/40 transition-colors">
+                <LocaleLink key={tool.href} href={tool.href} className="flex items-center justify-between rounded-lg border border-border/60 bg-white/70 px-4 py-3 text-sm hover:border-primary/40 transition-colors">
                   <span>{tool.title}</span>
                   <ArrowRight className="h-4 w-4 text-primary" />
-                </Link>
+                </LocaleLink>
               ))}
             </CardContent>
           </Card>
@@ -322,10 +322,10 @@ export default async function CreditScoreGuidePage() {
             </CardHeader>
             <CardContent className="space-y-3">
               {t.articles.map((article) => (
-                <Link key={article.href} href={article.href} className="flex items-center justify-between rounded-lg border border-border/60 bg-white/70 px-4 py-3 text-sm hover:border-primary/40 transition-colors">
+                <LocaleLink key={article.href} href={article.href} className="flex items-center justify-between rounded-lg border border-border/60 bg-white/70 px-4 py-3 text-sm hover:border-primary/40 transition-colors">
                   <span>{article.title}</span>
                   <ArrowRight className="h-4 w-4 text-primary" />
-                </Link>
+                </LocaleLink>
               ))}
             </CardContent>
           </Card>
@@ -340,7 +340,7 @@ export default async function CreditScoreGuidePage() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3">
             <Button asChild size="lg" className="btn-gradient text-primary-foreground shadow-lg shadow-primary/25">
-              <Link href="/eligibility-test">{t.ctaPrimary}</Link>
+              <LocaleLink href="/eligibility-test">{t.ctaPrimary}</LocaleLink>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-primary/30 text-primary">
               <a href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import {
   ArrowLeft,
   Calendar,
@@ -386,10 +386,10 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
         <div className="max-w-3xl mx-auto space-y-10">
           {/* Back Button */}
           <Button asChild variant="ghost" className="pl-0 text-base">
-            <Link href="/blog">
+            <LocaleLink href="/blog">
               <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
               {t.backToBlog}
-            </Link>
+            </LocaleLink>
           </Button>
 
           {/* Article Header */}
@@ -567,9 +567,9 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                   <strong className="font-semibold text-foreground">{children}</strong>
                 ),
                 a: ({ href, children }) => (
-                  <Link href={href || '#'} className="text-primary hover:underline">
+                  <LocaleLink href={href || '#'} className="text-primary hover:underline">
                     {children}
-                  </Link>
+                  </LocaleLink>
                 ),
                 blockquote: ({ children }) => (
                   <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground my-4">
@@ -659,10 +659,10 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button asChild className="btn-gradient text-white shadow-md">
-                  <Link href="/eligibility-test">
+                  <LocaleLink href="/eligibility-test">
                     {t.cta.viewServices}
                     <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                  </Link>
+                  </LocaleLink>
                 </Button>
                 <Button asChild variant="outline" className="border-primary/30">
                   <a href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">
@@ -690,23 +690,23 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
                         </Badge>
                       </CardHeader>
                       <CardContent>
-                        <Link href={`/blog/${relatedPost.slug}`}>
+                        <LocaleLink href={`/blog/${relatedPost.slug}`}>
                           <CardTitle className="text-sm font-medium group-hover:text-primary transition-colors line-clamp-2 mb-2">
                             {getTitle(relatedPost)}
                           </CardTitle>
-                        </Link>
+                        </LocaleLink>
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
                           <span className="flex items-center gap-1">
                             <Clock className="h-3 w-3" aria-hidden="true" />
                             {relatedPost.readTime} {t.min}
                           </span>
-                          <Link
+                          <LocaleLink
                             href={`/blog/${relatedPost.slug}`}
                             className="text-primary flex items-center gap-1 hover:underline"
                           >
                             {t.read}
                             <ChevronRight className="h-3 w-3" aria-hidden="true" />
-                          </Link>
+                          </LocaleLink>
                         </div>
                       </CardContent>
                     </Card>

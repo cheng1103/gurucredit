@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -533,10 +533,10 @@ export default function CompareContent({ language }: CompareContentProps) {
                       return (
                         <td key={key} className={cn('p-4 text-center', index === 0 && 'rounded-bl-lg', index === selectedProducts.length - 1 && 'rounded-br-lg')}>
                           <Button asChild className="w-full btn-gradient text-primary-foreground">
-                            <Link href={`/services/${productId}/apply`}>
+                            <LocaleLink href={`/services/${productId}/apply`}>
                               {t.applyNow}
                               <ArrowRight className="ml-2 h-4 w-4" />
-                            </Link>
+                            </LocaleLink>
                           </Button>
                         </td>
                       );
@@ -587,10 +587,10 @@ export default function CompareContent({ language }: CompareContentProps) {
                         ))}
                       </ul>
                       <Button asChild className="w-full btn-gradient text-primary-foreground">
-                        <Link href={`/services/${productId}/apply`}>
+                        <LocaleLink href={`/services/${productId}/apply`}>
                           {t.applyNow}
                           <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
+                        </LocaleLink>
                       </Button>
                     </CardContent>
                   </Card>
@@ -633,10 +633,10 @@ export default function CompareContent({ language }: CompareContentProps) {
             {t.cta.description}
           </p>
           <Button size="lg" className="btn-gradient text-primary-foreground font-semibold" asChild>
-            <Link href="/contact">
+            <LocaleLink href="/contact">
               {t.cta.button}
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+            </LocaleLink>
           </Button>
         </div>
       </section>

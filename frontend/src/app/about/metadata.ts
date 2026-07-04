@@ -17,7 +17,5 @@ export const metadata: Metadata = {
     title: 'About Us | GURU Credits',
     description: 'Your trusted partner in loan consultation and credit analysis services in Malaysia.',
   },
-  alternates: {
-    canonical: `${SEO.url}/about`,
-  },
+  // canonical + hreflang inherited from the root layout (localeAlternates)
 };

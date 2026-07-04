@@ -4,8 +4,15 @@ import { useState, type ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
 import { LanguageProvider } from '@/lib/i18n';
+import type { Language } from '@/lib/i18n/translations';
 
-export function Providers({ children }: { children: ReactNode }) {
+export function Providers({
+  children,
+  initialLanguage,
+}: {
+  children: ReactNode;
+  initialLanguage?: Language;
+}) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -28,7 +35,9 @@ export function Providers({ children }: { children: ReactNode }) {
       disableTransitionOnChange
     >
       <QueryClientProvider client={queryClient}>
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider initialLanguage={initialLanguage}>
+          {children}
+        </LanguageProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );

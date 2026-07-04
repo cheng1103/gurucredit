@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -561,7 +561,7 @@ export default function ServiceApplyPage() {
           <h1 className="text-2xl font-bold mb-4">{t.notFound.title}</h1>
           <p className="text-muted-foreground mb-6">{t.notFound.description}</p>
           <Button asChild>
-            <Link href="/services">{t.backToServices}</Link>
+            <LocaleLink href="/services">{t.backToServices}</LocaleLink>
           </Button>
         </div>
       </div>
@@ -728,10 +728,10 @@ export default function ServiceApplyPage() {
       <div className="absolute top-10 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" aria-hidden="true" />
       <div className="container max-w-5xl relative">
         <Button variant="ghost" asChild className="mb-6">
-          <Link href="/services">
+          <LocaleLink href="/services">
             <ArrowLeft className="mr-2 h-4 w-4" />
             {t.backToServices}
-          </Link>
+          </LocaleLink>
         </Button>
 
         <div className="mb-8 grid gap-6 lg:grid-cols-[2fr,1fr]">

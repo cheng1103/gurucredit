@@ -20,7 +20,5 @@ export const metadata: Metadata = {
     title: 'Malaysia Loan Services | GURU Credits',
     description: 'Licensed loan guidance for Malaysian borrowers comparing personal loans, debt consolidation, and credit-fit options.',
   },
-  alternates: {
-    canonical: `${SEO.url}/services`,
-  },
+  // canonical + hreflang inherited from the root layout (localeAlternates)
 };

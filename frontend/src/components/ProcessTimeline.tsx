@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { Language } from '@/lib/i18n/translations';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { ProcessTimelineSteps, type ProcessStep } from './ProcessTimelineSteps';
 
@@ -71,10 +71,10 @@ export function ProcessTimeline({ language }: { language: Language }) {
         {/* CTA */}
         <div className="text-center mt-12">
           <Button size="lg" asChild className="h-14 px-10 text-lg font-semibold shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:scale-105 transition-all">
-            <Link href="/eligibility-test">
+            <LocaleLink href="/eligibility-test">
               {t.cta}
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+            </LocaleLink>
           </Button>
           <p className="text-sm text-muted-foreground mt-4 flex items-center justify-center gap-2">
             <CheckCircle className="h-4 w-4 text-green-500" />

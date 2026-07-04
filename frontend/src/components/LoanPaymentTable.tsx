@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { Language } from '@/lib/i18n/translations';
 import { Calculator, Info, Sparkles, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 
 const content = {
   en: {
@@ -163,10 +163,10 @@ export function LoanPaymentTable({ language }: { language: Language }) {
               {t.note}
             </p>
             <Button asChild className="shrink-0 shadow-lg shadow-primary/20">
-              <Link href="/eligibility-test">
+              <LocaleLink href="/eligibility-test">
                 {t.cta}
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+              </LocaleLink>
             </Button>
           </div>
         </CardContent>

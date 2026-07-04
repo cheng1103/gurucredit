@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -640,10 +640,10 @@ export default function DocumentsContent({ language }: DocumentsContentProps) {
                   {/* Apply Button */}
                   <div className="text-center">
                     <Button size="lg" asChild className="btn-gradient text-white shadow-md font-semibold">
-                      <Link href={`/services/${productId}/apply`}>
+                      <LocaleLink href={`/services/${productId}/apply`}>
                         {t.applyNow}
                         <ArrowRight className="ml-2 h-5 w-5" />
-                      </Link>
+                      </LocaleLink>
                     </Button>
                   </div>
                 </TabsContent>
@@ -691,10 +691,10 @@ export default function DocumentsContent({ language }: DocumentsContentProps) {
               {t.cta.description}
             </p>
             <Button size="lg" className="btn-gradient text-white shadow-md font-semibold" asChild>
-              <Link href="/services">
+              <LocaleLink href="/services">
                 {t.cta.button}
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+              </LocaleLink>
             </Button>
           </div>
         </div>

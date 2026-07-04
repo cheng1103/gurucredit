@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -505,16 +505,16 @@ export default async function DebtConsolidationPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button asChild size="lg" className="btn-gradient text-primary-foreground shadow-lg shadow-primary/25">
-                    <Link href="/eligibility-test">
+                    <LocaleLink href="/eligibility-test">
                       {t.cta.primary}
                       <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                    </Link>
+                    </LocaleLink>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
-                    <Link href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">
+                    <LocaleLink href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">
                       <MessageCircle className="mr-2 h-4 w-4" aria-hidden="true" />
                       {t.cta.secondary}
-                    </Link>
+                    </LocaleLink>
                   </Button>
                 </div>
               </CardContent>

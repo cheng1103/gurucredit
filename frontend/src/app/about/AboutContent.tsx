@@ -1,11 +1,10 @@
-import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Logo, slogans } from '@/components/Logo';
 import { aboutContent } from './data';
 import { teamMembers } from './team-data';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import {
   ArrowRight,
   Target,
@@ -84,13 +83,13 @@ export default function AboutContent({ language }: AboutContentProps) {
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="btn-gradient text-primary-foreground" asChild>
-                <Link href="/services">
+                <LocaleLink href="/services">
                   {t.mission.exploreServices}
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                </LocaleLink>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/contact">{t.mission.contactUs}</Link>
+                <LocaleLink href="/contact">{t.mission.contactUs}</LocaleLink>
               </Button>
             </div>
           </div>
@@ -314,7 +313,7 @@ export default function AboutContent({ language }: AboutContentProps) {
                   ))}
                 </ul>
                 <Button className="w-full mt-6 btn-gradient text-primary-foreground" asChild>
-                  <Link href="/eligibility-test">{t.services.mainService.button}</Link>
+                  <LocaleLink href="/eligibility-test">{t.services.mainService.button}</LocaleLink>
                 </Button>
               </CardContent>
             </Card>
@@ -326,7 +325,7 @@ export default function AboutContent({ language }: AboutContentProps) {
                     <h3 className="font-semibold mb-2">{service.title}</h3>
                     <p className="text-sm text-muted-foreground mb-3">{service.description}</p>
                     <Button variant="outline" size="sm" asChild>
-                      <Link href="/services">{t.services.learnMore}</Link>
+                      <LocaleLink href="/services">{t.services.learnMore}</LocaleLink>
                     </Button>
                   </CardContent>
                 </Card>
@@ -385,13 +384,13 @@ export default function AboutContent({ language }: AboutContentProps) {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button size="lg" className="btn-gradient text-primary-foreground shadow-lg shadow-primary/25" asChild>
-                <Link href="/services">
+                <LocaleLink href="/services">
                   {t.cta.viewServices}
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                </LocaleLink>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/contact">{t.cta.tryCalculator}</Link>
+                <LocaleLink href="/contact">{t.cta.tryCalculator}</LocaleLink>
               </Button>
             </div>
             <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -101,10 +101,10 @@ export function VerifyTrustCard({ language, compact = false }: Props) {
           </div>
           <div className="flex flex-col gap-2 sm:flex-row">
             <Button asChild size={compact ? 'sm' : 'default'} className="btn-gradient text-primary-foreground">
-              <Link href="/verify-us">{t.primary}</Link>
+              <LocaleLink href="/verify-us">{t.primary}</LocaleLink>
             </Button>
             <Button asChild size={compact ? 'sm' : 'default'} variant="outline">
-              <Link href="/privacy">{t.secondary}</Link>
+              <LocaleLink href="/privacy">{t.secondary}</LocaleLink>
             </Button>
           </div>
         </div>

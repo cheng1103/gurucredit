@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -111,23 +111,23 @@ export default function ServiceGrid({
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <Link
+                  <LocaleLink
                     href={detailLink}
                     className="inline-flex items-center text-sm font-medium text-primary hover:text-primary/80"
                   >
                     {learnMoreLabel}
                     <ArrowRight className="h-4 w-4 ml-1" />
-                  </Link>
+                  </LocaleLink>
                   <Badge variant="outline" className="py-1">
                     {availabilityLabel}
                   </Badge>
                 </div>
                 <div className="mt-4">
                   <Button className="w-full btn-gradient text-primary-foreground" asChild>
-                    <Link href={`/services/${service.id}/apply`}>
+                    <LocaleLink href={`/services/${service.id}/apply`}>
                       {applyLabel}
                       <ArrowRight className="h-4 w-4 ml-2" />
-                    </Link>
+                    </LocaleLink>
                   </Button>
                 </div>
               </CardContent>

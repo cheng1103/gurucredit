@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { X, Sparkles, Clock, ArrowRight, Gift, Percent, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/lib/i18n';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Promotion {
@@ -179,10 +179,10 @@ export function PromoBanner() {
                 variant="secondary"
                 className="hidden sm:inline-flex bg-white text-primary hover:bg-white/90"
               >
-                <Link href={currentPromo.link}>
+                <LocaleLink href={currentPromo.link}>
                   {t.cta}
                   <ArrowRight className="ml-1 h-3 w-3" />
-                </Link>
+                </LocaleLink>
               </Button>
               <Button
                 variant="ghost"
@@ -271,7 +271,7 @@ export function FloatingPromoWidget() {
             </div>
             <div className="flex gap-2">
               <Button asChild size="sm" className="flex-1">
-                <Link href="/eligibility-test">{t.cta}</Link>
+                <LocaleLink href="/eligibility-test">{t.cta}</LocaleLink>
               </Button>
               <Button variant="ghost" size="sm" onClick={() => setIsMinimized(true)}>
                 <X className="h-4 w-4" />

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/LocaleLink';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -353,16 +353,16 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
 
             <div className="grid gap-3 sm:grid-cols-2">
               <Button asChild variant="outline" className="gap-2">
-                <Link href="/">
+                <LocaleLink href="/">
                   <Home className="h-4 w-4" />
                   {t.buttons.backHome}
-                </Link>
+                </LocaleLink>
               </Button>
               <Button asChild className="gap-2">
-                <Link href="/eligibility-test">
+                <LocaleLink href="/eligibility-test">
                   <Calculator className="h-4 w-4" />
                   {t.buttons.tryCalculator}
-                </Link>
+                </LocaleLink>
               </Button>
             </div>
 

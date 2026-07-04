@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { COMPANY } from '@/lib/constants';
 import { useLanguage } from '@/lib/i18n';
@@ -20,10 +20,11 @@ const T = {
   },
 };
 
-// Drifts slowly between 8–15 so it feels "live" without looking fake
+// Drifts slowly between 8–15 so it feels "live" without looking fake.
+// Starts from a fixed value so server and client render the same markup
+// (Math.random in render would cause a hydration mismatch), then drifts.
 function useChattingCount() {
-  const initial = useMemo(() => 8 + Math.floor(Math.random() * 6), []);
-  const [count, setCount] = useState(initial);
+  const [count, setCount] = useState(11);
 
   useEffect(() => {
     const id = setInterval(() => {

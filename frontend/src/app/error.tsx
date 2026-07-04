@@ -43,8 +43,10 @@ export default function Error({
   const [lang, setLang] = useState<'en' | 'ms'>('en');
 
   useEffect(() => {
+    // Detected post-mount from the cookie so the server (always 'en') and the
+    // first client render match — avoids a hydration mismatch on the error page.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLang(detectLanguage());
-    // eslint-disable-next-line no-console
     console.error('Route error:', error);
   }, [error]);
 

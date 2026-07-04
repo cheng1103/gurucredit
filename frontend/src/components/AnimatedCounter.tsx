@@ -1,8 +1,6 @@
 'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
-import type { ParsedStat } from '@/lib/format';
-import { parseStatValue } from '@/lib/format';
 
 interface AnimatedCounterProps {
   end: number;

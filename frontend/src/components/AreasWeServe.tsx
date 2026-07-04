@@ -4,7 +4,6 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { MapPin, Route } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
-import { SERVICE_AREAS } from '@/lib/constants';
 import { useState } from 'react';
 
 const content = {
@@ -91,7 +90,7 @@ export function AreasWeServe() {
             <p className="text-muted-foreground mb-6">{t.subtitle}</p>
 
             <div className="space-y-4">
-              {t.neighborhoods.map((area, index) => (
+              {t.neighborhoods.map((area) => (
                 <Card key={area.title} className="border-primary/15">
                   <CardContent className="py-5">
                     <div className="flex items-start gap-4">

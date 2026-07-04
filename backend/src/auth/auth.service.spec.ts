@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import type { AuthUserRecord } from './auth.service';
 import type { PrismaService } from '../prisma/prisma.service';
 import type { JwtService } from '@nestjs/jwt';
+import type { ConfigService } from '@nestjs/config';
 import type { PiiEncryptionService } from '../common/security/pii-encryption.service';
 
 jest.mock('bcrypt', () => ({
@@ -34,10 +35,22 @@ const createPrismaMock = (): PrismaMock => ({
   },
 });
 
-const createJwtMock = (): JwtService =>
+const createJwtMock = (verifyImpl?: jest.Mock): JwtService =>
   ({
     sign: jest.fn().mockReturnValue('token'),
+    verifyAsync: verifyImpl ?? jest.fn(),
   }) as unknown as JwtService;
+
+const createConfigMock = (): ConfigService =>
+  ({
+    get: jest.fn((key: string) => {
+      const values: Record<string, string> = {
+        JWT_SECRET: 'test-secret-value',
+        JWT_REFRESH_EXPIRES_IN: '30d',
+      };
+      return values[key];
+    }),
+  }) as unknown as ConfigService;
 
 const createPiiMock = (): PiiEncryptionService =>
   ({
@@ -71,6 +84,7 @@ describe('AuthService security protections', () => {
     service = new AuthService(
       prisma as unknown as PrismaService,
       createJwtMock(),
+      createConfigMock(),
       createPiiMock(),
     );
     jest.spyOn(bcrypt, 'compare').mockResolvedValue(true);
@@ -127,5 +141,52 @@ describe('AuthService security protections', () => {
       lastFailedLogin: null,
       lockedUntil: null,
     });
+  });
+
+  const makeService = (verify: jest.Mock) =>
+    new AuthService(
+      prisma as unknown as PrismaService,
+      createJwtMock(verify),
+      createConfigMock(),
+      createPiiMock(),
+    );
+
+  it('issues a new token pair for a valid refresh token', async () => {
+    const svc = makeService(
+      jest.fn().mockResolvedValue({
+        sub: 'user-1',
+        role: 'ADMIN',
+        type: 'refresh',
+      }),
+    );
+    prisma.user.findUnique.mockResolvedValue(
+      buildUser({ id: 'user-1', role: 'ADMIN' }),
+    );
+
+    await expect(svc.refresh('refresh-token')).resolves.toEqual({
+      accessToken: 'token',
+      refreshToken: 'token',
+    });
+  });
+
+  it('rejects an access token presented as a refresh token', async () => {
+    const svc = makeService(
+      jest.fn().mockResolvedValue({ sub: 'user-1', role: 'ADMIN' }),
+    );
+
+    await expect(svc.refresh('access-token')).rejects.toBeInstanceOf(
+      UnauthorizedException,
+    );
+  });
+
+  it('rejects refresh for a deactivated account', async () => {
+    const svc = makeService(
+      jest.fn().mockResolvedValue({ sub: 'user-1', type: 'refresh' }),
+    );
+    prisma.user.findUnique.mockResolvedValue(buildUser({ isActive: false }));
+
+    await expect(svc.refresh('refresh-token')).rejects.toBeInstanceOf(
+      UnauthorizedException,
+    );
   });
 });

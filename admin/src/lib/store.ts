@@ -12,7 +12,7 @@ interface AuthState {
   user: AdminUser | null;
   token: string | null;
   isAuthenticated: boolean;
-  setAuth: (user: AdminUser, token: string) => void;
+  setAuth: (user: AdminUser, token: string, refreshToken?: string) => void;
   logout: () => void;
 }
 
@@ -40,14 +40,16 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       token: null,
       isAuthenticated: false,
-      setAuth: (user, token) => {
+      setAuth: (user, token, refreshToken) => {
         const storage = resolveStorage();
         storage?.setItem('admin_token', token);
+        if (refreshToken) storage?.setItem('admin_refresh_token', refreshToken);
         set({ user, token, isAuthenticated: true });
       },
       logout: () => {
         const storage = resolveStorage();
         storage?.removeItem('admin_token');
+        storage?.removeItem('admin_refresh_token');
         set({ user: null, token: null, isAuthenticated: false });
       },
     }),

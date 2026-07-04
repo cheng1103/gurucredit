@@ -39,9 +39,18 @@ export class LoginDto {
   password: string;
 }
 
+export class RefreshDto {
+  @ApiProperty({ description: 'A refresh token issued at login/register' })
+  @IsString()
+  refreshToken: string;
+}
+
 export class AuthResponse {
   @ApiProperty()
   accessToken: string;
+
+  @ApiProperty()
+  refreshToken: string;
 
   @ApiProperty()
   user: {

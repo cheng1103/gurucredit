@@ -8,6 +8,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import type { StringValue } from 'ms';
 import { AuthUser, UserRole } from './types/auth-request.interface';
 import { PiiEncryptionService } from '../common/security/pii-encryption.service';
 
@@ -31,6 +33,7 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
+    private readonly config: ConfigService,
     private readonly piiEncryption: PiiEncryptionService,
   ) {}
 
@@ -63,10 +66,10 @@ export class AuthService {
       },
     });
 
-    const token = this.generateToken(user.id, user.role);
+    const tokens = this.generateTokens(user.id, user.role);
 
     return {
-      accessToken: token,
+      ...tokens,
       user: {
         id: user.id,
         email: user.email,
@@ -117,10 +120,10 @@ export class AuthService {
 
     await this.resetFailedLogin(user.id);
 
-    const token = this.generateToken(user.id, user.role);
+    const tokens = this.generateTokens(user.id, user.role);
 
     return {
-      accessToken: token,
+      ...tokens,
       user: {
         id: user.id,
         email: user.email,
@@ -128,6 +131,33 @@ export class AuthService {
         role: user.role,
       },
     };
+  }
+
+  // Exchanges a valid refresh token for a fresh access + refresh pair (rotation).
+  async refresh(refreshToken: string) {
+    let decoded: { sub: string; role?: string; type?: string };
+    try {
+      decoded = await this.jwtService.verifyAsync(refreshToken, {
+        secret: this.getRefreshSecret(),
+      });
+    } catch {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    if (decoded.type !== 'refresh') {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: decoded.sub },
+      select: { id: true, role: true, isActive: true },
+    });
+
+    if (!user || !user.isActive) {
+      throw new UnauthorizedException('Account is not available');
+    }
+
+    return this.generateTokens(user.id, user.role);
   }
 
   async validateToken(token: string): Promise<AuthUser> {
@@ -163,8 +193,26 @@ export class AuthService {
     }
   }
 
-  private generateToken(userId: string, role: string): string {
-    return this.jwtService.sign({ sub: userId, role });
+  private generateTokens(userId: string, role: string) {
+    const accessToken = this.jwtService.sign({ sub: userId, role });
+    const refreshToken = this.jwtService.sign(
+      { sub: userId, role, type: 'refresh' },
+      {
+        secret: this.getRefreshSecret(),
+        expiresIn: (this.config.get<string>('JWT_REFRESH_EXPIRES_IN') ||
+          '30d') as StringValue,
+      },
+    );
+    return { accessToken, refreshToken };
+  }
+
+  // A distinct refresh secret so a refresh token can never validate as an access
+  // token. Falls back to a value derived from JWT_SECRET when unset, so existing
+  // deployments need no new env var.
+  private getRefreshSecret(): string {
+    const configured = this.config.get<string>('JWT_REFRESH_SECRET');
+    if (configured) return configured;
+    return `${this.config.get<string>('JWT_SECRET')}::refresh`;
   }
 
   private async ensureUniqueIc(icNumber: string) {

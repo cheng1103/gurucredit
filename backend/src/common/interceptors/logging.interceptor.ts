@@ -19,7 +19,8 @@ export class LoggingInterceptor implements NestInterceptor {
       Request & { user?: { id: string; email?: string } }
     >();
     const res = http.getResponse<Response>();
-    const { method, url } = req;
+    const { method } = req;
+    const url = this.sanitizeUrl(req.url);
     const started = Date.now();
 
     return next.handle().pipe(
@@ -58,6 +59,36 @@ export class LoggingInterceptor implements NestInterceptor {
         },
       }),
     );
+  }
+
+  // Redact sensitive query-string values (tokens, passwords, keys) before they
+  // reach the logs. Keeps the path + param names, replaces only the values.
+  private static readonly SENSITIVE_PARAMS = new Set([
+    'token',
+    'access_token',
+    'refresh_token',
+    'password',
+    'secret',
+    'apikey',
+    'api_key',
+    'key',
+    'code',
+    'auth',
+  ]);
+
+  private sanitizeUrl(url: string): string {
+    const queryIndex = url.indexOf('?');
+    if (queryIndex === -1) return url;
+
+    const path = url.slice(0, queryIndex);
+    const params = new URLSearchParams(url.slice(queryIndex + 1));
+    for (const name of params.keys()) {
+      if (LoggingInterceptor.SENSITIVE_PARAMS.has(name.toLowerCase())) {
+        params.set(name, '[REDACTED]');
+      }
+    }
+    const query = params.toString();
+    return query ? `${path}?${query}` : path;
   }
 
   private resolveStatusCode(err: unknown, fallback: number) {

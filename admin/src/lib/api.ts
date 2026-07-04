@@ -38,16 +38,69 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+function forceLogout() {
+  if (typeof window === 'undefined') return;
+  localStorage.removeItem('admin_token');
+  localStorage.removeItem('admin_refresh_token');
+  localStorage.removeItem('admin_user');
+  localStorage.removeItem('admin-auth-storage');
+  window.location.href = '/login';
+}
+
+// Single-flight refresh: concurrent 401s share one /auth/refresh call.
+let refreshPromise: Promise<string | null> | null = null;
+
+async function requestNewAccessToken(): Promise<string | null> {
+  if (typeof window === 'undefined') return null;
+  const refreshToken = localStorage.getItem('admin_refresh_token');
+  if (!refreshToken) return null;
+  try {
+    // Bare axios (not `api`) so this call skips the interceptors below.
+    const res = await axios.post(`${API_URL}/auth/refresh`, { refreshToken });
+    const { accessToken, refreshToken: rotated } = res.data ?? {};
+    if (!accessToken) return null;
+    localStorage.setItem('admin_token', accessToken);
+    if (rotated) localStorage.setItem('admin_refresh_token', rotated);
+    return accessToken;
+  } catch {
+    return null;
+  }
+}
+
+function refreshAccessToken(): Promise<string | null> {
+  if (!refreshPromise) {
+    refreshPromise = requestNewAccessToken().finally(() => {
+      refreshPromise = null;
+    });
+  }
+  return refreshPromise;
+}
+
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('admin_token');
-        localStorage.removeItem('admin_user');
-        window.location.href = '/login';
+  async (error) => {
+    const original = error.config as
+      | (typeof error.config & { _retry?: boolean; url?: string })
+      | undefined;
+    const status = error.response?.status;
+    const isAuthRoute =
+      original?.url?.includes('/auth/refresh') ||
+      original?.url?.includes('/auth/login');
+
+    if (status === 401 && original && !original._retry && !isAuthRoute) {
+      original._retry = true;
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        original.headers = original.headers ?? {};
+        original.headers.Authorization = `Bearer ${newToken}`;
+        return api(original);
       }
+      // Refresh unavailable or rejected → session is over.
+      forceLogout();
+    } else if (status === 401 && !isAuthRoute) {
+      forceLogout();
     }
+
     return Promise.reject(error);
   }
 );

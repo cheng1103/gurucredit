@@ -10,7 +10,14 @@ export const envValidationSchema = Joi.object({
     .uri({ scheme: ['mongodb', 'mongodb+srv'] })
     .required(),
   JWT_SECRET: Joi.string().min(16).required(),
-  JWT_EXPIRES_IN: Joi.string().default('7d'),
+  // Short-lived access token — the exposure window if it leaks. The refresh-token
+  // flow (below) transparently mints new access tokens so users stay signed in.
+  JWT_EXPIRES_IN: Joi.string().default('1h'),
+  // Long-lived refresh token. Optional secret: falls back to a value derived from
+  // JWT_SECRET so existing deployments keep working without new env vars, while
+  // still being distinct so a refresh token can't be used as an access token.
+  JWT_REFRESH_SECRET: Joi.string().min(16).allow('', null),
+  JWT_REFRESH_EXPIRES_IN: Joi.string().default('30d'),
   CORS_ORIGINS: Joi.string().allow('', null),
   ENABLE_SWAGGER: Joi.boolean()
     .truthy('true')

@@ -49,6 +49,19 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (OFFLINE_MODE) {
+      const trimmedEmail = formData.email.trim().toLowerCase();
+      const trimmedPassword = formData.password.trim();
+      if (
+        trimmedEmail === DEMO_EMAIL.toLowerCase() &&
+        trimmedPassword === DEMO_PASSWORD
+      ) {
+        loginOffline();
+        return;
+      }
+    }
+
     setLoading(true);
 
     try {
@@ -57,7 +70,7 @@ export default function LoginPage() {
         password: formData.password,
       };
       const response = await authAPI.login(payload);
-      const { user, accessToken } = response.data;
+      const { user, accessToken, refreshToken } = response.data;
 
       if (user.role !== 'ADMIN' && user.role !== 'SUPER_ADMIN') {
         toast.error('Admin access required');
@@ -65,7 +78,7 @@ export default function LoginPage() {
         return;
       }
 
-      setAuth(user, accessToken);
+      setAuth(user, accessToken, refreshToken);
       toast.success('Welcome back!');
       router.push('/');
     } catch (error: unknown) {

@@ -468,7 +468,7 @@ export const SEO = {
     'GURU Credits, GURU Credits Malaysia, GURU Credits loan consultant, GURU Credits personal loan, GURU Credits debt consolidation, guru-credit.com, guru credit malaysia, loan consultant Malaysia, personal loan Malaysia, home loan Malaysia, car loan Malaysia, business loan Malaysia, debt consolidation Malaysia, credit score Malaysia, pinjaman peribadi Malaysia, licensed money lender Malaysia, personal loan for bad credit Malaysia, emergency loan Malaysia, self employed personal loan Malaysia, CCRIS CTOS check Malaysia, loan eligibility check Malaysia',
   url: 'https://guru-credit.com',
   locale: 'en_MY',
-  shareImage: '/images/optimized/logo.jpg',
+  shareImage: '/images/og-default.png',
   translations: {
     ms: {
       defaultTitle: 'GURU Credits | Pinjaman Peribadi, Penyatuan Hutang & Semakan Kredit Malaysia',

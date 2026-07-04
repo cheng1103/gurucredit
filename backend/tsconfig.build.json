@@ -1,7 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "rootDir": "./src"
+    "rootDir": "./src",
+    // `nest build` deletes dist on every run (deleteOutDir), so incremental
+    // caching never helps here — and a stale .tsbuildinfo left behind after the
+    // delete makes tsc skip emit entirely (empty dist). Disable it for the
+    // production build so the output is always complete.
+    "incremental": false
   },
   "exclude": ["node_modules", "test", "dist", "scripts", "**/*spec.ts"]
 }

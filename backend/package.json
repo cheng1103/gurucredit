@@ -91,5 +91,9 @@
   "engines": {
     "node": ">=20.11.0",
     "npm": ">=10"
+  },
+  "overrides": {
+    "picomatch": "4.0.5",
+    "multer": "2.2.0"
   }
 }

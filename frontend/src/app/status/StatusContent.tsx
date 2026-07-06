@@ -252,7 +252,7 @@ export default function StatusContent({ language }: StatusContentProps) {
                 </Button>
                 <Button
                   asChild
-                  className="rounded-full bg-emerald-600 text-white hover:bg-emerald-500 border-0"
+                  className="rounded-full bg-emerald-700 text-white hover:bg-emerald-600 border-0"
                 >
                   <Link href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="mr-2 h-4 w-4" />

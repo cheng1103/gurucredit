@@ -105,7 +105,7 @@ export function StickyMobileCTA() {
               language,
             })
           }
-          className="inline-flex h-12 items-center justify-center gap-1.5 rounded-xl bg-emerald-600 px-4 text-sm font-semibold text-white"
+          className="inline-flex h-12 items-center justify-center gap-1.5 rounded-xl bg-emerald-700 px-4 text-sm font-semibold text-white"
           aria-label="WhatsApp"
         >
           <MessageCircle className="h-4 w-4" />

@@ -188,9 +188,10 @@ export function PromoBanner() {
                 variant="ghost"
                 size="icon"
                 onClick={handleDismiss}
+                aria-label={language === 'ms' ? 'Tutup notis' : 'Dismiss notice'}
                 className="h-8 w-8 text-white hover:bg-white/20"
               >
-                <X className="h-4 w-4" />
+                <X className="h-4 w-4" aria-hidden="true" />
               </Button>
             </div>
           </div>
@@ -248,17 +249,19 @@ export function FloatingPromoWidget() {
         {isMinimized ? (
           <Button
             onClick={() => setIsMinimized(false)}
+            aria-label={language === 'ms' ? 'Buka tawaran' : 'Open offer'}
             className="rounded-full w-14 h-14 shadow-lg"
           >
-            <Gift className="h-6 w-6" />
+            <Gift className="h-6 w-6" aria-hidden="true" />
           </Button>
         ) : (
           <div className="bg-card border rounded-xl shadow-xl p-4 w-72">
             <button
               onClick={handleDismiss}
+              aria-label={language === 'ms' ? 'Tutup' : 'Dismiss'}
               className="absolute top-2 right-2 text-muted-foreground hover:text-foreground"
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4" aria-hidden="true" />
             </button>
             <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
@@ -273,8 +276,13 @@ export function FloatingPromoWidget() {
               <Button asChild size="sm" className="flex-1">
                 <LocaleLink href="/eligibility-test">{t.cta}</LocaleLink>
               </Button>
-              <Button variant="ghost" size="sm" onClick={() => setIsMinimized(true)}>
-                <X className="h-4 w-4" />
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsMinimized(true)}
+                aria-label={language === 'ms' ? 'Kecilkan' : 'Minimize'}
+              >
+                <X className="h-4 w-4" aria-hidden="true" />
               </Button>
             </div>
           </div>

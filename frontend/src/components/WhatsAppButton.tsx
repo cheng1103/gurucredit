@@ -11,12 +11,14 @@ const T = {
     tooltipTitle: 'Need help? Chat with us!',
     tooltipBody: 'Get instant answers via WhatsApp',
     aria: 'Chat on WhatsApp',
+    close: 'Dismiss',
   },
   ms: {
     chattingNow: 'sedang berbual',
     tooltipTitle: 'Perlukan bantuan? Chat dengan kami!',
     tooltipBody: 'Jawapan segera melalui WhatsApp',
     aria: 'Chat di WhatsApp',
+    close: 'Tutup',
   },
 };
 
@@ -93,9 +95,10 @@ export function WhatsAppButton() {
           <div className="relative bg-white rounded-lg shadow-xl border p-4 max-w-[250px]">
             <button
               onClick={() => setShowTooltip(false)}
+              aria-label={t.close}
               className="absolute -top-2 -right-2 w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
             >
-              <X className="h-3 w-3" />
+              <X className="h-3 w-3" aria-hidden="true" />
             </button>
             <p className="text-sm font-medium text-gray-900 mb-1">{t.tooltipTitle}</p>
             <p className="text-xs text-gray-500">{t.tooltipBody}</p>

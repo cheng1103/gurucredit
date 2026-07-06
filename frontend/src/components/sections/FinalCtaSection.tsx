@@ -48,7 +48,7 @@ export function FinalCtaSection({ t, language }: { t: HomeContent; language: Lan
             <Button
               size="lg"
               asChild
-              className="h-14 px-9 text-base font-semibold bg-emerald-600 text-white hover:bg-emerald-500 shadow-xl transition-all border-0"
+              className="h-14 px-9 text-base font-semibold bg-emerald-700 text-white hover:bg-emerald-600 shadow-xl transition-all border-0"
             >
               <Link href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="mr-2 h-5 w-5" />

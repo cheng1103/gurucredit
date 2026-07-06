@@ -88,7 +88,7 @@ export default function Error({
             <Button
               asChild
               size="lg"
-              className="h-12 px-6 rounded-full bg-emerald-600 text-white hover:bg-emerald-500 border-0"
+              className="h-12 px-6 rounded-full bg-emerald-700 text-white hover:bg-emerald-600 border-0"
             >
               <Link href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="mr-2 h-4 w-4" />

@@ -9,6 +9,7 @@ import { SEO } from "@/lib/constants";
 import { localeAlternates } from "@/lib/seo";
 import { resolveRequestLanguage } from "@/lib/i18n/server";
 import { Providers } from "@/components/Providers";
+import { WhatsAppFab, StickyMobileCTA } from "@/components/layout";
 import {
   OrganizationJsonLd,
   WebsiteJsonLd,
@@ -140,11 +141,13 @@ export default async function RootLayout({
               Skip to content
             </a>
             <Navbar />
-            <main id="main-content" className="flex-1">
+            <main id="main-content" className="flex-1 pb-20 lg:pb-0">
               {children}
             </main>
             <Footer />
           </div>
+          <WhatsAppFab />
+          <StickyMobileCTA />
           <Toaster />
         </Providers>
       </body>

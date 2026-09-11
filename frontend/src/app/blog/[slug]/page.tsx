@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getBlogPost, getRelatedPosts, blogPosts } from '@/lib/blog-data';
 import { SEO } from '@/lib/constants';
-import { BlogPostClient } from './BlogPostClient';
+import { BlogArticle } from '@/components/blog/BlogArticle';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -76,5 +76,5 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const relatedPosts = getRelatedPosts(slug, 3);
 
-  return <BlogPostClient post={post} relatedPosts={relatedPosts} />;
+  return <BlogArticle post={post} relatedPosts={relatedPosts} />;
 }

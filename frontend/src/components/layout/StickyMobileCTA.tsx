@@ -20,14 +20,16 @@ export function StickyMobileCTA() {
   const { language } = useLanguage();
   const pathname = usePathname() ?? '/';
   const [heroVisible, setHeroVisible] = useState(false);
+  const [prevPathname, setPrevPathname] = useState(pathname);
+
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setHeroVisible(false);
+  }
 
   useEffect(() => {
     const hero = document.getElementById('hero');
-    if (!hero || typeof IntersectionObserver === 'undefined') {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing with DOM presence of #hero, not derivable during render (SSR-safe default is already false)
-      setHeroVisible(false);
-      return;
-    }
+    if (!hero || typeof IntersectionObserver === 'undefined') return;
     const io = new IntersectionObserver(([entry]) => setHeroVisible(entry.isIntersecting), {
       threshold: 0.2,
     });

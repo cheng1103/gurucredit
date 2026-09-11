@@ -54,7 +54,7 @@ export function Proof({ t }: { t: HomeContent }) {
                   </div>
                 </dl>
                 <blockquote className="mt-6 border-t border-border pt-4 text-sm italic text-foreground-muted">
-                  &quot;{c.quote}&quot;
+                  &ldquo;{c.quote}&rdquo;
                   <footer className="mt-2 not-italic text-xs text-foreground-subtle">{c.name} · {c.location}</footer>
                 </blockquote>
               </article>

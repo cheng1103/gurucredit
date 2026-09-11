@@ -15,6 +15,7 @@ import {
   ServicesJsonLd,
   GeoCoverageJsonLd,
 } from "@/components/JsonLd";
+
 const defaultOgImage = new URL(SEO.shareImage, SEO.url).toString();
 
 const geist = Geist({

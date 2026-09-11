@@ -1,3 +1,5 @@
+import { PATHS } from '@/lib/i18n/routes';
+
 export type BlogGuideLink = {
   href: string;
   title: string;
@@ -27,8 +29,8 @@ export const blogUi = {
       description: 'Short, actionable playbooks to improve approvals and compare options.',
       cta: 'Open guide',
       items: [
-        { href: '/loan-guides/credit-score', title: 'Credit Score Guide', description: 'Repair CCRIS/CTOS fast and boost approval odds.' },
-        { href: '/loan-guides/debt-consolidation', title: 'Debt Consolidation Plan', description: 'Combine debts and lower monthly payments.' },
+        { href: PATHS.loanGuide.creditScore, title: 'Credit Score Guide', description: 'Repair CCRIS/CTOS fast and boost approval odds.' },
+        { href: PATHS.loanGuide.debtConsolidation, title: 'Debt Consolidation Plan', description: 'Combine debts and lower monthly payments.' },
       ] satisfies BlogGuideLink[],
     },
   },
@@ -54,8 +56,8 @@ export const blogUi = {
       description: 'Panduan ringkas untuk tingkatkan kelulusan dan banding pilihan.',
       cta: 'Buka panduan',
       items: [
-        { href: '/loan-guides/credit-score', title: 'Panduan Skor Kredit', description: 'Baiki CCRIS/CTOS dan tingkatkan peluang kelulusan.' },
-        { href: '/loan-guides/debt-consolidation', title: 'Pelan Penyatuan Hutang', description: 'Gabungkan hutang dan kurangkan ansuran.' },
+        { href: PATHS.loanGuide.creditScore, title: 'Panduan Skor Kredit', description: 'Baiki CCRIS/CTOS dan tingkatkan peluang kelulusan.' },
+        { href: PATHS.loanGuide.debtConsolidation, title: 'Pelan Penyatuan Hutang', description: 'Gabungkan hutang dan kurangkan ansuran.' },
       ] satisfies BlogGuideLink[],
     },
   },

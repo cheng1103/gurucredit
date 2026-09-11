@@ -1,3 +1,5 @@
+import { PATHS } from '@/lib/i18n/routes';
+
 export type StaticGuide = {
   href: string;
   title: string;
@@ -56,16 +58,16 @@ export const loanGuidesUi = {
 } as const;
 
 export const staticGuides: StaticGuide[] = [
-  { href: '/loan-guides/credit-score', title: 'Credit Score & CCRIS Guide', titleMs: 'Panduan Skor Kredit & CCRIS', description: 'Improve CCRIS / CTOS health, fix late markers, and prepare for stronger approvals.', descriptionMs: 'Tingkatkan CCRIS / CTOS, betulkan rekod lewat, dan sedia untuk kelulusan yang lebih kuat.' },
-  { href: '/loan-guides/debt-consolidation', title: 'Debt Consolidation Strategy', titleMs: 'Strategi Penyatuan Hutang', description: 'Lower monthly commitments by combining cards and personal loans more deliberately.', descriptionMs: 'Kurangkan komitmen bulanan dengan menggabungkan kad dan pinjaman peribadi secara lebih teratur.' },
-  { href: '/loan-guides/ccris-ctos', title: 'CCRIS & CTOS Guide', titleMs: 'Panduan CCRIS & CTOS', description: 'Understand what lenders actually read in your file before you apply again.', descriptionMs: 'Fahami apa yang lender sebenarnya baca dalam fail anda sebelum mohon semula.' },
-  { href: '/loan-guides/loan-rejection-recovery', title: 'Loan Rejection Recovery', titleMs: 'Pemulihan Selepas Pinjaman Ditolak', description: 'Diagnose the real blocker and rebuild the file before the next submission.', descriptionMs: 'Kenal pasti halangan sebenar dan bina semula fail sebelum penghantaran seterusnya.' },
-  { href: '/loan-guides/self-employed-income-proof', title: 'Self-Employed Income Proof', titleMs: 'Bukti Pendapatan Bekerja Sendiri', description: 'Prepare variable or business income in a way lenders can actually assess.', descriptionMs: 'Sediakan pendapatan berubah atau perniagaan dalam bentuk yang lender benar-benar boleh nilai.' },
+  { href: PATHS.loanGuide.creditScore, title: 'Credit Score & CCRIS Guide', titleMs: 'Panduan Skor Kredit & CCRIS', description: 'Improve CCRIS / CTOS health, fix late markers, and prepare for stronger approvals.', descriptionMs: 'Tingkatkan CCRIS / CTOS, betulkan rekod lewat, dan sedia untuk kelulusan yang lebih kuat.' },
+  { href: PATHS.loanGuide.debtConsolidation, title: 'Debt Consolidation Strategy', titleMs: 'Strategi Penyatuan Hutang', description: 'Lower monthly commitments by combining cards and personal loans more deliberately.', descriptionMs: 'Kurangkan komitmen bulanan dengan menggabungkan kad dan pinjaman peribadi secara lebih teratur.' },
+  { href: PATHS.loanGuide.ccrisCtos, title: 'CCRIS & CTOS Guide', titleMs: 'Panduan CCRIS & CTOS', description: 'Understand what lenders actually read in your file before you apply again.', descriptionMs: 'Fahami apa yang lender sebenarnya baca dalam fail anda sebelum mohon semula.' },
+  { href: PATHS.loanGuide.loanRejectionRecovery, title: 'Loan Rejection Recovery', titleMs: 'Pemulihan Selepas Pinjaman Ditolak', description: 'Diagnose the real blocker and rebuild the file before the next submission.', descriptionMs: 'Kenal pasti halangan sebenar dan bina semula fail sebelum penghantaran seterusnya.' },
+  { href: PATHS.loanGuide.selfEmployedIncomeProof, title: 'Self-Employed Income Proof', titleMs: 'Bukti Pendapatan Bekerja Sendiri', description: 'Prepare variable or business income in a way lenders can actually assess.', descriptionMs: 'Sediakan pendapatan berubah atau perniagaan dalam bentuk yang lender benar-benar boleh nilai.' },
 ];
 
 export const authorityLinks: AuthorityLink[] = [
-  { href: '/editorial-policy', title: 'Editorial Policy', titleMs: 'Dasar Editorial', description: 'How we research, review, and maintain borrower-facing finance content.', descriptionMs: 'Bagaimana kami menyelidik, menyemak, dan menyelenggara kandungan kewangan untuk peminjam.' },
-  { href: '/review-methodology', title: 'Review Methodology', titleMs: 'Metodologi Semakan', description: 'How we assess CCRIS, CTOS, DSR, income proof, and route fit.', descriptionMs: 'Bagaimana kami menilai CCRIS, CTOS, DSR, bukti pendapatan, dan kesesuaian laluan.' },
-  { href: '/verify-us', title: 'Verify Us', titleMs: 'Sahkan Kami', description: 'Official channels, office details, privacy flow, and verification guidance.', descriptionMs: 'Saluran rasmi, butiran pejabat, aliran privasi, dan panduan pengesahan.' },
-  { href: '/service-areas', title: 'Service Areas', titleMs: 'Kawasan Perkhidmatan', description: 'Regional guide hub for Kuala Lumpur, Selangor, Johor, Sabah, and more.', descriptionMs: 'Hab panduan serantau untuk Kuala Lumpur, Selangor, Johor, Sabah, dan lain-lain.' },
+  { href: PATHS.editorialPolicy, title: 'Editorial Policy', titleMs: 'Dasar Editorial', description: 'How we research, review, and maintain borrower-facing finance content.', descriptionMs: 'Bagaimana kami menyelidik, menyemak, dan menyelenggara kandungan kewangan untuk peminjam.' },
+  { href: PATHS.reviewMethodology, title: 'Review Methodology', titleMs: 'Metodologi Semakan', description: 'How we assess CCRIS, CTOS, DSR, income proof, and route fit.', descriptionMs: 'Bagaimana kami menilai CCRIS, CTOS, DSR, bukti pendapatan, dan kesesuaian laluan.' },
+  { href: PATHS.verifyUs, title: 'Verify Us', titleMs: 'Sahkan Kami', description: 'Official channels, office details, privacy flow, and verification guidance.', descriptionMs: 'Saluran rasmi, butiran pejabat, aliran privasi, dan panduan pengesahan.' },
+  { href: PATHS.serviceAreas, title: 'Service Areas', titleMs: 'Kawasan Perkhidmatan', description: 'Regional guide hub for Kuala Lumpur, Selangor, Johor, Sabah, and more.', descriptionMs: 'Hab panduan serantau untuk Kuala Lumpur, Selangor, Johor, Sabah, dan lain-lain.' },
 ];

@@ -1,5 +1,6 @@
 import { ListingShell, CardGrid, ListingCard } from '@/components/listings';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
+import { PATHS } from '@/lib/i18n/routes';
 import { SEO } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
 import { WebPageJsonLd } from '@/components/JsonLd';
@@ -28,7 +29,7 @@ export default async function ServiceAreasPage() {
       />
       <ListingShell
         language={language}
-        breadcrumbs={[{ label: t.breadcrumbHome, href: '/' }, { label: t.breadcrumbServiceAreas }]}
+        breadcrumbs={[{ label: t.breadcrumbHome, href: PATHS.home }, { label: t.breadcrumbServiceAreas, href: PATHS.serviceAreas }]}
         eyebrow={t.eyebrow}
         title={t.title}
         lede={t.lede}
@@ -37,7 +38,7 @@ export default async function ServiceAreasPage() {
           {regions.map((region) => (
             <ListingCard
               key={region.slug}
-              href={`/loans/my/${region.slug}`}
+              href={PATHS.loansRegion(region.slug)}
               title={region.name[language]}
               description={region.localContext[language]}
               meta={`${t.income}: ${formatMYR(region.metrics.medianHouseholdIncomeMYR)}`}

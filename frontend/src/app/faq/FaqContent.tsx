@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ListingShell, CardGrid, ListingCard } from '@/components/listings';
 import { FilterBar, EmptyState } from '@/components/layout';
 import { FaqAccordion } from '@/components/sections/FaqAccordion';
+import { PATHS } from '@/lib/i18n/routes';
 import type { Language } from '@/lib/i18n/translations';
 import { SEO } from '@/lib/constants';
 import { WebPageJsonLd } from '@/components/JsonLd';
@@ -33,10 +34,10 @@ export default function FaqContent({ language }: FaqContentProps) {
     answer: language === 'ms' ? item.answerMs : item.answer,
   }));
 
+  const q = searchQuery.trim().toLowerCase();
+
   const filteredFaqs = localizedFaqs.filter((faq) => {
-    const matchesSearch =
-      faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = q === '' || faq.question.toLowerCase().includes(q) || faq.answer.toLowerCase().includes(q);
     const matchesCategory = selectedCategory === 'all' || faq.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -56,7 +57,7 @@ export default function FaqContent({ language }: FaqContentProps) {
       />
       <ListingShell
         language={language}
-        breadcrumbs={[{ label: t.breadcrumbHome, href: '/' }, { label: t.breadcrumbFaq }]}
+        breadcrumbs={[{ label: t.breadcrumbHome, href: PATHS.home }, { label: t.breadcrumbFaq, href: PATHS.faq }]}
         eyebrow={t.eyebrow}
         title={t.title}
         lede={t.lede}

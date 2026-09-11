@@ -8,6 +8,7 @@ import { ListingShell, CardGrid, ListingCard } from '@/components/listings';
 import { FilterBar, EmptyState } from '@/components/layout';
 import { blogPosts, blogCategories, type BlogPost } from '@/lib/blog-data';
 import { useLanguage } from '@/lib/i18n';
+import { PATHS } from '@/lib/i18n/routes';
 import { SEO } from '@/lib/constants';
 import { WebPageJsonLd } from '@/components/JsonLd';
 import { blogUi } from '@/lib/content/listings/blog';
@@ -43,15 +44,17 @@ export default function BlogPage() {
   }));
   const getCategoryLabel = (categoryId: string) => categories.find((c) => c.id === categoryId)?.label ?? categoryId;
 
+  const q = searchQuery.trim().toLowerCase();
+
   const filteredPosts = sortedPosts.filter((post) => {
     const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
     const title = getTitle(post);
     const excerpt = getExcerpt(post);
     const matchesSearch =
-      searchQuery === '' ||
-      title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      q === '' ||
+      title.toLowerCase().includes(q) ||
+      excerpt.toLowerCase().includes(q) ||
+      post.tags.some((tag) => tag.toLowerCase().includes(q));
     return matchesCategory && matchesSearch;
   });
 
@@ -70,7 +73,7 @@ export default function BlogPage() {
       />
       <ListingShell
         language={language}
-        breadcrumbs={[{ label: t.breadcrumbHome, href: '/' }, { label: t.breadcrumbBlog }]}
+        breadcrumbs={[{ label: t.breadcrumbHome, href: PATHS.home }, { label: t.breadcrumbBlog, href: PATHS.blog }]}
         eyebrow={t.eyebrow}
         title={t.title}
         lede={t.lede}
@@ -113,7 +116,7 @@ export default function BlogPage() {
                   <div className="flex flex-col justify-center gap-4 p-6 lg:p-10">
                     <p className="eyebrow">{t.featuredBadge}</p>
                     <h2 className="text-2xl lg:text-3xl">
-                      <LocaleLink href={`/blog/${post.slug}`} className="hover:underline">
+                      <LocaleLink href={PATHS.blogPost(post.slug)} className="hover:underline">
                         {getTitle(post)}
                       </LocaleLink>
                     </h2>
@@ -128,7 +131,7 @@ export default function BlogPage() {
                         {post.readTime} {t.minRead}
                       </span>
                     </div>
-                    <LocaleLink href={`/blog/${post.slug}`} className="inline-flex w-fit items-center gap-1 text-sm font-semibold text-primary">
+                    <LocaleLink href={PATHS.blogPost(post.slug)} className="inline-flex w-fit items-center gap-1 text-sm font-semibold text-primary">
                       {t.featuredCta}
                       <ArrowRight className="size-4" aria-hidden="true" />
                     </LocaleLink>
@@ -148,7 +151,7 @@ export default function BlogPage() {
               ) : (
                 <ListingCard
                   key={post.slug}
-                  href={`/blog/${post.slug}`}
+                  href={PATHS.blogPost(post.slug)}
                   eyebrow={getCategoryLabel(post.category)}
                   title={getTitle(post)}
                   description={getExcerpt(post)}
@@ -184,7 +187,7 @@ export default function BlogPage() {
               <h2 className="text-lg font-semibold">{t.loanGuides.title}</h2>
               <p className="text-sm text-foreground-muted">{t.loanGuides.description}</p>
             </div>
-            <LocaleLink href="/loan-guides" className="text-sm font-semibold text-primary">
+            <LocaleLink href={PATHS.loanGuides} className="text-sm font-semibold text-primary">
               {t.loanGuides.cta}
             </LocaleLink>
           </div>

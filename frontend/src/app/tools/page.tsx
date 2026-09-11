@@ -1,5 +1,6 @@
 import { ListingShell, CardGrid, ListingCard } from '@/components/listings';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
+import { PATHS } from '@/lib/i18n/routes';
 import { SEO } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
 import { WebPageJsonLd } from '@/components/JsonLd';
@@ -32,7 +33,7 @@ export default async function ToolsPage() {
       />
       <ListingShell
         language={language}
-        breadcrumbs={[{ label: t.breadcrumbHome, href: '/' }, { label: t.breadcrumbTools }]}
+        breadcrumbs={[{ label: t.breadcrumbHome, href: PATHS.home }, { label: t.breadcrumbTools, href: PATHS.tools }]}
         eyebrow={t.eyebrow}
         title={t.title}
         lede={t.lede}

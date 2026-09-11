@@ -1,3 +1,5 @@
+import { PATHS } from '@/lib/i18n/routes';
+
 export type ToolItem = {
   href: string;
   title: string;
@@ -27,14 +29,14 @@ export const toolsUi = {
 
 export const tools: ToolItem[] = [
   {
-    href: '/tools/compare',
+    href: PATHS.toolsCompare,
     title: 'Loan Comparison Tool',
     titleMs: 'Alat Perbandingan Pinjaman',
     description: 'Compare rates and fees across major banks.',
     descriptionMs: 'Bandingkan kadar dan yuran bank utama.',
   },
   {
-    href: '/eligibility-test',
+    href: PATHS.eligibilityTest,
     title: 'Eligibility Test',
     titleMs: 'Ujian Kelayakan',
     description: 'Check if you are likely to qualify.',

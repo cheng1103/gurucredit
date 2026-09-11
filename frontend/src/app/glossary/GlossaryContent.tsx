@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { ListingShell } from '@/components/listings';
 import { FilterBar, EmptyState } from '@/components/layout';
+import { PATHS } from '@/lib/i18n/routes';
 import type { Language } from '@/lib/i18n/translations';
 import { glossaryUi, glossaryTerms, type GlossaryTerm } from '@/lib/content/listings/glossary';
 
@@ -30,8 +31,8 @@ export default function GlossaryContent({ language }: GlossaryContentProps) {
       list = list.filter((term) => term.category === selectedCategory);
     }
 
-    if (searchTerm) {
-      const search = searchTerm.toLowerCase();
+    const search = searchTerm.trim().toLowerCase();
+    if (search) {
       list = list.filter(
         (term) => term.term.toLowerCase().includes(search) || term.definition.toLowerCase().includes(search),
       );
@@ -57,7 +58,7 @@ export default function GlossaryContent({ language }: GlossaryContentProps) {
   return (
     <ListingShell
       language={language}
-      breadcrumbs={[{ label: t.breadcrumbHome, href: '/' }, { label: t.breadcrumbGlossary }]}
+      breadcrumbs={[{ label: t.breadcrumbHome, href: PATHS.home }, { label: t.breadcrumbGlossary, href: PATHS.glossary }]}
       title={t.title}
       lede={t.lede}
     >

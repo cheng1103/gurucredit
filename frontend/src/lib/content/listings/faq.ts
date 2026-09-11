@@ -1,3 +1,5 @@
+import { PATHS } from '@/lib/i18n/routes';
+
 export type FaqCategoryId = 'services' | 'process' | 'payment' | 'security';
 
 export interface FaqItem {
@@ -33,9 +35,9 @@ export const faqUi = {
       security: 'Security',
     },
     quickLinks: [
-      { href: '/services', title: 'Apply for a Loan', description: 'Quick and easy online application. Get analysis within 24 hours.', cta: 'Apply Now' },
-      { href: '/services', title: 'Loan Products', description: 'View our range of loan products with competitive rates.', cta: 'View Products' },
-      { href: '/about', title: 'About Us', description: 'Learn more about GURU Credits and our mission.', cta: 'Learn More' },
+      { href: PATHS.services, title: 'Apply for a Loan', description: 'Quick and easy online application. Get analysis within 24 hours.', cta: 'Apply Now' },
+      { href: PATHS.services, title: 'Loan Products', description: 'View our range of loan products with competitive rates.', cta: 'View Products' },
+      { href: PATHS.about, title: 'About Us', description: 'Learn more about GURU Credits and our mission.', cta: 'Learn More' },
     ],
   },
   ms: {
@@ -62,9 +64,9 @@ export const faqUi = {
       security: 'Keselamatan',
     },
     quickLinks: [
-      { href: '/services', title: 'Mohon Pinjaman', description: 'Permohonan dalam talian yang cepat dan mudah. Diluluskan dalam 24 jam.', cta: 'Mohon Sekarang' },
-      { href: '/services', title: 'Produk Pinjaman', description: 'Lihat rangkaian produk pinjaman kami dengan kadar kompetitif.', cta: 'Lihat Produk' },
-      { href: '/about', title: 'Tentang Kami', description: 'Ketahui lebih lanjut tentang GURU Credits dan misi kami.', cta: 'Ketahui Lebih Lanjut' },
+      { href: PATHS.services, title: 'Mohon Pinjaman', description: 'Permohonan dalam talian yang cepat dan mudah. Diluluskan dalam 24 jam.', cta: 'Mohon Sekarang' },
+      { href: PATHS.services, title: 'Produk Pinjaman', description: 'Lihat rangkaian produk pinjaman kami dengan kadar kompetitif.', cta: 'Lihat Produk' },
+      { href: PATHS.about, title: 'Tentang Kami', description: 'Ketahui lebih lanjut tentang GURU Credits dan misi kami.', cta: 'Ketahui Lebih Lanjut' },
     ],
   },
 } as const;

@@ -1,6 +1,7 @@
 import { CheckCircle } from 'lucide-react';
 import { ListingShell, CardGrid, ListingCard } from '@/components/listings';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
+import { PATHS } from '@/lib/i18n/routes';
 import { SEO } from '@/lib/constants';
 import { WebPageJsonLd } from '@/components/JsonLd';
 import { guideTopics } from '@/lib/guide-topics';
@@ -23,7 +24,7 @@ export default async function LoanGuidesPage() {
       />
       <ListingShell
         language={language}
-        breadcrumbs={[{ label: t.breadcrumbHome, href: '/' }, { label: t.breadcrumbLoanGuides }]}
+        breadcrumbs={[{ label: t.breadcrumbHome, href: PATHS.home }, { label: t.breadcrumbLoanGuides, href: PATHS.loanGuides }]}
         eyebrow={t.eyebrow}
         title={t.title}
         lede={t.lede}
@@ -49,7 +50,7 @@ export default async function LoanGuidesPage() {
             {guideTopics.map((topic) => (
               <ListingCard
                 key={topic.slug}
-                href={`/loan-guides/topics/${topic.slug}`}
+                href={PATHS.loanGuide.topic(topic.slug)}
                 title={language === 'ms' ? topic.titleMs : topic.title}
                 description={language === 'ms' ? topic.descriptionMs : topic.description}
                 cta={t.readGuide}

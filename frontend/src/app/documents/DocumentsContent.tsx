@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
+import { PATHS } from '@/lib/i18n/routes';
 import type { Language } from '@/lib/i18n/translations';
 import { documentsUi, documentsData, documentsTips, documentsMistakes, type LoanType, type DocumentCategory } from '@/lib/content/listings/documents';
 
@@ -59,7 +60,7 @@ export default function DocumentsContent({ language }: DocumentsContentProps) {
   return (
     <ListingShell
       language={language}
-      breadcrumbs={[{ label: t.breadcrumbHome, href: '/' }, { label: t.breadcrumbDocuments }]}
+      breadcrumbs={[{ label: t.breadcrumbHome, href: PATHS.home }, { label: t.breadcrumbDocuments, href: PATHS.documents }]}
       title={t.title}
       lede={t.lede}
     >
@@ -176,7 +177,7 @@ export default function DocumentsContent({ language }: DocumentsContentProps) {
 
               <div className="text-center">
                 <LocaleLink
-                  href={`/services/${productId}/apply`}
+                  href={PATHS.servicesApply(String(productId))}
                   className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground"
                 >
                   {t.applyNow}

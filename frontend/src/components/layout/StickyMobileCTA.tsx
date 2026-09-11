@@ -19,17 +19,22 @@ const HIDDEN_ROUTES = /^\/(ms\/)?(services\/[^/]+\/apply|services\/success|conta
 export function StickyMobileCTA() {
   const { language } = useLanguage();
   const pathname = usePathname() ?? '/';
-  const [heroVisible, setHeroVisible] = useState(false);
+  // Start hidden so the bar never flashes over the hero on first paint;
+  // pages without a hero reveal it on the next frame.
+  const [heroVisible, setHeroVisible] = useState(true);
   const [prevPathname, setPrevPathname] = useState(pathname);
 
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
-    setHeroVisible(false);
+    setHeroVisible(true);
   }
 
   useEffect(() => {
     const hero = document.getElementById('hero');
-    if (!hero || typeof IntersectionObserver === 'undefined') return;
+    if (!hero || typeof IntersectionObserver === 'undefined') {
+      const frame = requestAnimationFrame(() => setHeroVisible(false));
+      return () => cancelAnimationFrame(frame);
+    }
     const io = new IntersectionObserver(([entry]) => setHeroVisible(entry.isIntersecting), {
       threshold: 0.2,
     });

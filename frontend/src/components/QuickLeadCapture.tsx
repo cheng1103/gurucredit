@@ -233,8 +233,8 @@ export function QuickLeadCapture({
         </div>
 
         <Button type="submit" className="w-full sm:w-auto" disabled={isLoading} aria-busy={isLoading}>
-          {isLoading ? <Loader2 className="size-4 animate-spin" /> : <ArrowRight className="size-4" />}
           {t.submit}
+          {isLoading ? <Loader2 className="size-4 animate-spin" /> : <ArrowRight className="size-4" />}
         </Button>
       </form>
     </div>

@@ -24,8 +24,8 @@ export interface FaqItem {
 export interface ServicesPageContent {
   header: {
     badge: string;
+    /** Rendered verbatim as the page H1 — locked by e2e ("Select a Loan Product"). */
     title: string;
-    titleHighlight: string;
     subtitle: string;
     primaryCta: string;
     secondaryCta: string;
@@ -36,7 +36,6 @@ export interface ServicesPageContent {
     price: string;
     description: string;
   };
-  loanTypes: { title: string };
   services: ServiceDefinition[];
   faq: {
     title: string;
@@ -47,7 +46,6 @@ export interface ServicesPageContent {
     badge: string;
     title: string;
     subtitle: string;
-    imageCaption: string;
     steps: {
       title: string;
       description: string;
@@ -55,7 +53,6 @@ export interface ServicesPageContent {
   };
   stats: { value: string; label: string; description: string }[];
   serviceLabels: {
-    learnMore: string;
     applyNow: string;
     availability: string;
   };
@@ -72,45 +69,12 @@ export const serviceIcons: Record<ServiceType, LucideIcon> = {
   BUSINESS_LOAN: Briefcase,
 };
 
-export const serviceGradients: Record<ServiceType, string> = {
-  PERSONAL_LOAN: 'from-pink-500 via-rose-500 to-orange-500',
-  BUSINESS_LOAN: 'from-amber-500 via-orange-500 to-red-500',
-};
-
-export const serviceAccentColors: Record<ServiceType, string> = {
-  PERSONAL_LOAN: 'text-pink-500',
-  BUSINESS_LOAN: 'text-amber-500',
-};
-
-export const serviceImages: Record<ServiceType, string> = {
-  PERSONAL_LOAN: '/images/personal-loan.jpg',
-  BUSINESS_LOAN: '/images/business-loan.jpg',
-};
-
-export const loanDetailLinks: Record<ServiceType, string> = {
-  PERSONAL_LOAN: '/loans/personal',
-  BUSINESS_LOAN: '/loans/emergency',
-};
-
-export const highlightColors: Record<string, string> = {
-  'Most Popular': 'bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300',
-  'Paling Popular': 'bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300',
-  'Lowest Rate': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300',
-  'Kadar Terendah': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300',
-  'Best Value': 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300',
-  'Nilai Terbaik': 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300',
-  'SME Friendly': 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300',
-  'Mesra PKS': 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300',
-};
-
 export const pageContent: Record<Language, ServicesPageContent> = {
   en: {
     header: {
       badge: 'Trusted by 1,000+ Malaysians',
-      title: 'Choose Your',
-      titleHighlight: 'Loan Type',
-      subtitle:
-        'Competitive rates starting from 3.5% p.a. Eligibility analysis within 24 hours.',
+      title: 'Select a Loan Product',
+      subtitle: 'Competitive rates starting from 3.5% p.a. Eligibility analysis within 24 hours.',
       primaryCta: 'Start Eligibility Analysis',
       secondaryCta: 'Take 5-min Eligibility Test',
       supportNote:
@@ -119,11 +83,7 @@ export const pageContent: Record<Language, ServicesPageContent> = {
     analysisBanner: {
       title: 'Eligibility Analysis',
       price: 'RM30',
-      description:
-        'One-time fee includes CCRIS/CTOS check, DSR calculation & bank recommendations',
-    },
-    loanTypes: {
-      title: 'Select a Loan Product',
+      description: 'One-time fee includes CCRIS/CTOS check, DSR calculation & bank recommendations',
     },
     services: [
       {
@@ -135,11 +95,7 @@ export const pageContent: Record<Language, ServicesPageContent> = {
         tenure: '1-7 years',
         type: 'PERSONAL_LOAN',
         highlight: 'Most Popular',
-        features: [
-          'No collateral needed',
-          '24hr analysis',
-          'Flexible tenure',
-        ],
+        features: ['No collateral needed', '24hr analysis', 'Flexible tenure'],
       },
       {
         id: '4',
@@ -157,71 +113,35 @@ export const pageContent: Record<Language, ServicesPageContent> = {
       badge: 'Easy Process',
       title: 'How It Works',
       subtitle: 'Three steps to get lender-ready with GURU Credits',
-      imageCaption:
-        'Our consultants guide you from eligibility assessment to bank submission, so you always know the next step.',
       steps: [
-        {
-          title: '1. Share Your Profile',
-          description:
-            'Tell us your goals, income, and existing commitments in 5 minutes.',
-        },
-        {
-          title: '2. Get Expert Analysis',
-          description:
-            'We analyze your CCRIS/CTOS and DSR, then shortlist the right banks.',
-        },
-        {
-          title: '3. Submission & Guidance',
-          description:
-            'Receive personalized guidance through submission and follow-up.',
-        },
+        { title: '1. Share Your Profile', description: 'Tell us your goals, income, and existing commitments in 5 minutes.' },
+        { title: '2. Get Expert Analysis', description: 'We analyze your CCRIS/CTOS and DSR, then shortlist the right banks.' },
+        { title: '3. Submission & Guidance', description: 'Receive personalized guidance through submission and follow-up.' },
       ],
     },
     faq: {
       title: 'Frequently Asked Questions',
       subtitle: 'Everything you need to know about our loan services',
       items: [
-        {
-          question: 'What do I need to apply?',
-          answer:
-            'Identity card, 3 month payslips, and 3 month bank statements. That’s enough to start the analysis.',
-        },
-        {
-          question: 'How fast is the analysis?',
-          answer:
-            'Most analyses are completed within 24 hours once you submit all required documents.',
-        },
-        {
-          question: 'Is the RM30 fee refundable?',
-          answer:
-            'The RM30 covers your credit analysis and action plan, so it is non-refundable.',
-        },
-        {
-          question: 'Can I apply if I had CCRIS issues before?',
-          answer:
-            'Yes. We specialize in helping applicants with CCRIS/CTOS issues by recommending suitable banks.',
-        },
+        { question: 'What do I need to apply?', answer: 'Identity card, 3 month payslips, and 3 month bank statements. That’s enough to start the analysis.' },
+        { question: 'How fast is the analysis?', answer: 'Most analyses are completed within 24 hours once you submit all required documents.' },
+        { question: 'Is the RM30 fee refundable?', answer: 'The RM30 covers your credit analysis and action plan, so it is non-refundable.' },
+        { question: 'Can I apply if I had CCRIS issues before?', answer: 'Yes. We specialize in helping applicants with CCRIS/CTOS issues by recommending suitable banks.' },
       ],
     },
     stats: [
-      {
-        value: '1,000+',
-        label: 'Clients Guided',
-        description: 'Across Malaysia',
-      },
+      { value: '1,000+', label: 'Clients Guided', description: 'Across Malaysia' },
       { value: '85%', label: 'Approval Rate', description: 'With guidance' },
       { value: '24h', label: 'Turnaround', description: 'Eligibility report' },
       { value: 'RM30', label: 'Analysis Fee', description: 'Flat price' },
     ],
     serviceLabels: {
-      learnMore: 'Learn More',
       applyNow: 'Apply Now',
       availability: 'Available Now',
     },
     cta: {
       title: 'Ready to start your loan journey?',
-      subtitle:
-        'Get a RM30 eligibility analysis with expert guidance and bank recommendations.',
+      subtitle: 'Get a RM30 eligibility analysis with expert guidance and bank recommendations.',
       primary: 'Start Application',
       secondary: 'Chat on WhatsApp',
     },
@@ -229,10 +149,8 @@ export const pageContent: Record<Language, ServicesPageContent> = {
   ms: {
     header: {
       badge: 'Dipercayai 1,000+ Rakyat Malaysia',
-      title: 'Pilih',
-      titleHighlight: 'Jenis Pinjaman',
-      subtitle:
-        'Kadar kompetitif dari 3.5% setahun. Analisis kelayakan dalam 24 jam.',
+      title: 'Pilih Produk Pinjaman',
+      subtitle: 'Kadar kompetitif dari 3.5% setahun. Analisis kelayakan dalam 24 jam.',
       primaryCta: 'Mulakan Analisis Kelayakan',
       secondaryCta: 'Ujian Kelayakan 5 Minit',
       supportNote:
@@ -241,11 +159,7 @@ export const pageContent: Record<Language, ServicesPageContent> = {
     analysisBanner: {
       title: 'Analisis Kelayakan',
       price: 'RM30',
-      description:
-        'Bayaran sekali termasuk semakan CCRIS/CTOS, kiraan DSR & cadangan bank',
-    },
-    loanTypes: {
-      title: 'Pilih Produk Pinjaman',
+      description: 'Bayaran sekali termasuk semakan CCRIS/CTOS, kiraan DSR & cadangan bank',
     },
     services: [
       {
@@ -257,11 +171,7 @@ export const pageContent: Record<Language, ServicesPageContent> = {
         tenure: '1-7 tahun',
         type: 'PERSONAL_LOAN',
         highlight: 'Paling Popular',
-        features: [
-          'Tiada cagaran diperlukan',
-          'Analisis 24 jam',
-          'Tempoh fleksibel',
-        ],
+        features: ['Tiada cagaran diperlukan', 'Analisis 24 jam', 'Tempoh fleksibel'],
       },
       {
         id: '4',
@@ -272,87 +182,42 @@ export const pageContent: Record<Language, ServicesPageContent> = {
         tenure: '1-5 tahun',
         type: 'BUSINESS_LOAN',
         highlight: 'Mesra PKS',
-        features: [
-          'Modal pusingan',
-          'Pembiayaan aset',
-          'Sokongan pengembangan',
-        ],
+        features: ['Modal pusingan', 'Pembiayaan aset', 'Sokongan pengembangan'],
       },
     ],
     loanJourney: {
       badge: 'Proses Mudah',
       title: 'Cara Ia Berfungsi',
-      subtitle:
-        'Tiga langkah untuk sedia dihantar ke bank dengan GURU Credits',
-      imageCaption:
-        'Konsultan kami membimbing anda dari semakan kelayakan hingga penghantaran ke bank supaya anda tahu langkah seterusnya.',
+      subtitle: 'Tiga langkah untuk sedia dihantar ke bank dengan GURU Credits',
       steps: [
-        {
-          title: '1. Kongsi Profil Anda',
-          description:
-            'Kongsi matlamat, pendapatan, dan komitmen sedia ada dalam 5 minit.',
-        },
-        {
-          title: '2. Dapatkan Analisis Pakar',
-          description:
-            'Kami analisis CCRIS/CTOS dan DSR anda, kemudian senaraikan bank yang sesuai.',
-        },
-        {
-          title: '3. Penghantaran & Panduan',
-          description:
-            'Terima panduan peribadi hingga permohonan dihantar dan diikuti.',
-        },
+        { title: '1. Kongsi Profil Anda', description: 'Kongsi matlamat, pendapatan, dan komitmen sedia ada dalam 5 minit.' },
+        { title: '2. Dapatkan Analisis Pakar', description: 'Kami analisis CCRIS/CTOS dan DSR anda, kemudian senaraikan bank yang sesuai.' },
+        { title: '3. Penghantaran & Panduan', description: 'Terima panduan peribadi hingga permohonan dihantar dan diikuti.' },
       ],
     },
     faq: {
       title: 'Soalan Lazim',
       subtitle: 'Semua yang anda perlu tahu mengenai perkhidmatan pinjaman kami',
       items: [
-        {
-          question: 'Apa dokumen yang diperlukan?',
-          answer:
-            'Kad pengenalan, slip gaji 3 bulan, dan penyata bank 3 bulan. Cukup untuk mulakan analisis.',
-        },
-        {
-          question: 'Berapa pantas analisis?',
-          answer:
-            'Kebanyakan analisis siap dalam 24 jam selepas semua dokumen diterima.',
-        },
-        {
-          question: 'Adakah yuran RM30 boleh dikembalikan?',
-          answer:
-            'RM30 meliputi analisis kredit dan pelan tindakan, jadi ia tidak dikembalikan.',
-        },
-        {
-          question: 'Boleh mohon jika ada isu CCRIS?',
-          answer:
-            'Ya. Kami pakar membantu pemohon dengan isu CCRIS/CTOS dengan mencadangkan bank yang sesuai.',
-        },
+        { question: 'Apa dokumen yang diperlukan?', answer: 'Kad pengenalan, slip gaji 3 bulan, dan penyata bank 3 bulan. Cukup untuk mulakan analisis.' },
+        { question: 'Berapa pantas analisis?', answer: 'Kebanyakan analisis siap dalam 24 jam selepas semua dokumen diterima.' },
+        { question: 'Adakah yuran RM30 boleh dikembalikan?', answer: 'RM30 meliputi analisis kredit dan pelan tindakan, jadi ia tidak dikembalikan.' },
+        { question: 'Boleh mohon jika ada isu CCRIS?', answer: 'Ya. Kami pakar membantu pemohon dengan isu CCRIS/CTOS dengan mencadangkan bank yang sesuai.' },
       ],
     },
     stats: [
-      {
-        value: '1,000+',
-        label: 'Pelanggan Dibantu',
-        description: 'Seluruh Malaysia',
-      },
-      {
-        value: '85%',
-        label: 'Kadar Kejayaan',
-        description: 'Dengan panduan',
-      },
+      { value: '1,000+', label: 'Pelanggan Dibantu', description: 'Seluruh Malaysia' },
+      { value: '85%', label: 'Kadar Kejayaan', description: 'Dengan panduan' },
       { value: '24j', label: 'Analisis', description: 'Laporan kelayakan' },
       { value: 'RM30', label: 'Yuran Analisis', description: 'Harga tetap' },
     ],
     serviceLabels: {
-      learnMore: 'Ketahui lanjut',
       applyNow: 'Mohon sekarang',
       availability: 'Tersedia',
     },
     cta: {
       title: 'Sedia untuk mulakan perjalanan pinjaman?',
-      subtitle:
-        'Dapatkan analisis kelayakan RM30 dengan panduan pakar dan cadangan bank.',
+      subtitle: 'Dapatkan analisis kelayakan RM30 dengan panduan pakar dan cadangan bank.',
       primary: 'Mulakan Permohonan',
       secondary: 'Sembang WhatsApp',
     },

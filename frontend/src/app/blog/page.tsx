@@ -2,159 +2,19 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
+import { ArrowRight, Calendar, Clock } from 'lucide-react';
 import { LocaleLink } from '@/components/LocaleLink';
-import {
-  BookOpen,
-  Search,
-  Calendar,
-  Clock,
-  ArrowRight,
-  TrendingUp,
-  Lightbulb,
-  Newspaper,
-  BarChart3,
-  ChevronRight,
-} from 'lucide-react';
+import { ListingShell, CardGrid, ListingCard } from '@/components/listings';
+import { FilterBar, EmptyState } from '@/components/layout';
 import { blogPosts, blogCategories, type BlogPost } from '@/lib/blog-data';
 import { useLanguage } from '@/lib/i18n';
 import { SEO } from '@/lib/constants';
 import { WebPageJsonLd } from '@/components/JsonLd';
-
-// Bilingual page content
-const pageContent = {
-  en: {
-    header: {
-      badge: 'Knowledge Center',
-      title: 'Blog &',
-      titleHighlight: 'Resources',
-      description: 'Expert insights, tips, and guides to help you navigate loans, credit, and financial planning in Malaysia.',
-    },
-    featured: {
-      badge: 'Featured Article',
-      button: 'Read Article',
-    },
-    search: {
-      placeholder: 'Search articles...',
-      results: (count: number) => `${count} article${count !== 1 ? 's' : ''} found`,
-      noResults: {
-        title: 'No articles found',
-        description: 'Try adjusting your search or filter to find what you\'re looking for.',
-        button: 'Clear filters',
-      },
-    },
-    readMore: 'Read more',
-    minRead: 'min read',
-    min: 'min',
-    popularTopics: 'Popular Topics',
-    loanGuides: {
-      title: 'Loan Guides Hub',
-      description: 'Short, actionable playbooks to improve approvals and compare options.',
-      cta: 'Open guide',
-      items: [
-        {
-          title: 'Credit Score Guide',
-          description: 'Repair CCRIS/CTOS fast and boost approval odds.',
-          href: '/loan-guides/credit-score',
-        },
-        {
-          title: 'Debt Consolidation Plan',
-          description: 'Combine debts and lower monthly payments.',
-          href: '/loan-guides/debt-consolidation',
-        },
-      ],
-    },
-    categories: {
-      all: 'All',
-      tips: 'Tips',
-      guide: 'Guide',
-      news: 'News',
-      analysis: 'Analysis',
-    },
-    cta: {
-      title: 'Need Personalized Advice?',
-      description: 'Our expert consultants can help you with credit analysis, loan applications, and financial planning.',
-      viewServices: 'View Our Services',
-      contactUs: 'Contact Us',
-    },
-  },
-  ms: {
-    header: {
-      badge: 'Pusat Pengetahuan',
-      title: 'Blog &',
-      titleHighlight: 'Sumber',
-      description: 'Pandangan pakar, petua, dan panduan untuk membantu anda mengemudi pinjaman, kredit, dan perancangan kewangan di Malaysia.',
-    },
-    featured: {
-      badge: 'Artikel Pilihan',
-      button: 'Baca Artikel',
-    },
-    search: {
-      placeholder: 'Cari artikel...',
-      results: (count: number) => `${count} artikel dijumpai`,
-      noResults: {
-        title: 'Tiada artikel dijumpai',
-        description: 'Cuba laraskan carian atau penapis anda untuk mencari apa yang anda cari.',
-        button: 'Kosongkan penapis',
-      },
-    },
-    readMore: 'Baca lagi',
-    minRead: 'min baca',
-    min: 'min',
-    popularTopics: 'Topik Popular',
-    loanGuides: {
-      title: 'Hab Panduan Pinjaman',
-      description: 'Panduan ringkas untuk tingkatkan kelulusan dan banding pilihan.',
-      cta: 'Buka panduan',
-      items: [
-        {
-          title: 'Panduan Skor Kredit',
-          description: 'Baiki CCRIS/CTOS dan tingkatkan peluang kelulusan.',
-          href: '/loan-guides/credit-score',
-        },
-        {
-          title: 'Pelan Penyatuan Hutang',
-          description: 'Gabungkan hutang dan kurangkan ansuran.',
-          href: '/loan-guides/debt-consolidation',
-        },
-      ],
-    },
-    categories: {
-      all: 'Semua',
-      tips: 'Petua',
-      guide: 'Panduan',
-      news: 'Berita',
-      analysis: 'Analisis',
-    },
-    cta: {
-      title: 'Perlukan Nasihat Peribadi?',
-      description: 'Perunding pakar kami boleh membantu anda dengan analisis kredit, permohonan pinjaman, dan perancangan kewangan.',
-      viewServices: 'Lihat Perkhidmatan Kami',
-      contactUs: 'Hubungi Kami',
-    },
-  },
-};
-
-const categoryIcons: Record<string, typeof BookOpen> = {
-  tips: Lightbulb,
-  guide: BookOpen,
-  news: Newspaper,
-  analysis: BarChart3,
-};
-
-const categoryColors: Record<string, string> = {
-  tips: 'bg-amber-100 text-amber-800 border-amber-200',
-  guide: 'bg-blue-100 text-blue-800 border-blue-200',
-  news: 'bg-green-100 text-green-800 border-green-200',
-  analysis: 'bg-purple-100 text-purple-800 border-purple-200',
-};
+import { blogUi } from '@/lib/content/listings/blog';
 
 export default function BlogPage() {
   const { language } = useLanguage();
-  const t = pageContent[language];
+  const t = blogUi[language];
 
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -174,14 +34,14 @@ export default function BlogPage() {
     });
   };
 
-  const getCategoryLabel = (categoryId: string) => {
-    const key = categoryId as keyof typeof t.categories;
-    return t.categories[key] || categoryId;
-  };
+  const getTitle = (post: BlogPost) => (language === 'ms' ? post.titleMs : post.title);
+  const getExcerpt = (post: BlogPost) => (language === 'ms' ? post.excerptMs : post.excerpt);
 
-  // Helper to get localized content
-  const getTitle = (post: BlogPost) => language === 'ms' ? post.titleMs : post.title;
-  const getExcerpt = (post: BlogPost) => language === 'ms' ? post.excerptMs : post.excerpt;
+  const categories = blogCategories.map((category) => ({
+    id: category.id,
+    label: language === 'ms' ? category.labelMs : category.label,
+  }));
+  const getCategoryLabel = (categoryId: string) => categories.find((c) => c.id === categoryId)?.label ?? categoryId;
 
   const filteredPosts = sortedPosts.filter((post) => {
     const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
@@ -195,257 +55,146 @@ export default function BlogPage() {
     return matchesCategory && matchesSearch;
   });
 
-  const featuredPost = sortedPosts[0];
+  const popularTags = Array.from(new Set(sortedPosts.flatMap((post) => post.tags))).slice(0, 15);
 
   return (
-    <div className="relative py-16 lg:py-24 overflow-hidden">
-      <div className="absolute inset-0 hero-grid opacity-25" aria-hidden="true" />
+    <>
       <WebPageJsonLd
         url={`${SEO.url}/blog`}
-        title={`${t.header.title} ${t.header.titleHighlight}`}
-        description={t.header.description}
+        title={t.title}
+        description={t.lede}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Blog', url: `${SEO.url}/blog` },
         ]}
       />
-      <div className="absolute top-10 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" aria-hidden="true" />
-      <div className="container relative">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <Badge variant="outline" className="mb-4 px-4 py-1.5">
-            <BookOpen className="h-3 w-3 mr-1" />
-            {t.header.badge}
-          </Badge>
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-            {t.header.title} <span className="gradient-text">{t.header.titleHighlight}</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {t.header.description}
-          </p>
-        </div>
+      <ListingShell
+        language={language}
+        breadcrumbs={[{ label: t.breadcrumbHome, href: '/' }, { label: t.breadcrumbBlog }]}
+        eyebrow={t.eyebrow}
+        title={t.title}
+        lede={t.lede}
+      >
+        <FilterBar
+          query={searchQuery}
+          onQueryChange={setSearchQuery}
+          placeholder={t.searchPlaceholder}
+          categories={categories}
+          active={selectedCategory}
+          onSelect={setSelectedCategory}
+          className="-mt-16 mb-10 lg:-mt-24"
+        />
 
-        {/* Featured Post */}
-        <Card className="mb-12 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/10 border-2 border-primary/20 surface-card">
-          <div className="grid lg:grid-cols-2 gap-6">
-            <div className="p-8 lg:p-12 flex flex-col justify-center">
-              <Badge className={`w-fit mb-4 ${categoryColors[featuredPost.category]}`}>
-                <TrendingUp className="h-3 w-3 mr-1" />
-                {t.featured.badge}
-              </Badge>
-              <h2 className="text-2xl lg:text-3xl font-bold mb-4">
-                {getTitle(featuredPost)}
-              </h2>
-              <p className="text-muted-foreground mb-6">
-                {getExcerpt(featuredPost)}
-              </p>
-              <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
-                <span className="flex items-center gap-1">
-                  <Calendar className="h-4 w-4" />
-                  {formatDate(featuredPost.publishedAt)}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Clock className="h-4 w-4" />
-                  {featuredPost.readTime} {t.minRead}
-                </span>
-              </div>
-              <Button asChild className="w-fit btn-gradient text-primary-foreground">
-                <LocaleLink href={`/blog/${featuredPost.slug}`}>
-                  {t.featured.button}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </LocaleLink>
-              </Button>
-            </div>
-            <div className="relative min-h-[220px] lg:min-h-full">
-              <Image
-                src={featuredPost.image}
-                alt={getTitle(featuredPost)}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-                priority
-                unoptimized
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            </div>
-          </div>
-        </Card>
-
-        {/* Search and Filter */}
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder={t.search.placeholder}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-11"
-            />
-          </div>
-          <div className="flex gap-2 flex-wrap">
-            {blogCategories.map((category) => {
-              const Icon = categoryIcons[category.id] || BookOpen;
-              return (
-                <Button
-                  key={category.id}
-                  variant={selectedCategory === category.id ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setSelectedCategory(category.id)}
+        {filteredPosts.length === 0 ? (
+          <EmptyState
+            title={t.noResults.title}
+            description={t.noResults.description}
+            action={
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('all');
+                }}
+                className="text-sm font-semibold text-primary"
+              >
+                {t.noResults.action}
+              </button>
+            }
+          />
+        ) : (
+          <CardGrid columns={3} className="mb-12">
+            {filteredPosts.map((post, index) =>
+              index === 0 ? (
+                <article
+                  key={post.slug}
+                  className="grid overflow-hidden rounded-2xl border border-border bg-surface sm:col-span-2 md:grid-cols-[1.2fr_1fr] lg:col-span-3"
                 >
-                  {category.id !== 'all' && <Icon className="h-3 w-3 mr-1" />}
-                  {getCategoryLabel(category.id)}
-                </Button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Results Count */}
-        <p className="text-sm text-muted-foreground mb-6">
-          {t.search.results(filteredPosts.length)}
-        </p>
-
-        {/* Articles Grid */}
-        {filteredPosts.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {filteredPosts.map((post) => {
-              const CategoryIcon = categoryIcons[post.category] || BookOpen;
-              return (
-                <Card key={post.slug} className="group hover:shadow-lg transition-all duration-300 hover:border-primary/50 surface-card">
-                  <div className="relative h-40 overflow-hidden rounded-t-xl">
+                  <div className="flex flex-col justify-center gap-4 p-6 lg:p-10">
+                    <p className="eyebrow">{t.featuredBadge}</p>
+                    <h2 className="text-2xl lg:text-3xl">
+                      <LocaleLink href={`/blog/${post.slug}`} className="hover:underline">
+                        {getTitle(post)}
+                      </LocaleLink>
+                    </h2>
+                    <p className="text-foreground-muted">{getExcerpt(post)}</p>
+                    <div className="flex flex-wrap items-center gap-4 text-sm text-foreground-subtle">
+                      <span className="inline-flex items-center gap-1">
+                        <Calendar className="size-4" aria-hidden="true" />
+                        {formatDate(post.publishedAt)}
+                      </span>
+                      <span className="inline-flex items-center gap-1">
+                        <Clock className="size-4" aria-hidden="true" />
+                        {post.readTime} {t.minRead}
+                      </span>
+                    </div>
+                    <LocaleLink href={`/blog/${post.slug}`} className="inline-flex w-fit items-center gap-1 text-sm font-semibold text-primary">
+                      {t.featuredCta}
+                      <ArrowRight className="size-4" aria-hidden="true" />
+                    </LocaleLink>
+                  </div>
+                  <div className="relative min-h-[220px] md:min-h-full">
                     <Image
                       src={post.image}
                       alt={getTitle(post)}
                       fill
-                      sizes="(max-width: 1024px) 100vw, 33vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover"
+                      priority
                       unoptimized
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   </div>
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between mb-3">
-                      <Badge variant="outline" className={categoryColors[post.category]}>
-                        <CategoryIcon className="h-3 w-3 mr-1" />
-                        {getCategoryLabel(post.category)}
-                      </Badge>
-                      <span className="text-xs text-muted-foreground flex items-center gap-1">
-                        <Clock className="h-3 w-3" />
-                        {post.readTime} {t.min}
-                      </span>
-                    </div>
-                    <LocaleLink href={`/blog/${post.slug}`}>
-                      <h3 className="font-semibold text-lg group-hover:text-primary transition-colors line-clamp-2">
-                        {getTitle(post)}
-                      </h3>
-                    </LocaleLink>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                      {getExcerpt(post)}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-muted-foreground flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
-                        {formatDate(post.publishedAt)}
-                      </span>
-                      <LocaleLink
-                        href={`/blog/${post.slug}`}
-                        className="text-sm text-primary font-medium flex items-center gap-1 hover:underline"
-                      >
-                        {t.readMore}
-                        <ChevronRight className="h-3 w-3" />
-                      </LocaleLink>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        ) : (
-          <Card className="p-12 text-center mb-12 surface-card">
-            <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">{t.search.noResults.title}</h3>
-            <p className="text-muted-foreground mb-4">
-              {t.search.noResults.description}
-            </p>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('all');
-              }}
-            >
-              {t.search.noResults.button}
-            </Button>
-          </Card>
+                </article>
+              ) : (
+                <ListingCard
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  eyebrow={getCategoryLabel(post.category)}
+                  title={getTitle(post)}
+                  description={getExcerpt(post)}
+                  meta={`${post.readTime} ${t.minRead} · ${formatDate(post.publishedAt)}`}
+                  cta={t.readMore}
+                />
+              ),
+            )}
+          </CardGrid>
         )}
 
-        {/* Popular Tags */}
-        <Card className="p-6 mb-12 surface-card">
-          <h3 className="font-semibold mb-4">{t.popularTopics}</h3>
-          <div className="flex flex-wrap gap-2">
-            {Array.from(new Set(sortedPosts.flatMap((post) => post.tags)))
-              .slice(0, 15)
-              .map((tag) => (
-                <Badge
+        {popularTags.length > 0 ? (
+          <section className="mb-12">
+            <h2 className="mb-4 text-lg font-semibold">{t.popularTopics}</h2>
+            <div className="flex flex-wrap gap-2">
+              {popularTags.map((tag) => (
+                <button
                   key={tag}
-                  variant="outline"
-                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                  type="button"
                   onClick={() => setSearchQuery(tag)}
+                  className="rounded-full border border-border px-3.5 py-1.5 text-sm text-foreground-muted transition-colors hover:border-border-strong hover:text-foreground"
                 >
                   {tag}
-                </Badge>
+                </button>
               ))}
-          </div>
-        </Card>
-
-        <Card className="p-6 mb-12 surface-card">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-6">
-            <div>
-              <h3 className="font-semibold text-lg">{t.loanGuides.title}</h3>
-              <p className="text-sm text-muted-foreground">{t.loanGuides.description}</p>
             </div>
-            <Button asChild variant="outline" size="sm">
-              <LocaleLink href="/loan-guides">{t.loanGuides.cta}</LocaleLink>
-            </Button>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {t.loanGuides.items.map((guide) => (
-              <LocaleLink
-                key={guide.href}
-                href={guide.href}
-                className="rounded-2xl border bg-white/70 p-4 text-sm transition hover:border-primary/40 hover:shadow-sm"
-              >
-                <p className="font-semibold text-foreground mb-1">{guide.title}</p>
-                <p className="text-muted-foreground">{guide.description}</p>
-              </LocaleLink>
-            ))}
-          </div>
-        </Card>
+          </section>
+        ) : null}
 
-        {/* CTA */}
-        <Card className="bg-gradient-to-br from-primary/5 via-background to-primary/10 border-2 border-primary/20 p-8 text-center surface-card">
-          <h3 className="text-2xl font-bold mb-2">{t.cta.title}</h3>
-          <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-            {t.cta.description}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild size="lg" className="btn-gradient text-primary-foreground">
-              <LocaleLink href="/services">
-                {t.cta.viewServices}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </LocaleLink>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <LocaleLink href="/contact">
-                {t.cta.contactUs}
-              </LocaleLink>
-            </Button>
+        <section>
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-lg font-semibold">{t.loanGuides.title}</h2>
+              <p className="text-sm text-foreground-muted">{t.loanGuides.description}</p>
+            </div>
+            <LocaleLink href="/loan-guides" className="text-sm font-semibold text-primary">
+              {t.loanGuides.cta}
+            </LocaleLink>
           </div>
-        </Card>
-      </div>
-    </div>
+          <CardGrid columns={2}>
+            {t.loanGuides.items.map((item) => (
+              <ListingCard key={item.href} href={item.href} title={item.title} description={item.description} cta={t.loanGuides.cta} />
+            ))}
+          </CardGrid>
+        </section>
+      </ListingShell>
+    </>
   );
 }

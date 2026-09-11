@@ -15,9 +15,6 @@ import {
   ServicesJsonLd,
   GeoCoverageJsonLd,
 } from "@/components/JsonLd";
-import { ClientWidgets } from "@/components/ClientWidgets";
-import { ScrollProgress } from "@/components/ui/scroll-progress";
-
 const defaultOgImage = new URL(SEO.shareImage, SEO.url).toString();
 
 const geist = Geist({
@@ -125,7 +122,7 @@ export default async function RootLayout({
 }>) {
   const locale = await resolveRequestLanguage();
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale}>
       <head>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
@@ -147,8 +144,6 @@ export default async function RootLayout({
             </main>
             <Footer />
           </div>
-          <ScrollProgress />
-          <ClientWidgets />
           <Toaster />
         </Providers>
       </body>

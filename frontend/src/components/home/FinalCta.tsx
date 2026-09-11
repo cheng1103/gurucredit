@@ -5,9 +5,8 @@ import { LocaleLink } from '@/components/LocaleLink';
 import { COMPANY } from '@/lib/constants';
 import { PATHS } from '@/lib/i18n/routes';
 import type { HomeContent } from '@/lib/content/home';
-import type { Language } from '@/lib/i18n/translations';
 
-export function FinalCta({ t }: { t: HomeContent; language: Language }) {
+export function FinalCta({ t }: { t: HomeContent }) {
   const c = t.cta;
   return (
     <Section id="final-cta" tone="inverse">

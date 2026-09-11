@@ -9,6 +9,7 @@ import { useLanguage } from '@/lib/i18n';
 import { calculateDsrOutcome } from '@/lib/dsr';
 import { ArrowRight, CheckCircle2, AlertCircle, XCircle } from 'lucide-react';
 import { LocaleLink } from '@/components/LocaleLink';
+import { PATHS } from '@/lib/i18n/routes';
 import { cn } from '@/lib/utils';
 
 const content = {
@@ -212,9 +213,9 @@ export function PreApprovalCalculator() {
         </div>
       </div>
 
-      <div id="calc-results" className="min-h-[320px]">
+      <div id="calc-results" className="min-h-[320px] lg:min-h-[480px]">
         {!hasIncome || !calculation || !tone ? (
-          <div className="flex h-full min-h-[320px] items-center justify-center rounded-2xl border border-dashed border-border-strong p-8 text-center text-sm text-foreground-muted">
+          <div className="flex h-full min-h-[320px] items-center justify-center rounded-2xl border border-dashed border-border-strong p-8 text-center text-sm text-foreground-muted lg:min-h-[480px]">
             {language === 'ms'
               ? 'Masukkan pendapatan bulanan untuk lihat kelayakan secara langsung.'
               : 'Enter your monthly income to see eligibility update live as you adjust the sliders.'}
@@ -268,7 +269,7 @@ export function PreApprovalCalculator() {
 
             {calculation.status !== 'declined' && (
               <Button asChild size="lg" className="mt-6 w-full sm:w-auto">
-                <LocaleLink href="/eligibility-test">
+                <LocaleLink href={PATHS.eligibilityTest}>
                   {t.applyNow}
                   <ArrowRight className="size-4" />
                 </LocaleLink>

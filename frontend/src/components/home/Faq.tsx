@@ -4,9 +4,8 @@ import { LocaleLink } from '@/components/LocaleLink';
 import { FaqAccordion } from '@/components/sections/FaqAccordion';
 import { PATHS } from '@/lib/i18n/routes';
 import type { HomeContent } from '@/lib/content/home';
-import type { Language } from '@/lib/i18n/translations';
 
-export function Faq({ t }: { t: HomeContent; language: Language }) {
+export function Faq({ t }: { t: HomeContent }) {
   const f = t.faq;
   return (
     <Section id="faq">

@@ -67,7 +67,7 @@ export const homeContent: Record<Language, HomeContent> = {
   en: {
     hero: {
       eyebrow: 'Licensed lender · Moneylenders Act 1951',
-      title: 'Know if you will be approved',
+      title: 'Know if your loan will be approved',
       titleAccent: 'before you apply.',
       lede: 'A two-minute check of your income, commitments and CCRIS/CTOS position. We tell you the workable route, in writing, within 24 hours.',
       primaryCta: 'Start the 2-minute check',
@@ -188,13 +188,13 @@ export const homeContent: Record<Language, HomeContent> = {
   ms: {
     hero: {
       eyebrow: 'Pemberi pinjaman berlesen · Akta Pemberi Pinjam Wang 1951',
-      title: 'Tahu sama ada anda akan diluluskan',
+      title: 'Tahu sama ada pinjaman anda akan diluluskan',
       titleAccent: 'sebelum memohon.',
       lede: 'Semakan dua minit ke atas pendapatan, komitmen dan kedudukan CCRIS/CTOS anda. Kami beritahu laluan yang sesuai, secara bertulis, dalam 24 jam.',
       primaryCta: 'Mula semakan 2 minit',
       secondaryCta: 'WhatsApp perunding',
       trustLine: 'Tiada bayaran di laman web ini. Yuran CTOS RM30 diselesaikan hanya melalui WhatsApp rasmi kami.',
-      logosLabel: 'Pemberi pinjaman yang kami kerjasama',
+      logosLabel: 'Pemberi pinjaman yang bekerjasama dengan kami',
     },
     howItWorks: {
       eyebrow: 'Cara ia berfungsi',
@@ -214,7 +214,7 @@ export const homeContent: Record<Language, HomeContent> = {
     },
     products: {
       eyebrow: 'Produk pinjaman',
-      title: 'Distrukturkan ikut fail kredit anda.',
+      title: 'Disusun mengikut fail kredit anda.',
       lede: 'Kadar dalam had berkanun. Tempoh satu hingga tujuh tahun. Setiap tawaran disertakan dengan alasannya.',
       cta: 'Ketahui lebih lanjut',
       items: [
@@ -242,7 +242,7 @@ export const homeContent: Record<Language, HomeContent> = {
       points: [
         { title: 'Anda pinjam terus daripada pemberi pinjaman', description: 'Berlesen di bawah Akta Pemberi Pinjam Wang 1951. Tiada orang tengah, tiada kejar komisen.' },
         { title: 'Setiap laporan disertakan analisis', description: 'Tarikan CTOS RM30 digandingkan dengan bacaan CCRIS bertulis, pengiraan semula DSR dan tawaran berstruktur.' },
-        { title: 'Kami kata tidak lebih awal', description: 'Jika kami tidak boleh luluskan, anda tahu secara bertulis dalam 24 jam, bukan selepas menunggu dua minggu tanpa jawapan.' },
+        { title: 'Kami beritahu awal jika tidak layak', description: 'Jika kami tidak boleh luluskan, anda tahu secara bertulis dalam 24 jam, bukan selepas menunggu dua minggu tanpa jawapan.' },
         { title: 'Dijejak dengan nombor rujukan', description: 'Setiap kes ada rujukan. Jika kami terlepas tempoh 24 jam, kami maklumkan anda dahulu.' },
       ],
       casesTitle: 'Kes tanpa nama dari 12 bulan lepas',
@@ -252,7 +252,7 @@ export const homeContent: Record<Language, HomeContent> = {
           name: 'Rajesh K.',
           location: 'Shah Alam, Selangor',
           situation: 'Dua penanda lewat dari 2023. Ditolak oleh dua bank untuk pinjaman rumah pada bulan yang sama.',
-          action: 'Padankan fail dengan pemberi pinjaman yang menilai penanda lama secara berbeza dan bina semula pakej penyerahan.',
+          action: 'Kami padankan fail dengan pemberi pinjaman yang menilai penanda lama secara berbeza dan bina semula pakej penyerahan.',
           outcome: 'RM420,000 diluluskan dalam 11 hari bekerja',
           quote: 'Saya sangka perlu tunggu setahun lagi untuk penanda itu hilang.',
         },
@@ -260,7 +260,7 @@ export const homeContent: Record<Language, HomeContent> = {
           name: 'Tan W.M.',
           location: 'George Town, Pulau Pinang',
           situation: 'Perniagaan F&B empat tahun perlukan modal kerja. Tiga bank minta akaun beraudit yang beliau belum ada.',
-          action: 'Susun semula fail berdasarkan penyata bank dan rekod cukai, gugurkan pemberi pinjaman yang mewajibkan audit.',
+          action: 'Fail disusun semula berdasarkan penyata bank dan rekod cukai; pemberi pinjaman yang mewajibkan audit digugurkan.',
           outcome: 'RM180,000 diluluskan dalam 9 hari bekerja',
           quote: 'Tiada siapa beritahu saya sesetengah bank tidak perlukan akaun beraudit pada peringkat saya.',
         },
@@ -268,7 +268,7 @@ export const homeContent: Record<Language, HomeContent> = {
           name: 'Nurul H.',
           location: 'Johor Bahru, Johor',
           situation: 'DSR pada 74% daripada tiga kad kredit dan pinjaman kereta. Pinjaman peribadi ditolak dua kali.',
-          action: 'Satukan kad kredit ke dalam satu kemudahan dahulu, DSR turun ke 52%, kemudian mohon.',
+          action: 'Kad kredit disatukan ke dalam satu kemudahan dahulu sehingga DSR turun ke 52%, kemudian permohonan dihantar.',
           outcome: 'RM45,000 diluluskan, komitmen bulanan turun RM610',
           quote: 'Langkah penyatuan itu yang saya takkan fikirkan sendiri.',
         },

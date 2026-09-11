@@ -28,12 +28,12 @@ export default async function HomePage() {
       />
       <Hero t={t} language={language} />
       <HowItWorks t={t} />
-      <Products t={t} language={language} />
+      <Products t={t} />
       <CalculatorSection t={t} />
       <Proof t={t} />
-      <Transparency t={t} language={language} />
-      <Faq t={t} language={language} />
-      <FinalCta t={t} language={language} />
+      <Transparency t={t} />
+      <Faq t={t} />
+      <FinalCta t={t} />
     </div>
   );
 }

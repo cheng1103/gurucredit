@@ -139,6 +139,7 @@ export function Navbar() {
             <LocaleLink
               key={item.href}
               href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
               className={cn(
                 'rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-surface-alt hover:text-foreground',
                 isActive(item.href) ? 'text-foreground' : 'text-foreground-muted',
@@ -166,7 +167,7 @@ export function Navbar() {
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-full border-l-0 bg-surface p-0 sm:max-w-sm">
+            <SheetContent side="right" className="w-full border-l-0 bg-surface p-0" aria-describedby={undefined}>
               <SheetTitle className="sr-only">{t.menuTitle}</SheetTitle>
               <div className="flex h-full flex-col">
                 <div className="border-b border-border px-6 py-4">

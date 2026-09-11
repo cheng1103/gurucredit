@@ -15,11 +15,9 @@ export function HowItWorks({ t }: { t: HomeContent }) {
         <ol className="grid gap-8 md:grid-cols-3 md:gap-6">
           {s.steps.map((step, i) => (
             <li key={step.title} className="flex flex-col gap-3 border-t border-border pt-5">
-              <Reveal delay={i * 0.06} className="flex flex-col gap-3">
-                <span className="font-mono text-sm font-semibold text-foreground-subtle">{String(i + 1).padStart(2, '0')}</span>
-                <h3 className="text-xl">{step.title}</h3>
-                <p className="text-foreground-muted">{step.description}</p>
-              </Reveal>
+              <span className="font-mono text-sm font-semibold text-foreground-subtle">{String(i + 1).padStart(2, '0')}</span>
+              <h3 className="text-xl">{step.title}</h3>
+              <p className="text-foreground-muted">{step.description}</p>
             </li>
           ))}
         </ol>

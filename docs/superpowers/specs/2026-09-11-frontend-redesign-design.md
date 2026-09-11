@@ -31,13 +31,13 @@
 | `--border-strong` | #d4d4d4 | 输入框 hover / 表格线 |
 | `--foreground` | #0a0a0a | 标题、主文字 |
 | `--foreground-muted` | #525252 | 正文次要 |
-| `--foreground-subtle` | #737373 | 标签、辅助 |
+| `--foreground-subtle` | #6b6b6b | 标签、辅助 |
 | `--primary` | #2563eb | 主按钮、链接、强调 |
 | `--primary-hover` | #1d4ed8 | |
 | `--primary-soft` | #eff6ff | 强调底色（badge、选中态） |
-| `--success` | #16a34a | 「通过 / 强」状态 |
+| `--success` | #15803d | 「通过 / 强」状态 |
 | `--success-soft` | #f0fdf4 | |
-| `--warning` | #d97706 | 风险提示 |
+| `--warning` | #b45309 | 风险提示 |
 | `--warning-soft` | #fffbeb | |
 | `--destructive` | #dc2626 | 表单错误 |
 | `--inverse` | #0a0a0a | 全站唯一深色块（Final CTA）底色 |

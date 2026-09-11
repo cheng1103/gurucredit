@@ -232,8 +232,9 @@ export function QuickLeadCapture({
           </div>
         </div>
 
-        <Button type="submit" className="w-full sm:w-auto" disabled={isLoading}>
-          {isLoading ? <Loader2 className="size-4 animate-spin" /> : (<>{t.submit}<ArrowRight className="size-4" /></>)}
+        <Button type="submit" className="w-full sm:w-auto" disabled={isLoading} aria-busy={isLoading}>
+          {isLoading ? <Loader2 className="size-4 animate-spin" /> : <ArrowRight className="size-4" />}
+          {t.submit}
         </Button>
       </form>
     </div>

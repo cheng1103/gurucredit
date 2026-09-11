@@ -16,7 +16,7 @@ describe('HowItWorks + Products', () => {
   it('renders three product cards linking to their pages', () => {
     render(
       <LanguageProvider>
-        <Products t={homeContent.en} language="en" />
+        <Products t={homeContent.en} />
       </LanguageProvider>,
     );
     expect(screen.getAllByRole('link', { name: /Learn more/ })).toHaveLength(3);

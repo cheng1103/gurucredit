@@ -19,5 +19,10 @@ test('mobile sticky CTA appears below the hero on the homepage', async ({ page }
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await page.mouse.wheel(0, 2000);
-  await expect(page.getByRole('link', { name: /Check eligibility/i })).toBeVisible();
+  const link = page.getByRole('link', { name: /Check eligibility/i });
+  await expect(link).toBeVisible();
+  const box = await link.boundingBox();
+  expect(box).not.toBeNull();
+  expect(box!.y + box!.height).toBeLessThanOrEqual(844);
+  expect(box!.y).toBeGreaterThan(0);
 });

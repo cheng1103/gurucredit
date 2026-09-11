@@ -36,6 +36,9 @@ export function Step2Contact({
 }) {
   const emailValid = isValidEmail(formData.email);
   const phoneValid = isValidPhone(formData.phone);
+  const nameHasError = !!getFieldError(errors, 'name');
+  const phoneHasError = !!getFieldError(errors, 'phone');
+  const emailHasError = !!getFieldError(errors, 'email');
 
   return (
     <>
@@ -51,13 +54,14 @@ export function Step2Contact({
               onChange={(e) => onChange('name', e.target.value)}
               onBlur={() => onBlur('name')}
               className="pl-10"
-              aria-invalid={!!getFieldError(errors, 'name')}
+              aria-invalid={nameHasError}
+              aria-describedby={nameHasError ? 'name-error' : undefined}
               autoComplete="name"
               required
             />
           </div>
-          {getFieldError(errors, 'name') && (
-            <p className="text-sm text-destructive">{getFieldError(errors, 'name')}</p>
+          {nameHasError && (
+            <p id="name-error" className="text-sm text-destructive">{getFieldError(errors, 'name')}</p>
           )}
         </div>
 
@@ -73,19 +77,20 @@ export function Step2Contact({
               onChange={(e) => onChange('phone', e.target.value)}
               onBlur={() => onBlur('phone')}
               className="pl-10 pr-10"
-              aria-invalid={!!getFieldError(errors, 'phone')}
+              aria-invalid={phoneHasError}
+              aria-describedby={phoneHasError ? 'phone-error' : undefined}
               autoComplete="tel"
               required
             />
-            {phoneValid && !getFieldError(errors, 'phone') && (
+            {phoneValid && !phoneHasError && (
               <CheckCircle
                 className="absolute right-3.5 top-1/2 -translate-y-1/2 size-4 text-success"
                 aria-label={t.a11y.validPhone}
               />
             )}
           </div>
-          {getFieldError(errors, 'phone') && (
-            <p className="text-sm text-destructive">{getFieldError(errors, 'phone')}</p>
+          {phoneHasError && (
+            <p id="phone-error" className="text-sm text-destructive">{getFieldError(errors, 'phone')}</p>
           )}
         </div>
       </div>
@@ -102,19 +107,20 @@ export function Step2Contact({
             onChange={(e) => onChange('email', e.target.value)}
             onBlur={() => onBlur('email')}
             className="pl-10 pr-10"
-            aria-invalid={!!getFieldError(errors, 'email')}
+            aria-invalid={emailHasError}
+            aria-describedby={emailHasError ? 'email-error' : undefined}
             autoComplete="email"
             required
           />
-          {emailValid && !getFieldError(errors, 'email') && (
+          {emailValid && !emailHasError && (
             <CheckCircle
               className="absolute right-3.5 top-1/2 -translate-y-1/2 size-4 text-success"
               aria-label={t.a11y.validEmail}
             />
           )}
         </div>
-        {getFieldError(errors, 'email') ? (
-          <p className="text-sm text-destructive">{getFieldError(errors, 'email')}</p>
+        {emailHasError ? (
+          <p id="email-error" className="text-sm text-destructive">{getFieldError(errors, 'email')}</p>
         ) : (
           <p className="text-xs text-foreground-subtle">{t.form.emailNote}</p>
         )}
@@ -122,11 +128,12 @@ export function Step2Contact({
 
       <div className="space-y-2">
         <Label>{t.form.employmentType} *</Label>
-        <div className="grid grid-cols-2 gap-3">
+        <div role="group" aria-label={t.form.employmentType} className="grid grid-cols-2 gap-3">
           {EMPLOYMENT_TYPES.map((value) => (
             <button
               key={value}
               type="button"
+              aria-pressed={formData.employmentType === value}
               onClick={() => onEmploymentTypeChange(value)}
               className={cn(
                 'rounded-lg border-2 p-3 text-sm font-medium transition-colors',

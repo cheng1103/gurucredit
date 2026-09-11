@@ -15,6 +15,7 @@ import { PATHS } from '@/lib/i18n/routes';
 import { SERVICE_AREAS } from '@/lib/constants';
 import { loanApplicationSchema, validateForm } from '@/lib/validation';
 import { applyContent, type ApplyServiceContent } from '@/lib/content/apply';
+import { getIncomeBand } from './analytics';
 import { Stepper } from './Stepper';
 import { ApplySidebar } from './ApplySidebar';
 import { Step1Eligibility } from './steps/Step1Eligibility';
@@ -65,6 +66,11 @@ export function ApplyWizard({ serviceId, service }: { serviceId: string; service
   useEffect(() => {
     trackEvent('service_apply_start', { service_id: serviceId, service_name: service.name, language });
   }, [language, service.name, serviceId]);
+
+  const parseAmount = (value: string) => {
+    const parsed = parseFloat(value);
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
 
   const setFieldError = (field: string, message?: string) => {
     setErrors((prev) => {
@@ -123,7 +129,13 @@ export function ApplyWizard({ serviceId, service }: { serviceId: string; service
         toast.error(t.toast.fillRequired);
         return;
       }
-      trackEvent('apply_step_1_complete', { service_id: serviceId, service_area: formData.serviceArea, language });
+      trackEvent('apply_step_1_complete', {
+        service_id: serviceId,
+        service_area: formData.serviceArea,
+        income_band: getIncomeBand(parseAmount(formData.monthlyIncome)),
+        loan_amount: parseAmount(formData.loanAmount),
+        language,
+      });
     }
 
     if (step === 2) {
@@ -178,7 +190,12 @@ export function ApplyWizard({ serviceId, service }: { serviceId: string; service
         contactPreference: data.contactPreference || undefined,
       });
 
-      trackEvent('apply_submit_success', { service_id: serviceId, employment_type: formData.employmentType, language });
+      trackEvent('apply_submit_success', {
+        service_id: serviceId,
+        employment_type: formData.employmentType,
+        income_band: getIncomeBand(parseAmount(formData.monthlyIncome)),
+        language,
+      });
       toast.success(t.toast.success);
       const referenceId = response.data?.id;
       router.push(referenceId ? `/services/success?service=${serviceId}&ref=${referenceId}` : `/services/success?service=${serviceId}`);

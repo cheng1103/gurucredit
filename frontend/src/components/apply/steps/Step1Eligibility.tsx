@@ -20,6 +20,10 @@ export function Step1Eligibility({
   onChange: (field: keyof ApplyFormData, value: string) => void;
   onBlur: (field: keyof ApplyFormData) => void;
 }) {
+  const serviceAreaHasError = !!getFieldError(errors, 'serviceArea');
+  const monthlyIncomeHasError = !!getFieldError(errors, 'monthlyIncome');
+  const loanAmountHasError = !!getFieldError(errors, 'loanAmount');
+
   return (
     <>
       <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 text-sm text-foreground-muted">
@@ -35,9 +39,10 @@ export function Step1Eligibility({
           onBlur={() => onBlur('serviceArea')}
           className={cn(
             'h-11 w-full rounded-lg border border-border bg-surface px-3.5 text-sm text-foreground outline-none transition-[border-color,box-shadow] hover:border-border-strong focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/20',
-            getFieldError(errors, 'serviceArea') && 'border-destructive focus-visible:ring-destructive/20',
+            serviceAreaHasError && 'border-destructive focus-visible:ring-destructive/20',
           )}
-          aria-invalid={!!getFieldError(errors, 'serviceArea')}
+          aria-invalid={serviceAreaHasError}
+          aria-describedby={serviceAreaHasError ? 'serviceArea-error' : undefined}
         >
           {SERVICE_AREAS.map((area) => (
             <option key={area.regionCode} value={area.regionCode}>
@@ -45,7 +50,11 @@ export function Step1Eligibility({
             </option>
           ))}
         </select>
-        <p className="text-xs text-foreground-subtle">{t.form.serviceArea.helper}</p>
+        {serviceAreaHasError ? (
+          <p id="serviceArea-error" className="text-sm text-destructive">{getFieldError(errors, 'serviceArea')}</p>
+        ) : (
+          <p className="text-xs text-foreground-subtle">{t.form.serviceArea.helper}</p>
+        )}
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
@@ -61,14 +70,15 @@ export function Step1Eligibility({
               onChange={(e) => onChange('monthlyIncome', e.target.value)}
               onBlur={() => onBlur('monthlyIncome')}
               className="pl-10"
-              aria-invalid={!!getFieldError(errors, 'monthlyIncome')}
+              aria-invalid={monthlyIncomeHasError}
+              aria-describedby={monthlyIncomeHasError ? 'monthlyIncome-error' : undefined}
               inputMode="numeric"
               min="0"
               required
             />
           </div>
-          {getFieldError(errors, 'monthlyIncome') ? (
-            <p className="text-sm text-destructive">{getFieldError(errors, 'monthlyIncome')}</p>
+          {monthlyIncomeHasError ? (
+            <p id="monthlyIncome-error" className="text-sm text-destructive">{getFieldError(errors, 'monthlyIncome')}</p>
           ) : (
             <p className="text-xs text-foreground-subtle">{t.form.incomeNote}</p>
           )}
@@ -86,14 +96,15 @@ export function Step1Eligibility({
               onChange={(e) => onChange('loanAmount', e.target.value)}
               onBlur={() => onBlur('loanAmount')}
               className="pl-10"
-              aria-invalid={!!getFieldError(errors, 'loanAmount')}
+              aria-invalid={loanAmountHasError}
+              aria-describedby={loanAmountHasError ? 'loanAmount-error' : undefined}
               inputMode="numeric"
               min="0"
               required
             />
           </div>
-          {getFieldError(errors, 'loanAmount') ? (
-            <p className="text-sm text-destructive">{getFieldError(errors, 'loanAmount')}</p>
+          {loanAmountHasError ? (
+            <p id="loanAmount-error" className="text-sm text-destructive">{getFieldError(errors, 'loanAmount')}</p>
           ) : (
             <p className="text-xs text-foreground-subtle">{t.form.desiredAmountNote}</p>
           )}
@@ -102,22 +113,30 @@ export function Step1Eligibility({
 
       <div className="space-y-2">
         <Label>{t.quickQuestions.contactPreference}</Label>
-        <div className="grid grid-cols-2 gap-2">
-          {t.quickQuestions.options.map((pref) => (
-            <button
-              key={pref.value}
-              type="button"
-              onClick={() => onChange('contactPreference', pref.value)}
-              className={cn(
-                'rounded-lg border p-2 text-xs transition-colors sm:text-sm',
-                formData.contactPreference === pref.value
-                  ? 'border-primary bg-primary/5 font-medium text-primary'
-                  : 'border-border hover:border-primary/40',
-              )}
-            >
-              {pref.label}
-            </button>
-          ))}
+        <div
+          role="group"
+          aria-label={t.quickQuestions.contactPreference}
+          className="grid grid-cols-2 gap-2"
+        >
+          {t.quickQuestions.options.map((pref) => {
+            const selected = formData.contactPreference === pref.value;
+            return (
+              <button
+                key={pref.value}
+                type="button"
+                aria-pressed={selected}
+                onClick={() => onChange('contactPreference', pref.value)}
+                className={cn(
+                  'rounded-lg border p-2 text-xs transition-colors sm:text-sm',
+                  selected
+                    ? 'border-primary bg-primary/5 font-medium text-primary'
+                    : 'border-border hover:border-primary/40',
+                )}
+              >
+                {pref.label}
+              </button>
+            );
+          })}
         </div>
         <p className="text-xs text-foreground-subtle">{t.quickQuestions.contactNote}</p>
       </div>

@@ -228,6 +228,8 @@ const nextConfig: NextConfig = {
       { source: '/calculator', destination: '/eligibility-test', permanent: true },
       { source: '/dsr-calculator', destination: '/eligibility-test', permanent: true },
       { source: '/loan-calculator', destination: '/tools/compare', permanent: true },
+      { source: '/compare', destination: '/tools/compare', permanent: true },
+      { source: '/ms/compare', destination: '/ms/tools/compare', permanent: true },
     ];
   },
   async headers() {

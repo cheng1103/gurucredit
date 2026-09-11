@@ -77,7 +77,6 @@ export const PATHS = {
   toolsCompare: '/tools/compare',
 
   // info
-  compare: '/compare',
   verifyUs: '/verify-us',
   editorialPolicy: '/editorial-policy',
   reviewMethodology: '/review-methodology',

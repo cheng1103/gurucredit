@@ -15,6 +15,12 @@ for (const route of ROUTES) {
   });
 }
 
+test('/compare redirects permanently to /tools/compare', async ({ page }) => {
+  const res = await page.request.get('/compare', { maxRedirects: 0 });
+  expect(res.status()).toBe(308);
+  expect(res.headers()['location']).toMatch(/\/tools\/compare$/);
+});
+
 test('mobile sticky CTA appears below the hero on the homepage', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');

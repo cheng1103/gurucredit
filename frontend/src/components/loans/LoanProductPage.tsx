@@ -1,4 +1,4 @@
-import { AlertTriangle, CheckCircle2, MessageCircle, Sparkles } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, MessageCircle, Phone, Sparkles } from 'lucide-react';
 import { PageHeader, Section, Container, SectionHeader, Stat, ClosingCta } from '@/components/layout';
 import { Button } from '@/components/ui/button';
 import { LocaleLink } from '@/components/LocaleLink';
@@ -8,6 +8,7 @@ import { COMPANY } from '@/lib/constants';
 import { PATHS } from '@/lib/i18n/routes';
 import type { Language } from '@/lib/i18n/translations';
 import type { LoanProductDoc, LoanProductContent } from '@/lib/content/loans/types';
+import { cn } from '@/lib/utils';
 
 const ui = {
   en: { home: 'Home', loans: 'Loans', guidedPlan: 'Guided plan rate', monthlyPayment: 'Estimated monthly payment' },
@@ -78,6 +79,12 @@ export function LoanProductPage({ doc, language }: { doc: LoanProductDoc; langua
               <div>
                 <p className="font-semibold text-foreground">{c.urgentBanner.title}</p>
                 <p className="mt-1 text-sm text-foreground-muted">{c.urgentBanner.body}</p>
+                <a
+                  href={COMPANY.phoneLink}
+                  className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground underline underline-offset-4"
+                >
+                  <Phone className="size-4" /> {COMPANY.phone}
+                </a>
               </div>
             </div>
           </Container>
@@ -126,7 +133,7 @@ export function LoanProductPage({ doc, language }: { doc: LoanProductDoc; langua
           <Container>
             <SectionHeader title={c.comparison.title} />
             <div className="grid gap-6 lg:grid-cols-2">
-              <div className="rounded-2xl border border-border bg-surface p-6">
+              <div className="tabular rounded-2xl border border-border bg-surface p-6">
                 <h3 className="font-semibold text-foreground">{c.comparison.before.title}</h3>
                 <div className="mt-4 divide-y divide-border">
                   {c.comparison.before.items.map((item) => (
@@ -175,7 +182,14 @@ export function LoanProductPage({ doc, language }: { doc: LoanProductDoc; langua
       {checklistBlocks.length > 0 ? (
         <Section tone="alt">
           <Container>
-            <div className="grid gap-6 lg:grid-cols-3">
+            <div
+              className={cn(
+                'grid gap-6',
+                checklistBlocks.length === 1 && 'max-w-2xl',
+                checklistBlocks.length === 2 && 'lg:grid-cols-2',
+                checklistBlocks.length === 3 && 'lg:grid-cols-3',
+              )}
+            >
               {checklistBlocks.map((block) => (
                 <ChecklistCard key={block.title} block={block} />
               ))}

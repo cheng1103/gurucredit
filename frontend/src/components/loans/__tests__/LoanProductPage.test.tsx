@@ -32,5 +32,6 @@ describe('LoanProductPage', () => {
 
     expect(screen.getByText(c.urgentBanner!.title)).toBeInTheDocument();
     expect(screen.getAllByRole('heading', { level: 3 }).length).toBeGreaterThanOrEqual(6);
+    expect(screen.getByRole('link', { name: /011-2748 6389/ })).toHaveAttribute('href', 'tel:+601127486389');
   });
 });

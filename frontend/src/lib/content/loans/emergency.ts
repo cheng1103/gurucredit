@@ -1,4 +1,4 @@
-import { COMPANY, TRUST_BLOCK } from '@/lib/constants';
+import { TRUST_BLOCK } from '@/lib/constants';
 import { PATHS } from '@/lib/i18n/routes';
 import type { LoanProductDoc } from './types';
 
@@ -12,7 +12,7 @@ export const emergencyLoan: LoanProductDoc = {
       lede: 'Fast guidance when you need it most — same-day analysis for urgent financial needs.',
       urgentBanner: {
         title: 'Need Cash Today?',
-        body: `Call ${COMPANY.phone} now for priority processing.`,
+        body: 'Priority processing for medical, vehicle and household emergencies. Call us for same-day review.',
       },
       stats: [
         { value: '2–4hrs', label: 'Express analysis' },
@@ -99,7 +99,7 @@ export const emergencyLoan: LoanProductDoc = {
       lede: 'Panduan pantas bila anda perlukan — analisis hari yang sama untuk keperluan kewangan segera.',
       urgentBanner: {
         title: 'Perlukan Wang Hari Ini?',
-        body: `Hubungi ${COMPANY.phone} sekarang untuk pemprosesan keutamaan.`,
+        body: 'Pemprosesan keutamaan untuk kecemasan perubatan, kenderaan dan isi rumah. Hubungi kami untuk semakan hari yang sama.',
       },
       stats: [
         { value: '2–4jam', label: 'Analisis ekspres' },

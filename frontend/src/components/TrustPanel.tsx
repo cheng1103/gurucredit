@@ -1,5 +1,6 @@
 import { ShieldCheck } from 'lucide-react';
 import { Container, Section, SectionHeader } from '@/components/layout';
+import { cn } from '@/lib/utils';
 
 interface TrustItem {
   title: string;
@@ -25,7 +26,7 @@ export function TrustPanel({ title, description, items }: TrustPanelProps) {
           }
           lede={description}
         />
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className={cn('grid gap-4 sm:grid-cols-2', items.length === 3 && 'lg:grid-cols-3')}>
           {items.map((item) => (
             <div key={item.title} className="rounded-2xl border border-border bg-surface p-5">
               <p className="font-semibold text-foreground">{item.title}</p>

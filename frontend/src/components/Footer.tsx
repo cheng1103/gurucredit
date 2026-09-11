@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Logo, slogans } from './Logo';
+import { Logo } from './Logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -23,6 +23,8 @@ import { useTranslation, localeHref } from '@/lib/i18n';
 import { COMPANY, SERVICE_AREA_LABEL } from '@/lib/constants';
 import { newsletterAPI } from '@/lib/api';
 import { toast } from 'sonner';
+
+const slogans = { en: 'Credit Made Simple', ms: 'Kredit Mudah, Hidup Lebih Tenang' };
 
 // Bilingual footer content
 const footerContent = {
@@ -231,7 +233,7 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             {/* Brand Column */}
             <div className="space-y-6">
-              <Logo size="sm" />
+              <Logo size={24} />
               <div className="space-y-1">
                 <p className="text-sm font-medium text-foreground">{t.slogan}</p>
                 <p className="text-sm italic text-muted-foreground">{t.sloganMs}</p>

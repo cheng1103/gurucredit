@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Logo, slogans } from '@/components/Logo';
+import { Logo } from '@/components/Logo';
 import { aboutContent } from './data';
 import { teamMembers } from './team-data';
 import { LocaleLink } from '@/components/LocaleLink';
@@ -28,6 +28,8 @@ import {
 import type { Language } from '@/lib/i18n/translations';
 import { COMPANY } from '@/lib/constants';
 
+const slogans = { en: 'Credit Made Simple', ms: 'Kredit Mudah, Hidup Lebih Tenang' };
+
 // Bilingual page content
 
 type AboutContentProps = {
@@ -51,7 +53,7 @@ export default function AboutContent({ language }: AboutContentProps) {
             {t.header.badge}
           </Badge>
           <div className="flex justify-center mb-6">
-            <Logo size="lg" />
+            <Logo size={56} />
           </div>
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             {t.header.title} <span className="gradient-text">{t.header.titleHighlight}</span>

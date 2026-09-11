@@ -21,6 +21,12 @@ test('/compare redirects permanently to /tools/compare', async ({ page }) => {
   expect(res.headers()['location']).toMatch(/\/tools\/compare$/);
 });
 
+test('/this-page-does-not-exist renders the 404 page with one h1', async ({ page }) => {
+  const res = await page.goto('/this-page-does-not-exist');
+  expect(res?.status()).toBe(404);
+  await expect(page.locator('h1')).toHaveCount(1);
+});
+
 test('mobile sticky CTA appears below the hero on the homepage', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');

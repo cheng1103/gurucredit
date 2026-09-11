@@ -1,36 +1,41 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
+import { RefreshCw, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { AlertTriangle, RefreshCw, Home, MessageCircle } from 'lucide-react';
-import Link from 'next/link';
+import { Section, Container } from '@/components/layout';
 import { COMPANY } from '@/lib/constants';
 
 const COPY = {
   en: {
-    kicker: 'Unexpected error',
-    headline: 'Something broke on our side.',
-    body: 'This is on us, not you. The page hit an unexpected error and could not load. Try refreshing — if it still fails, reach us on WhatsApp and we will sort it out.',
-    reference: 'Reference:',
+    eyebrow: 'Error',
+    title: 'Something broke on our side.',
+    description: 'This is on us, not you. Try again, or reach us on WhatsApp and we will sort it out.',
     tryAgain: 'Try again',
-    backHome: 'Back to home',
     whatsapp: 'WhatsApp support',
   },
   ms: {
-    kicker: 'Ralat tidak dijangka',
-    headline: 'Sesuatu tidak kena di pihak kami.',
-    body: 'Ini salah kami, bukan anda. Halaman ini tersekat oleh ralat yang tidak dijangka dan gagal dimuatkan. Cuba muat semula — jika masih gagal, hubungi kami di WhatsApp dan kami akan uruskan.',
-    reference: 'Rujukan:',
+    eyebrow: 'Ralat',
+    title: 'Sesuatu tidak kena di pihak kami.',
+    description: 'Ini salah kami, bukan anda. Cuba lagi, atau hubungi kami di WhatsApp dan kami akan uruskan.',
     tryAgain: 'Cuba lagi',
-    backHome: 'Kembali ke utama',
     whatsapp: 'Sokongan WhatsApp',
   },
 };
 
 function detectLanguage(): 'en' | 'ms' {
-  if (typeof document === 'undefined') return 'en';
   const match = document.cookie.match(/(?:^|;\s*)gc_lang=(en|ms)/);
   return match?.[1] === 'ms' ? 'ms' : 'en';
+}
+
+// No cookie-change events to subscribe to — this only needs the value read
+// once per mount, so the subscriber is a no-op.
+function subscribe() {
+  return () => {};
+}
+
+function getServerLanguage(): 'en' | 'ms' {
+  return 'en';
 }
 
 export default function Error({
@@ -40,64 +45,38 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  const [lang, setLang] = useState<'en' | 'ms'>('en');
+  // useSyncExternalStore reads the cookie (an external system) directly rather
+  // than setting state from an effect: the server snapshot is always 'en', so
+  // hydration matches, then React re-renders with the real client value —
+  // avoiding both a hydration mismatch and a setState-in-effect cascade.
+  const lang = useSyncExternalStore(subscribe, detectLanguage, getServerLanguage);
 
   useEffect(() => {
-    // Detected post-mount from the cookie so the server (always 'en') and the
-    // first client render match — avoids a hydration mismatch on the error page.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setLang(detectLanguage());
     console.error('Route error:', error);
   }, [error]);
 
   const t = COPY[lang];
 
   return (
-    <div className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex items-center">
-      <div className="absolute inset-0 hero-grid opacity-30" aria-hidden="true" />
-      <div className="absolute top-20 right-0 w-[30rem] h-[30rem] bg-destructive/5 rounded-full blur-3xl" aria-hidden="true" />
-      <div className="container relative py-16 lg:py-24">
-        <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-destructive font-semibold mb-6">
-            <AlertTriangle className="h-3.5 w-3.5" aria-hidden="true" />
-            {t.kicker}
-          </div>
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-[-0.03em] text-foreground mb-6">
-            {t.headline}
-          </h1>
-          <p className="text-lg text-muted-foreground leading-relaxed max-w-xl mb-4">
-            {t.body}
-          </p>
-          {error.digest && (
-            <p className="text-xs text-muted-foreground font-mono mb-10">
-              {t.reference} <span className="text-foreground">{error.digest}</span>
-            </p>
-          )}
-
-          <div className="flex flex-col sm:flex-row gap-3 border-t border-border/60 pt-8">
-            <Button size="lg" className="h-12 px-8 rounded-full" onClick={reset}>
-              <RefreshCw className="mr-2 h-4 w-4" />
-              {t.tryAgain}
-            </Button>
-            <Button variant="outline" size="lg" className="h-12 px-6 rounded-full" asChild>
-              <Link href="/">
-                <Home className="mr-2 h-4 w-4" />
-                {t.backHome}
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              className="h-12 px-6 rounded-full bg-emerald-700 text-white hover:bg-emerald-600 border-0"
-            >
-              <Link href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="mr-2 h-4 w-4" />
-                {t.whatsapp}
-              </Link>
-            </Button>
-          </div>
+    <Section className="flex min-h-[calc(100vh-4rem)] items-center">
+      <Container size="prose" className="text-center">
+        <p className="eyebrow mb-3 text-destructive">{t.eyebrow}</p>
+        <h1 className="text-4xl lg:text-5xl">{t.title}</h1>
+        <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-foreground-muted">{t.description}</p>
+        {error.digest ? <p className="mt-2 font-mono text-xs text-foreground-subtle">{error.digest}</p> : null}
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <Button size="lg" onClick={reset}>
+            <RefreshCw className="size-4" aria-hidden="true" />
+            {t.tryAgain}
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <a href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">
+              <MessageCircle className="size-4" aria-hidden="true" />
+              {t.whatsapp}
+            </a>
+          </Button>
         </div>
-      </div>
-    </div>
+      </Container>
+    </Section>
   );
 }

@@ -18,7 +18,8 @@ export default async function PartnersPage() {
       <WebPageJsonLd
         url={`${SEO.url}/partners`}
         title="Bank Partners"
-        description="Partner banks across Malaysia offering personal, home, and SME financing options."
+        description="Partner banks across Malaysia offering personal, car, home, and SME financing options."
+        image="/images/hero-bg.jpg"
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Partners', url: `${SEO.url}/partners` },

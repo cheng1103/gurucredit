@@ -37,3 +37,4 @@ lighthouse-report*.json
 # Playwright output
 test-results/
 playwright-report/
+.superpowers/

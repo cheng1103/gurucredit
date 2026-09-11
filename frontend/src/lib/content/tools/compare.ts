@@ -219,6 +219,8 @@ export const compareUi = {
             'Fixed monthly payments',
             'Fast 24-hour decision (est.)',
             'Flexible tenure options',
+            'Competitive interest rates',
+            'Easy online application',
           ],
         },
         car: {
@@ -237,6 +239,8 @@ export const compareUi = {
             'Up to 90% financing margin',
             'Competitive rates from 3.5%',
             'Long tenure up to 9 years',
+            'Quick decision process',
+            'Insurance bundling available',
           ],
         },
         home: {
@@ -255,6 +259,8 @@ export const compareUi = {
             'Long tenure up to 35 years',
             'Competitive rates from 4.0%',
             'Flexible repayment options',
+            'Free property valuation',
+            'MRTA/MLTA options available',
           ],
         },
         business: {
@@ -273,6 +279,8 @@ export const compareUi = {
             'Equipment purchase loans',
             'Business expansion funding',
             'Flexible collateral options',
+            'Government grant assistance',
+            'SME-friendly terms',
           ],
         },
       } satisfies Record<ProductKey, ProductInfo>,
@@ -384,6 +392,8 @@ export const compareUi = {
             'Bayaran bulanan tetap',
             'Keputusan cepat 24 jam (anggaran)',
             'Pilihan tempoh fleksibel',
+            'Kadar faedah kompetitif',
+            'Permohonan dalam talian mudah',
           ],
         },
         car: {
@@ -402,6 +412,8 @@ export const compareUi = {
             'Margin pembiayaan sehingga 90%',
             'Kadar kompetitif dari 3.5%',
             'Tempoh panjang sehingga 9 tahun',
+            'Proses keputusan cepat',
+            'Pakej insurans tersedia',
           ],
         },
         home: {
@@ -420,6 +432,8 @@ export const compareUi = {
             'Tempoh panjang sehingga 35 tahun',
             'Kadar kompetitif dari 4.0%',
             'Pilihan pembayaran fleksibel',
+            'Penilaian hartanah percuma',
+            'Pilihan MRTA/MLTA tersedia',
           ],
         },
         business: {
@@ -438,6 +452,8 @@ export const compareUi = {
             'Pinjaman pembelian peralatan',
             'Pendanaan pengembangan perniagaan',
             'Pilihan cagaran fleksibel',
+            'Bantuan geran kerajaan',
+            'Terma mesra PKS',
           ],
         },
       } satisfies Record<ProductKey, ProductInfo>,

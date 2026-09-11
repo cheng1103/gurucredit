@@ -8,13 +8,11 @@ import {
   CheckCircle,
   MessageCircle,
   RefreshCw,
-  Sparkles,
   TrendingUp,
   XCircle,
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { LocaleLink } from '@/components/LocaleLink';
 import { CardGrid, ListingCard } from '@/components/listings';
@@ -136,10 +134,6 @@ export function EligibilityTest({ language }: { language: Language }) {
               <div className={cn('mx-auto mb-4 flex size-16 items-center justify-center rounded-full border-4', tone.border, tone.bg)}>
                 <ResultIcon className={cn('size-8', tone.text)} aria-hidden="true" />
               </div>
-              <Badge variant="outline" className="mb-4">
-                <Sparkles className="size-3" aria-hidden="true" />
-                {t.result.yourScore}
-              </Badge>
               <div className="mb-4 flex justify-center">
                 <Stat value={`${averageScore}/100`} label={t.result.yourScore} tone={resultLevel === 'poor' ? 'default' : 'primary'} />
               </div>

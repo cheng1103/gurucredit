@@ -6,6 +6,7 @@ import { Hero } from '@/components/home/Hero';
 import { HowItWorks } from '@/components/home/HowItWorks';
 import { Products } from '@/components/home/Products';
 import { CalculatorSection } from '@/components/home/CalculatorSection';
+import { Proof } from '@/components/home/Proof';
 
 export const revalidate = 300;
 
@@ -26,6 +27,7 @@ export default async function HomePage() {
       <HowItWorks t={t} />
       <Products t={t} language={language} />
       <CalculatorSection t={t} />
+      <Proof t={t} />
     </div>
   );
 }

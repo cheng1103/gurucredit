@@ -5,6 +5,7 @@ import { WebPageJsonLd } from '@/components/JsonLd';
 import { Hero } from '@/components/home/Hero';
 import { HowItWorks } from '@/components/home/HowItWorks';
 import { Products } from '@/components/home/Products';
+import { CalculatorSection } from '@/components/home/CalculatorSection';
 
 export const revalidate = 300;
 
@@ -24,6 +25,7 @@ export default async function HomePage() {
       <Hero t={t} language={language} />
       <HowItWorks t={t} />
       <Products t={t} language={language} />
+      <CalculatorSection t={t} />
     </div>
   );
 }

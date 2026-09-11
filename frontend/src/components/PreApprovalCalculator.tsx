@@ -1,28 +1,15 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
 import { Slider } from '@/components/ui/slider';
 import { useLanguage } from '@/lib/i18n';
 import { calculateDsrOutcome } from '@/lib/dsr';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  CheckCircle2,
-  XCircle,
-  AlertCircle,
-  ArrowRight,
-  Calculator,
-  Sparkles,
-  TrendingUp,
-  Wallet,
-  Building2,
-  CreditCard,
-} from 'lucide-react';
+import { ArrowRight, CheckCircle2, AlertCircle, XCircle } from 'lucide-react';
 import { LocaleLink } from '@/components/LocaleLink';
+import { cn } from '@/lib/utils';
 
 const content = {
   en: {
@@ -169,295 +156,127 @@ export function PreApprovalCalculator() {
     }).format(value);
   };
 
-  const getStatusIcon = () => {
-    if (!calculation) return null;
-    switch (calculation.status) {
-      case 'approved':
-        return <CheckCircle2 className="h-16 w-16 text-green-500" />;
-      case 'conditional':
-        return <AlertCircle className="h-16 w-16 text-yellow-500" />;
-      case 'declined':
-        return <XCircle className="h-16 w-16 text-red-500" />;
-    }
-  };
-
-  const getStatusColor = () => {
-    if (!calculation) return 'bg-muted';
-    switch (calculation.status) {
-      case 'approved':
-        return 'bg-green-500/10 border-green-500/20';
-      case 'conditional':
-        return 'bg-yellow-500/10 border-yellow-500/20';
-      case 'declined':
-        return 'bg-red-500/10 border-red-500/20';
-    }
-  };
-
-  const getDsrColor = (dsr: number) => {
-    if (dsr <= 50) return 'text-green-500';
-    if (dsr <= 70) return 'text-yellow-500';
-    return 'text-red-500';
-  };
+  const status = calculation?.status;
+  const statusTone = {
+    approved: { icon: CheckCircle2, text: 'text-success', bg: 'bg-success-soft border-success/30', bar: 'bg-success' },
+    conditional: { icon: AlertCircle, text: 'text-warning', bg: 'bg-warning-soft border-warning/30', bar: 'bg-warning' },
+    declined: { icon: XCircle, text: 'text-destructive', bg: 'bg-destructive/5 border-destructive/30', bar: 'bg-destructive' },
+  } as const;
+  const tone = status ? statusTone[status] : null;
+  const StatusIcon = tone?.icon ?? CheckCircle2;
+  const dsr = calculation?.dsr ?? 0;
 
   return (
-    <section className="py-16">
-      <div className="container">
-        <div className="text-center mb-10">
-          <Badge variant="secondary" className="mb-4">
-            <Sparkles className="h-3 w-3 mr-1" />
-            {t.badge}
-          </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-3">{t.title}</h2>
-          <p className="text-muted-foreground text-lg">{t.subtitle}</p>
+    <div className="grid gap-6 lg:grid-cols-[360px_1fr] lg:items-start">
+      <div className="rounded-2xl border border-border bg-surface p-5 lg:sticky lg:top-24 lg:p-6">
+        <div className="space-y-5">
+          <div className="space-y-1.5">
+            <Label htmlFor="income">{t.income.label}</Label>
+            <div className="relative">
+              <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-foreground-subtle">RM</span>
+              <Input id="income" type="number" inputMode="numeric" placeholder={t.income.placeholder} value={income} onChange={(e) => setIncome(e.target.value)} className="pl-11 font-mono" />
+            </div>
+            <p className="text-xs text-foreground-subtle">{t.income.helper}</p>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="commitments">{t.commitments.label}</Label>
+            <div className="relative">
+              <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-foreground-subtle">RM</span>
+              <Input id="commitments" type="number" inputMode="numeric" placeholder={t.commitments.placeholder} value={commitments} onChange={(e) => setCommitments(e.target.value)} className="pl-11 font-mono" />
+            </div>
+            <p className="text-xs text-foreground-subtle">{t.commitments.helper}</p>
+          </div>
+
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <Label>{t.loanAmount.label}</Label>
+              <span className="font-mono text-sm font-semibold">{formatCurrency(loanAmount)}</span>
+            </div>
+            <Slider value={[loanAmount]} onValueChange={(v) => setLoanAmount(v[0])} min={5000} max={500000} step={5000} thumbLabels={[t.loanAmount.label]} />
+            <div className="flex justify-between font-mono text-[11px] text-foreground-subtle"><span>RM 5,000</span><span>RM 500,000</span></div>
+          </div>
+
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <Label>{t.tenure.label}</Label>
+              <span className="font-mono text-sm font-semibold">{tenure} {t.tenure.years}</span>
+            </div>
+            <Slider value={[tenure]} onValueChange={(v) => setTenure(v[0])} min={1} max={10} step={1} thumbLabels={[t.tenure.label]} />
+            <div className="flex justify-between font-mono text-[11px] text-foreground-subtle"><span>1 {t.tenure.years}</span><span>10 {t.tenure.years}</span></div>
+          </div>
+
+          <Button type="button" className="w-full" onClick={() => document.getElementById('calc-results')?.scrollIntoView?.({ behavior: 'smooth', block: 'nearest' })}>
+            {t.calculate}
+          </Button>
         </div>
+      </div>
 
-        <div className="max-w-4xl mx-auto">
-          <div>
-            <div>
-              <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Calculator className="h-5 w-5 text-primary" />
-                      {t.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      {/* Income */}
-                      <div className="space-y-2">
-                        <Label htmlFor="income" className="flex items-center gap-2">
-                          <Wallet className="h-4 w-4 text-primary" />
-                          {t.income.label}
-                        </Label>
-                        <div className="relative">
-                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                            RM
-                          </span>
-                          <Input
-                            id="income"
-                            type="number"
-                            placeholder={t.income.placeholder}
-                            value={income}
-                            onChange={(e) => setIncome(e.target.value)}
-                            className="pl-12"
-                          />
-                        </div>
-                        <p className="text-xs text-muted-foreground">{t.income.helper}</p>
-                      </div>
-
-                      {/* Commitments */}
-                      <div className="space-y-2">
-                        <Label htmlFor="commitments" className="flex items-center gap-2">
-                          <CreditCard className="h-4 w-4 text-primary" />
-                          {t.commitments.label}
-                        </Label>
-                        <div className="relative">
-                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                            RM
-                          </span>
-                          <Input
-                            id="commitments"
-                            type="number"
-                            placeholder={t.commitments.placeholder}
-                            value={commitments}
-                            onChange={(e) => setCommitments(e.target.value)}
-                            className="pl-12"
-                          />
-                        </div>
-                        <p className="text-xs text-muted-foreground">{t.commitments.helper}</p>
-                      </div>
-                    </div>
-
-                    {/* Loan Amount Slider */}
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <Label className="flex items-center gap-2">
-                          <Building2 className="h-4 w-4 text-primary" />
-                          {t.loanAmount.label}
-                        </Label>
-                        <span className="text-lg font-semibold text-primary">
-                          {formatCurrency(loanAmount)}
-                        </span>
-                      </div>
-                      <Slider
-                        value={[loanAmount]}
-                        onValueChange={(value) => setLoanAmount(value[0])}
-                        min={5000}
-                        max={500000}
-                        step={5000}
-                        thumbLabels={[t.loanAmount.label]}
-                        className="py-4"
-                      />
-                      <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>RM 5,000</span>
-                        <span>RM 500,000</span>
-                      </div>
-                    </div>
-
-                    {/* Tenure Slider */}
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <Label className="flex items-center gap-2">
-                          <TrendingUp className="h-4 w-4 text-primary" />
-                          {t.tenure.label}
-                        </Label>
-                        <span className="text-lg font-semibold text-primary">
-                          {tenure} {t.tenure.years}
-                        </span>
-                      </div>
-                      <Slider
-                        value={[tenure]}
-                        onValueChange={(value) => setTenure(value[0])}
-                        min={1}
-                        max={10}
-                        step={1}
-                        thumbLabels={[t.tenure.label]}
-                        className="py-4"
-                      />
-                      <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>1 {t.tenure.years}</span>
-                        <span>10 {t.tenure.years}</span>
-                      </div>
-                    </div>
-
-                    {!hasIncome && (
-                      <div className="rounded-xl border border-dashed border-border/70 bg-muted/40 p-6 text-center text-sm text-muted-foreground">
-                        {language === 'ms'
-                          ? '💡 Masukkan pendapatan bulanan untuk lihat kelayakan secara langsung — jumlah dan tempoh boleh dilaraskan bila-bila masa.'
-                          : '💡 Enter your monthly income to see eligibility update live as you adjust the sliders.'}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
+      <div id="calc-results" className="min-h-[320px]">
+        {!hasIncome || !calculation || !tone ? (
+          <div className="flex h-full min-h-[320px] items-center justify-center rounded-2xl border border-dashed border-border-strong p-8 text-center text-sm text-foreground-muted">
+            {language === 'ms'
+              ? 'Masukkan pendapatan bulanan untuk lihat kelayakan secara langsung.'
+              : 'Enter your monthly income to see eligibility update live as you adjust the sliders.'}
+          </div>
+        ) : (
+          <div className={cn('rounded-2xl border p-6 lg:p-8', tone.bg)}>
+            <div className="flex items-start gap-3">
+              <StatusIcon className={cn('mt-0.5 size-6 shrink-0', tone.text)} />
+              <div>
+                <h3 className="text-2xl">{t.results[calculation.status].title}</h3>
+                <p className="mt-1 text-foreground-muted">{t.results[calculation.status].subtitle}</p>
               </div>
             </div>
 
-            <AnimatePresence>
-              {hasIncome && calculation && (
-                <motion.div
-                  key="results"
-                  initial={{ opacity: 0, y: 30, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -20, scale: 0.98 }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
-                  className="mt-6"
-                >
-                <Card className={`border-2 ${getStatusColor()} transition-colors`}>
-                  <CardContent className="pt-8">
-                    {/* Status Header */}
-                    <div className="text-center mb-8">
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: 'spring', duration: 0.5 }}
-                        className="mb-4 flex justify-center"
-                      >
-                        {getStatusIcon()}
-                      </motion.div>
-                      <h3 className="text-2xl font-bold mb-2">
-                        {calculation && t.results[calculation.status].title}
-                      </h3>
-                      <p className="text-muted-foreground">
-                        {calculation && t.results[calculation.status].subtitle}
-                      </p>
-                    </div>
+            <dl className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
+              {[
+                { label: t.metrics.dsr, value: `${dsr.toFixed(1)}%`, cls: tone.text },
+                { label: t.metrics.maxLoan, value: formatCurrency(calculation.maxLoanAmount), cls: 'text-primary' },
+                { label: t.metrics.monthlyPayment, value: formatCurrency(calculation.monthlyPayment), cls: '' },
+                { label: t.metrics.totalInterest, value: formatCurrency(calculation.totalInterest), cls: 'text-foreground-muted' },
+              ].map((m) => (
+                <div key={m.label} className="rounded-xl border border-border bg-surface p-4">
+                  <dt className="text-xs text-foreground-subtle">{m.label}</dt>
+                  <dd className={cn('mt-1 font-mono text-xl font-semibold tabular-nums', m.cls)}>{m.value}</dd>
+                </div>
+              ))}
+            </dl>
 
-                    {/* Metrics Grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                      <div className="bg-card rounded-lg p-4 text-center border">
-                        <p className="text-xs text-muted-foreground mb-1">{t.metrics.dsr}</p>
-                        <p className={`text-2xl font-bold ${getDsrColor(calculation?.dsr || 0)}`}>
-                          {calculation?.dsr.toFixed(1)}%
-                        </p>
-                      </div>
-                      <div className="bg-card rounded-lg p-4 text-center border">
-                        <p className="text-xs text-muted-foreground mb-1">{t.metrics.maxLoan}</p>
-                        <p className="text-2xl font-bold text-primary">
-                          {formatCurrency(calculation?.maxLoanAmount || 0)}
-                        </p>
-                      </div>
-                      <div className="bg-card rounded-lg p-4 text-center border">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          {t.metrics.monthlyPayment}
-                        </p>
-                        <p className="text-2xl font-bold">
-                          {formatCurrency(calculation?.monthlyPayment || 0)}
-                        </p>
-                      </div>
-                      <div className="bg-card rounded-lg p-4 text-center border">
-                        <p className="text-xs text-muted-foreground mb-1">
-                          {t.metrics.totalInterest}
-                        </p>
-                        <p className="text-2xl font-bold text-muted-foreground">
-                          {formatCurrency(calculation?.totalInterest || 0)}
-                        </p>
-                      </div>
-                    </div>
+            <div className="mt-6">
+              <div className="mb-1.5 flex justify-between text-xs text-foreground-subtle">
+                <span>{t.metrics.dsr}</span>
+                <span className={cn('font-mono', tone.text)}>{dsr.toFixed(1)}%</span>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full bg-surface">
+                <div className={cn('h-full rounded-full transition-[width] duration-500', tone.bar)} style={{ width: `${Math.min(100, dsr)}%` }} />
+              </div>
+              <div className="mt-1 flex justify-between font-mono text-[11px] text-foreground-subtle"><span>0%</span><span>60%</span><span>100%</span></div>
+              <p className="mt-2 text-xs text-foreground-subtle">{t.dsrExplanation}</p>
+            </div>
 
-                    {/* DSR Progress Bar */}
-                    <div className="mb-8">
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-muted-foreground">{t.metrics.dsr}</span>
-                        <span className={getDsrColor(calculation?.dsr || 0)}>
-                          {calculation?.dsr.toFixed(1)}%
-                        </span>
-                      </div>
-                      <div className="h-3 bg-muted rounded-full overflow-hidden">
-                        <motion.div
-                          className={`h-full ${
-                            (calculation?.dsr || 0) <= 50
-                              ? 'bg-green-500'
-                              : (calculation?.dsr || 0) <= 70
-                              ? 'bg-yellow-500'
-                              : 'bg-red-500'
-                          }`}
-                          initial={{ width: 0 }}
-                          animate={{ width: `${Math.min(100, calculation?.dsr || 0)}%` }}
-                          transition={{ duration: 0.8 }}
-                        />
-                      </div>
-                      <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                        <span>0%</span>
-                        <span className="text-green-500">50% Good</span>
-                        <span className="text-yellow-500">70% Max</span>
-                        <span>100%</span>
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-2 text-center">
-                        {t.dsrExplanation}
-                      </p>
-                    </div>
+            {calculation.status !== 'approved' && (
+              <div className="mt-6 rounded-xl border border-border bg-surface p-4">
+                <p className="font-semibold">{t.tips.title}</p>
+                <ul className="mt-2 space-y-1.5 text-sm text-foreground-muted">
+                  {t.tips.items.map((tip) => (
+                    <li key={tip} className="flex gap-2"><CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />{tip}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-                    {/* Tips for declined/conditional */}
-                    {calculation && calculation.status !== 'approved' && (
-                      <div className="bg-muted/50 rounded-lg p-4 mb-6">
-                        <h4 className="font-semibold mb-3">{t.tips.title}</h4>
-                        <ul className="space-y-2">
-                          {t.tips.items.map((tip, index) => (
-                            <li key={index} className="flex items-center gap-2 text-sm">
-                              <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
-                              {tip}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {/* Action Button */}
-                    {calculation?.status !== 'declined' && (
-                      <Button asChild size="lg" className="w-full">
-                        <LocaleLink href="/eligibility-test">
-                          {t.applyNow}
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </LocaleLink>
-                      </Button>
-                    )}
-                  </CardContent>
-                </Card>
-                </motion.div>
-              )}
-            </AnimatePresence>
-        </div>
+            {calculation.status !== 'declined' && (
+              <Button asChild size="lg" className="mt-6 w-full sm:w-auto">
+                <LocaleLink href="/eligibility-test">
+                  {t.applyNow}
+                  <ArrowRight className="size-4" />
+                </LocaleLink>
+              </Button>
+            )}
+          </div>
+        )}
       </div>
-    </section>
+    </div>
   );
 }

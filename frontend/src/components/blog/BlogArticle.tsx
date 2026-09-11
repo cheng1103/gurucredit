@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { isValidElement, useState, type ReactNode } from 'react';
 import Image from 'next/image';
 import ReactMarkdown, { type Components } from 'react-markdown';
 import { ArrowRight, Check, Share2 } from 'lucide-react';
@@ -17,8 +17,13 @@ import { SEO } from '@/lib/constants';
 import { useLanguage } from '@/lib/i18n';
 import { PATHS } from '@/lib/i18n/routes';
 
-const textOf = (node: React.ReactNode): string =>
-  Array.isArray(node) ? node.map(textOf).join('') : typeof node === 'string' || typeof node === 'number' ? String(node) : '';
+const textOf = (node: ReactNode): string => {
+  if (node == null || typeof node === 'boolean') return '';
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(textOf).join('');
+  if (isValidElement<{ children?: ReactNode }>(node)) return textOf(node.props.children);
+  return '';
+};
 
 const mdComponents: Components = {
   h1: ({ children }) => <h2 id={slugifyHeading(textOf(children))}>{children}</h2>,
@@ -29,7 +34,7 @@ const mdComponents: Components = {
 };
 
 function formatDate(iso: string, language: 'en' | 'ms') {
-  return new Date(iso).toLocaleDateString(language === 'ms' ? 'ms-MY' : 'en-MY', { year: 'numeric', month: 'short', day: 'numeric' });
+  return new Date(iso).toLocaleDateString(language === 'ms' ? 'ms-MY' : 'en-MY', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Asia/Kuala_Lumpur' });
 }
 
 export function BlogArticle({ post, relatedPosts }: { post: BlogPost; relatedPosts: BlogPost[] }) {

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
-import { Space_Grotesk, Plus_Jakarta_Sans, Noto_Sans_SC } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -20,17 +20,15 @@ import { ScrollProgress } from "@/components/ui/scroll-progress";
 
 const defaultOgImage = new URL(SEO.shareImage, SEO.url).toString();
 
-const displayFont = Space_Grotesk({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-geist",
   display: "swap",
 });
 
-const bodyFont = Plus_Jakarta_Sans({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
@@ -43,10 +41,7 @@ const cjkFont = Noto_Sans_SC({
 });
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
-  ],
+  themeColor: "#fafafa",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -137,9 +132,7 @@ export default async function RootLayout({
         <ServicesJsonLd />
         <GeoCoverageJsonLd />
       </head>
-      <body
-        className={`${bodyFont.variable} ${displayFont.variable} ${cjkFont.variable} font-sans antialiased`}
-      >
+      <body className={`${geist.variable} ${geistMono.variable} ${cjkFont.variable} font-sans antialiased`}>
         <Providers initialLanguage={locale}>
           <div className="relative flex min-h-screen flex-col">
             <a

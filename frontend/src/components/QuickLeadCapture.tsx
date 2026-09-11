@@ -1,14 +1,14 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { ArrowRight, CheckCircle2, Loader2, MessageCircle, ShieldCheck } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Loader2, ShieldCheck } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { leadsAPI } from '@/lib/api';
 import { trackEvent } from '@/lib/analytics';
-import { COMPANY, SERVICE_AREAS, type ServiceAreaCode } from '@/lib/constants';
+import { SERVICE_AREAS, type ServiceAreaCode } from '@/lib/constants';
 import type { Language } from '@/lib/i18n/translations';
 import { cn } from '@/lib/utils';
 
@@ -25,9 +25,7 @@ type QuickLeadCaptureProps = {
 const copy = {
   en: {
     badge: '2-minute quick check',
-    title: 'Check your approval fit before you apply',
-    description:
-      'Share four quick details. We will review the right route for your profile and WhatsApp you before you commit to a full application.',
+    title: 'Check your approval fit in 2 minutes',
     phoneLabel: 'WhatsApp number',
     phonePlaceholder: '01X-XXXX XXX',
     stateLabel: 'State',
@@ -36,20 +34,12 @@ const copy = {
     submit: 'Get My Quick Review',
     success: 'Thanks. Our consultant will WhatsApp you shortly.',
     helper: 'No documents needed for this first review.',
-    benefits: [
-      'See whether your profile looks workable first',
-      'Get a faster WhatsApp follow-up with the right context',
-      'Avoid submitting the wrong application path',
-    ],
-    whatsappButton: 'Chat on WhatsApp',
     errorPhone: 'Please enter a valid Malaysian phone number',
     genericError: 'Something went wrong. Please try again.',
   },
   ms: {
     badge: 'Semakan pantas 2 minit',
-    title: 'Semak potensi kelulusan sebelum mohon',
-    description:
-      'Kongsi empat butiran ringkas. Kami akan semak laluan yang lebih sesuai untuk profil anda dan balas melalui WhatsApp sebelum anda hantar permohonan penuh.',
+    title: 'Semak potensi kelulusan dalam 2 minit',
     phoneLabel: 'Nombor WhatsApp',
     phonePlaceholder: '01X-XXXX XXX',
     stateLabel: 'Negeri',
@@ -58,12 +48,6 @@ const copy = {
     submit: 'Dapatkan Semakan Pantas',
     success: 'Terima kasih. Perunding kami akan hubungi anda melalui WhatsApp sebentar lagi.',
     helper: 'Tiada dokumen diperlukan untuk semakan awal ini.',
-    benefits: [
-      'Lihat dulu sama ada profil anda nampak sesuai',
-      'Dapat susulan WhatsApp yang lebih cepat dan tepat',
-      'Elak hantar permohonan ke laluan yang salah',
-    ],
-    whatsappButton: 'Sembang di WhatsApp',
     errorPhone: 'Sila masukkan nombor telefon Malaysia yang sah',
     genericError: 'Ada masalah semasa menghantar. Sila cuba lagi.',
   },
@@ -171,146 +155,87 @@ export function QuickLeadCapture({
     return (
       <div
         id={variant === 'hero' ? 'hero-quick-check' : undefined}
-        className={cn(
-          'rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-sm text-emerald-900 shadow-sm',
-          className,
-        )}
+        className={cn('rounded-2xl border border-success/30 bg-success-soft p-5 text-sm text-foreground', className)}
       >
         <div className="flex items-start gap-3">
-          <div className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100">
-            <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-          </div>
+          <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-success" />
           <div className="space-y-1">
             <p className="font-semibold">{t.success}</p>
-            <p className="text-emerald-800/80">{t.helper}</p>
+            <p className="text-foreground-muted">{t.helper}</p>
           </div>
         </div>
       </div>
     );
   }
 
+  const selectClass =
+    'h-11 w-full rounded-lg border border-border bg-surface px-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] hover:border-border-strong focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/20';
+
   return (
     <div
       id={variant === 'hero' ? 'hero-quick-check' : undefined}
       className={cn(
-        'rounded-3xl border border-border/70 bg-card/95 shadow-[0_20px_60px_-28px_rgba(15,23,42,0.3)] backdrop-blur',
-        variant === 'hero' ? 'p-5 sm:p-6' : 'border-0 bg-background p-0 shadow-none',
+        variant === 'hero'
+          ? 'rounded-2xl border border-border bg-surface p-5 shadow-float sm:p-6'
+          : 'p-0',
         className,
       )}
     >
-      <div className={cn('space-y-5', variant === 'hero' ? '' : 'p-1')}>
-        <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
-            <ShieldCheck className="h-3.5 w-3.5" />
-            {t.badge}
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <p className="text-base font-semibold text-foreground">{t.title}</p>
+          <p className="text-sm text-foreground-muted">{t.helper}</p>
+        </div>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-soft px-2.5 py-1 text-xs font-semibold text-primary">
+          <ShieldCheck className="size-3.5" />
+          {t.badge}
+        </span>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className={cn('grid gap-3', variant === 'hero' ? 'sm:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1')}>
+          <div className="space-y-1.5">
+            <Label htmlFor={`${source}-phone`}>{t.phoneLabel}</Label>
+            <Input
+              id={`${source}-phone`}
+              type="tel"
+              value={phone}
+              onChange={(event) => setPhone(event.target.value)}
+              placeholder={t.phonePlaceholder}
+              autoComplete="tel"
+              inputMode="tel"
+            />
           </div>
-          <div className="space-y-1">
-            <h2 className={cn('font-semibold text-foreground', variant === 'hero' ? 'text-xl' : 'text-lg')}>
-              {t.title}
-            </h2>
-            <p className="max-w-2xl text-sm leading-6 text-muted-foreground">{t.description}</p>
+          <div className="space-y-1.5">
+            <Label htmlFor={`${source}-service-area`}>{t.stateLabel}</Label>
+            <select id={`${source}-service-area`} value={serviceArea} onChange={(event) => setServiceArea(event.target.value as ServiceAreaCode)} className={selectClass}>
+              {SERVICE_AREAS.map((area) => (
+                <option key={area.regionCode} value={area.regionCode}>{area.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor={`${source}-loan-type`}>{t.loanTypeLabel}</Label>
+            <select id={`${source}-loan-type`} value={loanType} onChange={(event) => setLoanType(event.target.value)} className={selectClass}>
+              {loanTypeOptions[language].map((option) => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor={`${source}-income-band`}>{t.incomeLabel}</Label>
+            <select id={`${source}-income-band`} value={incomeBand} onChange={(event) => setIncomeBand(event.target.value)} className={selectClass}>
+              {incomeBandOptions[language].map((option) => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className={cn('grid gap-4', variant === 'hero' ? 'lg:grid-cols-2 xl:grid-cols-4' : 'grid-cols-1')}>
-            <div className="space-y-2 xl:col-span-1">
-              <Label htmlFor={`${source}-phone`}>{t.phoneLabel}</Label>
-              <Input
-                id={`${source}-phone`}
-                type="tel"
-                value={phone}
-                onChange={(event) => setPhone(event.target.value)}
-                placeholder={t.phonePlaceholder}
-                autoComplete="tel"
-                className="h-11"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor={`${source}-service-area`}>{t.stateLabel}</Label>
-              <select
-                id={`${source}-service-area`}
-                value={serviceArea}
-                onChange={(event) => setServiceArea(event.target.value as ServiceAreaCode)}
-                className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-              >
-                {SERVICE_AREAS.map((area) => (
-                  <option key={area.regionCode} value={area.regionCode}>
-                    {area.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor={`${source}-loan-type`}>{t.loanTypeLabel}</Label>
-              <select
-                id={`${source}-loan-type`}
-                value={loanType}
-                onChange={(event) => setLoanType(event.target.value)}
-                className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-              >
-                {loanTypeOptions[language].map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor={`${source}-income-band`}>{t.incomeLabel}</Label>
-              <select
-                id={`${source}-income-band`}
-                value={incomeBand}
-                onChange={(event) => setIncomeBand(event.target.value)}
-                className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-              >
-                {incomeBandOptions[language].map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className={cn('flex gap-3', variant === 'hero' ? 'flex-col xl:flex-row xl:items-center' : 'flex-col')}>
-            <Button type="submit" className="h-11 px-6 text-sm font-semibold" disabled={isLoading}>
-              {isLoading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <>
-                  {t.submit}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </>
-              )}
-            </Button>
-            <div className="flex flex-col gap-2 text-sm text-muted-foreground xl:flex-1 xl:flex-row xl:items-center xl:justify-between">
-              <span>{t.helper}</span>
-              <a
-                href={COMPANY.whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackEvent('quick_lead_whatsapp_click', { source, placement: variant })}
-                className="inline-flex items-center gap-2 font-medium text-foreground transition-colors hover:text-primary"
-              >
-                <MessageCircle className="h-4 w-4" />
-                <span>{t.whatsappButton}</span>
-              </a>
-            </div>
-          </div>
-        </form>
-
-        {variant === 'hero' && (
-          <div className="grid gap-3 border-t border-border/70 pt-4 text-sm text-muted-foreground sm:grid-cols-3">
-            {t.benefits.map((benefit) => (
-              <div key={benefit} className="flex items-start gap-2">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" />
-                <span>{benefit}</span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+        <Button type="submit" className="w-full sm:w-auto" disabled={isLoading}>
+          {isLoading ? <Loader2 className="size-4 animate-spin" /> : (<>{t.submit}<ArrowRight className="size-4" /></>)}
+        </Button>
+      </form>
     </div>
   );
 }

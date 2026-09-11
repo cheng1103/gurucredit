@@ -2,7 +2,7 @@ import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { homeContent } from '@/lib/content/home';
 import { SEO } from '@/lib/constants';
 import { WebPageJsonLd } from '@/components/JsonLd';
-import { Container, Section } from '@/components/layout';
+import { Hero } from '@/components/home/Hero';
 
 export const revalidate = 300;
 
@@ -19,13 +19,7 @@ export default async function HomePage() {
         breadcrumbItems={[{ name: 'Home', url: SEO.url }]}
         faqItems={t.faq.items}
       />
-      <Section id="hero">
-        <Container>
-          <h1 className="text-4xl lg:text-6xl">
-            {t.hero.title} <span className="text-primary">{t.hero.titleAccent}</span>
-          </h1>
-        </Container>
-      </Section>
+      <Hero t={t} language={language} />
     </div>
   );
 }

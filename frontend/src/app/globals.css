@@ -182,6 +182,8 @@
 .prose th { color: var(--foreground); font-weight: 600; background: var(--surface-alt); }
 .prose figure { margin-block: 2em; }
 .prose figcaption { font-size: 0.85rem; color: var(--foreground-subtle); margin-top: 0.5rem; }
+.prose .not-prose, .prose .not-prose * { color: inherit; }
+.prose .not-prose > * + * { margin-top: 0; }
 
 /* sonner */
 .toaster {

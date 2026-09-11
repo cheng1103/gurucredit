@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShieldCheck } from 'lucide-react';
+import { Container, Section, SectionHeader } from '@/components/layout';
 
 interface TrustItem {
   title: string;
@@ -14,22 +14,26 @@ interface TrustPanelProps {
 
 export function TrustPanel({ title, description, items }: TrustPanelProps) {
   return (
-    <Card className="surface-card border-primary/15">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <ShieldCheck className="h-5 w-5 text-primary" />
-          {title}
-        </CardTitle>
-        <p className="text-sm text-muted-foreground">{description}</p>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {items.map((item) => (
-          <div key={item.title} className="rounded-xl border border-primary/10 bg-white/70 p-4">
-            <p className="font-semibold text-foreground">{item.title}</p>
-            <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
+    <Section tone="alt">
+      <Container>
+        <SectionHeader
+          title={
+            <span className="flex items-center gap-2">
+              <ShieldCheck className="size-6 text-primary" aria-hidden="true" />
+              {title}
+            </span>
+          }
+          lede={description}
+        />
+        <div className="grid gap-4 sm:grid-cols-2">
+          {items.map((item) => (
+            <div key={item.title} className="rounded-2xl border border-border bg-surface p-5">
+              <p className="font-semibold text-foreground">{item.title}</p>
+              <p className="mt-1 text-sm text-foreground-muted">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </Section>
   );
 }

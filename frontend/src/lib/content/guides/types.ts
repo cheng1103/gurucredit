@@ -17,4 +17,4 @@ export type GuideContent = {
   howTo?: { name: string; description?: string; steps: { name: string; text: string }[] };
 };
 
-export type GuideDoc = { slug: string; path: string; breadcrumbLabel: string; content: Record<Language, GuideContent> };
+export type GuideDoc = { slug: string; path: string; breadcrumbLabel: string; section: 'guides' | 'editorial'; content: Record<Language, GuideContent> };

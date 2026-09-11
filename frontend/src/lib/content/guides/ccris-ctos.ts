@@ -5,6 +5,7 @@ export const ccrisCtosGuide: GuideDoc = {
   slug: 'ccris-ctos',
   path: PATHS.loanGuide.ccrisCtos,
   breadcrumbLabel: 'How Lenders Actually Read Your CCRIS and CTOS File',
+  section: 'guides',
   content: {
     en: {
       eyebrow: 'CCRIS + CTOS Guide',

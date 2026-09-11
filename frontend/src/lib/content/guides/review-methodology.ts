@@ -5,6 +5,7 @@ export const reviewMethodologyGuide: GuideDoc = {
   slug: 'review-methodology',
   path: PATHS.reviewMethodology,
   breadcrumbLabel: 'How We Review Borrower Files Before Recommending the Next Step',
+  section: 'editorial',
   content: {
     en: {
       eyebrow: 'Editorial',

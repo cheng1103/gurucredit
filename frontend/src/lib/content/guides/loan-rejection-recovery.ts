@@ -5,6 +5,7 @@ export const loanRejectionRecoveryGuide: GuideDoc = {
   slug: 'loan-rejection-recovery',
   path: PATHS.loanGuide.loanRejectionRecovery,
   breadcrumbLabel: 'What to Fix After a Loan Rejection in Malaysia',
+  section: 'guides',
   content: {
     en: {
       eyebrow: 'Rejection Recovery Guide',

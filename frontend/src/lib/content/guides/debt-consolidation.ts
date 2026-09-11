@@ -6,6 +6,7 @@ export const debtConsolidationGuide: GuideDoc = {
   slug: 'debt-consolidation',
   path: PATHS.loanGuide.debtConsolidation,
   breadcrumbLabel: 'Debt Consolidation Strategy for Malaysians',
+  section: 'guides',
   content: {
     en: {
       eyebrow: 'Debt Consolidation Guide',

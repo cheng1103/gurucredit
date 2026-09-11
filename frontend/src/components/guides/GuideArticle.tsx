@@ -55,13 +55,20 @@ export function GuideArticle({ doc, language }: { doc: GuideDoc; language: Langu
   const c = doc.content[language];
   const labels = guideUi[language];
   const url = new URL(doc.path, SEO.url).toString();
+  const parent = doc.section === 'guides' ? { label: labels.guides, href: PATHS.loanGuides } : null;
+  const breadcrumbs = [{ label: labels.home, href: PATHS.home }, ...(parent ? [parent] : []), { label: doc.breadcrumbLabel }];
+  const breadcrumbItems = [
+    { name: labels.home, url: SEO.url },
+    ...(parent ? [{ name: parent.label, url: new URL(parent.href, SEO.url).toString() }] : []),
+    { name: c.title, url },
+  ];
   return (
     <>
       {c.howTo ? <HowToJsonLd name={c.howTo.name} description={c.howTo.description} steps={c.howTo.steps} /> : null}
-      <WebPageJsonLd url={url} title={c.title} description={c.lede} faqItems={c.faqs} breadcrumbItems={[{ name: 'Home', url: SEO.url }, { name: 'Loan Guides', url: new URL(PATHS.loanGuides, SEO.url).toString() }, { name: c.title, url }]} />
+      <WebPageJsonLd url={url} title={c.title} description={c.lede} faqItems={c.faqs} breadcrumbItems={breadcrumbItems} />
       <ArticleLayout
         language={language}
-        breadcrumbs={[{ label: labels.home, href: PATHS.home }, { label: labels.guides, href: PATHS.loanGuides }, { label: doc.breadcrumbLabel }]}
+        breadcrumbs={breadcrumbs}
         eyebrow={c.eyebrow}
         title={c.title}
         lede={c.lede}

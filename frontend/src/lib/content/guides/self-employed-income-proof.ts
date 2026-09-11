@@ -5,6 +5,7 @@ export const selfEmployedIncomeProofGuide: GuideDoc = {
   slug: 'self-employed-income-proof',
   path: PATHS.loanGuide.selfEmployedIncomeProof,
   breadcrumbLabel: 'How Self-Employed Borrowers Should Prove Income in Malaysia',
+  section: 'guides',
   content: {
     en: {
       eyebrow: 'Self-Employed Borrower Guide',

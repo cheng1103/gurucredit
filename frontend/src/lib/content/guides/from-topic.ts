@@ -17,10 +17,14 @@ function build(topic: GuideTopic, ms: boolean): GuideContent {
     ],
     faqs: topic.faqs.map((f) => ({ question: pick(f.question, f.questionMs), answer: pick(f.answer, f.answerMs) })),
     related: topic.related.map((r) => ({ title: pick(r.title, r.titleMs), href: r.href })),
-    howTo: { name: topic.stepsTitle, description: topic.description, steps: topic.steps.map((s) => ({ name: s.title, text: s.description })) },
+    howTo: {
+      name: pick(topic.stepsTitle, topic.stepsTitleMs),
+      description: pick(topic.description, topic.descriptionMs),
+      steps: topic.steps.map((s) => ({ name: pick(s.title, s.titleMs), text: pick(s.description, s.descriptionMs) })),
+    },
   };
 }
 
 export function guideFromTopic(topic: GuideTopic): GuideDoc {
-  return { slug: topic.slug, path: PATHS.loanGuide.topic(topic.slug), breadcrumbLabel: topic.title, content: { en: build(topic, false), ms: build(topic, true) } };
+  return { slug: topic.slug, path: PATHS.loanGuide.topic(topic.slug), breadcrumbLabel: topic.title, section: 'guides', content: { en: build(topic, false), ms: build(topic, true) } };
 }

@@ -5,6 +5,7 @@ export const editorialPolicyGuide: GuideDoc = {
   slug: 'editorial-policy',
   path: PATHS.editorialPolicy,
   breadcrumbLabel: 'How We Publish Borrower-Facing Financial Content',
+  section: 'editorial',
   content: {
     en: {
       eyebrow: 'Editorial',

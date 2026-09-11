@@ -6,6 +6,7 @@ export const creditScoreGuide: GuideDoc = {
   slug: 'credit-score',
   path: PATHS.loanGuide.creditScore,
   breadcrumbLabel: 'Improve Your Credit Score in Malaysia',
+  section: 'guides',
   content: {
     en: {
       eyebrow: 'Credit Score Guide',

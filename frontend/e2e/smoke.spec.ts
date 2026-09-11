@@ -20,9 +20,7 @@ test('mobile sticky CTA appears below the hero on the homepage', async ({ page }
   await page.goto('/');
   await page.mouse.wheel(0, 2000);
   const link = page.getByRole('link', { name: /Check eligibility/i });
-  await expect(link).toBeVisible();
-  const box = await link.boundingBox();
-  expect(box).not.toBeNull();
-  expect(box!.y + box!.height).toBeLessThanOrEqual(844);
-  expect(box!.y).toBeGreaterThan(0);
+  // The bar slides in after the hero leaves the viewport; toBeInViewport retries
+  // until the 200ms transition has finished.
+  await expect(link).toBeInViewport({ ratio: 1 });
 });

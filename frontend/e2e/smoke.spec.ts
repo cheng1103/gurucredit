@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const ROUTES = [
   '/', '/about', '/contact', '/faq', '/services', '/eligibility-test', '/tools', '/tools/compare',
-  '/loans/personal', '/loans/debt-consolidation', '/loans/emergency', '/loans/my/selangor',
+  '/loans/personal', '/loans/debt-consolidation', '/loans/emergency', '/loans/my/selangor', '/loans/my/sabah',
   '/loan-guides', '/loan-guides/ccris-ctos', '/blog', '/glossary', '/documents', '/partners',
   '/service-areas', '/verify-us', '/privacy', '/terms', '/disclaimer', '/status',
 ];

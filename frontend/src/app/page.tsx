@@ -7,6 +7,9 @@ import { HowItWorks } from '@/components/home/HowItWorks';
 import { Products } from '@/components/home/Products';
 import { CalculatorSection } from '@/components/home/CalculatorSection';
 import { Proof } from '@/components/home/Proof';
+import { Transparency } from '@/components/home/Transparency';
+import { Faq } from '@/components/home/Faq';
+import { FinalCta } from '@/components/home/FinalCta';
 
 export const revalidate = 300;
 
@@ -28,6 +31,9 @@ export default async function HomePage() {
       <Products t={t} language={language} />
       <CalculatorSection t={t} />
       <Proof t={t} />
+      <Transparency t={t} language={language} />
+      <Faq t={t} language={language} />
+      <FinalCta t={t} language={language} />
     </div>
   );
 }

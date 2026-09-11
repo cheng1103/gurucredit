@@ -10,6 +10,22 @@ if (!('ResizeObserver' in globalThis)) {
   globalThis.ResizeObserver = ResizeObserverStub as unknown as typeof ResizeObserver;
 }
 
+class IntersectionObserverStub {
+  root = null;
+  rootMargin = '';
+  thresholds: number[] = [];
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+  takeRecords() {
+    return [];
+  }
+}
+
+if (!('IntersectionObserver' in globalThis)) {
+  globalThis.IntersectionObserver = IntersectionObserverStub as unknown as typeof IntersectionObserver;
+}
+
 if (!window.matchMedia) {
   window.matchMedia = () =>
     ({

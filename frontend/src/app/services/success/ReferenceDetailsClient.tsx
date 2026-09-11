@@ -7,9 +7,10 @@ import { Copy, Check } from 'lucide-react';
 type Props = {
   referenceNumber: string;
   note: string;
+  copyLabel: string;
 };
 
-export function ReferenceDetailsClient({ referenceNumber, note }: Props) {
+export function ReferenceDetailsClient({ referenceNumber, note, copyLabel }: Props) {
   const [copied, setCopied] = useState(false);
 
   const copyReference = async () => {
@@ -26,7 +27,7 @@ export function ReferenceDetailsClient({ referenceNumber, note }: Props) {
     <>
       <div className="flex items-center justify-between gap-2">
         <code className="font-mono text-lg font-semibold text-primary">{referenceNumber}</code>
-        <Button variant="ghost" size="icon-sm" onClick={copyReference} aria-label="Copy reference">
+        <Button variant="ghost" size="icon-sm" onClick={copyReference} aria-label={copyLabel}>
           {copied ? <Check className="h-4 w-4 text-success" /> : <Copy className="h-4 w-4" />}
         </Button>
       </div>

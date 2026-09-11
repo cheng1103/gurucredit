@@ -7,6 +7,7 @@ export { WhatsAppFab } from './WhatsAppFab';
 export { StickyMobileCTA } from './StickyMobileCTA';
 export { Breadcrumbs, type BreadcrumbItem } from './Breadcrumbs';
 export { PageHeader } from './PageHeader';
+export { FormLayout } from './FormLayout';
 export { Prose } from './Prose';
 export { TableOfContents, slugifyHeading } from './TableOfContents';
 export { FilterBar } from './FilterBar';

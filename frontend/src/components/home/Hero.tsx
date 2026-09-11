@@ -15,7 +15,7 @@ export function Hero({ t, language }: { t: HomeContent; language: Language }) {
         style={{ background: 'radial-gradient(600px 300px at 80% 0%, rgb(37 99 235 / 0.10), transparent 70%)' }}
       />
       <Container className="relative">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center lg:max-w-4xl">
           <span className="inline-flex items-center rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-foreground-muted">
             {h.eyebrow}
           </span>

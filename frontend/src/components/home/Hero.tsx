@@ -9,7 +9,7 @@ import { BankLogoRow } from './BankLogoRow';
 export function Hero({ t, language }: { t: HomeContent; language: Language }) {
   const h = t.hero;
   return (
-    <Section id="hero" className="relative overflow-hidden pt-14 lg:pt-24">
+    <Section id="hero" className="relative overflow-hidden pt-14 lg:pt-20">
       <div aria-hidden="true" className="bg-glow-hero bg-grid-fade pointer-events-none absolute inset-0" />
       <Container className="relative">
         <div className="lg:grid lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:text-left">
@@ -17,16 +17,16 @@ export function Hero({ t, language }: { t: HomeContent; language: Language }) {
             <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary-soft px-3 py-1 text-xs font-semibold text-primary">
               {h.eyebrow}
             </span>
-            <h1 className="mt-6 text-[40px] leading-[1.05] tracking-[-0.045em] lg:text-[64px] lg:leading-none">
+            <h1 className="mt-6 text-[40px] leading-[1.05] tracking-[-0.045em] lg:mt-5 lg:text-[64px] lg:leading-none">
               {h.title} <span className="text-gradient-brand">{h.titleAccent}</span>
             </h1>
-            <p className="mx-auto mt-5 max-w-[52ch] text-lg leading-relaxed text-foreground-muted lg:mx-0">{h.lede}</p>
-            <div className="mt-8 flex justify-center lg:justify-start">
+            <p className="mx-auto mt-5 max-w-[52ch] text-lg leading-relaxed text-foreground-muted lg:mx-0 lg:mt-4">{h.lede}</p>
+            <div className="mt-8 flex justify-center lg:mt-6 lg:justify-start">
               <HeroCtas primary={h.primaryCta} secondary={h.secondaryCta} language={language} />
             </div>
 
-            <div className="mx-auto mt-12 max-w-4xl lg:mx-0 lg:mt-10 lg:max-w-none">
-              <QuickLeadCapture language={language} source="HERO_QUICK_CHECK" className="card-gradient-border shadow-glow" />
+            <div className="mx-auto mt-12 max-w-4xl lg:mx-0 lg:mt-6 lg:max-w-none">
+              <QuickLeadCapture language={language} source="HERO_QUICK_CHECK" compact className="card-gradient-border shadow-glow" />
               <p data-nosnippet className="mt-3 text-center text-xs text-foreground-subtle lg:text-left">{h.trustLine}</p>
             </div>
           </div>
@@ -34,12 +34,12 @@ export function Hero({ t, language }: { t: HomeContent; language: Language }) {
           <div className="relative mt-10 lg:mt-0">
             <div className="relative aspect-[16/10] max-h-[280px] overflow-hidden rounded-3xl border border-border shadow-card lg:aspect-[4/5] lg:max-h-[560px]">
               <Image
-                src="/images/optimized/hero-bg.webp"
+                src="/images/optimized/customer-2.webp"
                 alt={h.photoAlt}
                 fill
                 priority
                 sizes="(min-width:1024px) 40vw, 100vw"
-                className="object-cover"
+                className="object-cover object-top"
               />
               <div
                 aria-hidden="true"

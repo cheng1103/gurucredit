@@ -4,7 +4,8 @@ import { Container, Section, SectionHeader, Reveal, IconTile, toneCycle } from '
 import type { HomeContent } from '@/lib/content/home';
 
 const icons = [BadgeCheck, FileSearch, MessageSquareWarning, Hash];
-const avatars = ['/images/optimized/customer-1.webp', '/images/optimized/customer-2.webp', '/images/optimized/customer-3.webp'];
+// Positional: matches p.cases order (Rajesh K., Tan W.M., Hafiz M.) — 3 cases.
+const avatars = ['/images/customers/indian-male-34.jpg', '/images/customers/chinese-male-41.jpg', '/images/customers/malay-male-29.jpg'];
 
 export function Proof({ t }: { t: HomeContent }) {
   const p = t.proof;

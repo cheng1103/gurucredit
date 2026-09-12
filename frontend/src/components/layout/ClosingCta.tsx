@@ -15,8 +15,9 @@ const copy = {
 export function ClosingCta({ language, title, lede, primaryHref, primaryLabel }: { language: Language; title?: string; lede?: string; primaryHref?: string; primaryLabel?: string }) {
   const t = copy[language];
   return (
-    <Section id="closing-cta" tone="inverse" className="bg-glow-dark">
-      <Container>
+    <Section id="closing-cta" tone="inverse" className="relative overflow-hidden">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-glow-dark" />
+      <Container className="relative">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-[28px] text-inverse-foreground lg:text-4xl">{title ?? t.title}</h2>
           <p className="mt-4 text-lg text-inverse-foreground/70">{lede ?? t.lede}</p>

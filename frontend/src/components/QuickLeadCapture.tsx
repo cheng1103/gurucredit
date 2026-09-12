@@ -17,6 +17,7 @@ type QuickLeadCaptureProps = {
   source: string;
   className?: string;
   onSuccess?: () => void;
+  compact?: boolean;
 };
 
 const copy = {
@@ -91,6 +92,7 @@ export function QuickLeadCapture({
   source,
   className,
   onSuccess,
+  compact = false,
 }: QuickLeadCaptureProps) {
   const t = copy[language];
   const [phone, setPhone] = useState('');
@@ -184,7 +186,7 @@ export function QuickLeadCapture({
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className={cn('grid gap-3 sm:grid-cols-2', !compact && 'lg:grid-cols-4')}>
           <div className="space-y-1.5">
             <Label htmlFor={`${source}-phone`}>{t.phoneLabel}</Label>
             <Input
@@ -223,7 +225,7 @@ export function QuickLeadCapture({
           </div>
         </div>
 
-        <Button type="submit" className="w-full sm:w-auto" disabled={isLoading} aria-busy={isLoading}>
+        <Button type="submit" className={cn('w-full', compact ? 'lg:w-auto' : 'sm:w-auto')} disabled={isLoading} aria-busy={isLoading}>
           {t.submit}
           {isLoading ? <Loader2 className="size-4 animate-spin" /> : <ArrowRight className="size-4" />}
         </Button>

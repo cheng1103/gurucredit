@@ -79,7 +79,7 @@ export const homeContent: Record<Language, HomeContent> = {
       logosLabel: 'Lenders we work with',
       floatFit: 'Approval fit',
       floatTime: 'Written answer in',
-      photoAlt: 'Advisor reviewing a loan file with a client',
+      photoAlt: 'Loan advisor',
     },
     howItWorks: {
       eyebrow: 'How it works',
@@ -150,7 +150,7 @@ export const homeContent: Record<Language, HomeContent> = {
           quote: 'Nobody had told me some banks do not need audited accounts at my stage.',
         },
         {
-          name: 'Nurul H.',
+          name: 'Hafiz M.',
           location: 'Johor Bahru, Johor',
           situation: 'DSR at 74% from three credit cards and a car loan. Personal loan declined twice.',
           action: 'Consolidated the cards into one facility first, bringing DSR to 52%, then applied.',
@@ -203,7 +203,7 @@ export const homeContent: Record<Language, HomeContent> = {
       logosLabel: 'Pemberi pinjaman yang bekerjasama dengan kami',
       floatFit: 'Kesesuaian kelulusan',
       floatTime: 'Jawapan bertulis dalam',
-      photoAlt: 'Perunding menyemak fail pinjaman bersama pelanggan',
+      photoAlt: 'Perunding pinjaman',
     },
     howItWorks: {
       eyebrow: 'Cara ia berfungsi',
@@ -274,7 +274,7 @@ export const homeContent: Record<Language, HomeContent> = {
           quote: 'Tiada siapa beritahu saya sesetengah bank tidak perlukan akaun beraudit pada peringkat saya.',
         },
         {
-          name: 'Nurul H.',
+          name: 'Hafiz M.',
           location: 'Johor Bahru, Johor',
           situation: 'DSR pada 74% daripada tiga kad kredit dan pinjaman kereta. Pinjaman peribadi ditolak dua kali.',
           action: 'Kad kredit disatukan ke dalam satu kemudahan dahulu sehingga DSR turun ke 52%, kemudian permohonan dihantar.',

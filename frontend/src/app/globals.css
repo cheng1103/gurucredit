@@ -194,7 +194,7 @@
 .bg-glow-hero { background-image: radial-gradient(900px 420px at 50% -8%, rgb(37 99 235 / 0.16), transparent 70%); }
 .bg-glow-band { background-image: radial-gradient(700px 320px at 80% 0%, rgb(37 99 235 / 0.10), transparent 70%); }
 .bg-glow-dark { background-image: radial-gradient(800px 360px at 50% 110%, rgb(37 99 235 / 0.35), transparent 70%); }
-.bg-grid-fade { position: relative; }
+.bg-grid-fade { /* host must be positioned (relative or absolute) so ::before can fill it */ }
 .bg-grid-fade::before { content: ''; position: absolute; inset: 0; pointer-events: none;
   background-image: linear-gradient(rgb(37 99 235 / 0.06) 1px, transparent 1px), linear-gradient(90deg, rgb(37 99 235 / 0.06) 1px, transparent 1px);
   background-size: 40px 40px; mask-image: radial-gradient(ellipse at 50% 0%, #000 25%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 25%, transparent 75%); }

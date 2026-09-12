@@ -29,15 +29,7 @@ export function PageHeader({
   return (
     <Section compact className="relative overflow-hidden border-b border-border bg-background">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-glow-band" />
-      {centered ? (
-        // `.bg-grid-fade` sets `position: relative` on itself (as a
-        // containing block for its own ::before grid layer); that plain CSS
-        // rule sits outside any Tailwind layer, so it beats the `absolute`
-        // utility class in the cascade regardless of source order. Force the
-        // position back with an inline style so this overlay actually
-        // stretches to fill the header instead of collapsing to 0 height.
-        <div aria-hidden="true" className="pointer-events-none inset-0 bg-grid-fade" style={{ position: 'absolute' }} />
-      ) : null}
+      {centered ? <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-grid-fade" /> : null}
       <Container size={size} className={cn('relative', centered && 'text-center')}>
         {breadcrumbs ? <Breadcrumbs items={breadcrumbs} className={cn('mb-6', centered && 'justify-center [&_ol]:justify-center')} /> : null}
         {eyebrow ? <p className="eyebrow mb-3">{eyebrow}</p> : null}

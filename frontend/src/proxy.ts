@@ -11,74 +11,89 @@ const LANG_MAX_AGE = 60 * 60 * 24 * 365;
 const LOCALE_PREFIX_ENABLED =
   process.env.NEXT_PUBLIC_LOCALE_PREFIX_ENABLED === 'true';
 
-export function proxy(request: NextRequest) {
+// Next.js middleware DOES re-run in this project on an internal
+// `NextResponse.rewrite` (confirmed empirically against this actual runtime —
+// see final-fix-report.md fix-round-2/3). The second pass sees the
+// already-stripped path (no `/ms` prefix), so it needs to recover the locale
+// the first pass derived from the URL. But `x-gc-locale`/`x-gc-path` are
+// ordinary client-suppliable request headers, so a second pass can't just
+// trust whatever it's handed — a client could forge the same headers on an
+// arbitrary path. Instead, the first pass signs `${locale}|${path}` with an
+// HMAC keyed by a secret generated fresh per process (never exposed to the
+// client, never derivable from it), and the "second pass" branch only trusts
+// the carried values when the signature verifies AND the current path
+// matches the signed path. A forged request can't produce a valid signature
+// without the secret, so it always falls through to the URL-only branch.
+const SECRET = crypto.getRandomValues(new Uint8Array(32)); // per-process; both passes run in the same runtime
+let keyPromise: Promise<CryptoKey> | null = null;
+const getKey = () =>
+  (keyPromise ??= crypto.subtle.importKey('raw', SECRET, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']));
+async function sign(payload: string): Promise<string> {
+  const sig = await crypto.subtle.sign('HMAC', await getKey(), new TextEncoder().encode(payload));
+  return btoa(String.fromCharCode(...new Uint8Array(sig))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+export async function proxy(request: NextRequest) {
   const { searchParams, pathname } = request.nextUrl;
 
-  // In production, middleware re-runs on internal rewrites — the second pass
-  // sees the already-stripped path (no `/ms` prefix). Carry the locale + logical
-  // path we resolved on the first pass so the second pass can't reset them to
-  // English. (`x-gc-rewritten` marks that first pass.)
-  //
-  // `x-gc-rewritten`/`x-gc-locale`/`x-gc-path` are client-suppliable request
-  // headers — `new Headers(request.headers)` below starts as a clone of
-  // whatever the caller sent, including these. A request can claim
-  // `x-gc-rewritten: 1` and `x-gc-locale: ms` (or an arbitrary `x-gc-path`)
-  // without ever hitting `/ms`, so those inbound values must never be trusted
-  // as-is: an internal rewrite only ever lands on the un-prefixed path (never
-  // `/ms/...`), so a rewritten-marker on an `/ms` path is necessarily a spoof.
-  // The two header lines further down then unconditionally overwrite
-  // `x-gc-locale`/`x-gc-path` on every response so a client-supplied value can
-  // never survive untouched.
-  const rewrittenHeaderClaimed = request.headers.get('x-gc-rewritten') === '1';
-  const isMsPath = pathname === '/ms' || pathname.startsWith('/ms/');
-  const alreadyRewritten = rewrittenHeaderClaimed && !isMsPath;
-  const priorLocale = alreadyRewritten ? request.headers.get('x-gc-locale') : null;
-  const priorPath = alreadyRewritten ? request.headers.get('x-gc-path') : null;
+  const inboundLocale = request.headers.get('x-gc-locale');
+  const inboundPath = request.headers.get('x-gc-path');
+  const inboundSig = request.headers.get('x-gc-sig');
 
-  // Only the URL itself is authoritative for locale — either this request's
-  // path is `/ms`, or (on the internal rewrite's second middleware pass,
-  // verified genuine above) `x-gc-locale` was already set to `ms` from the
-  // first pass. Any other bare path carries no URL signal: leave the header
-  // empty so `resolveRequestLanguage()` falls through to the `gc_lang` cookie
-  // / `Accept-Language`, matching the pre-migration cookie-only behaviour the
-  // comment above promises.
-  const urlLocale = isMsPath ? 'ms' : priorLocale === 'ms' ? 'ms' : null;
-  const strippedPath = isMsPath
-    ? pathname.replace(/^\/ms/, '') || '/'
-    : priorPath ?? pathname;
+  // A genuine second pass lands on the exact stripped path the first pass
+  // signed — if the current pathname doesn't match, or the locale isn't one
+  // of the two we ever sign, or the signature doesn't verify, this cannot be
+  // a real second pass, only a forgery.
+  const trusted =
+    !!inboundSig &&
+    inboundPath === pathname &&
+    (inboundLocale === 'en' || inboundLocale === 'ms') &&
+    inboundSig === (await sign(`${inboundLocale}|${inboundPath}`));
 
-  // Request headers are readable by server components via `headers()`.
-  // Always overwrite the locale/path headers so a client-supplied value can
-  // never survive through to `resolveRequestLanguage()` / `generateMetadata()`
-  // — empty string on `x-gc-locale` means "URL said nothing", which
-  // `resolveRequestLanguage()` treats as no signal and falls through to the
-  // cookie.
   const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-gc-locale', urlLocale ?? '');
-  requestHeaders.set('x-gc-path', strippedPath);
   requestHeaders.set('x-pathname', pathname);
 
-  const doRewrite = LOCALE_PREFIX_ENABLED && isMsPath && !alreadyRewritten;
-  // Always set this explicitly too, rather than leaving whatever the client
-  // sent — the second-pass marker must only ever be true when we ourselves
-  // are issuing the rewrite this pass.
-  requestHeaders.set('x-gc-rewritten', doRewrite ? '1' : '0');
-
   let response: NextResponse;
-  if (doRewrite) {
-    const url = request.nextUrl.clone();
-    url.pathname = strippedPath;
-    response = NextResponse.rewrite(url, { request: { headers: requestHeaders } });
-    // Keep the client-side language in sync with the URL locale.
-    // `doRewrite` implies `isMsPath`, so `urlLocale` is always 'ms' here.
-    response.cookies.set(LANG_COOKIE, 'ms', {
-      maxAge: LANG_MAX_AGE,
-      path: '/',
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-    });
-  } else {
+
+  if (trusted) {
+    // Second pass, verified genuine: re-stamp the already-correct
+    // locale/path/signature and let the request through — no further
+    // rewrite needed.
+    requestHeaders.set('x-gc-locale', inboundLocale as string);
+    requestHeaders.set('x-gc-path', inboundPath as string);
+    requestHeaders.set('x-gc-sig', inboundSig as string);
     response = NextResponse.next({ request: { headers: requestHeaders } });
+  } else {
+    // No trusted carry-over: derive everything from the URL alone. Empty
+    // string on `x-gc-locale` means "URL said nothing"; `resolveRequestLanguage()`
+    // treats that as no signal and falls through to the `gc_lang` cookie /
+    // `Accept-Language`, matching the pre-migration cookie-only behaviour.
+    const isMsPath = pathname === '/ms' || pathname.startsWith('/ms/');
+    const urlLocale = isMsPath ? 'ms' : '';
+    const strippedPath = isMsPath ? pathname.slice(3) || '/' : pathname;
+
+    requestHeaders.set('x-gc-locale', urlLocale);
+    requestHeaders.set('x-gc-path', strippedPath);
+    requestHeaders.delete('x-gc-sig');
+    requestHeaders.delete('x-gc-rewritten');
+
+    const doRewrite = LOCALE_PREFIX_ENABLED && isMsPath;
+
+    if (doRewrite) {
+      requestHeaders.set('x-gc-sig', await sign(`ms|${strippedPath}`));
+      const url = new URL(strippedPath + request.nextUrl.search, request.url);
+      response = NextResponse.rewrite(url, { request: { headers: requestHeaders } });
+      // Keep the client-side language in sync with the URL locale.
+      // `doRewrite` implies `isMsPath`, so `urlLocale` is always 'ms' here.
+      response.cookies.set(LANG_COOKIE, 'ms', {
+        maxAge: LANG_MAX_AGE,
+        path: '/',
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
+      });
+    } else {
+      response = NextResponse.next({ request: { headers: requestHeaders } });
+    }
   }
 
   // Preserve the legacy ?lang= override (used by the client language toggle).

@@ -134,4 +134,32 @@ test.describe('proxy ignores spoofed internal headers', () => {
       'https://guru-credit.com',
     );
   });
+
+  test('a spoofed x-gc-rewritten: 1 combined with x-gc-locale/x-gc-path does not survive either', async ({ page }) => {
+    await page.setExtraHTTPHeaders({
+      'x-gc-rewritten': '1',
+      'x-gc-locale': 'ms',
+      'x-gc-path': '/evil',
+    });
+    await page.goto('/');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://guru-credit.com',
+    );
+  });
+
+  test('a forged x-gc-sig does not verify, so the carried locale/path are not trusted', async ({ page }) => {
+    await page.setExtraHTTPHeaders({
+      'x-gc-sig': 'abc',
+      'x-gc-locale': 'ms',
+      'x-gc-path': '/',
+    });
+    await page.goto('/');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://guru-credit.com',
+    );
+  });
 });

@@ -1,8 +1,10 @@
-import { BadgeCheck, FileSearch, Hash, MessageSquareWarning } from 'lucide-react';
-import { Container, Section, SectionHeader, Reveal } from '@/components/layout';
+import Image from 'next/image';
+import { BadgeCheck, CheckCircle2, FileSearch, Hash, MessageSquareWarning } from 'lucide-react';
+import { Container, Section, SectionHeader, Reveal, IconTile, toneCycle } from '@/components/layout';
 import type { HomeContent } from '@/lib/content/home';
 
 const icons = [BadgeCheck, FileSearch, MessageSquareWarning, Hash];
+const avatars = ['/images/optimized/customer-1.webp', '/images/optimized/customer-2.webp', '/images/optimized/customer-3.webp'];
 
 export function Proof({ t }: { t: HomeContent }) {
   const p = t.proof;
@@ -18,9 +20,9 @@ export function Proof({ t }: { t: HomeContent }) {
             const Icon = icons[i] ?? BadgeCheck;
             return (
               <div key={pt.title} className="flex gap-4">
-                <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary">
+                <IconTile tone={toneCycle[i]}>
                   <Icon className="size-5" />
-                </span>
+                </IconTile>
                 <div>
                   <h3 className="text-lg">{pt.title}</h3>
                   <p className="mt-1 text-foreground-muted">{pt.description}</p>
@@ -34,9 +36,25 @@ export function Proof({ t }: { t: HomeContent }) {
           <p className="eyebrow mb-6">{p.casesTitle}</p>
         </Reveal>
         <div className="grid gap-4 md:grid-cols-3 md:gap-6">
-          {p.cases.map((c) => (
-            <article key={c.name} className="flex h-full flex-col rounded-2xl border border-border bg-surface p-6">
-              <dl className="space-y-4 text-sm">
+          {p.cases.map((c, i) => (
+            <article key={c.name} className="corner-glow flex h-full flex-col rounded-2xl border border-border bg-surface p-6 shadow-card">
+              <div className="flex items-center gap-3">
+                <Image
+                  src={avatars[i] ?? avatars[0]}
+                  alt={c.name}
+                  width={44}
+                  height={44}
+                  className="size-11 rounded-full object-cover"
+                />
+                <div>
+                  <p className="font-semibold">{c.name}</p>
+                  <p className="text-xs text-foreground-subtle">{c.location}</p>
+                </div>
+              </div>
+              <blockquote className="mt-4 rounded-xl bg-surface-alt p-3 text-sm italic text-foreground-muted">
+                &ldquo;{c.quote}&rdquo;
+              </blockquote>
+              <dl className="mt-4 space-y-4 text-sm">
                 <div>
                   <dt className="eyebrow mb-1">{p.labels.situation}</dt>
                   <dd className="text-foreground-muted">{c.situation}</dd>
@@ -47,13 +65,14 @@ export function Proof({ t }: { t: HomeContent }) {
                 </div>
                 <div>
                   <dt className="eyebrow mb-1">{p.labels.outcome}</dt>
-                  <dd className="font-semibold text-success">{c.outcome}</dd>
+                  <dd className="flex items-center gap-2 font-semibold text-success">
+                    <IconTile tone="green" size="sm">
+                      <CheckCircle2 className="size-4" />
+                    </IconTile>
+                    {c.outcome}
+                  </dd>
                 </div>
               </dl>
-              <blockquote className="mt-6 border-t border-border pt-4 text-sm italic text-foreground-muted">
-                &ldquo;{c.quote}&rdquo;
-                <footer className="mt-2 not-italic text-xs text-foreground-subtle">{c.name} · {c.location}</footer>
-              </blockquote>
             </article>
           ))}
         </div>

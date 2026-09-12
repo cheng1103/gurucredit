@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
+import { Stat } from '@/components/layout';
 import { useLanguage } from '@/lib/i18n';
 import { calculateDsrOutcome } from '@/lib/dsr';
 import { ArrowRight, CheckCircle2, AlertCircle, XCircle } from 'lucide-react';
@@ -159,7 +160,7 @@ export function PreApprovalCalculator() {
 
   const status = calculation?.status;
   const statusTone = {
-    approved: { icon: CheckCircle2, text: 'text-success', bg: 'bg-success-soft border-success/30', bar: 'bg-success' },
+    approved: { icon: CheckCircle2, text: 'text-success', bg: 'bg-success-soft border-success/30', bar: 'bg-gradient-to-r from-success to-primary' },
     conditional: { icon: AlertCircle, text: 'text-warning', bg: 'bg-warning-soft border-warning/30', bar: 'bg-warning' },
     declined: { icon: XCircle, text: 'text-destructive', bg: 'bg-destructive/5 border-destructive/30', bar: 'bg-destructive' },
   } as const;
@@ -169,7 +170,7 @@ export function PreApprovalCalculator() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[360px_1fr] lg:items-start">
-      <div className="rounded-2xl border border-border bg-surface p-5 lg:sticky lg:top-24 lg:p-6">
+      <div className="rounded-2xl border border-border bg-surface p-5 shadow-card lg:sticky lg:top-24 lg:p-6">
         <div className="space-y-5">
           <div className="space-y-1.5">
             <Label htmlFor="income">{t.income.label}</Label>
@@ -231,15 +232,14 @@ export function PreApprovalCalculator() {
             </div>
 
             <dl className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
-              {[
-                { label: t.metrics.dsr, value: `${dsr.toFixed(1)}%`, cls: tone.text },
-                { label: t.metrics.maxLoan, value: formatCurrency(calculation.maxLoanAmount), cls: 'text-primary' },
-                { label: t.metrics.monthlyPayment, value: formatCurrency(calculation.monthlyPayment), cls: '' },
-                { label: t.metrics.totalInterest, value: formatCurrency(calculation.totalInterest), cls: 'text-foreground-muted' },
-              ].map((m) => (
+              {([
+                { label: t.metrics.dsr, value: `${dsr.toFixed(1)}%`, tone: calculation.status === 'approved' ? 'success' : 'default' },
+                { label: t.metrics.maxLoan, value: formatCurrency(calculation.maxLoanAmount), tone: 'primary' },
+                { label: t.metrics.monthlyPayment, value: formatCurrency(calculation.monthlyPayment), tone: 'default' },
+                { label: t.metrics.totalInterest, value: formatCurrency(calculation.totalInterest), tone: 'default' },
+              ] satisfies { label: string; value: string; tone: 'default' | 'success' | 'primary' }[]).map((m) => (
                 <div key={m.label} className="rounded-xl border border-border bg-surface p-4">
-                  <dt className="text-xs text-foreground-subtle">{m.label}</dt>
-                  <dd className={cn('mt-1 font-mono text-xl font-semibold tabular-nums', m.cls)}>{m.value}</dd>
+                  <Stat value={m.value} label={m.label} tone={m.tone} className="gap-0.5" />
                 </div>
               ))}
             </dl>

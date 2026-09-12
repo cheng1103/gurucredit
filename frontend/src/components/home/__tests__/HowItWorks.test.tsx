@@ -7,8 +7,8 @@ import { Products } from '../Products';
 describe('HowItWorks + Products', () => {
   it('renders three numbered steps and three deliverables', () => {
     render(<HowItWorks t={homeContent.en} />);
-    expect(screen.getByText('01')).toBeInTheDocument();
-    expect(screen.getByText('03')).toBeInTheDocument();
+    expect(screen.getByText('1')).toBeInTheDocument();
+    expect(screen.getByText('3')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /Three steps/ })).toBeInTheDocument();
     expect(screen.getByText(/Priority document checklist/)).toBeInTheDocument();
   });

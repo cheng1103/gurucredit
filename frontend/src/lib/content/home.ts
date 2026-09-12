@@ -11,6 +11,9 @@ export type HomeContent = {
     secondaryCta: string;
     trustLine: string;
     logosLabel: string;
+    floatFit: string;
+    floatTime: string;
+    photoAlt: string;
   };
   howItWorks: {
     eyebrow: string;
@@ -74,6 +77,9 @@ export const homeContent: Record<Language, HomeContent> = {
       secondaryCta: 'WhatsApp an advisor',
       trustLine: 'No payment on this website. The RM30 CTOS fee is settled only through our official WhatsApp.',
       logosLabel: 'Lenders we work with',
+      floatFit: 'Approval fit',
+      floatTime: 'Written answer in',
+      photoAlt: 'Advisor reviewing a loan file with a client',
     },
     howItWorks: {
       eyebrow: 'How it works',
@@ -195,6 +201,9 @@ export const homeContent: Record<Language, HomeContent> = {
       secondaryCta: 'WhatsApp perunding',
       trustLine: 'Tiada bayaran di laman web ini. Yuran CTOS RM30 diselesaikan hanya melalui WhatsApp rasmi kami.',
       logosLabel: 'Pemberi pinjaman yang bekerjasama dengan kami',
+      floatFit: 'Kesesuaian kelulusan',
+      floatTime: 'Jawapan bertulis dalam',
+      photoAlt: 'Perunding menyemak fail pinjaman bersama pelanggan',
     },
     howItWorks: {
       eyebrow: 'Cara ia berfungsi',

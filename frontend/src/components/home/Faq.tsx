@@ -8,7 +8,7 @@ import type { HomeContent } from '@/lib/content/home';
 export function Faq({ t }: { t: HomeContent }) {
   const f = t.faq;
   return (
-    <Section id="faq">
+    <Section id="faq" tone="tint">
       <Container className="max-w-[760px]">
         <Reveal>
           <SectionHeader

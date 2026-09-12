@@ -9,8 +9,9 @@ import type { HomeContent } from '@/lib/content/home';
 export function FinalCta({ t }: { t: HomeContent }) {
   const c = t.cta;
   return (
-    <Section id="final-cta" tone="inverse">
-      <Container>
+    <Section id="final-cta" tone="inverse" className="relative overflow-hidden">
+      <div aria-hidden="true" className="bg-glow-dark pointer-events-none absolute inset-0" />
+      <Container className="relative">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-[28px] text-inverse-foreground lg:text-4xl">{c.title}</h2>
           <p className="mt-4 text-lg text-inverse-foreground/70">{c.lede}</p>

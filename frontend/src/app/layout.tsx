@@ -141,7 +141,7 @@ export default async function RootLayout({
               Skip to content
             </a>
             <Navbar />
-            <main id="main-content" className="flex-1 pb-20 lg:pb-0">
+            <main id="main-content" className="flex-1">
               {children}
             </main>
             <Footer />

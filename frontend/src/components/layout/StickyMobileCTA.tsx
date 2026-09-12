@@ -46,29 +46,32 @@ export function StickyMobileCTA() {
   const t = copy[language];
 
   return (
-    <div
-      className={
-        'fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-3 border-t border-border bg-surface/95 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-float backdrop-blur transition-transform duration-200 lg:hidden ' +
-        (heroVisible ? 'translate-y-full' : 'translate-y-0')
-      }
-    >
-      <LocaleLink
-        href={PATHS.eligibilityTest}
-        onClick={() => trackEvent('sticky_cta_click', { language, target: 'eligibility' })}
-        className="inline-flex h-12 items-center justify-center rounded-[10px] bg-primary text-sm font-semibold text-primary-foreground"
+    <>
+      <div aria-hidden className="h-20 lg:hidden" />
+      <div
+        className={
+          'fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-3 border-t border-border bg-surface/95 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-float backdrop-blur transition-transform duration-200 lg:hidden ' +
+          (heroVisible ? 'translate-y-full' : 'translate-y-0')
+        }
       >
-        {t.primary}
-      </LocaleLink>
-      <a
-        href={COMPANY.whatsappLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => trackEvent('sticky_cta_click', { language, target: 'whatsapp' })}
-        className="inline-flex h-12 items-center justify-center gap-2 rounded-[10px] border border-border bg-surface text-sm font-semibold text-foreground"
-      >
-        <MessageCircle className="size-4" />
-        {t.whatsapp}
-      </a>
-    </div>
+        <LocaleLink
+          href={PATHS.eligibilityTest}
+          onClick={() => trackEvent('sticky_cta_click', { language, target: 'eligibility' })}
+          className="inline-flex h-12 items-center justify-center rounded-[10px] bg-primary text-sm font-semibold text-primary-foreground"
+        >
+          {t.primary}
+        </LocaleLink>
+        <a
+          href={COMPANY.whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackEvent('sticky_cta_click', { language, target: 'whatsapp' })}
+          className="inline-flex h-12 items-center justify-center gap-2 rounded-[10px] border border-border bg-surface text-sm font-semibold text-foreground"
+        >
+          <MessageCircle className="size-4" />
+          {t.whatsapp}
+        </a>
+      </div>
+    </>
   );
 }

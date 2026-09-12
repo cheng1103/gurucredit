@@ -12,12 +12,9 @@ import { SERVICE_AREAS, type ServiceAreaCode } from '@/lib/constants';
 import type { Language } from '@/lib/i18n/translations';
 import { cn } from '@/lib/utils';
 
-type QuickLeadVariant = 'hero' | 'sheet';
-
 type QuickLeadCaptureProps = {
   language: Language;
   source: string;
-  variant?: QuickLeadVariant;
   className?: string;
   onSuccess?: () => void;
 };
@@ -92,7 +89,6 @@ const phonePattern = /^(\+?6?0)[0-9]{1,2}[-\s]?[0-9]{3,4}[-\s]?[0-9]{4}$/;
 export function QuickLeadCapture({
   language,
   source,
-  variant = 'hero',
   className,
   onSuccess,
 }: QuickLeadCaptureProps) {
@@ -154,7 +150,7 @@ export function QuickLeadCapture({
   if (isSubmitted) {
     return (
       <div
-        id={variant === 'hero' ? 'hero-quick-check' : undefined}
+        id="hero-quick-check"
         className={cn('rounded-2xl border border-success/30 bg-success-soft p-5 text-sm text-foreground', className)}
       >
         <div className="flex items-start gap-3">
@@ -173,13 +169,8 @@ export function QuickLeadCapture({
 
   return (
     <div
-      id={variant === 'hero' ? 'hero-quick-check' : undefined}
-      className={cn(
-        variant === 'hero'
-          ? 'rounded-2xl border border-border bg-surface p-5 shadow-float sm:p-6'
-          : 'p-0',
-        className,
-      )}
+      id="hero-quick-check"
+      className={cn('rounded-2xl border border-border bg-surface p-5 shadow-float sm:p-6', className)}
     >
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <div>
@@ -193,7 +184,7 @@ export function QuickLeadCapture({
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className={cn('grid gap-3', variant === 'hero' ? 'sm:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1')}>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-1.5">
             <Label htmlFor={`${source}-phone`}>{t.phoneLabel}</Label>
             <Input

@@ -9,7 +9,7 @@ export function Faq({ t }: { t: HomeContent }) {
   const f = t.faq;
   return (
     <Section id="faq">
-      <Container size="prose" className="max-w-[760px]">
+      <Container className="max-w-[760px]">
         <Reveal>
           <SectionHeader
             eyebrow={f.eyebrow}

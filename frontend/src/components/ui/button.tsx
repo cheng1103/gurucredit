@@ -13,7 +13,7 @@ const buttonVariants = cva(
         outline: "border border-border bg-surface text-foreground hover:border-border-strong hover:bg-surface-alt",
         secondary: "bg-surface-alt text-foreground hover:bg-border",
         ghost: "text-foreground hover:bg-surface-alt",
-        link: "h-auto px-0 text-primary underline-offset-4 hover:underline",
+        link: "text-primary underline-offset-4 hover:underline",
         inverse: "bg-surface text-foreground hover:bg-surface-alt",
         destructive: "bg-destructive text-white hover:bg-destructive/90",
       },
@@ -24,6 +24,7 @@ const buttonVariants = cva(
         icon: "size-11",
         "icon-sm": "size-9",
         "icon-lg": "size-12",
+        inline: "h-auto px-0",
       },
     },
     defaultVariants: {

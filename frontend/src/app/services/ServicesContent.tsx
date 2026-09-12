@@ -30,6 +30,7 @@ export default function ServicesContent({ language }: Props) {
         url={`${SEO.url}/services`}
         title={t.header.title}
         description={t.header.subtitle}
+        image="/images/hero-bg.jpg"
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Services', url: `${SEO.url}/services` },

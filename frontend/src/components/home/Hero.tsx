@@ -29,7 +29,7 @@ export function Hero({ t, language }: { t: HomeContent; language: Language }) {
         </div>
 
         <div className="mx-auto mt-12 max-w-4xl lg:mt-16">
-          <QuickLeadCapture language={language} source="HERO_QUICK_CHECK" variant="hero" />
+          <QuickLeadCapture language={language} source="HERO_QUICK_CHECK" />
           <p data-nosnippet className="mt-3 text-center text-xs text-foreground-subtle">{h.trustLine}</p>
         </div>
 

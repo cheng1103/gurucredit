@@ -22,4 +22,11 @@ describe('StickyMobileCTA', () => {
     const { container } = wrap(<StickyMobileCTA />);
     expect(container.firstChild).toBeNull();
   });
+
+  it('renders nothing at all on /contact', () => {
+    pathnameMock.mockReturnValue('/contact');
+    const { container } = wrap(<StickyMobileCTA />);
+    expect(container.firstChild).toBeNull();
+    expect(container.innerHTML).toBe('');
+  });
 });

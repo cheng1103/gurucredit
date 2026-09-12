@@ -15,6 +15,60 @@ for (const route of ROUTES) {
   });
 }
 
+// Routes covering every migrated template (blog post, all loan guides + topic,
+// services apply/success, editorial/review-methodology, and every listing/
+// legal/loan/region page) — each must emit at most one BreadcrumbList, whether
+// standalone or nested inside a WebPageJsonLd @graph.
+const BREADCRUMB_ROUTES = [
+  '/',
+  '/blog',
+  '/blog/personal-loan-malaysia-complete-guide-2026',
+  '/loan-guides',
+  '/loan-guides/self-employed-income-proof',
+  '/loan-guides/ccris-ctos',
+  '/loan-guides/loan-rejection-recovery',
+  '/loan-guides/debt-consolidation',
+  '/loan-guides/credit-score',
+  '/loan-guides/topics/personal-loan-minimum-salary',
+  '/tools',
+  '/tools/compare',
+  '/eligibility-test',
+  '/service-areas',
+  '/glossary',
+  '/faq',
+  '/documents',
+  '/loans/personal',
+  '/loans/debt-consolidation',
+  '/loans/emergency',
+  '/loans/my/selangor',
+  '/about',
+  '/partners',
+  '/verify-us',
+  '/services',
+  '/services/1/apply',
+  '/services/success',
+  '/contact',
+  '/status',
+  '/privacy',
+  '/terms',
+  '/disclaimer',
+  '/editorial-policy',
+  '/review-methodology',
+];
+
+for (const route of BREADCRUMB_ROUTES) {
+  test(`${route} emits at most one BreadcrumbList`, async ({ page }) => {
+    await page.goto(route);
+    const scripts = await page.locator('script[type="application/ld+json"]').allTextContents();
+    const breadcrumbListCount = scripts.reduce((count, text) => {
+      const normalised = JSON.stringify(JSON.parse(text));
+      const matches = normalised.match(/"@type":"BreadcrumbList"/g);
+      return count + (matches?.length ?? 0);
+    }, 0);
+    expect(breadcrumbListCount).toBeLessThanOrEqual(1);
+  });
+}
+
 test('/compare redirects permanently to /tools/compare', async ({ page }) => {
   const res = await page.request.get('/compare', { maxRedirects: 0 });
   expect(res.status()).toBe(308);

@@ -29,7 +29,7 @@ export function PageHeader({
   return (
     <Section compact className="border-b border-border bg-background">
       <Container size={size} className={cn(centered && 'text-center')}>
-        {breadcrumbs ? <Breadcrumbs items={breadcrumbs} jsonLd className={cn('mb-6', centered && 'justify-center [&_ol]:justify-center')} /> : null}
+        {breadcrumbs ? <Breadcrumbs items={breadcrumbs} className={cn('mb-6', centered && 'justify-center [&_ol]:justify-center')} /> : null}
         {eyebrow ? <p className="eyebrow mb-3">{eyebrow}</p> : null}
         <h1 className={cn('text-[34px] lg:text-5xl', centered && 'mx-auto max-w-3xl')}>{title}</h1>
         {lede ? <p className={cn('mt-4 max-w-2xl text-lg leading-relaxed text-foreground-muted', centered && 'mx-auto')}>{lede}</p> : null}

@@ -11,7 +11,7 @@ import { regionUi, regionProductLabel } from '@/lib/content/regions-ui';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { PATHS } from '@/lib/i18n/routes';
 import { SEO, COMPANY } from '@/lib/constants';
-import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { WebPageJsonLd } from '@/components/JsonLd';
 
 export const revalidate = 3600;
 
@@ -70,13 +70,18 @@ export default async function RegionPage({ params }: { params: Params }) {
   const name = region.name[language];
   const ui = regionUi[language];
 
+  const url = `${SEO.url}/loans/my/${region.slug}`;
+
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
+      <WebPageJsonLd
+        url={url}
+        title={ui.heroTitle(name)}
+        description={region.localContext[language]}
+        breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Loans', url: `${SEO.url}/loans` },
-          { name, url: `${SEO.url}/loans/my/${region.slug}` },
+          { name, url },
         ]}
       />
 

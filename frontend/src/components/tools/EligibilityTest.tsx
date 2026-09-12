@@ -88,7 +88,8 @@ export function EligibilityTest({ language }: { language: Language }) {
           </span>
           <span>{Math.round(progress)}% {t.progress.complete}</span>
         </div>
-        <Progress value={progress} />
+        {/* Decorative: the aria-live text above already announces progress. */}
+        <Progress value={progress} aria-hidden="true" />
       </div>
 
       {!showResult ? (

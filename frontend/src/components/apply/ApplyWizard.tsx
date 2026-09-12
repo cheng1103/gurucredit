@@ -227,7 +227,8 @@ export function ApplyWizard({ serviceId, service }: { serviceId: string; service
           <Stepper items={stepItems} current={step} stepWord={t.progress.step} ofWord={t.progress.of} ariaLabel={t.a11y.stepsList} />
           <CardTitle className="text-xl">{stepTitle}</CardTitle>
           <CardDescription>{stepDescription}</CardDescription>
-          <Progress value={(step / TOTAL_STEPS) * 100} className="mt-4" />
+          {/* Decorative: the Stepper above already conveys progress accessibly. */}
+          <Progress value={(step / TOTAL_STEPS) * 100} className="mt-4" aria-hidden="true" />
         </CardHeader>
 
         <form onSubmit={handleSubmit}>

@@ -31,10 +31,16 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+// Fallback coverage for occasional CJK glyphs inside otherwise Latin/Malay
+// content (e.g. a Chinese name). Google serves Noto Sans SC as ~100
+// unicode-range chunks per weight regardless of the `subsets` option, so
+// each extra weight roughly triples the page's render-blocking CSS payload
+// for a font that most visitors never trigger. One weight is enough for a
+// fallback role; browsers synthesize bold for the rare bold CJK run.
 const cjkFont = Noto_Sans_SC({
   subsets: ["latin"],
   variable: "--font-cjk",
-  weight: ["400", "500", "700"],
+  weight: "400",
   display: "swap",
   preload: false,
 });

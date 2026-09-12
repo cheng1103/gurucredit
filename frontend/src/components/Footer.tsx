@@ -131,7 +131,7 @@ export function Footer() {
         </div>
         {t.groups.map((group) => (
           <div key={group.title} className="lg:col-span-2">
-            <h3 className="text-sm font-semibold">{group.title}</h3>
+            <h2 className="text-sm font-semibold">{group.title}</h2>
             <ul className="mt-4 space-y-2.5">
               {group.links.map((link) => (
                 <li key={link.href}>
@@ -144,7 +144,7 @@ export function Footer() {
           </div>
         ))}
         <div className="lg:col-span-2">
-          <h3 className="text-sm font-semibold">{t.contact}</h3>
+          <h2 className="text-sm font-semibold">{t.contact}</h2>
           <ul className="mt-4 space-y-3 text-sm text-foreground-muted">
             <li><a href={COMPANY.phoneLink} className="flex items-start gap-2 hover:text-foreground"><Phone className="mt-0.5 size-4 shrink-0" />{COMPANY.phone}</a></li>
             <li><a href={COMPANY.emailLink} className="flex items-start gap-2 hover:text-foreground"><Mail className="mt-0.5 size-4 shrink-0" />{COMPANY.email}</a></li>

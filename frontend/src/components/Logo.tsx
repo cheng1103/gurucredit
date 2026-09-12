@@ -16,7 +16,6 @@ export function Logo({ className, size = 28 }: { className?: string; size?: numb
       <span className="text-[17px] font-bold tracking-tight text-foreground">
         GURU <span className="font-semibold text-foreground-muted">Credits</span>
       </span>
-      <span className="sr-only">{COMPANY.name}</span>
     </span>
   );
 }

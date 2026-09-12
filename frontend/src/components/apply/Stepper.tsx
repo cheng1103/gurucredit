@@ -45,7 +45,7 @@ export function Stepper({
               className={cn(
                 'flex items-center gap-2 rounded-full border px-3 py-1',
                 active
-                  ? 'border-primary/60 bg-primary/10 text-primary'
+                  ? 'border-primary/60 bg-primary/10 text-primary-hover'
                   : done
                     ? 'border-success/30 bg-success-soft text-success'
                     : 'border-border',

@@ -23,15 +23,25 @@ export function proxy(request: NextRequest) {
   const priorPath = request.headers.get('x-gc-path');
 
   const isMsPath = pathname === '/ms' || pathname.startsWith('/ms/');
-  const locale = isMsPath ? 'ms' : priorLocale === 'ms' ? 'ms' : 'en';
+  // Only the URL itself is authoritative for locale — either this request's
+  // path is `/ms`, or (on the internal rewrite's second middleware pass)
+  // `x-gc-locale` was already set to `ms` from the first pass. Any other
+  // bare path carries no URL signal: leave the header unset so
+  // `resolveRequestLanguage()` falls through to the `gc_lang` cookie /
+  // `Accept-Language`, matching the pre-migration cookie-only behaviour the
+  // comment above promises.
+  const urlLocale = isMsPath ? 'ms' : alreadyRewritten && priorLocale === 'ms' ? 'ms' : null;
   const strippedPath = isMsPath
     ? pathname.replace(/^\/ms/, '') || '/'
     : priorPath ?? pathname;
 
-  // Request headers are readable by server components via `headers()`. Always
-  // publish locale + logical path so metadata can build an accurate canonical.
+  // Request headers are readable by server components via `headers()`.
+  // Publish the logical path always, but only publish locale when the URL
+  // actually determined it.
   const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-gc-locale', locale);
+  if (urlLocale) {
+    requestHeaders.set('x-gc-locale', urlLocale);
+  }
   requestHeaders.set('x-gc-path', strippedPath);
   requestHeaders.set('x-pathname', pathname);
 
@@ -46,7 +56,8 @@ export function proxy(request: NextRequest) {
     url.pathname = strippedPath;
     response = NextResponse.rewrite(url, { request: { headers: requestHeaders } });
     // Keep the client-side language in sync with the URL locale.
-    response.cookies.set(LANG_COOKIE, locale, {
+    // `doRewrite` implies `isMsPath`, so `urlLocale` is always 'ms' here.
+    response.cookies.set(LANG_COOKIE, 'ms', {
       maxAge: LANG_MAX_AGE,
       path: '/',
       sameSite: 'lax',

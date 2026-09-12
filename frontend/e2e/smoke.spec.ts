@@ -1,17 +1,20 @@
 import { test, expect } from '@playwright/test';
+import { smokeRoutes } from '../src/lib/routes-for-smoke';
 
-const ROUTES = [
-  '/', '/about', '/contact', '/faq', '/services', '/eligibility-test', '/tools', '/tools/compare',
-  '/loans/personal', '/loans/debt-consolidation', '/loans/emergency', '/loans/my/selangor', '/loans/my/sabah',
-  '/loan-guides', '/loan-guides/ccris-ctos', '/blog', '/glossary', '/documents', '/partners',
-  '/service-areas', '/verify-us', '/privacy', '/terms', '/disclaimer', '/status',
-];
+const ROUTES = smokeRoutes();
 
 for (const route of ROUTES) {
-  test(`${route} renders with one h1`, async ({ page }) => {
+  test(`${route} renders with one h1 and no console errors`, async ({ page }) => {
+    const consoleErrors: string[] = [];
+    page.on('console', (msg) => {
+      if (msg.type() === 'error') consoleErrors.push(msg.text());
+    });
+    page.on('pageerror', (err) => consoleErrors.push(err.message));
+
     const res = await page.goto(route);
     expect(res?.status()).toBe(200);
     await expect(page.locator('h1')).toHaveCount(1);
+    expect(consoleErrors).toEqual([]);
   });
 }
 
@@ -89,4 +92,23 @@ test('mobile sticky CTA appears below the hero on the homepage', async ({ page }
   // The bar slides in after the hero leaves the viewport; toBeInViewport retries
   // until the 200ms transition has finished.
   await expect(link).toBeInViewport({ ratio: 1 });
+});
+
+// The `ms` locale resolves by cookie today (LOCALE_PREFIX flag is off, so
+// `/ms/*` paths 404 — see e2e/locale-routing.spec.ts). Setting `gc_lang=ms`
+// before navigating exercises the Malay render on the un-prefixed routes.
+test.describe('ms locale via gc_lang cookie', () => {
+  const MS_ROUTES = ['/', '/loans/personal', '/blog', '/faq'];
+
+  for (const route of MS_ROUTES) {
+    test(`${route} renders <html lang="ms"> with the gc_lang cookie set`, async ({
+      page,
+      context,
+      baseURL,
+    }) => {
+      await context.addCookies([{ name: 'gc_lang', value: 'ms', url: baseURL }]);
+      await page.goto(route);
+      await expect(page.locator('html')).toHaveAttribute('lang', 'ms');
+    });
+  }
 });

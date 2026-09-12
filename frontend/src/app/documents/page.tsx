@@ -12,6 +12,7 @@ export default async function DocumentsPage() {
         title="Document Checklist"
         description="Prepare loan application documents for personal, business, and debt consolidation loans in Malaysia."
         image="/images/cta-bg.jpg"
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Documents', url: `${SEO.url}/documents` },

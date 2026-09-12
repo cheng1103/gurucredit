@@ -3,6 +3,11 @@ export interface BlogPost {
   slug: string;
   title: string;
   titleMs: string;
+  /** Shorter override for the <title> tag when `title` runs long for search
+   * result display. Falls back to `title`/`titleMs`. The on-page H1 always
+   * uses `title`/`titleMs`. */
+  seoTitle?: string;
+  seoTitleMs?: string;
   excerpt: string;
   excerptMs: string;
   content: string;
@@ -39,6 +44,8 @@ export const blogPosts: BlogPost[] = [
     slug: 'personal-loan-malaysia-complete-guide-2026',
     title: 'Personal Loan Malaysia Complete Guide 2026: Bad Credit, Self-Employed, CCRIS, CTOS and Emergency Loan Options',
     titleMs: 'Panduan Lengkap Pinjaman Peribadi Malaysia 2026: Kredit Lemah, Bekerja Sendiri, CCRIS, CTOS dan Pilihan Pinjaman Kecemasan',
+    seoTitle: 'Personal Loan Malaysia 2026: Bad Credit Guide',
+    seoTitleMs: 'Panduan Pinjaman Peribadi Malaysia 2026',
     excerpt:
       'One complete Malaysia personal loan guide covering bad credit applications, self-employed income proof, CCRIS/CTOS checks, emergency loans, debt consolidation, and licensed lender red flags.',
     excerptMs:

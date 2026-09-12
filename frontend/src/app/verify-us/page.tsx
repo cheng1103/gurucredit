@@ -10,7 +10,7 @@ import { teamMembers } from '@/app/about/team-data';
 import { verifyUsContent, type VerifyUsSection } from '@/lib/content/verify-us';
 
 export const metadata = buildMetadata({
-  title: 'Verify Us: Licensing, Office, Privacy & Official Channels',
+  title: 'Verify Us: Licensing, Office & Privacy',
   description:
     'Review GURU Credits office details, official borrower channels, privacy handling, and the steps we expect borrowers to use when verifying our process.',
   path: '/verify-us',

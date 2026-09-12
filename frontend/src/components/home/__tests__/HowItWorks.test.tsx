@@ -19,7 +19,11 @@ describe('HowItWorks + Products', () => {
         <Products t={homeContent.en} />
       </LanguageProvider>,
     );
+    // Each card's CTA link has a "Learn more: <product>" aria-label (matched
+    // by /Learn more/) so it reads as a distinct, descriptive link name for
+    // assistive tech and Lighthouse's link-text audit, instead of three
+    // identical "Learn more" links.
     expect(screen.getAllByRole('link', { name: /Learn more/ })).toHaveLength(3);
-    expect(screen.getByRole('link', { name: /Personal Loan/ })).toHaveAttribute('href', '/loans/personal');
+    expect(screen.getByRole('link', { name: 'Personal Loan' })).toHaveAttribute('href', '/loans/personal');
   });
 });

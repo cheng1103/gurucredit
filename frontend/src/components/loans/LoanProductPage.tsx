@@ -61,6 +61,11 @@ export function LoanProductPage({ doc, language }: { doc: LoanProductDoc; langua
                 {c.cta.secondary}
               </a>
             </Button>
+            {c.guideLink ? (
+              <Button asChild size="lg" variant="ghost">
+                <LocaleLink href={c.guideLink.href}>{c.guideLink.label}</LocaleLink>
+              </Button>
+            ) : null}
           </>
         }
       >

@@ -10,12 +10,7 @@ import { localeAlternates } from "@/lib/seo";
 import { resolveRequestLanguage } from "@/lib/i18n/server";
 import { Providers } from "@/components/Providers";
 import { WhatsAppFab, StickyMobileCTA } from "@/components/layout";
-import {
-  OrganizationJsonLd,
-  WebsiteJsonLd,
-  ServicesJsonLd,
-  GeoCoverageJsonLd,
-} from "@/components/JsonLd";
+import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 
 const defaultOgImage = new URL(SEO.shareImage, SEO.url).toString();
 
@@ -120,8 +115,6 @@ export default async function RootLayout({
       <head>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
-        <ServicesJsonLd />
-        <GeoCoverageJsonLd />
       </head>
       <body className={`${geist.variable} ${geistMono.variable} font-sans antialiased`}>
         <Providers initialLanguage={locale}>

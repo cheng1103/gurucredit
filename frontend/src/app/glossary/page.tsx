@@ -12,6 +12,7 @@ export default async function GlossaryPage() {
         title="Loan Glossary"
         description="Loan glossary for Malaysian borrowers: DSR, CCRIS, CTOS, flat vs effective rates, and more."
         image="/images/hero-bg.jpg"
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Glossary', url: `${SEO.url}/glossary` },

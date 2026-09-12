@@ -102,7 +102,7 @@ export function Navbar() {
     >
       <div className="container flex h-full items-center justify-between gap-6">
         <LocaleLink href={PATHS.home} aria-label={COMPANY.name}>
-          <Logo />
+          <Logo priority />
         </LocaleLink>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">

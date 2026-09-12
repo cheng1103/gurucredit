@@ -17,6 +17,7 @@ export default async function LoanGuidesPage() {
         url={`${SEO.url}/loan-guides`}
         title={t.title}
         description={t.lede}
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Loan Guides', url: `${SEO.url}/loan-guides` },

@@ -2,18 +2,18 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { WebPageJsonLd } from '@/components/JsonLd';
 import { buildMetadata } from '@/lib/seo';
-import { COMPANY, SEO } from '@/lib/constants';
+import { SEO } from '@/lib/constants';
 
 const SERVICE_META: Record<string, { name: string; title: string; description: string }> = {
   '1': {
     name: 'Personal Loan',
-    title: `Apply for Personal Loan | ${COMPANY.name}`,
+    title: 'Apply for Personal Loan',
     description:
       'Start your personal loan consultation with RM30 eligibility analysis, CCRIS/CTOS review, and a curated shortlist of Malaysian banks.',
   },
   '4': {
     name: 'Business Loan',
-    title: `Apply for Business Loan | ${COMPANY.name}`,
+    title: 'Apply for Business Loan',
     description:
       'Secure SME financing with detailed cash flow assessment, professional documentation review, and introductions to suitable lenders.',
   },
@@ -21,7 +21,7 @@ const SERVICE_META: Record<string, { name: string; title: string; description: s
 
 const DEFAULT_META = {
   name: 'Loan Application',
-  title: `Apply for Loan Consultation | ${COMPANY.name}`,
+  title: 'Apply for Loan Consultation',
   description:
     'Submit your loan application to receive DSR evaluation, CCRIS/CTOS review, and a written loan offer — direct from a licensed lender. RM30 covers the CTOS report pull.',
 };

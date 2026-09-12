@@ -67,7 +67,7 @@ export function GuideArticle({ doc, language }: { doc: GuideDoc; language: Langu
   return (
     <>
       {c.howTo ? <HowToJsonLd name={c.howTo.name} description={c.howTo.description} steps={c.howTo.steps} /> : null}
-      <WebPageJsonLd url={url} title={c.title} description={c.lede} faqItems={c.faqs} breadcrumbItems={breadcrumbItems} />
+      <WebPageJsonLd url={url} title={c.title} description={c.lede} faqItems={c.faqs} breadcrumbItems={breadcrumbItems} language={language} />
       <ArticleLayout
         language={language}
         breadcrumbs={breadcrumbs}

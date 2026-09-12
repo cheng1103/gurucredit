@@ -2,7 +2,7 @@ import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { SEO } from '@/lib/constants';
 import { PATHS } from '@/lib/i18n/routes';
 import { buildMetadata } from '@/lib/seo';
-import { FinancialProductJsonLd, LoanProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
+import { FinancialProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
 import { LoanProductPage } from '@/components/loans/LoanProductPage';
 import { personalLoan } from '@/lib/content/loans/personal';
 
@@ -22,14 +22,6 @@ export default async function PersonalLoanPage() {
 
   return (
     <>
-      <LoanProductJsonLd
-        name="Personal Loan Malaysia"
-        description="Personal loan guidance with RM30 analysis, DSR strategy, and tailored loan offer."
-        interestRate="4.88% - 8.5% flat p.a."
-        loanTerm="1-7 years"
-        minAmount={5000}
-        maxAmount={100000}
-      />
       <FinancialProductJsonLd
         url={`${SEO.url}/loans/personal`}
         name="Personal Loan Malaysia"
@@ -48,6 +40,7 @@ export default async function PersonalLoanPage() {
         url={`${SEO.url}/loans/personal`}
         title={t.title}
         description={t.lede}
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Loans', url: `${SEO.url}${PATHS.services}` },

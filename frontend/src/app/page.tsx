@@ -1,7 +1,7 @@
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { homeContent } from '@/lib/content/home';
 import { SEO } from '@/lib/constants';
-import { WebPageJsonLd } from '@/components/JsonLd';
+import { WebPageJsonLd, ServicesJsonLd, GeoCoverageJsonLd } from '@/components/JsonLd';
 import { Hero } from '@/components/home/Hero';
 import { HowItWorks } from '@/components/home/HowItWorks';
 import { Products } from '@/components/home/Products';
@@ -26,6 +26,8 @@ export default async function HomePage() {
         breadcrumbItems={[{ name: 'Home', url: SEO.url }]}
         faqItems={t.faq.items}
       />
+      <ServicesJsonLd />
+      <GeoCoverageJsonLd />
       <Hero t={t} language={language} />
       <HowItWorks t={t} />
       <Products t={t} />

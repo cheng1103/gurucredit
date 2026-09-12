@@ -1,10 +1,12 @@
 import { ListingShell, CardGrid, ListingCard } from '@/components/listings';
+import { Prose } from '@/components/layout';
+import { LocaleLink } from '@/components/LocaleLink';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { PATHS } from '@/lib/i18n/routes';
 import { SEO } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
 import { WebPageJsonLd } from '@/components/JsonLd';
-import { toolsUi, tools } from '@/lib/content/listings/tools';
+import { toolsUi, tools, toolsIntro } from '@/lib/content/listings/tools';
 
 export const metadata = buildMetadata({
   title: 'Loan Tools & Calculators',
@@ -19,6 +21,7 @@ export const metadata = buildMetadata({
 export default async function ToolsPage() {
   const language = await resolveRequestLanguage();
   const t = toolsUi[language];
+  const intro = toolsIntro[language];
 
   return (
     <>
@@ -26,6 +29,7 @@ export default async function ToolsPage() {
         url={`${SEO.url}/tools`}
         title={t.title}
         description={t.lede}
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Tools', url: `${SEO.url}/tools` },
@@ -38,6 +42,19 @@ export default async function ToolsPage() {
         title={t.title}
         lede={t.lede}
       >
+        <Prose className="mb-10 max-w-3xl">
+          {intro.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+          <p>
+            {intro.links.map((link, index) => (
+              <span key={link.href}>
+                {index > 0 ? ' · ' : ''}
+                <LocaleLink href={link.href}>{link.label}</LocaleLink>
+              </span>
+            ))}
+          </p>
+        </Prose>
         <CardGrid columns={2}>
           {tools.map((tool) => (
             <ListingCard

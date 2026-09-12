@@ -38,6 +38,9 @@ interface PageMetadataInput {
   path: string;
   image?: string;
   keywords?: string;
+  /** Locale this page's content is written in. Defaults to 'en'. Drives
+   * `openGraph.locale`/`alternateLocale` and the canonical/hreflang set. */
+  locale?: Language;
 }
 
 export const buildMetadata = ({
@@ -46,25 +49,32 @@ export const buildMetadata = ({
   path,
   image,
   keywords,
+  locale = 'en',
 }: PageMetadataInput): Metadata => {
   const url = `${SEO.url}${path}`;
   const imageUrl = image
     ? new URL(image, SEO.url).toString()
     : new URL(SEO.shareImage, SEO.url).toString();
   const fullTitle = `${title} | ${SEO.siteName}`;
+  const ogLocale = locale === 'ms' ? 'ms_MY' : SEO.locale;
+  const alternateLocale = locale === 'ms' ? [SEO.locale] : ['ms_MY'];
 
   return {
-    // Canonical + hreflang are emitted centrally from the root layout
-    // (see localeAlternates), keyed off the request's locale + path.
+    // Also emitted centrally from the root layout (see localeAlternates) for
+    // the request's actual locale/path — this keeps each page's own metadata
+    // object self-contained (and testable) even before that merge happens.
     title,
     description,
     keywords,
+    alternates: localeAlternates(locale, path),
     openGraph: {
       title: fullTitle,
       description,
       url,
       siteName: SEO.siteName,
       type: 'website',
+      locale: ogLocale,
+      alternateLocale,
       images: [
         {
           url: imageUrl,

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getBlogPost, getRelatedPosts, blogPosts } from '@/lib/blog-data';
 import { SEO } from '@/lib/constants';
+import { localeAlternates } from '@/lib/seo';
 import { BlogArticle } from '@/components/blog/BlogArticle';
 
 interface BlogPostPageProps {
@@ -31,14 +32,17 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   const ogImage = post.image ? new URL(post.image, SEO.url).toString() : defaultOgImage;
   const canonicalUrl = `${SEO.url}/blog/${post.slug}`;
+  // seoTitle is a shorter <title>-only override for posts whose on-page H1
+  // (post.title) is too long for search result display.
+  const seoTitle = post.seoTitle ?? post.title;
 
   return {
-    title: post.title,
+    title: seoTitle,
     description: post.excerpt,
     keywords: post.tags.join(', '),
     authors: [{ name: post.author }],
     openGraph: {
-      title: post.title,
+      title: seoTitle,
       description: post.excerpt,
       type: 'article',
       locale: SEO.locale,
@@ -58,11 +62,15 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
+      title: seoTitle,
       description: post.excerpt,
       images: [ogImage],
     },
-    // canonical + hreflang inherited from the root layout (localeAlternates)
+    // Set explicitly (rather than relying on inheritance from the root
+    // layout) because blog/layout.tsx sits between this page and the root —
+    // see the note there about why a layout-level `alternates` would shadow
+    // this page's own canonical if it defined one.
+    alternates: localeAlternates('en', `/blog/${post.slug}`),
   } satisfies Metadata;
 }
 

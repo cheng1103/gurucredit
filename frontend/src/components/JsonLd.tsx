@@ -1,4 +1,4 @@
-import { COMPANY, SEO, SERVICES, FAQS, SERVICE_AREAS, SERVICE_AREA_LABEL } from '@/lib/constants';
+import { COMPANY, SEO, SERVICES, SERVICE_AREAS, SERVICE_AREA_LABEL } from '@/lib/constants';
 import { getAuthorProfile } from '@/lib/authors';
 
 const areaServedSchema = SERVICE_AREAS.map((area) => ({
@@ -24,7 +24,7 @@ export function OrganizationJsonLd() {
     name: COMPANY.name,
     description: SEO.defaultDescription,
     url: SEO.url,
-    logo: `${SEO.url}/logo.jpg`,
+    logo: new URL(COMPANY.logo, SEO.url).toString(),
     telephone: COMPANY.phone,
     email: COMPANY.email,
     address: {
@@ -44,7 +44,8 @@ export function OrganizationJsonLd() {
     ],
     priceRange: 'RM30-RM50',
     openingHours: 'Mo-Fr 09:00-18:00, Sa 10:00-14:00',
-    areaServed: areaServedSchema,
+    areaServed: 'MY',
+    knowsLanguage: ['en', 'ms'],
     contactPoint: [
       {
         '@type': 'ContactPoint',
@@ -75,9 +76,14 @@ export function OrganizationJsonLd() {
 
 // Services Schema
 export function ServicesJsonLd() {
+  // SERVICES[].price/priceFormatted hold the loan's APR, not a consultation
+  // fee — there is no per-service fee field in src/lib/constants.ts, so
+  // `offers` is intentionally omitted rather than mislabelling an interest
+  // rate as an Offer.price (see task-B-brief B2.1).
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
+    '@id': `${SEO.url}#services`,
     itemListElement: SERVICES.map((service, index) => ({
       '@type': 'ListItem',
       position: index + 1,
@@ -90,34 +96,6 @@ export function ServicesJsonLd() {
           name: COMPANY.name,
           areaServed: areaServedSchema,
         },
-        offers: {
-          '@type': 'Offer',
-          price: service.price,
-          priceCurrency: 'MYR',
-        },
-      },
-    })),
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-}
-
-// FAQ Schema
-export function FAQJsonLd() {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: FAQS.slice(0, 10).map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
       },
     })),
   };
@@ -180,6 +158,8 @@ interface ArticleJsonLdProps {
   slug: string;
   tags: string[];
   image?: string;
+  /** Language the article body is actually rendered in. Defaults to 'en'. */
+  language?: 'en' | 'ms';
 }
 
 export function ArticleJsonLd({
@@ -199,6 +179,7 @@ export function ArticleJsonLd({
   slug,
   tags,
   image,
+  language = 'en',
 }: ArticleJsonLdProps) {
   const resolvedImage = image ? new URL(image, SEO.url).toString() : undefined;
   const profile = getAuthorProfile(author);
@@ -233,7 +214,7 @@ export function ArticleJsonLd({
     ...(titleMs && { alternateName: titleMs }),
     description: description,
     abstract: descriptionMs,
-    inLanguage: ['en-MY', 'ms-MY'],
+    inLanguage: language === 'ms' ? 'ms-MY' : 'en-MY',
     author: authorNode,
     publisher: {
       '@type': 'Organization',
@@ -265,57 +246,17 @@ export function ArticleJsonLd({
   );
 }
 
-// Breadcrumb Schema
+// Shared shapes for the breadcrumb/FAQ nodes embedded in WebPageJsonLd's
+// @graph (kept here — BreadcrumbJsonLd/FAQSectionJsonLd standalone emitters
+// were removed as dead exports; see task-B-brief B2.6).
 interface BreadcrumbItem {
   name: string;
   url: string;
 }
 
-export function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] }) {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item.name,
-      item: item.url,
-    })),
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-}
-
 interface FaqItem {
   question: string;
   answer: string;
-}
-
-export function FAQSectionJsonLd({ items }: { items: FaqItem[] }) {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: items.map((item) => ({
-      '@type': 'Question',
-      name: item.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.answer,
-      },
-    })),
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
 }
 
 interface HowToStep {
@@ -353,89 +294,6 @@ export function HowToJsonLd({
   );
 }
 
-interface LoanServiceJsonLdProps {
-  url: string;
-  name: string;
-  nameMs: string;
-  description: string;
-  descriptionMs: string;
-  serviceType: string;
-  interestRate: string;
-  tenure: string;
-  amount: string;
-  keywords?: string[];
-}
-
-export function LoanServiceJsonLd({
-  url,
-  name,
-  nameMs,
-  description,
-  descriptionMs,
-  serviceType,
-  interestRate,
-  tenure,
-  amount,
-  keywords,
-}: LoanServiceJsonLdProps) {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': ['Service', 'FinancialProduct'],
-    name,
-    alternateName: nameMs,
-    description,
-    disambiguatingDescription: descriptionMs,
-    inLanguage: ['en-MY', 'ms-MY'],
-    serviceType,
-    url,
-    areaServed: areaServedSchema,
-    availableLanguage: ['English', 'Malay'],
-    provider: {
-      '@type': 'FinancialService',
-      name: COMPANY.name,
-      url: SEO.url,
-      areaServed: areaServedSchema,
-    },
-    availableChannel: {
-      '@type': 'ServiceChannel',
-      serviceUrl: url,
-    },
-    offers: {
-      '@type': 'Offer',
-      price: '30.00',
-      priceCurrency: 'MYR',
-      description: 'RM30 eligibility analysis fee is collected after submission via WhatsApp.',
-      availabilityStarts: '2024-01-01',
-      eligibleRegion: SERVICE_AREA_LABEL,
-    },
-    additionalProperty: [
-      {
-        '@type': 'PropertyValue',
-        name: 'Interest Rate Range',
-        value: interestRate,
-      },
-      {
-        '@type': 'PropertyValue',
-        name: 'Tenure Range',
-        value: tenure,
-      },
-      {
-        '@type': 'PropertyValue',
-        name: 'Financing Amount',
-        value: amount,
-      },
-    ],
-    keywords: keywords?.join(', '),
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-}
-
 // WebSite Schema with SearchAction
 export function WebsiteJsonLd() {
   const schema = {
@@ -456,16 +314,6 @@ export function WebsiteJsonLd() {
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
-}
-
-// Product Schema for Loan Products
-interface LoanProductJsonLdProps {
-  name: string;
-  description: string;
-  interestRate: string;
-  loanTerm: string;
-  minAmount: number;
-  maxAmount: number;
 }
 
 // Schema.org FinancialProduct / LoanOrCredit — the specific type Google uses
@@ -532,46 +380,6 @@ export function FinancialProductJsonLd({
     ...(feeNote && {
       feesAndCommissionsSpecification: feeNote,
     }),
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-}
-
-export function LoanProductJsonLd({ name, description, interestRate, loanTerm, minAmount, maxAmount }: LoanProductJsonLdProps) {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: name,
-    description: description,
-    brand: {
-      '@type': 'Organization',
-      name: COMPANY.name,
-    },
-    areaServed: areaServedSchema,
-    offers: {
-      '@type': 'AggregateOffer',
-      priceCurrency: 'MYR',
-      lowPrice: minAmount,
-      highPrice: maxAmount,
-      offerCount: 1,
-    },
-    additionalProperty: [
-      {
-        '@type': 'PropertyValue',
-        name: 'Interest Rate',
-        value: interestRate,
-      },
-      {
-        '@type': 'PropertyValue',
-        name: 'Loan Term',
-        value: loanTerm,
-      },
-    ],
   };
 
   return (
@@ -649,6 +457,8 @@ interface WebPageGraphProps {
   image?: string;
   breadcrumbItems?: BreadcrumbItem[];
   faqItems?: FaqItem[];
+  /** Language this page is actually rendered in. Defaults to 'en'. */
+  language?: 'en' | 'ms';
 }
 
 export function WebPageJsonLd({
@@ -658,6 +468,7 @@ export function WebPageJsonLd({
   image,
   breadcrumbItems,
   faqItems,
+  language = 'en',
 }: WebPageGraphProps) {
   const imageUrl = image ? new URL(image, SEO.url).toString() : undefined;
   const graph: Record<string, unknown>[] = [
@@ -667,7 +478,7 @@ export function WebPageJsonLd({
       url,
       name: title,
       description,
-      inLanguage: ['en-MY', 'ms-MY'],
+      inLanguage: language === 'ms' ? 'ms-MY' : 'en-MY',
       isPartOf: { '@id': `${SEO.url}#website` },
       publisher: { '@id': `${SEO.url}#organization` },
       about: { '@id': `${SEO.url}#organization` },

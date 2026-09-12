@@ -69,9 +69,9 @@ export function BlogArticle({ post, relatedPosts }: { post: BlogPost; relatedPos
         title={post.title} titleMs={post.titleMs} description={post.excerpt} descriptionMs={post.excerptMs}
         author={post.author} authorRole={authorRole} authorBio={authorBio} authorCredentials={post.authorCredentials ?? author.credentials} authorPhoto={authorPhoto}
         publishedAt={post.publishedAt} updatedAt={post.updatedAt} reviewedBy={post.reviewedBy} reviewedAt={post.reviewedAt}
-        slug={post.slug} tags={post.tags} image={post.image}
+        slug={post.slug} tags={post.tags} image={post.image} language={language}
       />
-      <WebPageJsonLd url={url} title={title} description={excerpt} image={post.image} breadcrumbItems={[{ name: 'Home', url: SEO.url }, { name: 'Blog', url: new URL(PATHS.blog, SEO.url).toString() }, { name: title, url }]} />
+      <WebPageJsonLd url={url} title={title} description={excerpt} image={post.image} language={language} breadcrumbItems={[{ name: 'Home', url: SEO.url }, { name: 'Blog', url: new URL(PATHS.blog, SEO.url).toString() }, { name: title, url }]} />
 
       <ArticleLayout
         language={language}
@@ -101,7 +101,7 @@ export function BlogArticle({ post, relatedPosts }: { post: BlogPost; relatedPos
         footer={
           <div className="space-y-12">
             <div className="flex gap-4 rounded-2xl border border-border bg-surface p-6">
-              <Image src={authorPhoto} alt="" width={56} height={56} className="size-14 shrink-0 rounded-full object-cover" />
+              <Image src={authorPhoto} alt={post.author} width={56} height={56} className="size-14 shrink-0 rounded-full object-cover" />
               <div>
                 <p className="eyebrow mb-1">{t.aboutAuthor}</p>
                 <p className="font-semibold">{post.author}</p>

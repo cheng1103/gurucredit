@@ -88,6 +88,7 @@ export const debtConsolidationLoan: LoanProductDoc = {
         primary: 'Get Free Analysis',
         secondary: 'Chat on WhatsApp',
       },
+      guideLink: { label: 'Read the full strategy guide', href: PATHS.loanGuide.debtConsolidation },
     },
     ms: {
       eyebrow: 'Permudahkan Kewangan Anda',
@@ -171,6 +172,7 @@ export const debtConsolidationLoan: LoanProductDoc = {
         primary: 'Dapatkan Analisis Percuma',
         secondary: 'Sembang di WhatsApp',
       },
+      guideLink: { label: 'Baca panduan strategi penuh', href: PATHS.loanGuide.debtConsolidation },
     },
   },
 };

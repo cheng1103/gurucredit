@@ -1,3 +1,9 @@
+// Bump whenever the content in `guideTopics` below is meaningfully revised.
+// Drives the sitemap `lastmod` for every `/loan-guides/topics/*` entry — see
+// src/app/sitemap.ts — so that signal can't silently go stale behind a
+// hand-maintained date living in an unrelated file.
+export const contentUpdatedAt = '2026-09-12';
+
 export type GuideTopic = {
   slug: string;
   title: string;

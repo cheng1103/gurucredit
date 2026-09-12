@@ -28,9 +28,13 @@ export function Products({ t }: { t: HomeContent }) {
                   </LocaleLink>
                 </h3>
                 <p className="flex-1 text-foreground-muted">{item.description}</p>
-                <LocaleLink href={item.href} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                <LocaleLink
+                  href={item.href}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary"
+                >
                   {p.cta}
-                  <ArrowRight className="size-4" />
+                  <span className="sr-only"> {item.title}</span>
+                  <ArrowRight className="size-4" aria-hidden="true" />
                 </LocaleLink>
               </Card>
             );

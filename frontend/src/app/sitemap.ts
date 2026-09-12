@@ -1,17 +1,26 @@
 import type { MetadataRoute } from 'next';
 import { blogPosts } from '@/lib/blog-data';
-import { guideTopics } from '@/lib/guide-topics';
+import { guideTopics, contentUpdatedAt as guideTopicsUpdatedAt } from '@/lib/guide-topics';
 import { SEO } from '@/lib/constants';
-import { regionSlugs } from '@/lib/content/regions';
+import { regionSlugs, contentUpdatedAt as regionsUpdatedAt } from '@/lib/content/regions';
 import { LOCALE_PREFIX_ENABLED } from '@/lib/i18n/routes';
 
 type Alt = { [lang: string]: string };
 
-// Stable lastmod for pages without a per-item content date. Bump this when
-// static/region/topic content is meaningfully revised — do NOT use `new Date()`
-// here, which would stamp every page as "modified now" on each build and make
-// the lastmod signal worthless to search engines.
+// Stable lastmod for the static/legal pages below, which have no per-item
+// content date of their own. Bump this when that content is meaningfully
+// revised — do NOT use `new Date()` here, which would stamp every page as
+// "modified now" on each build and make the lastmod signal worthless to
+// search engines.
+//
+// Region (`/loans/my/*`) and guide topic (`/loan-guides/topics/*`) entries
+// instead derive their lastmod from `contentUpdatedAt` exported alongside
+// that content (src/lib/content/regions.ts, src/lib/guide-topics.ts), so
+// editing those files is what has to bump the date — it can't go stale
+// behind an unrelated constant here.
 const LAST_CONTENT_UPDATE = new Date('2026-06-25T00:00:00Z');
+const REGIONS_UPDATED = new Date(regionsUpdatedAt);
+const GUIDE_TOPICS_UPDATED = new Date(guideTopicsUpdatedAt);
 
 const buildAlternates = (path: string): Alt => {
   const languages: Alt = {
@@ -91,7 +100,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     localizedEntries(`/loans/my/${slug}`, {
       priority: 0.75,
       changeFrequency: 'monthly',
-      lastModified: LAST_CONTENT_UPDATE,
+      lastModified: REGIONS_UPDATED,
     }),
   );
 
@@ -107,7 +116,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     localizedEntries(`/loan-guides/topics/${topic.slug}`, {
       priority: 0.72,
       changeFrequency: 'monthly',
-      lastModified: LAST_CONTENT_UPDATE,
+      lastModified: GUIDE_TOPICS_UPDATED,
     }),
   );
 

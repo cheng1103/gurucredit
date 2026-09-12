@@ -5,7 +5,7 @@ import { PageHeader, Section, Container, SectionHeader, Stat, ClosingCta } from 
 import { Language } from '@/lib/i18n/translations';
 import { SEO, TRUST_BLOCK } from '@/lib/constants';
 import { PATHS } from '@/lib/i18n/routes';
-import { WebPageJsonLd } from '@/components/JsonLd';
+import { WebPageJsonLd, ServicesJsonLd, GeoCoverageJsonLd } from '@/components/JsonLd';
 import { TrustPanel } from '@/components/TrustPanel';
 import { VerifyTrustCard } from '@/components/VerifyTrustCard';
 import { FaqAccordion } from '@/components/sections/FaqAccordion';
@@ -31,12 +31,15 @@ export default function ServicesContent({ language }: Props) {
         title={t.header.title}
         description={t.header.subtitle}
         image="/images/hero-bg.jpg"
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Services', url: `${SEO.url}/services` },
         ]}
         faqItems={t.faq.items}
       />
+      <ServicesJsonLd />
+      <GeoCoverageJsonLd />
 
       <PageHeader
         breadcrumbs={[{ label: u.home, href: PATHS.home }, { label: u.services, href: PATHS.services }]}

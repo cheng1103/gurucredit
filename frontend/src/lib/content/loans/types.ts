@@ -29,6 +29,11 @@ export type LoanProductContent = {
   faq: { title: string; items: { question: string; answer: string }[] };
   trust: { title: string; description: string; items: { title: string; description: string }[] };
   cta: { title: string; description: string; primary: string; secondary: string };
+  /** Optional tertiary link to a deeper strategy guide for this product
+   * (e.g. debt consolidation's `/loan-guides/debt-consolidation`), rendered
+   * alongside the primary/secondary CTAs to avoid keyword cannibalisation
+   * between the product and guide pages. */
+  guideLink?: { label: string; href: string };
 };
 
 export type LoanProductDoc = {

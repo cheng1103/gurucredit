@@ -49,6 +49,7 @@ export default function FaqContent({ language }: FaqContentProps) {
         title={t.title}
         description={t.lede}
         image="/images/hero-bg.jpg"
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'FAQ', url: `${SEO.url}/faq` },

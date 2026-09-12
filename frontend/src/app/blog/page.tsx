@@ -27,6 +27,7 @@ export default async function BlogPage() {
         url={`${SEO.url}/blog`}
         title={t.title}
         description={t.lede}
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Blog', url: `${SEO.url}/blog` },

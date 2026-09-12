@@ -1,5 +1,11 @@
 import type { Language } from '@/lib/i18n/translations';
 
+// Bump whenever the content in `regions` below is meaningfully revised.
+// Drives the sitemap `lastmod` for every `/loans/my/*` entry — see
+// src/app/sitemap.ts — so that signal can't silently go stale behind a
+// hand-maintained date living in an unrelated file.
+export const contentUpdatedAt = '2026-09-12';
+
 export type RegionSlug =
   | 'kuala-lumpur'
   | 'selangor'

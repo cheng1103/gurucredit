@@ -59,6 +59,7 @@ export const debtConsolidationGuide: GuideDoc = {
         { question: 'How long before CCRIS improves?', answer: 'Expect improvement after 3-6 clean payment cycles once arrears are cleared.' },
       ],
       related: [
+        { title: 'Debt Consolidation Loan', href: PATHS.loans.debtConsolidation },
         { title: 'Debt consolidation guide', href: '/blog/debt-consolidation-guide-malaysia' },
         { title: 'Improve credit score fast', href: '/blog/how-to-improve-credit-score-malaysia' },
         { title: 'Loan rejection reasons', href: '/blog/loan-rejection-reasons-solutions' },
@@ -126,6 +127,7 @@ export const debtConsolidationGuide: GuideDoc = {
         { question: 'Bilakah CCRIS akan pulih?', answer: 'Jangkakan penambahbaikan selepas 3-6 kitaran bayaran bersih apabila tunggakan diselesaikan.' },
       ],
       related: [
+        { title: 'Pinjaman Penyatuan Hutang', href: PATHS.loans.debtConsolidation },
         { title: 'Panduan penyatuan hutang', href: '/blog/debt-consolidation-guide-malaysia' },
         { title: 'Tingkatkan skor kredit dengan pantas', href: '/blog/how-to-improve-credit-score-malaysia' },
         { title: 'Sebab penolakan pinjaman', href: '/blog/loan-rejection-reasons-solutions' },

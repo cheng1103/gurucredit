@@ -3,9 +3,13 @@
 # fixed set of representative routes, desktop + mobile presets, and prints a
 # summary table of the four category scores per URL/preset.
 #
-# Usage: bash scripts/lighthouse.sh
+# Usage: bash scripts/lighthouse.sh                  # fixed default routes
+#        bash scripts/lighthouse.sh /a /b/c ...      # only the given routes
 # Requires a running server (default http://127.0.0.1:3000); override with
 # LIGHTHOUSE_BASE_URL. Reports are written to .superpowers/lighthouse/.
+#
+# Preset(s) to run come from LIGHTHOUSE_PRESETS (space-separated, default
+# "desktop mobile"), e.g. `LIGHTHOUSE_PRESETS=desktop bash scripts/lighthouse.sh ...`.
 
 set -euo pipefail
 
@@ -13,13 +17,20 @@ BASE_URL="${LIGHTHOUSE_BASE_URL:-http://127.0.0.1:3000}"
 OUT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/.superpowers/lighthouse"
 mkdir -p "$OUT_DIR"
 
-ROUTES=(
+DEFAULT_ROUTES=(
   "/"
   "/loans/personal"
   "/blog/personal-loan-malaysia-complete-guide-2026"
   "/services/1/apply"
 )
-PRESETS=("desktop" "mobile")
+
+if [ "$#" -gt 0 ]; then
+  ROUTES=("$@")
+else
+  ROUTES=("${DEFAULT_ROUTES[@]}")
+fi
+
+read -ra PRESETS <<< "${LIGHTHOUSE_PRESETS:-desktop mobile}"
 
 slug() {
   # "/" -> home ; "/blog/x" -> blog_x

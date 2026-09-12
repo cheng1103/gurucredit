@@ -1,4 +1,5 @@
 import { Check } from 'lucide-react';
+import { IconTile } from '@/components/layout';
 import { cn } from '@/lib/utils';
 
 export interface StepperItem {
@@ -43,7 +44,8 @@ export function Stepper({
               key={item.label}
               aria-current={active ? 'step' : undefined}
               className={cn(
-                'flex items-center gap-2 rounded-full border px-3 py-1',
+                'flex items-center gap-2 rounded-full border py-1 pr-3',
+                active || done ? 'pl-1' : 'pl-3',
                 active
                   ? 'border-primary/60 bg-primary/10 text-primary-hover'
                   : done
@@ -52,7 +54,13 @@ export function Stepper({
               )}
             >
               {done ? (
-                <Check className="size-3.5" aria-hidden="true" />
+                <IconTile tone="green" size="sm" className="size-6 rounded-full [&_svg]:size-3.5">
+                  <Check aria-hidden="true" />
+                </IconTile>
+              ) : active ? (
+                <IconTile tone="blue" size="sm" className="size-6 rounded-full">
+                  <span className="font-mono text-[11px] font-semibold">{String(stepNumber).padStart(2, '0')}</span>
+                </IconTile>
               ) : (
                 <span className="font-semibold">{String(stepNumber).padStart(2, '0')}</span>
               )}

@@ -1,4 +1,5 @@
-import { PageHeader, Section, Container, SectionHeader, Stat, ClosingCta } from '@/components/layout';
+import { Sparkles } from 'lucide-react';
+import { PageHeader, Section, Container, SectionHeader, Stat, ClosingCta, IconTile, toneCycle } from '@/components/layout';
 import { CardGrid, ListingCard } from '@/components/listings';
 import { Badge } from '@/components/ui/badge';
 import { PATHS } from '@/lib/i18n/routes';
@@ -93,7 +94,7 @@ export default function AboutContent({ language }: { language: Language }) {
           <SectionHeader eyebrow={t.team.eyebrow} title={t.team.title} lede={t.team.description} />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {teamMembers.map((member) => (
-              <div key={member.name} className="rounded-2xl border border-border bg-surface p-6">
+              <div key={member.name} className="rounded-2xl border border-border bg-surface p-6 shadow-card">
                 <h3 className="font-semibold text-foreground">{member.role[language]}</h3>
                 <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.18em] text-foreground-subtle">
                   {member.yearsExperience}{language === 'ms' ? '+ tahun pengalaman' : '+ years experience'}
@@ -113,8 +114,11 @@ export default function AboutContent({ language }: { language: Language }) {
         <Container>
           <SectionHeader eyebrow={t.values.eyebrow} title={t.values.title} lede={t.values.description} />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {t.values.items.map((value) => (
+            {t.values.items.map((value, index) => (
               <div key={value.title} className="rounded-2xl border border-border bg-surface p-6">
+                <IconTile tone={toneCycle[index % toneCycle.length]} size="sm" className="mb-3">
+                  <Sparkles className="size-4" aria-hidden="true" />
+                </IconTile>
                 <h3 className="font-semibold text-foreground">{value.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-foreground-muted">{value.description}</p>
               </div>

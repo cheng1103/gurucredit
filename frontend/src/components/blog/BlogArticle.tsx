@@ -118,7 +118,7 @@ export function BlogArticle({ post, relatedPosts }: { post: BlogPost; relatedPos
                 <h2 className="text-2xl">{t.related}</h2>
                 <div className="mt-6 grid gap-4 md:grid-cols-3">
                   {relatedPosts.map((rp) => (
-                    <article key={rp.slug} className="relative flex flex-col rounded-2xl border border-border bg-surface p-5 transition-[transform,border-color] hover:-translate-y-0.5 hover:border-border-strong">
+                    <article key={rp.slug} className="relative flex flex-col rounded-2xl border border-border bg-surface p-5 shadow-card transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:border-primary/30 hover:shadow-card-hover">
                       <p className="eyebrow mb-2">{t.categories[rp.category]}</p>
                       <h3 className="text-lg">
                         <LocaleLink href={PATHS.blogPost(rp.slug)} className="after:absolute after:inset-0">{language === 'ms' ? rp.titleMs : rp.title}</LocaleLink>

@@ -14,7 +14,7 @@ const copy = {
 export function AsideCta({ language, className }: { language: Language; className?: string }) {
   const t = copy[language];
   return (
-    <div className={cn('rounded-2xl border border-border bg-surface p-5', className)}>
+    <div className={cn('corner-glow rounded-2xl border border-border bg-surface p-5 shadow-card', className)}>
       <p className="font-semibold">{t.title}</p>
       <p className="mt-1 text-sm text-foreground-muted">{t.body}</p>
       <div className="mt-4 flex flex-col gap-2">

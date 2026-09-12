@@ -1,5 +1,5 @@
 import { AlertTriangle, CheckCircle2, MessageCircle, Phone, Sparkles } from 'lucide-react';
-import { PageHeader, Section, Container, SectionHeader, Stat, ClosingCta } from '@/components/layout';
+import { PageHeader, Section, Container, SectionHeader, Stat, ClosingCta, IconTile, toneCycle } from '@/components/layout';
 import { Button } from '@/components/ui/button';
 import { LocaleLink } from '@/components/LocaleLink';
 import { FaqAccordion } from '@/components/sections/FaqAccordion';
@@ -96,8 +96,11 @@ export function LoanProductPage({ doc, language }: { doc: LoanProductDoc; langua
           <Container>
             <SectionHeader title={c.situations.title} />
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {c.situations.items.map((item) => (
+              {c.situations.items.map((item, index) => (
                 <div key={item.title} className="rounded-2xl border border-border bg-surface p-5">
+                  <IconTile tone={toneCycle[index % toneCycle.length]} size="sm" className="mb-3">
+                    <Sparkles className="size-4" aria-hidden="true" />
+                  </IconTile>
                   <h3 className="font-semibold text-foreground">{item.title}</h3>
                   <p className="mt-2 text-sm text-foreground-muted">{item.description}</p>
                 </div>
@@ -112,11 +115,11 @@ export function LoanProductPage({ doc, language }: { doc: LoanProductDoc; langua
           <Container>
             <SectionHeader title={c.benefits.title} />
             <div className="grid gap-4 md:grid-cols-2">
-              {c.benefits.items.map((item) => (
+              {c.benefits.items.map((item, index) => (
                 <div key={item.title} className="flex gap-4 rounded-2xl border border-border bg-surface p-5">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
+                  <IconTile tone={toneCycle[index % toneCycle.length]} className="shrink-0">
                     <Sparkles className="size-5" aria-hidden="true" />
-                  </div>
+                  </IconTile>
                   <div>
                     <h3 className="font-semibold text-foreground">{item.title}</h3>
                     <p className="mt-1 text-sm text-foreground-muted">{item.description}</p>
@@ -152,7 +155,7 @@ export function LoanProductPage({ doc, language }: { doc: LoanProductDoc; langua
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-success/30 bg-success-soft p-6 text-center">
+              <div className="corner-glow rounded-2xl border border-success/30 bg-success-soft p-6 text-center">
                 <h3 className="font-semibold text-foreground">{c.comparison.after.title}</h3>
                 <Stat
                   className="mt-6 items-center"
@@ -204,9 +207,9 @@ export function LoanProductPage({ doc, language }: { doc: LoanProductDoc; langua
           <ol className="grid gap-6 md:grid-cols-3">
             {c.process.steps.map((step, index) => (
               <li key={step.title} className="rounded-2xl border border-border bg-surface p-5">
-                <span className="font-mono text-sm font-semibold text-foreground-subtle">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
+                <IconTile tone={toneCycle[index % toneCycle.length]} size="sm">
+                  <span className="font-mono text-xs font-semibold">{String(index + 1).padStart(2, '0')}</span>
+                </IconTile>
                 <h3 className="mt-2 font-semibold text-foreground">{step.title}</h3>
                 <p className="mt-1 text-sm text-foreground-muted">{step.description}</p>
               </li>

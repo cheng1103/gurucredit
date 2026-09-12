@@ -179,7 +179,7 @@ export default async function RegionPage({ params }: { params: Params }) {
           <SectionHeader eyebrow={ui.lenders.eyebrow} title={ui.lenders.title(name)} />
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
             {region.lenders.map((lender) => (
-              <Badge key={lender} variant="outline" className="justify-center px-4 py-3 text-sm">
+              <Badge key={lender} variant="outline" className="justify-center px-4 py-3 text-sm transition-colors hover:border-primary/40">
                 {lender}
               </Badge>
             ))}
@@ -209,7 +209,7 @@ export default async function RegionPage({ params }: { params: Params }) {
             <SectionHeader eyebrow={ui.localCases.eyebrow} title={ui.localCases.title(name)} lede={ui.localCases.disclaimer} />
             <div className="grid gap-6 md:grid-cols-2">
               {region.localCaseStudies.map((caseItem, i) => (
-                <article key={i} className="flex h-full flex-col rounded-2xl border border-border bg-surface p-6">
+                <article key={i} className="corner-glow flex h-full flex-col rounded-2xl border border-border bg-surface p-6 shadow-card">
                   <header>
                     <p className="font-semibold text-foreground">
                       {caseItem.label}, {caseItem.ageRange}

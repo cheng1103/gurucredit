@@ -94,7 +94,10 @@ export function Navbar() {
     <header
       className={cn(
         'sticky top-0 z-50 h-16 transition-[background-color,box-shadow,border-color] duration-200',
-        scrolled ? 'border-b border-border bg-surface/85 backdrop-blur' : 'border-b border-transparent bg-transparent',
+        scrolled
+          ? 'border-b border-border bg-surface/85 backdrop-blur after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-primary/30 after:to-transparent'
+          : 'border-b border-transparent bg-transparent',
+        'relative',
       )}
     >
       <div className="container flex h-full items-center justify-between gap-6">

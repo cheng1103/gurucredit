@@ -1,5 +1,5 @@
 import { AlertTriangle, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { ArticleLayout, Stat } from '@/components/layout';
+import { ArticleLayout, Stat, IconTile, toneCycle } from '@/components/layout';
 import { LocaleLink } from '@/components/LocaleLink';
 import { FaqAccordion } from '@/components/sections/FaqAccordion';
 import { HowToJsonLd, WebPageJsonLd } from '@/components/JsonLd';
@@ -23,7 +23,9 @@ function Section({ s, labels }: { s: GuideSection; labels: GuideUiLabels }) {
           <ol aria-label={labels.steps} className="not-prose grid gap-4 !pl-0">
             {s.steps.map((step, i) => (
               <li key={step.title} className="flex gap-4 rounded-2xl border border-border bg-surface p-5">
-                <span className="font-mono text-sm font-semibold text-foreground-subtle">{String(i + 1).padStart(2, '0')}</span>
+                <IconTile tone={toneCycle[i % toneCycle.length]} size="sm" className="shrink-0">
+                  <span className="font-mono text-xs font-semibold">{String(i + 1).padStart(2, '0')}</span>
+                </IconTile>
                 <div><h3 className="!mt-0 text-lg">{step.title}</h3><p className="mt-1 text-sm text-foreground-muted">{step.description}</p></div>
               </li>
             ))}
@@ -79,7 +81,7 @@ export function GuideArticle({ doc, language }: { doc: GuideDoc; language: Langu
               <ul className="mt-6 grid gap-3 md:grid-cols-2">
                 {c.related.map((r) => (
                   <li key={r.href}>
-                    <LocaleLink href={r.href} className="flex items-center justify-between rounded-xl border border-border bg-surface px-5 py-4 font-medium transition-colors hover:border-border-strong">
+                    <LocaleLink href={r.href} className="flex items-center justify-between rounded-xl border border-border bg-surface px-5 py-4 font-medium shadow-card transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:border-primary/30 hover:shadow-card-hover">
                       {r.title}<ArrowRight className="size-4 text-primary" />
                     </LocaleLink>
                   </li>
@@ -90,7 +92,7 @@ export function GuideArticle({ doc, language }: { doc: GuideDoc; language: Langu
         }
       >
         {c.stats?.length ? (
-          <div className="not-prose grid grid-cols-2 gap-4 rounded-2xl border border-border bg-surface-alt p-5 sm:grid-cols-4">
+          <div className="not-prose grid grid-cols-2 gap-4 rounded-2xl border border-border bg-tint p-5 sm:grid-cols-4">
             {c.stats.map((s) => <Stat key={s.label} value={s.value} label={s.label} />)}
           </div>
         ) : null}

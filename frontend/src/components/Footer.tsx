@@ -112,7 +112,7 @@ export function Footer() {
   const t = content[language];
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-border bg-surface">
+    <footer className="relative bg-surface before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-primary/30 before:to-transparent">
       <div className="container grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-4">
           <Logo />

@@ -4,7 +4,7 @@ import { LocaleLink } from '@/components/LocaleLink';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { PageHeader, Section, Container } from '@/components/layout';
+import { PageHeader, Section, Container, IconTile } from '@/components/layout';
 import {
   CheckCircle,
   Mail,
@@ -75,9 +75,9 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
         eyebrow={t.success}
         title={
           <span className="flex flex-col items-center gap-4">
-            <span className="flex size-16 items-center justify-center rounded-full bg-success-soft">
-              <CheckCircle className="size-8 text-success" aria-hidden="true" />
-            </span>
+            <IconTile tone="green" size="lg">
+              <CheckCircle className="size-7" aria-hidden="true" />
+            </IconTile>
             {t.title}
           </span>
         }
@@ -88,7 +88,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
         <Container size="prose">
           <Card>
             <CardContent className="space-y-6 p-6 lg:p-8">
-              <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
+              <div className="card-gradient-border shadow-glow rounded-lg p-4">
                 <p className="mb-2 text-sm text-foreground-muted">{t.reference.title}</p>
                 <ReferenceDetailsClient referenceNumber={referenceNumber} note={t.reference.saveNote} copyLabel={t.copyReference} />
               </div>

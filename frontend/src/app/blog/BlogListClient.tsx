@@ -116,7 +116,7 @@ export function BlogListClient({ posts, categories }: { posts: BlogListItem[]; c
             index === 0 ? (
               <article
                 key={post.slug}
-                className="grid overflow-hidden rounded-2xl border border-border bg-surface sm:col-span-2 md:grid-cols-[1.2fr_1fr] lg:col-span-3"
+                className="card-gradient-border shadow-glow grid overflow-hidden rounded-2xl sm:col-span-2 md:grid-cols-[1.2fr_1fr] lg:col-span-3"
               >
                 <div className="flex flex-col justify-center gap-4 p-6 lg:p-10">
                   <p className="eyebrow">{t.featuredBadge}</p>

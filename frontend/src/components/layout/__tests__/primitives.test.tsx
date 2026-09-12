@@ -1,5 +1,11 @@
 import { render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
 import { Container, Section, SectionHeader, Stat, IconTile, Marquee } from '..';
+
+vi.mock('framer-motion', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('framer-motion')>();
+  return { ...actual, useInView: () => true, useReducedMotion: () => true };
+});
 
 describe('layout primitives', () => {
   it('Container applies width by size', () => {
@@ -31,23 +37,14 @@ describe('layout primitives', () => {
   });
 
   it('Stat renders the exact source text under reduced motion', () => {
-    const original = window.matchMedia;
-    window.matchMedia = ((query: string) =>
-      ({
-        matches: query.includes('prefers-reduced-motion'),
-        media: query,
-        onchange: null,
-        addListener: () => {},
-        removeListener: () => {},
-        addEventListener: () => {},
-        removeEventListener: () => {},
-        dispatchEvent: () => false,
-      }) as MediaQueryList) as typeof window.matchMedia;
-
+    // useInView resolves true (the stat is in view) but useReducedMotion also
+    // resolves true, so the count-up effect must bail out before animating —
+    // the rendered text should equal the source value exactly, not a
+    // truncated in-progress frame.
     render(<Stat value="1,200+" label="Applications" tone="primary" />);
-    expect(screen.getByText('1,200+')).toHaveClass('font-mono');
-
-    window.matchMedia = original;
+    const el = screen.getByText('1,200+');
+    expect(el).toHaveClass('font-mono');
+    expect(el.textContent).toBe('1,200+');
   });
 
   it('Section tone="tint" applies bg-tint', () => {

@@ -2,7 +2,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { LocaleLink } from '@/components/LocaleLink';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Stat } from '@/components/layout';
+import { Stat, IconTile, toneCycle } from '@/components/layout';
 import { PATHS } from '@/lib/i18n/routes';
 import type { ServiceDefinition } from './data';
 import { serviceIcons } from './data';
@@ -16,14 +16,14 @@ interface Props {
 export default function ServiceGrid({ services, applyLabel, availabilityLabel }: Props) {
   return (
     <div className="grid gap-6 md:grid-cols-2">
-      {services.map((service) => {
+      {services.map((service, index) => {
         const Icon = serviceIcons[service.type];
         return (
-          <div key={service.id} className="flex flex-col rounded-2xl border border-border bg-surface p-6">
+          <div key={service.id} className="corner-glow flex flex-col rounded-2xl border border-border bg-surface p-6">
             <div className="flex items-start justify-between gap-4">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
+              <IconTile tone={toneCycle[index % toneCycle.length]}>
                 <Icon className="size-6" aria-hidden="true" />
-              </div>
+              </IconTile>
               <Badge variant={service.highlight === 'Most Popular' || service.highlight === 'Paling Popular' ? 'default' : 'secondary'}>
                 {service.highlight}
               </Badge>

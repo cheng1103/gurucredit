@@ -1,12 +1,13 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Building2, Calculator, Check, Clock, DollarSign, Percent, Star, TrendingUp } from 'lucide-react';
+import { Building2, Calculator, Check, DollarSign, Star, TrendingUp } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { Stat } from '@/components/layout';
 import { cn } from '@/lib/utils';
 import { ToolLayout } from './ToolLayout';
 import { banks, compareUi, loanTypeDefaults, type LoanTypeId } from '@/lib/content/tools/compare';
@@ -242,25 +243,20 @@ export function BankRateCompare({ language }: { language: Language }) {
               </div>
 
               <div className="text-center">
-                <p className="mb-1 flex items-center justify-center gap-1 text-xs text-foreground-subtle">
-                  <Percent className="size-3" aria-hidden="true" />
-                  {t.comparison.interestRate}
-                </p>
-                <p className="font-mono text-2xl font-bold tabular-nums text-primary">
-                  {item.rate.min}%
-                  {item.rate.max !== item.rate.min ? (
-                    <span className="text-base font-normal text-foreground-muted"> – {item.rate.max}%</span>
-                  ) : null}
-                </p>
+                <Stat
+                  className="items-center"
+                  tone="primary"
+                  value={`${item.rate.min}%`}
+                  label={t.comparison.interestRate}
+                />
+                {item.rate.max !== item.rate.min ? (
+                  <p className="font-mono text-xs text-foreground-subtle">– {item.rate.max}%</p>
+                ) : null}
                 <p className="text-xs text-foreground-subtle">{t.comparison.perAnnum}</p>
               </div>
 
               <div className="text-center">
-                <p className="mb-1 flex items-center justify-center gap-1 text-xs text-foreground-subtle">
-                  <Clock className="size-3" aria-hidden="true" />
-                  {t.comparison.monthlyPayment}
-                </p>
-                <p className="font-mono text-2xl font-bold tabular-nums">{formatCurrency(item.minPayment)}</p>
+                <Stat className="items-center" value={formatCurrency(item.minPayment)} label={t.comparison.monthlyPayment} />
                 {item.maxPayment !== item.minPayment ? (
                   <p className="font-mono text-xs text-foreground-subtle">
                     {t.comparison.to} {formatCurrency(item.maxPayment)}
@@ -269,11 +265,7 @@ export function BankRateCompare({ language }: { language: Language }) {
               </div>
 
               <div className="text-center">
-                <p className="mb-1 flex items-center justify-center gap-1 text-xs text-foreground-subtle">
-                  <TrendingUp className="size-3" aria-hidden="true" />
-                  {t.comparison.totalInterest}
-                </p>
-                <p className="font-mono text-xl font-semibold tabular-nums text-warning">{formatCurrency(item.minTotalInterest)}</p>
+                <Stat className="items-center" value={formatCurrency(item.minTotalInterest)} label={t.comparison.totalInterest} />
                 {item.maxTotalInterest !== item.minTotalInterest ? (
                   <p className="font-mono text-xs text-foreground-subtle">
                     {t.comparison.to} {formatCurrency(item.maxTotalInterest)}
@@ -282,11 +274,7 @@ export function BankRateCompare({ language }: { language: Language }) {
               </div>
 
               <div className="text-center">
-                <p className="mb-1 flex items-center justify-center gap-1 text-xs text-foreground-subtle">
-                  <DollarSign className="size-3" aria-hidden="true" />
-                  {t.comparison.totalPayment}
-                </p>
-                <p className="font-mono text-xl font-semibold tabular-nums">{formatCurrency(item.totalPayment.min)}</p>
+                <Stat className="items-center" value={formatCurrency(item.totalPayment.min)} label={t.comparison.totalPayment} />
                 {item.totalPayment.max !== item.totalPayment.min ? (
                   <p className="font-mono text-xs text-foreground-subtle">
                     {t.comparison.to} {formatCurrency(item.totalPayment.max)}

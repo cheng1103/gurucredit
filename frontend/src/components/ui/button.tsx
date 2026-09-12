@@ -9,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "btn-sheen bg-gradient-to-b from-[#3b82f6] to-primary text-primary-foreground shadow-primary hover:from-primary hover:to-primary-hover",
+        default: "btn-sheen bg-gradient-to-b from-[#2f6fee] to-primary text-primary-foreground shadow-primary hover:from-primary hover:to-primary-hover",
         outline: "border border-border bg-surface text-foreground hover:border-border-strong hover:bg-surface-alt",
         secondary: "bg-surface-alt text-foreground hover:bg-border",
         ghost: "text-foreground hover:bg-surface-alt",

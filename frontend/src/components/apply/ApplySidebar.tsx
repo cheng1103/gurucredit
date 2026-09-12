@@ -5,6 +5,7 @@ import { Shield, Clock, MessageCircle, CheckCircle2, AlertCircle, XCircle, Shiel
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { Stat } from '@/components/layout';
 import { COMPANY } from '@/lib/constants';
 import { trackEvent } from '@/lib/analytics';
 import { calculateDsrOutcome, type DsrStatus } from '@/lib/dsr';
@@ -19,6 +20,12 @@ const statusTone: Record<DsrStatus, { icon: typeof CheckCircle2; text: string }>
   approved: { icon: CheckCircle2, text: 'text-success' },
   conditional: { icon: AlertCircle, text: 'text-warning' },
   declined: { icon: XCircle, text: 'text-destructive' },
+};
+
+const dsrStatTone: Record<DsrStatus, 'default' | 'success' | 'primary'> = {
+  approved: 'success',
+  conditional: 'primary',
+  declined: 'default',
 };
 
 export function ApplySidebar({
@@ -124,19 +131,23 @@ export function ApplySidebar({
                 <span className={tone.text}>{t.insights.status[dsr.status]}</span>
               </div>
               <div className="grid grid-cols-2 gap-3 text-sm">
-                <div className="flex items-center justify-between rounded-lg border border-border p-2">
-                  <span className="text-xs text-foreground-subtle">{t.insights.income}</span>
-                  <span className="font-semibold tabular-nums">{formatCurrency(income)}</span>
-                </div>
-                <div className="flex items-center justify-between rounded-lg border border-border p-2">
-                  <span className="text-xs text-foreground-subtle">{t.insights.loanAsk}</span>
-                  <span className="font-semibold tabular-nums">{formatCurrency(loanAmount)}</span>
-                </div>
+                <Stat
+                  className="rounded-lg border border-border p-2"
+                  value={formatCurrency(income)}
+                  label={t.insights.income}
+                />
+                <Stat
+                  className="rounded-lg border border-border p-2"
+                  value={formatCurrency(loanAmount)}
+                  label={t.insights.loanAsk}
+                />
               </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-foreground-muted">{t.insights.dsr}</span>
-                <span className={cn('font-mono font-semibold tabular-nums', tone.text)}>{dsr.dsr.toFixed(1)}%</span>
-              </div>
+              <Stat
+                className="rounded-lg border border-border p-2"
+                tone={dsrStatTone[dsr.status]}
+                value={`${dsr.dsr.toFixed(1)}%`}
+                label={t.insights.dsr}
+              />
               <div className="h-1.5 overflow-hidden rounded-full bg-surface-alt">
                 <div
                   className={cn('h-full rounded-full', {

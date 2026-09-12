@@ -93,9 +93,13 @@ Or create an admin user via `POST /api/auth/register` with body `{ email, passwo
 ## 3. Frontend → Vercel
 
 ```bash
-cd frontend
-vercel --prod            # first time links the project, follow prompts
+# Run from the REPO ROOT — the Vercel project `guru-credit-frontend` has Root Directory = frontend,
+# so the CLI must be invoked one level above it. Link once, then deploy:
+vercel link --yes --project guru-credit-frontend
+vercel --prod --yes
 ```
+
+> ⚠️ Do NOT deploy from a `.vercel/` link that points at the project named `frontend` — that project serves **mudah-credit.com**, a different brand.
 
 During link setup, when asked "What's your project name?" use `guru-credit-frontend`.
 

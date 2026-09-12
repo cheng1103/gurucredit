@@ -5,6 +5,7 @@ const tones = {
   default: 'bg-background text-foreground',
   alt: 'bg-surface-alt text-foreground',
   inverse: 'bg-inverse text-inverse-foreground',
+  tint: 'bg-tint text-foreground',
 } as const;
 
 export function Section({

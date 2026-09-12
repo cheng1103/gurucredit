@@ -15,3 +15,5 @@ export { EmptyState } from './EmptyState';
 export { AsideCta } from './AsideCta';
 export { ClosingCta } from './ClosingCta';
 export { ArticleLayout } from './ArticleLayout';
+export { IconTile, toneCycle, type IconTone } from './IconTile';
+export { Marquee } from './Marquee';

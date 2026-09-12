@@ -27,7 +27,7 @@ export function PageHeader({
 }) {
   const centered = align === 'center';
   return (
-    <Section compact className="border-b border-border bg-background">
+    <Section compact className="bg-glow-band border-b border-border bg-background">
       <Container size={size} className={cn(centered && 'text-center')}>
         {breadcrumbs ? <Breadcrumbs items={breadcrumbs} className={cn('mb-6', centered && 'justify-center [&_ol]:justify-center')} /> : null}
         {eyebrow ? <p className="eyebrow mb-3">{eyebrow}</p> : null}

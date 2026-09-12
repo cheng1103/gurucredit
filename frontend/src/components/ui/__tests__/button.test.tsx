@@ -4,10 +4,11 @@ import { Card } from '../card';
 import { Badge } from '../badge';
 
 describe('re-themed primitives', () => {
-  it('primary button uses the blue token and mobile-first height', () => {
+  it('primary button uses the blue gradient token and mobile-first height', () => {
     render(<Button>Go</Button>);
     const btn = screen.getByRole('button', { name: 'Go' });
-    expect(btn.className).toContain('bg-primary');
+    expect(btn.className).toContain('to-primary');
+    expect(btn.className).toContain('btn-sheen');
     expect(btn.className).toContain('h-12');
     expect(btn.className).toContain('lg:h-11');
   });
@@ -24,11 +25,13 @@ describe('re-themed primitives', () => {
     expect(screen.getByRole('button', { name: 'Go' }).className).toContain('bg-surface');
   });
 
-  it('card has no shadow and gains hover classes when interactive', () => {
+  it('card has a resting shadow and gains stronger hover classes when interactive', () => {
     const { container, rerender } = render(<Card>x</Card>);
-    expect(container.firstElementChild?.className).not.toContain('shadow');
+    expect(container.firstElementChild?.className).toContain('shadow-card');
+    expect(container.firstElementChild?.className).not.toContain('hover:-translate-y-1');
     rerender(<Card interactive>x</Card>);
-    expect(container.firstElementChild?.className).toContain('hover:-translate-y-0.5');
+    expect(container.firstElementChild?.className).toContain('hover:-translate-y-1');
+    expect(container.firstElementChild?.className).toContain('hover:shadow-card-hover');
   });
 
   it('badge success variant exists', () => {

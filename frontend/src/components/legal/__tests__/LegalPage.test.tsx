@@ -24,5 +24,10 @@ describe('LegalPage', () => {
     });
 
     expect(screen.getByText(new RegExp(c.lastUpdated))).toBeInTheDocument();
+
+    // The old intro paragraph (dropped in an earlier pass) must render before
+    // the first numbered clause.
+    expect(c.intro?.[0]).toBeTruthy();
+    expect(screen.getByText(/committed to protecting your privacy/i)).toBeInTheDocument();
   });
 });

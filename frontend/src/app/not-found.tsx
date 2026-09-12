@@ -1,11 +1,12 @@
 'use client';
 
 import { Home, MessageCircle } from 'lucide-react';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Section, Container } from '@/components/layout';
+import { LocaleLink } from '@/components/LocaleLink';
 import { useLanguage } from '@/lib/i18n';
 import { COMPANY } from '@/lib/constants';
+import { PATHS } from '@/lib/i18n/routes';
 
 const content = {
   en: {
@@ -36,10 +37,10 @@ export default function NotFound() {
         <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-foreground-muted">{t.description}</p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild size="lg">
-            <Link href="/">
+            <LocaleLink href={PATHS.home}>
               <Home className="size-4" aria-hidden="true" />
               {t.goHome}
-            </Link>
+            </LocaleLink>
           </Button>
           <Button asChild size="lg" variant="outline">
             <a href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">

@@ -11,6 +11,9 @@ export const privacyDoc: LegalDoc = {
       title: 'Privacy Policy',
       lede: 'Your privacy is important to us. This policy explains how we collect, use, and protect your personal information.',
       lastUpdated: 'December 2024',
+      intro: [
+        'GURU Credits ("we", "our", or "us") is committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy describes how we collect, use, disclose, and safeguard your information when you use our loan consultation services. We comply with the Personal Data Protection Act 2010 (PDPA) of Malaysia.',
+      ],
       clauses: [
         {
           id: 'information-we-collect',
@@ -93,6 +96,9 @@ export const privacyDoc: LegalDoc = {
       title: 'Dasar Privasi',
       lede: 'Privasi anda penting bagi kami. Dasar ini menerangkan cara kami mengumpul, menggunakan, dan melindungi maklumat peribadi anda.',
       lastUpdated: 'Disember 2024',
+      intro: [
+        'GURU Credits ("kami") komited untuk melindungi privasi anda dan memastikan keselamatan maklumat peribadi anda. Dasar Privasi ini menerangkan cara kami mengumpul, menggunakan, mendedahkan, dan melindungi maklumat anda apabila anda menggunakan perkhidmatan konsultasi pinjaman kami. Kami mematuhi Akta Perlindungan Data Peribadi 2010 (PDPA) Malaysia.',
+      ],
       clauses: [
         {
           id: 'maklumat-yang-kami-kumpul',

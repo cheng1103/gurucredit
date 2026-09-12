@@ -11,6 +11,8 @@ export type LegalContent = {
   title: string;
   lede: string;
   lastUpdated: string;
+  /** Optional intro paragraph(s) rendered before the first numbered clause. */
+  intro?: string[];
   clauses: LegalClause[];
   contact: { title: string; body: string };
 };

@@ -28,6 +28,7 @@ export function LegalPage({ doc, language }: { doc: LegalDoc; language: Language
               <TableOfContents containerId="legal-body" title={t.toc} className="hidden lg:block" />
             </aside>
             <Prose id="legal-body">
+              {c.intro?.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
               {c.clauses.map((clause, index) => (
                 <div key={clause.id}>
                   <h2 id={clause.id}>
@@ -45,7 +46,9 @@ export function LegalPage({ doc, language }: { doc: LegalDoc; language: Language
               ))}
 
               <div className="not-prose mt-12 rounded-2xl border border-border p-6">
-                <h2 className="text-lg font-semibold text-foreground">{c.contact.title}</h2>
+                {/* Deliberately not a heading: TableOfContents scans #legal-body for
+                    h2/h3, and this card isn't one of the numbered clauses. */}
+                <p className="text-lg font-semibold text-foreground">{c.contact.title}</p>
                 <p className="mt-2 text-sm leading-relaxed text-foreground-muted">{c.contact.body}</p>
                 <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
                   <a href={COMPANY.emailLink} className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline">

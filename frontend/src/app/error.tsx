@@ -1,24 +1,30 @@
 'use client';
 
 import { useEffect, useSyncExternalStore } from 'react';
-import { RefreshCw, MessageCircle } from 'lucide-react';
+import { RefreshCw, Home, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Section, Container } from '@/components/layout';
+import { LocaleLink } from '@/components/LocaleLink';
 import { COMPANY } from '@/lib/constants';
+import { PATHS } from '@/lib/i18n/routes';
 
 const COPY = {
   en: {
     eyebrow: 'Error',
     title: 'Something broke on our side.',
     description: 'This is on us, not you. Try again, or reach us on WhatsApp and we will sort it out.',
+    reference: 'Reference:',
     tryAgain: 'Try again',
+    backHome: 'Back to home',
     whatsapp: 'WhatsApp support',
   },
   ms: {
     eyebrow: 'Ralat',
     title: 'Sesuatu tidak kena di pihak kami.',
     description: 'Ini salah kami, bukan anda. Cuba lagi, atau hubungi kami di WhatsApp dan kami akan uruskan.',
+    reference: 'Rujukan:',
     tryAgain: 'Cuba lagi',
+    backHome: 'Kembali ke utama',
     whatsapp: 'Sokongan WhatsApp',
   },
 };
@@ -63,11 +69,21 @@ export default function Error({
         <p className="eyebrow mb-3 text-destructive">{t.eyebrow}</p>
         <h1 className="text-4xl lg:text-5xl">{t.title}</h1>
         <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-foreground-muted">{t.description}</p>
-        {error.digest ? <p className="mt-2 font-mono text-xs text-foreground-subtle">{error.digest}</p> : null}
+        {error.digest ? (
+          <p className="mt-2 font-mono text-xs text-foreground-subtle">
+            {t.reference} <span className="text-foreground-muted">{error.digest}</span>
+          </p>
+        ) : null}
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button size="lg" onClick={reset}>
             <RefreshCw className="size-4" aria-hidden="true" />
             {t.tryAgain}
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <LocaleLink href={PATHS.home}>
+              <Home className="size-4" aria-hidden="true" />
+              {t.backHome}
+            </LocaleLink>
           </Button>
           <Button asChild size="lg" variant="outline">
             <a href={COMPANY.whatsappLink} target="_blank" rel="noopener noreferrer">

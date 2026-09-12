@@ -11,6 +11,9 @@ export const termsDoc: LegalDoc = {
       title: 'Terms of Service',
       lede: 'Please read these terms carefully before using our services.',
       lastUpdated: 'December 2024',
+      intro: [
+        'Welcome to GURU Credits. By accessing or using our website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services. These terms constitute a legally binding agreement between you and GURU Credits.',
+      ],
       clauses: [
         {
           id: 'services-we-provide',
@@ -117,6 +120,9 @@ export const termsDoc: LegalDoc = {
       title: 'Syarat Perkhidmatan',
       lede: 'Sila baca syarat-syarat ini dengan teliti sebelum menggunakan perkhidmatan kami.',
       lastUpdated: 'Disember 2024',
+      intro: [
+        'Selamat datang ke GURU Credits. Dengan mengakses atau menggunakan laman web dan perkhidmatan kami, anda bersetuju untuk terikat dengan Syarat Perkhidmatan ini. Jika anda tidak bersetuju dengan syarat-syarat ini, sila jangan gunakan perkhidmatan kami. Syarat-syarat ini merupakan perjanjian yang mengikat secara sah antara anda dan GURU Credits.',
+      ],
       clauses: [
         {
           id: 'perkhidmatan-yang-kami-sediakan',

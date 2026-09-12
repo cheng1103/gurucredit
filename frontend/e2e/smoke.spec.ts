@@ -87,7 +87,10 @@ test('/this-page-does-not-exist renders the 404 page with one h1', async ({ page
 test('mobile sticky CTA appears below the hero on the homepage', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await page.mouse.wheel(0, 2000);
+  // Scroll past the hero (it is taller on mobile now: photo + marquee) so the
+  // IntersectionObserver reports it out of view and the bar slides in.
+  await page.locator('#how-it-works').scrollIntoViewIfNeeded();
+  await page.mouse.wheel(0, 400);
   const link = page.getByRole('link', { name: /Check eligibility/i });
   // The bar slides in after the hero leaves the viewport; toBeInViewport retries
   // until the 200ms transition has finished.

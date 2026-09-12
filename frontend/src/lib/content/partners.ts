@@ -4,6 +4,11 @@ export interface BankPartner {
   name: string;
   /** Real logo asset path, only set for banks whose file exists in /public/images/banks. */
   logo?: string;
+  /** Intrinsic pixel dimensions of `logo` (viewBox / natural size) — set
+   * alongside `logo` so `<img>` can carry width/height and reserve its box
+   * without reflow. See BankLogoRow.tsx for how each was measured. */
+  logoWidth?: number;
+  logoHeight?: number;
   minRate: string;
   description: Record<Language, string>;
   products: Record<Language, string[]>;
@@ -13,6 +18,8 @@ export const bankPartners: BankPartner[] = [
   {
     name: 'Maybank',
     logo: '/images/banks/maybank.svg',
+    logoWidth: 1000,
+    logoHeight: 210,
     minRate: '5.5%',
     description: { en: "Malaysia's largest bank", ms: 'Bank terbesar Malaysia' },
     products: { en: ['Personal Loan', 'Home Loan', 'Car Loan'], ms: ['Pinjaman Peribadi', 'Pinjaman Rumah', 'Pinjaman Kereta'] },
@@ -20,6 +27,8 @@ export const bankPartners: BankPartner[] = [
   {
     name: 'CIMB Bank',
     logo: '/images/banks/cimb.svg',
+    logoWidth: 200,
+    logoHeight: 31,
     minRate: '5.8%',
     description: { en: 'Leading ASEAN universal bank', ms: 'Bank universal ASEAN terkemuka' },
     products: { en: ['Personal Loan', 'Home Loan', 'SME Financing'], ms: ['Pinjaman Peribadi', 'Pinjaman Rumah', 'Pembiayaan PKS'] },
@@ -27,6 +36,8 @@ export const bankPartners: BankPartner[] = [
   {
     name: 'Public Bank',
     logo: '/images/banks/publicbank.svg',
+    logoWidth: 275,
+    logoHeight: 119,
     minRate: '5.2%',
     description: { en: 'Premier domestic bank', ms: 'Bank domestik utama' },
     products: { en: ['Personal Loan', 'Home Loan', 'Car Loan'], ms: ['Pinjaman Peribadi', 'Pinjaman Rumah', 'Pinjaman Kereta'] },
@@ -34,6 +45,8 @@ export const bankPartners: BankPartner[] = [
   {
     name: 'RHB Bank',
     logo: '/images/banks/rhb.svg',
+    logoWidth: 144,
+    logoHeight: 52,
     minRate: '5.6%',
     description: { en: 'Your personal financial partner', ms: 'Rakan kewangan peribadi anda' },
     products: { en: ['Personal Loan', 'Home Loan', 'Business Loan'], ms: ['Pinjaman Peribadi', 'Pinjaman Rumah', 'Pinjaman Perniagaan'] },
@@ -41,6 +54,8 @@ export const bankPartners: BankPartner[] = [
   {
     name: 'Hong Leong Bank',
     logo: '/images/banks/hongleong.svg',
+    logoWidth: 229,
+    logoHeight: 56,
     minRate: '5.4%',
     description: { en: 'Digital-first banking', ms: 'Perbankan digital pertama' },
     products: { en: ['Personal Loan', 'Home Loan', 'Car Loan'], ms: ['Pinjaman Peribadi', 'Pinjaman Rumah', 'Pinjaman Kereta'] },
@@ -48,6 +63,8 @@ export const bankPartners: BankPartner[] = [
   {
     name: 'AmBank',
     logo: '/images/banks/ambank.svg',
+    logoWidth: 176,
+    logoHeight: 75,
     minRate: '5.9%',
     description: { en: 'Growing with you', ms: 'Berkembang bersama anda' },
     products: { en: ['Personal Loan', 'Home Loan', 'SME Financing'], ms: ['Pinjaman Peribadi', 'Pinjaman Rumah', 'Pembiayaan PKS'] },
@@ -67,6 +84,8 @@ export const bankPartners: BankPartner[] = [
   {
     name: 'Alliance Bank',
     logo: '/images/banks/alliance.png',
+    logoWidth: 223,
+    logoHeight: 35,
     minRate: '5.7%',
     description: { en: 'Smart banking solutions', ms: 'Penyelesaian perbankan pintar' },
     products: { en: ['Personal Loan', 'Home Loan', 'Car Loan'], ms: ['Pinjaman Peribadi', 'Pinjaman Rumah', 'Pinjaman Kereta'] },
@@ -79,7 +98,9 @@ export const bankPartners: BankPartner[] = [
   },
   {
     name: 'Bank Islam',
-    logo: '/images/banks/bankislam.jpg',
+    logo: '/images/banks/bankislam.png',
+    logoWidth: 1130,
+    logoHeight: 262,
     minRate: '5.3%',
     description: { en: 'Islamic banking leader', ms: 'Peneraju perbankan Islam' },
     products: { en: ['Islamic Personal Financing', 'Home Financing'], ms: ['Pembiayaan Peribadi Islam', 'Pembiayaan Rumah'] },
@@ -113,7 +134,7 @@ export const partnersContent: Record<Language, PartnersPageContent> = {
     lede: "We work with Malaysia's leading banks to get you the best loan rates and highest approval chances.",
     breadcrumbLabel: 'Partners',
     stats: [
-      { value: '15+', label: 'Bank Partners' },
+      { value: String(bankPartners.length), label: 'Bank Partners' },
       { value: '85%', label: 'Approval Rate' },
       { value: '24h', label: 'Processing Time' },
       { value: '4.88%', label: 'From Rate' },
@@ -139,7 +160,7 @@ export const partnersContent: Record<Language, PartnersPageContent> = {
     lede: 'Kami bekerjasama dengan bank-bank terkemuka Malaysia untuk mendapatkan kadar terbaik dan peluang kelulusan tertinggi.',
     breadcrumbLabel: 'Rakan Bank',
     stats: [
-      { value: '15+', label: 'Rakan Bank' },
+      { value: String(bankPartners.length), label: 'Rakan Bank' },
       { value: '85%', label: 'Kadar Kelulusan' },
       { value: '24j', label: 'Masa Pemprosesan' },
       { value: '4.88%', label: 'Dari Kadar' },

@@ -15,6 +15,14 @@ for (const route of ROUTES) {
     expect(res?.status()).toBe(200);
     await expect(page.locator('h1')).toHaveCount(1);
     expect(consoleErrors).toEqual([]);
+
+    // Every non-home route sits under a title template and must carry the
+    // ` | GURU Credits` suffix exactly once. The homepage renders the root
+    // layout's bare `default` title ("GURU Credits | ..."), which has no
+    // ` | GURU Credits` suffix at all — split() length is occurrences + 1,
+    // so 1 for home (0 occurrences) and 2 for every other route (1 occurrence).
+    const title = await page.title();
+    expect(title.split(' | GURU Credits').length).toBe(route === '/' ? 1 : 2);
   });
 }
 

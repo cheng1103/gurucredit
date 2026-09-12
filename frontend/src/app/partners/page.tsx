@@ -46,7 +46,15 @@ export default async function PartnersPage() {
             {bankPartners.map((bank) => (
               <div key={bank.name} className="rounded-2xl border border-border bg-surface p-6 shadow-card">
                 {bank.logo ? (
-                  <img src={bank.logo} alt={bank.name} className="h-8 w-auto max-w-[140px] object-contain" />
+                  <img
+                    src={bank.logo}
+                    alt={bank.name}
+                    width={bank.logoWidth}
+                    height={bank.logoHeight}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-8 w-auto max-w-[140px] object-contain"
+                  />
                 ) : null}
                 <h3 className="mt-3 font-semibold text-foreground">{bank.name}</h3>
                 <p className="mt-1 text-sm text-foreground-muted">{bank.description[language]}</p>

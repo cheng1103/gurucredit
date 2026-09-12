@@ -6,12 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { PageHeader, Section, Container, SectionHeader, Stat, Prose, ClosingCta } from '@/components/layout';
 import { FaqAccordion } from '@/components/sections/FaqAccordion';
-import { getRegion, regionSlugs, formatMYR, regionMetaLabel } from '@/lib/content/regions';
+import { getRegion, regionSlugs, formatMYR } from '@/lib/content/regions';
 import { regionUi, regionProductLabel } from '@/lib/content/regions-ui';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { PATHS } from '@/lib/i18n/routes';
 import { SEO, COMPANY } from '@/lib/constants';
 import { WebPageJsonLd } from '@/components/JsonLd';
+import { buildMetadata } from '@/lib/seo';
 
 export const revalidate = 3600;
 
@@ -28,30 +29,22 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
   const language = await resolveRequestLanguage();
   const name = region.name[language];
-  const prefix = regionMetaLabel(language);
 
-  const title =
-    language === 'ms'
-      ? `Perundingan Pinjaman ${name} | Analisis DSR & Padanan Bank`
-      : `${name} Loan Advisory | DSR Analysis & Lender Matching`;
+  // "Personal Loan {name}" keeps the H1 keyword and stays <=45 chars before
+  // the " | GURU Credits" suffix added by buildMetadata.
+  const title = language === 'ms' ? `Pinjaman Peribadi ${name}` : `Personal Loan ${name}`;
   const description =
     language === 'ms'
       ? `Perundingan pinjaman bebas untuk peminjam di ${name}. Analisis DSR, semakan CCRIS/CTOS dan struktur pinjaman yang sesuai dengan profil kredit anda.`
       : `Independent loan advisory for borrowers in ${name}. DSR analysis, CCRIS/CTOS review, and loan structuring based on your actual credit profile.`;
 
-  const url = `${SEO.url}/loans/my/${region.slug}`;
-
   return {
-    title,
-    description,
-    // canonical + hreflang inherited from the root layout (localeAlternates)
-    openGraph: {
-      title: `${prefix} ${name}`,
+    ...buildMetadata({
+      title,
       description,
-      url,
-      locale: language === 'ms' ? 'ms_MY' : 'en_MY',
-      type: 'website',
-    },
+      path: PATHS.loansRegion(region.slug),
+      locale: language,
+    }),
     other: {
       'geo.region': region.regionCode,
       'geo.placename': name,

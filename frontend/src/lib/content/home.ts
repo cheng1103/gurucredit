@@ -12,6 +12,7 @@ export type HomeContent = {
     trustLine: string;
     logosLabel: string;
     floatFit: string;
+    floatFee: string;
     floatTime: string;
     illustrationAlt: string;
     illustrationStrong: string;
@@ -77,8 +78,9 @@ export const homeContent: Record<Language, HomeContent> = {
       primaryCta: 'Start the 2-minute check',
       secondaryCta: 'WhatsApp an advisor',
       trustLine: 'No payment on this website. The RM30 CTOS fee is settled only through our official WhatsApp.',
-      logosLabel: 'Lenders we work with',
+      logosLabel: 'Banks we prepare applications for',
       floatFit: 'Approval fit',
+      floatFee: 'Flat analysis fee',
       floatTime: 'Written answer in',
       illustrationAlt: 'Illustration of a loan eligibility report with DSR gauge, document checklist and WhatsApp reply',
       illustrationStrong: 'Strong',
@@ -202,8 +204,9 @@ export const homeContent: Record<Language, HomeContent> = {
       primaryCta: 'Mula semakan 2 minit',
       secondaryCta: 'WhatsApp perunding',
       trustLine: 'Tiada bayaran di laman web ini. Yuran CTOS RM30 diselesaikan hanya melalui WhatsApp rasmi kami.',
-      logosLabel: 'Pemberi pinjaman yang bekerjasama dengan kami',
+      logosLabel: 'Bank yang kami bantu urus permohonan',
       floatFit: 'Kesesuaian kelulusan',
+      floatFee: 'Yuran analisis tetap',
       floatTime: 'Jawapan bertulis dalam',
       illustrationAlt: 'Ilustrasi laporan kelayakan pinjaman dengan tolok DSR, senarai dokumen dan balasan WhatsApp',
       illustrationStrong: 'Kukuh',

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getBlogPost, getRelatedPosts, blogPosts } from '@/lib/blog-data';
 import { SEO } from '@/lib/constants';
 import { localeAlternates } from '@/lib/seo';
+import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { BlogArticle } from '@/components/blog/BlogArticle';
 
 interface BlogPostPageProps {
@@ -30,22 +31,24 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
 
+  const language = await resolveRequestLanguage();
   const ogImage = post.image ? new URL(post.image, SEO.url).toString() : defaultOgImage;
   const canonicalUrl = `${SEO.url}/blog/${post.slug}`;
-  // seoTitle is a shorter <title>-only override for posts whose on-page H1
-  // (post.title) is too long for search result display.
-  const seoTitle = post.seoTitle ?? post.title;
+  // seoTitle/seoTitleMs are shorter <title>-only overrides for posts whose
+  // on-page H1 (post.title/titleMs) is too long for search result display.
+  const seoTitle = language === 'ms' ? (post.seoTitleMs ?? post.titleMs) : (post.seoTitle ?? post.title);
+  const description = language === 'ms' ? post.excerptMs : post.excerpt;
 
   return {
     title: seoTitle,
-    description: post.excerpt,
+    description,
     keywords: post.tags.join(', '),
     authors: [{ name: post.author }],
     openGraph: {
       title: seoTitle,
-      description: post.excerpt,
+      description,
       type: 'article',
-      locale: SEO.locale,
+      locale: language === 'ms' ? 'ms_MY' : SEO.locale,
       publishedTime: post.publishedAt,
       authors: [post.author],
       tags: post.tags,
@@ -63,14 +66,14 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     twitter: {
       card: 'summary_large_image',
       title: seoTitle,
-      description: post.excerpt,
+      description,
       images: [ogImage],
     },
     // Set explicitly (rather than relying on inheritance from the root
     // layout) because blog/layout.tsx sits between this page and the root —
     // see the note there about why a layout-level `alternates` would shadow
     // this page's own canonical if it defined one.
-    alternates: localeAlternates('en', `/blog/${post.slug}`),
+    alternates: localeAlternates(language, `/blog/${post.slug}`),
   } satisfies Metadata;
 }
 

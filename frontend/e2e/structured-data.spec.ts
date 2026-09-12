@@ -10,7 +10,13 @@ const ROUTES = [
   '/blog/personal-loan-malaysia-complete-guide-2026',
   '/loan-guides/topics/personal-loan-minimum-salary',
   '/faq',
+  '/tools/compare',
 ];
+
+// Routes whose FAQPage is guaranteed to render (rather than merely optional)
+// — asserting `toBe(1)` here (instead of the generic `toBeLessThanOrEqual(1)`
+// below) makes the test actually fail if the FAQPage node ever goes missing.
+const ROUTES_WITH_GUARANTEED_FAQ = new Set(['/', '/faq']);
 
 /**
  * Flattens every `application/ld+json` block on the page into a single list
@@ -86,13 +92,24 @@ for (const route of ROUTES) {
       const faqCount = nodes.filter((n) => hasType(n, 'FAQPage')).length;
 
       expect(breadcrumbCount).toBe(1);
-      expect(faqCount).toBeLessThanOrEqual(1);
+      if (ROUTES_WITH_GUARANTEED_FAQ.has(route)) {
+        expect(faqCount).toBe(1);
+      } else {
+        expect(faqCount).toBeLessThanOrEqual(1);
+      }
     });
 
     test('every Offer.price is numeric and is not a mislabelled APR (< 20)', async ({ page }) => {
       await page.goto(route);
       const nodes = await collectJsonLdNodes(page);
       const prices = collectOfferPrices(nodes);
+
+      if (route === '/tools/compare') {
+        // Guards against this assertion loop silently no-op'ing: the tool
+        // page must actually emit at least one Offer (its WebApplication's
+        // free-to-use price) for the numeric checks below to mean anything.
+        expect(prices.length).toBeGreaterThan(0);
+      }
 
       for (const price of prices) {
         expect(Number.isNaN(price)).toBe(false);

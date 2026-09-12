@@ -25,5 +25,13 @@ Trademarks of the respective banks, used nominatively to identify the institutio
 we prepare applications for. Sources: Wikimedia Commons (CIMB Group Logo.svg, RHB Logo.svg,
 Hong Leong Bank.svg, AmBank group.svg, Alliance Bank Malaysia logo.png, BANK ISLAM LOGO.jpg)
 and English Wikipedia (Maybank logo.svg, Public Bank Berhad logo.svg). Previous placeholder
-gradients are kept in `banks/_placeholders/`. `alliance.png` is low-resolution (222px) —
-replace with a vector when available.
+gradients are kept outside `public/` in `frontend/design-assets/bank-placeholders/` (moved
+out of the build output — see final-fix-brief I8). `alliance.png` is low-resolution (222px) —
+replace with a vector when available. `bankislam.png` replaces `bankislam.jpg`: converted
+with Pillow (near-white pixels, threshold >= 245, made transparent) so it sits on the same
+transparent row as the other logos; the original JPG has been removed. `maybank.svg` and
+`ambank.svg` had their opaque yellow/red background plates stripped for the same reason
+(`ambank.svg`'s "AmBank Group" wordmark, originally yellow-on-red, was recoloured to the
+mark's red `#ed1c24` so it stays legible now that the red plate behind it is gone).
+`cimb.svg` (118 KB, embeds raster PNGs) is left as-is for now — flagged as a follow-up to
+re-export as a lean vector; `loading="lazy"` on its `<img>` keeps it off the LCP path.

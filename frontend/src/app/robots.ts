@@ -6,9 +6,10 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      // Defensive: neither route exists today (no /api/ or /admin/ segment is
-      // ever rendered), but excluding them costs nothing and pre-empts any
-      // future API/admin surface from being crawled or indexed by accident.
+      // Defensive: no route handlers are served from /api today (and no
+      // /admin/ segment exists either), but excluding them costs nothing and
+      // pre-empts any future API/admin surface from being crawled or indexed
+      // by accident.
       disallow: ['/api/', '/admin/'],
     },
     sitemap: `${SEO.url}/sitemap.xml`,

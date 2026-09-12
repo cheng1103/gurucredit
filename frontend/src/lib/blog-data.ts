@@ -498,6 +498,8 @@ Jika anda sedang membandingkan pilihan pinjaman peribadi Malaysia, laluan kredit
     slug: 'emergency-loan-malaysia-safe-options-2026',
     title: 'Emergency Loan Malaysia 2026: Safe Options When You Need Cash Fast',
     titleMs: 'Pinjaman Kecemasan Malaysia 2026: Pilihan Selamat Bila Perlukan Tunai Cepat',
+    seoTitle: 'Emergency Loan Malaysia 2026: Safe Options',
+    seoTitleMs: 'Pinjaman Kecemasan Malaysia 2026: Selamat',
     excerpt:
       'Need urgent cash in Malaysia? Compare safe emergency loan routes, red flags, documents, approval factors, and what to do before applying.',
     excerptMs:
@@ -744,6 +746,8 @@ Hantar butiran sekali dan biar kami semak laluan paling selamat sebelum anda mem
     slug: 'licensed-money-lender-malaysia-checklist-2026',
     title: 'Licensed Money Lender Malaysia 2026: How to Check Before You Apply',
     titleMs: 'Pemberi Pinjam Wang Berlesen Malaysia 2026: Cara Semak Sebelum Memohon',
+    seoTitle: 'Licensed Money Lender Malaysia 2026',
+    seoTitleMs: 'Pemberi Pinjam Berlesen Malaysia 2026',
     excerpt:
       'A borrower-safe checklist for checking licensed money lenders in Malaysia, avoiding scams, and comparing loan terms before signing.',
     excerptMs:
@@ -978,6 +982,8 @@ Jika anda memilih antara bank, lender berlesen, atau penyatuan hutang, semak pro
     slug: 'personal-loan-self-employed-malaysia-2026',
     title: 'Personal Loan for Self-Employed Malaysians: How to Improve Approval Odds',
     titleMs: 'Pinjaman Peribadi Untuk Bekerja Sendiri: Cara Tingkatkan Peluang Lulus',
+    seoTitle: 'Personal Loan for Self-Employed Malaysia',
+    seoTitleMs: 'Pinjaman Peribadi Bekerja Sendiri Malaysia',
     excerpt:
       'Self-employed, gig worker, commission earner or small business owner? Learn how Malaysian lenders assess income, bank statements, CCRIS and documents.',
     excerptMs:
@@ -1240,6 +1246,8 @@ Hantar profil sekali. Kami akan semak sama ada penyata bank, CCRIS/CTOS dan juml
     slug: 'personal-loan-malaysia-approval-checklist-2026',
     title: 'Personal Loan Malaysia 2026: Approval Checklist Before You Apply',
     titleMs: 'Pinjaman Peribadi Malaysia 2026: Senarai Semak Kelulusan Sebelum Memohon',
+    seoTitle: 'Personal Loan Malaysia 2026 Checklist',
+    seoTitleMs: 'Senarai Semak Pinjaman Malaysia 2026',
     excerpt:
       'A practical 2026 checklist for Malaysian borrowers: DSR, CCRIS/CTOS, income proof, documents, and how to avoid repeat loan rejections.',
     excerptMs:
@@ -1867,6 +1875,8 @@ Jika anda tidak pasti dokumen, rekod CCRIS/CTOS, dan komitmen anda sudah bersedi
     slug: 'how-to-improve-credit-score-malaysia',
     title: 'How to Improve Your Credit Score in Malaysia: A Complete Guide',
     titleMs: 'Cara Meningkatkan Skor Kredit di Malaysia: Panduan Lengkap',
+    seoTitle: 'How to Improve Credit Score in Malaysia',
+    seoTitleMs: 'Cara Tingkatkan Skor Kredit Malaysia',
     excerpt: 'Learn practical tips to boost your CCRIS and CTOS score for better loan approval chances.',
     excerptMs: 'Pelajari tips praktikal untuk meningkatkan skor CCRIS dan CTOS anda untuk peluang kelulusan pinjaman yang lebih baik.',
     category: 'tips',
@@ -2095,6 +2105,8 @@ Jika baki kad melebihi 40% daripada had, penyatuan melalui pinjaman peribadi bol
     slug: 'bnm-opr-update-jan-2025',
     title: 'BNM OPR Update January 2025: What Borrowers Should Do Now',
     titleMs: 'Kemas Kini OPR BNM Januari 2025: Apa Yang Perlu Peminjam Lakukan',
+    seoTitle: 'BNM OPR Update January 2025',
+    seoTitleMs: 'Kemas Kini OPR BNM Januari 2025',
     excerpt: 'Bank Negara kept the OPR at 3.00% but warned of upside risks. Here is how the decision affects home, car, and personal loans.',
     excerptMs: 'Bank Negara mengekalkan OPR pada 3.00% tetapi memberi amaran risiko kenaikan. Ketahui kesannya kepada pinjaman rumah, kereta dan peribadi anda.',
     category: 'news',
@@ -2195,6 +2207,8 @@ Taklimat MPC kami merangkumi:
     slug: 'budget-2025-housing-incentives',
     title: 'Budget 2025 Housing Incentives: How to Maximise the New Rebates',
     titleMs: 'Belanjawan 2025: Insentif Perumahan dan Cara Maksimumkan Rebat Baharu',
+    seoTitle: 'Budget 2025 Housing Incentives Guide',
+    seoTitleMs: 'Belanjawan 2025: Insentif Perumahan',
     excerpt: 'Budget 2025 introduced fresh reliefs for first-time buyers and EV-linked home upgrades. We break down what you can claim and required timelines.',
     excerptMs: 'Belanjawan 2025 memperkenalkan pelepasan baharu untuk pembeli rumah pertama dan naik taraf EV. Ketahui apa yang boleh dituntut dan garis masa yang ditetapkan.',
     category: 'news',
@@ -2295,6 +2309,8 @@ Klinik Belanjawan 2025 kami termasuk:
     slug: 'q1-2025-loan-approval-data-malaysia',
     title: 'Q1 2025 Loan Approval Trends: Which Profiles Banks Approved',
     titleMs: 'Trend Kelulusan Pinjaman Suku 1 2025: Profil Mana yang Diluluskan Bank',
+    seoTitle: 'Q1 2025 Loan Approval Trends Malaysia',
+    seoTitleMs: 'Trend Kelulusan Pinjaman Suku 1 2025',
     excerpt: 'We analysed 1,248 applications processed by Malaysian banks in Q1 2025 to see which incomes, industries, and DSR levels succeeded.',
     excerptMs: 'Kami menganalisis 1,248 permohonan yang diproses bank Malaysia pada S1 2025 untuk melihat pendapatan, industri dan tahap DSR yang berjaya.',
     category: 'analysis',
@@ -2387,6 +2403,8 @@ Perlu ramalan peribadi? Penganalisis kami boleh simulasi peluang kelulusan mengg
     slug: 'ev-loan-vs-petrol-car-cost-malaysia',
     title: 'EV Loan vs Petrol Car Loan: 2025 Cost of Ownership Comparison',
     titleMs: 'Pinjaman Kereta EV vs Petrol: Perbandingan Kos Pemilikan 2025',
+    seoTitle: 'EV Loan vs Petrol Car Cost Comparison',
+    seoTitleMs: 'Pinjaman EV vs Petrol: Kos Pemilikan',
     excerpt: 'We compare instalments, running costs, and incentives for financing EVs versus petrol cars so you can choose what fits your budget.',
     excerptMs: 'Kami membandingkan ansuran, kos operasi dan insentif bagi pembiayaan EV berbanding kereta petrol supaya anda tahu pilihan terbaik.',
     category: 'analysis',
@@ -2485,6 +2503,8 @@ Perlu bantu banding bank? Konsultan kami menjejak semua promo pinjaman hijau.
     slug: 'ptptn-loan-impact-home-loan',
     title: 'PTPTN Loan Impact on Home Loan Approval: 2025 Playbook',
     titleMs: 'Kesan Pinjaman PTPTN pada Kelulusan Rumah: Panduan 2025',
+    seoTitle: 'PTPTN Loan Impact on Home Loan Approval',
+    seoTitleMs: 'Kesan Pinjaman PTPTN pada Kelulusan Rumah',
     excerpt: 'Unpaid PTPTN loans now appear prominently in CCRIS. Learn how to restructure, settle, or negotiate so banks still approve your mortgage.',
     excerptMs: 'Pinjaman PTPTN tertunggak kini jelas dalam CCRIS. Pelajari cara susun semula, selesaikan atau berunding supaya bank tetap meluluskan gadai janji anda.',
     category: 'tips',
@@ -2581,6 +2601,8 @@ Perlu seseorang berunding dengan PTPTN dan bank? Pasukan kami urus kedua-duanya.
     slug: 'akpk-debt-management-program-guide',
     title: 'AKPK Debt Management Programme: 2025 Guide to Regain Control',
     titleMs: 'Program Pengurusan Hutang AKPK 2025: Panduan Mengambil Semula Kawalan',
+    seoTitle: 'AKPK Debt Management Programme Guide',
+    seoTitleMs: 'Program Pengurusan Hutang AKPK: Panduan',
     excerpt: 'Step-by-step walkthrough of AKPK’s DMP, required documents, how it affects your credit score, and when it is better to consolidate instead.',
     excerptMs: 'Langkah demi langkah Program Pengurusan Hutang AKPK, dokumen diperlukan, kesan pada skor kredit dan bila lebih baik melakukan penyatuan.',
     category: 'guide',
@@ -2700,6 +2722,8 @@ Masih ragu AKPK sesuai? Kami bandingkan AKPK, pinjaman penyatuan dan pemindahan 
     slug: 'personal-loan-vs-credit-card-which-better',
     title: 'Personal Loan vs Credit Card: Which is Better for Your Needs?',
     titleMs: 'Pinjaman Peribadi vs Kad Kredit: Mana Lebih Baik untuk Keperluan Anda?',
+    seoTitle: 'Personal Loan vs Credit Card: Which is Better',
+    seoTitleMs: 'Pinjaman Peribadi vs Kad Kredit: Mana Baik',
     excerpt: 'Compare the pros and cons of personal loans and credit cards to make the right financial decision.',
     excerptMs: 'Bandingkan kelebihan dan kekurangan pinjaman peribadi dan kad kredit untuk membuat keputusan kewangan yang tepat.',
     category: 'guide',
@@ -2858,6 +2882,8 @@ Kad kredit menawarkan kredit pusingan yang boleh anda gunakan berulang kali.
     slug: 'understanding-dsr-debt-service-ratio',
     title: 'Understanding DSR (Debt Service Ratio): The Key to Loan Approval',
     titleMs: 'Memahami DSR (Nisbah Khidmat Hutang): Kunci Kelulusan Pinjaman',
+    seoTitle: 'Understanding DSR: Key to Loan Approval',
+    seoTitleMs: 'Memahami DSR: Kunci Kelulusan Pinjaman',
     excerpt: 'Learn what DSR is, how banks calculate it, and why it matters for your loan application.',
     excerptMs: 'Pelajari apa itu DSR, bagaimana bank mengiranya, dan mengapa ia penting untuk permohonan pinjaman anda.',
     category: 'guide',
@@ -3077,6 +3103,8 @@ Gunakan [ujian kelayakan](/eligibility-test) dan panduan DSR kami untuk:
     slug: 'home-loan-first-time-buyer-guide-2024',
     title: 'First-Time Home Buyer Guide 2024: Everything You Need to Know',
     titleMs: 'Panduan Pembeli Rumah Pertama 2024: Semua Yang Perlu Anda Tahu',
+    seoTitle: 'First-Time Home Buyer Guide 2024',
+    seoTitleMs: 'Panduan Pembeli Rumah Pertama 2024',
     excerpt: 'A comprehensive guide for first-time home buyers in Malaysia covering eligibility, costs, and the application process.',
     excerptMs: 'Panduan komprehensif untuk pembeli rumah pertama di Malaysia meliputi kelayakan, kos, dan proses permohonan.',
     category: 'guide',
@@ -3218,7 +3246,7 @@ Buying your first home is one of life's biggest milestones. This comprehensive g
 
 **GURU Credits First-Time Buyer Package includes:**
 - Eligibility assessment & pre-qualification
-- Bank comparison (we work with 15+ banks)
+- Bank comparison (we work with 12 banks)
 - Document preparation checklist
 - Application submission & tracking
 - Negotiation for best rates
@@ -3297,6 +3325,7 @@ Membeli rumah pertama adalah salah satu pencapaian terbesar dalam hidup. Panduan
     slug: 'bank-negara-bnm-rate-changes-2024',
     title: 'BNM OPR Changes 2024: How It Affects Your Loans',
     titleMs: 'Perubahan OPR BNM 2024: Bagaimana Ia Mempengaruhi Pinjaman Anda',
+    seoTitleMs: 'Perubahan OPR BNM 2024: Kesan Pinjaman',
     excerpt: 'Understand how Bank Negara Malaysia interest rate decisions impact your existing and future loans.',
     excerptMs: 'Fahami bagaimana keputusan kadar faedah Bank Negara Malaysia mempengaruhi pinjaman sedia ada dan masa depan anda.',
     category: 'news',
@@ -3437,6 +3466,8 @@ Sehingga akhir 2024, OPR berada pada 3.00%, tidak berubah dari awal tahun.
     slug: 'malaysian-housing-market-trends-2024',
     title: 'Malaysian Housing Market Trends 2024: What Buyers Should Know',
     titleMs: 'Trend Pasaran Perumahan Malaysia 2024: Apa Yang Pembeli Perlu Tahu',
+    seoTitle: 'Malaysian Housing Market Trends 2024',
+    seoTitleMs: 'Trend Pasaran Perumahan Malaysia 2024',
     excerpt: 'Analysis of current property market trends, price movements, and what to expect in the coming months.',
     excerptMs: 'Analisis trend pasaran hartanah semasa, pergerakan harga, dan apa yang dijangka dalam bulan-bulan akan datang.',
     category: 'analysis',
@@ -3627,6 +3658,8 @@ Keadaan semasa memihak kepada pembeli yang:
     slug: 'car-loan-guide-malaysia-2024',
     title: 'Complete Car Loan Guide Malaysia 2024: Interest Rates, Terms & Tips',
     titleMs: 'Panduan Lengkap Pinjaman Kereta Malaysia 2024: Kadar Faedah, Terma & Tips',
+    seoTitle: 'Car Loan Guide Malaysia 2024: Rates & Tips',
+    seoTitleMs: 'Panduan Pinjaman Kereta Malaysia 2024',
     excerpt: 'Everything you need to know about car financing in Malaysia - from interest rates to loan tenure and approval tips.',
     excerptMs: 'Semua yang anda perlu tahu tentang pembiayaan kereta di Malaysia - dari kadar faedah hingga tempoh pinjaman dan tips kelulusan.',
     category: 'guide',
@@ -3824,6 +3857,8 @@ Kurang biasa tetapi tersedia:
     slug: 'debt-consolidation-guide-malaysia',
     title: 'Debt Consolidation in Malaysia: How to Combine Your Loans',
     titleMs: 'Penyatuan Hutang di Malaysia: Cara Menggabungkan Pinjaman Anda',
+    seoTitle: 'Debt Consolidation in Malaysia Guide',
+    seoTitleMs: 'Penyatuan Hutang di Malaysia: Panduan',
     excerpt: 'Learn how debt consolidation works and whether it is the right solution for managing multiple debts.',
     excerptMs: 'Pelajari bagaimana penyatuan hutang berfungsi dan sama ada ia penyelesaian yang tepat untuk menguruskan pelbagai hutang.',
     category: 'guide',
@@ -4027,6 +4062,8 @@ Tahu dengan tepat bila anda akan bebas hutang.
     slug: 'business-loan-sme-financing-malaysia',
     title: 'Business Loan & SME Financing Options in Malaysia 2024',
     titleMs: 'Pinjaman Perniagaan & Pilihan Pembiayaan PKS di Malaysia 2024',
+    seoTitle: 'Business Loan & SME Financing Malaysia',
+    seoTitleMs: 'Pinjaman Perniagaan & Pembiayaan PKS',
     excerpt: 'Explore various business financing options available for Malaysian SMEs, from bank loans to government grants.',
     excerptMs: 'Terokai pelbagai pilihan pembiayaan perniagaan yang tersedia untuk PKS Malaysia, dari pinjaman bank hingga geran kerajaan.',
     category: 'guide',
@@ -4242,6 +4279,7 @@ Khusus untuk mesin dan peralatan.
     slug: 'refinancing-home-loan-when-how',
     title: 'Refinancing Your Home Loan: When and How to Do It',
     titleMs: 'Pembiayaan Semula Pinjaman Rumah: Bila dan Bagaimana Melakukannya',
+    seoTitleMs: 'Pembiayaan Semula Pinjaman Rumah: Bila & Cara',
     excerpt: 'Learn when refinancing makes sense and how to navigate the process for maximum savings.',
     excerptMs: 'Pelajari bila pembiayaan semula masuk akal dan bagaimana menguruskan proses untuk penjimatan maksimum.',
     category: 'guide',
@@ -4446,6 +4484,8 @@ Pembiayaan semula bermaksud menggantikan pinjaman rumah sedia ada dengan pinjama
     slug: 'ccris-ctos-report-explained',
     title: 'CCRIS and CTOS Reports Explained: What Banks See When You Apply',
     titleMs: 'Laporan CCRIS dan CTOS Dijelaskan: Apa Yang Bank Lihat Bila Anda Memohon',
+    seoTitle: 'CCRIS and CTOS Reports Explained',
+    seoTitleMs: 'Laporan CCRIS dan CTOS Dijelaskan',
     excerpt: 'Understand what information is in your credit reports and how to improve them before applying for loans.',
     excerptMs: 'Fahami maklumat dalam laporan kredit anda dan cara memperbaikinya sebelum memohon pinjaman.',
     category: 'tips',
@@ -4723,6 +4763,8 @@ CTOS adalah agensi pelaporan kredit swasta yang menyediakan maklumat lebih menye
     slug: 'loan-rejection-reasons-solutions',
     title: '10 Common Loan Rejection Reasons and How to Fix Them',
     titleMs: '10 Sebab Biasa Penolakan Pinjaman dan Cara Memperbaikinya',
+    seoTitle: '10 Loan Rejection Reasons and Fixes',
+    seoTitleMs: '10 Sebab Penolakan Pinjaman & Cara Betul',
     excerpt: 'Discover why loans get rejected and practical steps to improve your chances of approval.',
     excerptMs: 'Ketahui mengapa pinjaman ditolak dan langkah praktikal untuk meningkatkan peluang kelulusan anda.',
     category: 'tips',
@@ -4933,6 +4975,8 @@ Ditolak untuk pinjaman adalah mengecewakan, tetapi memahami sebab boleh membantu
     slug: "personal-loan-minimum-salary-malaysia-2026",
     title: "Personal Loan Minimum Salary Malaysia 2026: What RM2,000, RM3,000 and RM5,000 Borrowers Can Realistically Qualify For",
     titleMs: "Gaji Minimum Pinjaman Peribadi Malaysia 2026: Apa Yang Peminjam Bergaji RM2,000, RM3,000 dan RM5,000 Boleh Mohon Secara Realistik",
+    seoTitle: "Personal Loan Minimum Salary Malaysia 2026",
+    seoTitleMs: "Gaji Minimum Pinjaman Peribadi Malaysia 2026",
     excerpt:
       "A practical salary guide for Malaysian borrowers searching personal loan minimum salary, salary 3000 loan eligibility, and how much they can realistically borrow before applying.",
     excerptMs:
@@ -5277,6 +5321,8 @@ Untuk sambung kluster topik ini, baca juga:
     slug: "ctos-problem-personal-loan-malaysia-2026",
     title: "CTOS Problem Personal Loan Malaysia 2026: What To Do If Your File Has Late Payments, Legal Records or Too Many Applications",
     titleMs: "CTOS Problem Pinjaman Peribadi Malaysia 2026: Apa Yang Perlu Dibuat Jika Fail Anda Ada Rekod Lewat Bayar, Isu Undang-Undang atau Terlalu Banyak Permohonan",
+    seoTitle: "CTOS Problem Personal Loan Malaysia 2026",
+    seoTitleMs: "Masalah CTOS Pinjaman Peribadi Malaysia",
     excerpt:
       "A practical borrower guide for Malaysians searching CTOS problem personal loan, bad credit approval steps, and how to fix a weak file before reapplying.",
     excerptMs:
@@ -5661,6 +5707,8 @@ Sambung kluster ini dengan:
     slug: "licensed-money-lender-kuala-lumpur-selangor-2026",
     title: "Licensed Money Lender Kuala Lumpur & Selangor 2026: Safe Checklist Before You Apply",
     titleMs: "Licensed Money Lender Kuala Lumpur & Selangor 2026: Senarai Semak Selamat Sebelum Anda Mohon",
+    seoTitle: "Licensed Money Lender KL & Selangor 2026",
+    seoTitleMs: "Pemberi Pinjam Berlesen KL & Selangor 2026",
     excerpt:
       "A high-intent guide for borrowers searching licensed money lender Kuala Lumpur, Selangor, or urgent cash routes and wanting a safer checklist before applying.",
     excerptMs:

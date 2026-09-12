@@ -234,7 +234,14 @@
 .marquee:hover .marquee-track { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) {
   .float-y, .marquee-track, .aurora-drift { animation: none !important; }
+  .aurora-drift { will-change: auto; }
   .btn-sheen::after { display: none; }
+}
+/* Bank logo marquee: the grayscale->colour reveal on .logo-row is driven by
+   `group-hover`, which touch/keyboard-only input can never trigger — show
+   every logo in full colour there instead of leaving them permanently dim. */
+@media (hover: none) {
+  .logo-row img { filter: none; opacity: 1; }
 }
 
 /* sonner */

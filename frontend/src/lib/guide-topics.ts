@@ -342,7 +342,7 @@ export const guideTopics: GuideTopic[] = [
   {
     slug: 'emergency-loan-safety-checklist',
     title: 'Emergency Loan Safety Checklist Malaysia',
-    titleMs: 'Senarai Semak Keselamatan Pinjaman Kecemasan Malaysia',
+    titleMs: 'Senarai Semak Keselamatan Pinjaman Kecemasan',
     description: 'A practical safety checklist for borrowers under time pressure who still need to verify the route before sending money or documents.',
     descriptionMs: 'Senarai semak keselamatan praktikal untuk peminjam yang berada di bawah tekanan masa tetapi masih perlu mengesahkan laluan sebelum menghantar wang atau dokumen.',
     stats: [

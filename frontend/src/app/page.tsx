@@ -16,13 +16,16 @@ export const revalidate = 300;
 export default async function HomePage() {
   const language = await resolveRequestLanguage();
   const t = homeContent[language] ?? homeContent.en;
+  const title = language === 'ms' ? SEO.translations.ms.defaultTitle : SEO.defaultTitle;
+  const description = language === 'ms' ? SEO.translations.ms.defaultDescription : SEO.defaultDescription;
 
   return (
     <div className="flex flex-col">
       <WebPageJsonLd
         url={SEO.url}
-        title={SEO.defaultTitle}
-        description={SEO.defaultDescription}
+        title={title}
+        description={description}
+        language={language}
         breadcrumbItems={[{ name: 'Home', url: SEO.url }]}
         faqItems={t.faq.items}
       />

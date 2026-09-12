@@ -4,6 +4,9 @@ import path from 'node:path';
 import type { Metadata } from 'next';
 import { SEO } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
+import { blogPosts } from '@/lib/blog-data';
+import { guideTopics } from '@/lib/guide-topics';
+import { regions } from '@/lib/content/regions';
 
 // Google typically truncates around ~60 chars for titles and ~155-160 chars
 // for descriptions. We budget a little slack (65 / 70-165) so near-boundary
@@ -111,4 +114,47 @@ describe('buildMetadata() output budget', () => {
     const result = buildMetadata({ title, description, path: path_, locale: 'ms' });
     expect(result.alternates?.languages).not.toHaveProperty('ms-MY');
   });
+});
+
+// I3: the effective <title> is `${title} | GURU Credits` (SUFFIX is 15 chars),
+// so every long-form title needs a `seoTitle` short enough to keep the whole
+// rendered title under Google's ~65-char display budget.
+describe('blog post title budget', () => {
+  for (const post of blogPosts) {
+    it(`${post.slug} title fits the SEO title budget`, () => {
+      const effective = post.seoTitle ?? post.title;
+      expect(effective.length + 15, `"${effective}" (${effective.length} chars)`).toBeLessThanOrEqual(65);
+    });
+
+    it(`${post.slug} Malay title fits the SEO title budget`, () => {
+      const effectiveMs = post.seoTitleMs ?? post.titleMs;
+      expect(effectiveMs.length + 15, `"${effectiveMs}" (${effectiveMs.length} chars)`).toBeLessThanOrEqual(65);
+    });
+  }
+});
+
+describe('guide topic title budget', () => {
+  for (const topic of guideTopics) {
+    it(`${topic.slug} title fits the SEO title budget`, () => {
+      expect(topic.title.length + 15, `"${topic.title}" (${topic.title.length} chars)`).toBeLessThanOrEqual(65);
+    });
+
+    it(`${topic.slug} Malay title fits the SEO title budget`, () => {
+      expect(topic.titleMs.length + 15, `"${topic.titleMs}" (${topic.titleMs.length} chars)`).toBeLessThanOrEqual(65);
+    });
+  }
+});
+
+describe('region page title budget', () => {
+  for (const region of Object.values(regions)) {
+    it(`${region.slug} title fits the SEO title budget`, () => {
+      const title = `Personal Loan ${region.name.en}`;
+      expect(title.length + 15, `"${title}" (${title.length} chars)`).toBeLessThanOrEqual(65);
+    });
+
+    it(`${region.slug} Malay title fits the SEO title budget`, () => {
+      const titleMs = `Pinjaman Peribadi ${region.name.ms}`;
+      expect(titleMs.length + 15, `"${titleMs}" (${titleMs.length} chars)`).toBeLessThanOrEqual(65);
+    });
+  }
 });

@@ -10,10 +10,8 @@ export function Hero({ t, language }: { t: HomeContent; language: Language }) {
   const h = t.hero;
   return (
     <Section id="hero" className="relative overflow-hidden pt-14 lg:pt-20">
-      <div
-        aria-hidden="true"
-        className="bg-glow-hero bg-grid-fade aurora-drift pointer-events-none absolute inset-0"
-      />
+      <div aria-hidden="true" className="bg-glow-hero aurora-drift pointer-events-none absolute inset-0" />
+      <div aria-hidden="true" className="bg-grid-fade pointer-events-none absolute inset-0" />
       <Container className="relative">
         <div className="lg:grid lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:text-left">
           <div className="mx-auto max-w-3xl text-center lg:mx-0 lg:max-w-none lg:text-left">
@@ -35,7 +33,7 @@ export function Hero({ t, language }: { t: HomeContent; language: Language }) {
           </div>
 
           <div className="relative mt-10 lg:mt-0">
-            <div className="relative aspect-[16/10] max-h-[280px] lg:aspect-[4/5] lg:max-h-[560px]">
+            <div className="relative hidden sm:block sm:aspect-[4/5] sm:max-h-[420px] lg:max-h-[560px]">
               <HeroIllustration
                 title={h.illustrationAlt}
                 labels={{ fit: h.floatFit, strong: h.illustrationStrong }}
@@ -46,7 +44,7 @@ export function Hero({ t, language }: { t: HomeContent; language: Language }) {
               aria-hidden="true"
               className="float-y absolute -top-4 left-2 hidden rounded-2xl border border-border bg-surface p-4 shadow-card sm:block lg:-top-6 lg:left-6"
             >
-              <Stat value="82%" label={h.floatFit} tone="success" />
+              <Stat value="RM30" label={h.floatFee} tone="success" />
             </div>
             <div
               aria-hidden="true"

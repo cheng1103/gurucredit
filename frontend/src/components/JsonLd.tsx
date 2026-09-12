@@ -200,10 +200,6 @@ export function ArticleJsonLd({
   };
   if (resolvedCredentials) authorNode.hasCredential = resolvedCredentials;
   if (resolvedAuthorImage) authorNode.image = resolvedAuthorImage;
-  if (author.toLowerCase().includes('team') || author.toLowerCase().includes('desk') || author.toLowerCase().includes('lab')) {
-    // Team/desk bylines render as Person but their @type stays Person;
-    // the jobTitle = "Editorial collective" clarifies the nature.
-  }
 
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
@@ -216,14 +212,7 @@ export function ArticleJsonLd({
     abstract: descriptionMs,
     inLanguage: language === 'ms' ? 'ms-MY' : 'en-MY',
     author: authorNode,
-    publisher: {
-      '@type': 'Organization',
-      name: COMPANY.name,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${SEO.url}/logo.jpg`,
-      },
-    },
+    publisher: { '@id': `${SEO.url}#organization` },
     datePublished: publishedAt,
     dateModified: updatedAt ?? publishedAt,
     ...(reviewedBy && {

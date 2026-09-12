@@ -233,11 +233,11 @@ export function PreApprovalCalculator() {
 
             <dl className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
               {([
-                { label: t.metrics.dsr, value: `${dsr.toFixed(1)}%`, tone: calculation.status === 'approved' ? 'success' : 'default' },
+                { label: t.metrics.dsr, value: `${dsr.toFixed(1)}%`, tone: calculation.status === 'approved' ? 'success' : calculation.status === 'conditional' ? 'warning' : 'destructive' },
                 { label: t.metrics.maxLoan, value: formatCurrency(calculation.maxLoanAmount), tone: 'primary' },
                 { label: t.metrics.monthlyPayment, value: formatCurrency(calculation.monthlyPayment), tone: 'default' },
                 { label: t.metrics.totalInterest, value: formatCurrency(calculation.totalInterest), tone: 'default' },
-              ] satisfies { label: string; value: string; tone: 'default' | 'success' | 'primary' }[]).map((m) => (
+              ] satisfies { label: string; value: string; tone: 'default' | 'success' | 'primary' | 'warning' | 'destructive' }[]).map((m) => (
                 <div key={m.label} className="rounded-xl border border-border bg-surface p-4">
                   <Stat value={m.value} label={m.label} tone={m.tone} className="gap-0.5" />
                 </div>

@@ -8,6 +8,8 @@ const tones = {
   default: 'text-foreground',
   success: 'text-success',
   primary: 'text-primary',
+  warning: 'text-warning',
+  destructive: 'text-destructive',
 } as const;
 
 type ParsedValue = {
@@ -56,7 +58,7 @@ export function Stat({
   useEffect(() => {
     if (!inView || reduce || !parsed || !ref.current) return;
     const node = ref.current;
-    const controls = animate(0, parsed.target, {
+    const controls = animate(parsed.target * 0.7, parsed.target, {
       duration: 1.2,
       ease: 'easeOut',
       onUpdate(latest) {

@@ -137,7 +137,7 @@ export function EligibilityTest({ language }: { language: Language }) {
               <div className={cn('mx-auto mb-4 flex size-16 items-center justify-center rounded-full border-4', tone.border, tone.bg)}>
                 <ResultIcon className={cn('size-8', tone.text)} aria-hidden="true" />
               </div>
-              <div className="corner-glow mb-4 flex justify-center rounded-xl bg-tint p-4">
+              <div className="corner-glow mb-4 flex justify-center rounded-xl bg-surface p-4">
                 <Stat value={`${averageScore}/100`} label={t.result.yourScore} tone={resultLevel === 'poor' ? 'default' : 'primary'} />
               </div>
               <h2 className={cn('text-2xl font-bold lg:text-3xl', tone.text)}>{result.title}</h2>

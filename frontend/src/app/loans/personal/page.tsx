@@ -1,5 +1,6 @@
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { SEO } from '@/lib/constants';
+import { PATHS } from '@/lib/i18n/routes';
 import { buildMetadata } from '@/lib/seo';
 import { FinancialProductJsonLd, LoanProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
 import { LoanProductPage } from '@/components/loans/LoanProductPage';
@@ -49,6 +50,7 @@ export default async function PersonalLoanPage() {
         description={t.lede}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
+          { name: 'Loans', url: `${SEO.url}${PATHS.services}` },
           { name: t.title, url: `${SEO.url}/loans/personal` },
         ]}
         faqItems={t.faq.items}

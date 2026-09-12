@@ -68,7 +68,7 @@ for (const route of BREADCRUMB_ROUTES) {
       const matches = normalised.match(/"@type":"BreadcrumbList"/g);
       return count + (matches?.length ?? 0);
     }, 0);
-    expect(breadcrumbListCount).toBeLessThanOrEqual(1);
+    expect(breadcrumbListCount).toBe(1);
   });
 }
 
@@ -111,4 +111,27 @@ test.describe('ms locale via gc_lang cookie', () => {
       await expect(page.locator('html')).toHaveAttribute('lang', 'ms');
     });
   }
+});
+
+// `x-gc-locale`/`x-gc-path` are internal signals the proxy derives from the
+// URL — they must never be trusted from an inbound request header, or a
+// client could force the Malay render or an arbitrary canonical URL on any
+// route. See src/proxy.ts.
+test.describe('proxy ignores spoofed internal headers', () => {
+  test('a spoofed x-gc-locale: ms header does not force the Malay render', async ({ page }) => {
+    await page.setExtraHTTPHeaders({ 'x-gc-locale': 'ms' });
+    await page.goto('/');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+    expect(canonical).not.toContain('/ms');
+  });
+
+  test('a spoofed x-gc-path header does not change the canonical URL', async ({ page }) => {
+    await page.setExtraHTTPHeaders({ 'x-gc-path': '/evil' });
+    await page.goto('/');
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://guru-credit.com',
+    );
+  });
 });

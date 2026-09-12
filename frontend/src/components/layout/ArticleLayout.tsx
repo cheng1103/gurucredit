@@ -39,6 +39,10 @@ export function ArticleLayout({
       <PageHeader breadcrumbs={breadcrumbs} eyebrow={eyebrow} title={title} lede={lede} meta={meta} size="wide" />
       <Section>
         <Container size="wide">
+          <details className="mb-8 rounded-xl border border-border bg-surface px-4 py-3 lg:hidden">
+            <summary className="cursor-pointer font-semibold">{tocTitle[language]}</summary>
+            <TableOfContents containerId="article-body" title={tocTitle[language]} className="mt-3" />
+          </details>
           <div className="grid gap-12 lg:grid-cols-[minmax(0,680px)_1fr] lg:gap-16">
             <Prose id="article-body">{children}</Prose>
             <aside className="lg:sticky lg:top-24 lg:self-start">

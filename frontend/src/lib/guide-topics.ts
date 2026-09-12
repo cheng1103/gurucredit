@@ -329,7 +329,7 @@ export const guideTopics: GuideTopic[] = [
     ],
     related: [
       { title: 'Debt consolidation guide', titleMs: 'Panduan penyatuan hutang', href: '/loan-guides/debt-consolidation' },
-      { title: 'Compare loans', titleMs: 'Bandingkan pinjaman', href: '/compare' },
+      { title: 'Compare loans', titleMs: 'Bandingkan pinjaman', href: '/tools/compare' },
       { title: 'Loan rejection recovery guide', titleMs: 'Panduan pulih selepas ditolak', href: '/loan-guides/loan-rejection-recovery' },
     ],
   },
@@ -485,7 +485,7 @@ export const guideTopics: GuideTopic[] = [
     ],
     related: [
       { title: 'Debt consolidation guide', titleMs: 'Panduan penyatuan hutang', href: '/loan-guides/debt-consolidation' },
-      { title: 'Compare loans', titleMs: 'Bandingkan pinjaman', href: '/compare' },
+      { title: 'Compare loans', titleMs: 'Bandingkan pinjaman', href: '/tools/compare' },
       { title: 'Eligibility test', titleMs: 'Ujian kelayakan', href: '/eligibility-test' },
     ],
   },

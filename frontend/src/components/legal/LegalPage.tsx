@@ -23,6 +23,10 @@ export function LegalPage({ doc, language }: { doc: LegalDoc; language: Language
       />
       <Section>
         <Container size="wide">
+          <details className="mb-8 rounded-xl border border-border bg-surface px-4 py-3 lg:hidden">
+            <summary className="cursor-pointer font-semibold">{t.toc}</summary>
+            <TableOfContents containerId="legal-body" title={t.toc} className="mt-3" />
+          </details>
           <div className="grid gap-12 lg:grid-cols-[240px_minmax(0,680px)]">
             <aside className="lg:sticky lg:top-24 lg:self-start">
               <TableOfContents containerId="legal-body" title={t.toc} className="hidden lg:block" />

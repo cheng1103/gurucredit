@@ -221,7 +221,7 @@ const nextConfig: NextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizeCss: false,
-    optimizePackageImports: ['lucide-react', 'framer-motion', '@tanstack/react-query'],
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
   async redirects() {
     return [

@@ -422,42 +422,6 @@ export const COMPANY_TIMELINE = [
   { year: '2024', title: 'Expansion', description: 'Expanded services to include credit repair and loan application assistance.' },
 ];
 
-// Navigation Links
-export const NAV_LINKS = [
-  { href: '/', label: 'Home' },
-  { href: '/services', label: 'Services' },
-  { href: '/about', label: 'About' },
-  { href: '/faq', label: 'FAQ' },
-  { href: '/contact', label: 'Contact' },
-];
-
-// Footer Links
-export const FOOTER_QUICK_LINKS = [
-  { href: '/services', label: 'Our Services' },
-  { href: '/compare', label: 'Compare Loans' },
-  { href: '/documents', label: 'Document Checklist' },
-  { href: '/glossary', label: 'Financial Glossary' },
-];
-
-export const FOOTER_SERVICE_LINKS = [
-  { href: '/loans/personal', label: 'Personal Loan' },
-  { href: '/services/4/apply', label: 'Business Loan' },
-];
-
-export const FOOTER_LEGAL_LINKS = [
-  { href: '/privacy', label: 'Privacy Policy' },
-  { href: '/terms', label: 'Terms of Service' },
-  { href: '/disclaimer', label: 'Disclaimer' },
-];
-
-export const FOOTER_RESOURCE_LINKS = [
-  { href: '/blog', label: 'Blog' },
-  { href: '/compare', label: 'Compare Loans' },
-  { href: '/documents', label: 'Document Checklist' },
-  { href: '/glossary', label: 'Financial Glossary' },
-  { href: '/faq', label: 'FAQ' },
-];
-
 // SEO Metadata
 export const SEO = {
   siteName: 'GURU Credits',

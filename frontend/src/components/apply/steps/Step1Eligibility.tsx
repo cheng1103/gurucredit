@@ -42,7 +42,7 @@ export function Step1Eligibility({
             serviceAreaHasError && 'border-destructive focus-visible:ring-destructive/20',
           )}
           aria-invalid={serviceAreaHasError}
-          aria-describedby={serviceAreaHasError ? 'serviceArea-error' : undefined}
+          aria-describedby={serviceAreaHasError ? 'serviceArea-error' : 'serviceArea-help'}
         >
           {SERVICE_AREAS.map((area) => (
             <option key={area.regionCode} value={area.regionCode}>
@@ -53,7 +53,7 @@ export function Step1Eligibility({
         {serviceAreaHasError ? (
           <p id="serviceArea-error" className="text-sm text-destructive">{getFieldError(errors, 'serviceArea')}</p>
         ) : (
-          <p className="text-xs text-foreground-subtle">{t.form.serviceArea.helper}</p>
+          <p id="serviceArea-help" className="text-xs text-foreground-subtle">{t.form.serviceArea.helper}</p>
         )}
       </div>
 
@@ -71,7 +71,7 @@ export function Step1Eligibility({
               onBlur={() => onBlur('monthlyIncome')}
               className="pl-10"
               aria-invalid={monthlyIncomeHasError}
-              aria-describedby={monthlyIncomeHasError ? 'monthlyIncome-error' : undefined}
+              aria-describedby={monthlyIncomeHasError ? 'monthlyIncome-error' : 'monthlyIncome-help'}
               inputMode="numeric"
               min="0"
               required
@@ -80,7 +80,7 @@ export function Step1Eligibility({
           {monthlyIncomeHasError ? (
             <p id="monthlyIncome-error" className="text-sm text-destructive">{getFieldError(errors, 'monthlyIncome')}</p>
           ) : (
-            <p className="text-xs text-foreground-subtle">{t.form.incomeNote}</p>
+            <p id="monthlyIncome-help" className="text-xs text-foreground-subtle">{t.form.incomeNote}</p>
           )}
         </div>
 
@@ -97,7 +97,7 @@ export function Step1Eligibility({
               onBlur={() => onBlur('loanAmount')}
               className="pl-10"
               aria-invalid={loanAmountHasError}
-              aria-describedby={loanAmountHasError ? 'loanAmount-error' : undefined}
+              aria-describedby={loanAmountHasError ? 'loanAmount-error' : 'loanAmount-help'}
               inputMode="numeric"
               min="0"
               required
@@ -106,16 +106,18 @@ export function Step1Eligibility({
           {loanAmountHasError ? (
             <p id="loanAmount-error" className="text-sm text-destructive">{getFieldError(errors, 'loanAmount')}</p>
           ) : (
-            <p className="text-xs text-foreground-subtle">{t.form.desiredAmountNote}</p>
+            <p id="loanAmount-help" className="text-xs text-foreground-subtle">{t.form.desiredAmountNote}</p>
           )}
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label>{t.quickQuestions.contactPreference}</Label>
+        <p id="contactPreference-label" className="text-sm font-medium leading-none">
+          {t.quickQuestions.contactPreference}
+        </p>
         <div
           role="group"
-          aria-label={t.quickQuestions.contactPreference}
+          aria-labelledby="contactPreference-label"
           className="grid grid-cols-2 gap-2"
         >
           {t.quickQuestions.options.map((pref) => {

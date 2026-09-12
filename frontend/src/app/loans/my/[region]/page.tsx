@@ -80,7 +80,7 @@ export default async function RegionPage({ params }: { params: Params }) {
         description={region.localContext[language]}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
-          { name: 'Loans', url: `${SEO.url}/loans` },
+          { name: 'Loans', url: `${SEO.url}${PATHS.services}` },
           { name, url },
         ]}
       />

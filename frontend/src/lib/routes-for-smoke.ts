@@ -11,11 +11,15 @@ const SAMPLE_BLOG_SLUG = 'personal-loan-malaysia-complete-guide-2026';
 const SAMPLE_TOPIC_SLUG = 'bad-credit-loan-options';
 const SAMPLE_REGION_SLUG = 'selangor';
 const SAMPLE_SERVICE_APPLY = '/services/1/apply';
+// Non-indexed system routes (not in sitemap.ts): a per-locked-id apply
+// confirmation and a status page, neither meant to be crawled/enumerated.
+const NON_INDEXED_ROUTES = ['/status', '/services/success'];
 
 /**
  * Routes for e2e smoke coverage: every static route from the sitemap (with
  * `''` normalised to `/`) plus one sample of each dynamic family
- * (region, blog post, guide topic) and the non-indexed apply route.
+ * (region, blog post, guide topic) and the non-indexed apply/status/success
+ * routes.
  *
  * Deriving this from `sitemap.ts` instead of hand-maintaining a parallel list
  * means a new static page added to the sitemap is smoke-tested automatically.
@@ -39,5 +43,6 @@ export function smokeRoutes(): string[] {
     `/loan-guides/topics/${SAMPLE_TOPIC_SLUG}`,
     `/loans/my/${SAMPLE_REGION_SLUG}`,
     SAMPLE_SERVICE_APPLY,
+    ...NON_INDEXED_ROUTES,
   ];
 }

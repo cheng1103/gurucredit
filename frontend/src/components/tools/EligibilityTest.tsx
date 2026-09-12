@@ -51,8 +51,7 @@ export function EligibilityTest({ language }: { language: Language }) {
   const [showResult, setShowResult] = useState(false);
 
   const handleAnswer = (optionIndex: number) => {
-    const score = questionScores[currentQuestion][optionIndex];
-    setAnswers({ ...answers, [currentQuestion]: score });
+    setAnswers({ ...answers, [currentQuestion]: optionIndex });
 
     if (currentQuestion < t.questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
@@ -71,7 +70,10 @@ export function EligibilityTest({ language }: { language: Language }) {
     setShowResult(false);
   };
 
-  const totalScore = Object.values(answers).reduce((sum, score) => sum + score, 0);
+  const totalScore = Object.entries(answers).reduce(
+    (sum, [question, optionIndex]) => sum + questionScores[Number(question)][optionIndex],
+    0,
+  );
   const averageScore = showResult ? Math.round(totalScore / t.questions.length) : 0;
   const resultLevel = showResult ? getResultLevel(averageScore) : 'excellent';
   const result = t.results[resultLevel];
@@ -99,7 +101,7 @@ export function EligibilityTest({ language }: { language: Language }) {
           </CardHeader>
           <CardContent className="space-y-3">
             {t.questions[currentQuestion].options.map((option, index) => {
-              const selected = answers[currentQuestion] === questionScores[currentQuestion][index];
+              const selected = answers[currentQuestion] === index;
               return (
                 <button
                   key={option.label}

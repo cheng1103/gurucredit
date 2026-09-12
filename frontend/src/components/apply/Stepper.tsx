@@ -23,7 +23,7 @@ export function Stepper({
   return (
     <div>
       {/* Mobile: compact "Step N of total" pill */}
-      <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-primary sm:hidden">
+      <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-primary-hover sm:hidden">
         <span className="inline-flex items-center gap-2 rounded-full border border-primary/60 bg-primary/10 px-3 py-1">
           {stepWord} {current} {ofWord} {total}
           <span className="font-medium normal-case tracking-normal text-foreground-muted">

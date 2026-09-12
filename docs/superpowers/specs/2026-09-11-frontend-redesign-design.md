@@ -51,7 +51,7 @@ shadcn 令牌映射保留（`--card`、`--popover`、`--muted`、`--secondary`�
 
 - 显示与正文：**Geist**（`next/font/google`，variable，weights 400–800），替换 Space Grotesk + Plus Jakarta Sans。
 - 数字：**Geist Mono**，用于金额、百分比、DSR、参考编号。通过现有 `.tabular` / `[data-tabular]` / `.metric` / `.amount` 钩子加 `font-family: var(--font-mono)`。
-- CJK 回退：保留 Noto Sans SC 链。
+- CJK 回退：不再加载 Noto Sans SC；由系统字体栈（PingFang SC / Microsoft YaHei）提供中文字形。
 - 字阶（桌面 / 手机）：
 
 | 级别 | 桌面 | 手机 | 字重 | 字距 |

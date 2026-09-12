@@ -11,7 +11,7 @@ import { Progress } from '@/components/ui/progress';
 import { applicationsAPI } from '@/lib/api';
 import { trackEvent } from '@/lib/analytics';
 import { useLanguage } from '@/lib/i18n';
-import { PATHS } from '@/lib/i18n/routes';
+import { PATHS, localeHref } from '@/lib/i18n/routes';
 import { SERVICE_AREAS } from '@/lib/constants';
 import { loanApplicationSchema, validateForm } from '@/lib/validation';
 import { applyContent, type ApplyServiceContent } from '@/lib/content/apply';
@@ -198,7 +198,10 @@ export function ApplyWizard({ serviceId, service }: { serviceId: string; service
       });
       toast.success(t.toast.success);
       const referenceId = response.data?.id;
-      router.push(referenceId ? `/services/success?service=${serviceId}&ref=${referenceId}` : `/services/success?service=${serviceId}`);
+      const successPath = referenceId
+        ? `${PATHS.servicesSuccess}?service=${serviceId}&ref=${referenceId}`
+        : `${PATHS.servicesSuccess}?service=${serviceId}`;
+      router.push(localeHref(language, successPath));
     } catch (error) {
       const apiError = error as ApiError;
       toast.error(apiError.response?.data?.message || t.toast.error);

@@ -5033,7 +5033,7 @@ There is no universal answer because loan size depends on tenure, affordability,
 - longer tenure can reduce the instalment, but not every file should be stretched
 - a clean recent repayment record can matter more than chasing an extra RM10,000
 
-If your goal is to estimate the impact of different loan sizes, compare scenarios first in **[Compare Loans](/compare)** rather than applying blind.
+If your goal is to estimate the impact of different loan sizes, compare scenarios first in **[Compare Loans](/tools/compare)** rather than applying blind.
 
 ## Documents That Strengthen Low-to-Mid Salary Applications
 
@@ -5196,7 +5196,7 @@ Tiada jawapan universal kerana jumlah pinjaman bergantung pada tempoh, kemampuan
 - tempoh yang lebih panjang boleh menurunkan ansuran, tetapi bukan semua fail patut dipanjangkan
 - rekod bayaran bersih kebelakangan ini kadang-kadang lebih bernilai daripada memaksa tambahan RM10,000
 
-Jika anda mahu tengok kesan jumlah pinjaman yang berbeza, lebih baik bandingkan dahulu dalam **[Compare Loans](/compare)** sebelum memohon secara rawak.
+Jika anda mahu tengok kesan jumlah pinjaman yang berbeza, lebih baik bandingkan dahulu dalam **[Compare Loans](/tools/compare)** sebelum memohon secara rawak.
 
 ## Dokumen Yang Menguatkan Permohonan Bergaji Rendah ke Sederhana
 

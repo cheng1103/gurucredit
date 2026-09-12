@@ -13,7 +13,8 @@ export type HomeContent = {
     logosLabel: string;
     floatFit: string;
     floatTime: string;
-    photoAlt: string;
+    illustrationAlt: string;
+    illustrationStrong: string;
   };
   howItWorks: {
     eyebrow: string;
@@ -79,7 +80,8 @@ export const homeContent: Record<Language, HomeContent> = {
       logosLabel: 'Lenders we work with',
       floatFit: 'Approval fit',
       floatTime: 'Written answer in',
-      photoAlt: 'Loan advisor',
+      illustrationAlt: 'Illustration of a loan eligibility report with DSR gauge, document checklist and WhatsApp reply',
+      illustrationStrong: 'Strong',
     },
     howItWorks: {
       eyebrow: 'How it works',
@@ -203,7 +205,8 @@ export const homeContent: Record<Language, HomeContent> = {
       logosLabel: 'Pemberi pinjaman yang bekerjasama dengan kami',
       floatFit: 'Kesesuaian kelulusan',
       floatTime: 'Jawapan bertulis dalam',
-      photoAlt: 'Perunding pinjaman',
+      illustrationAlt: 'Ilustrasi laporan kelayakan pinjaman dengan tolok DSR, senarai dokumen dan balasan WhatsApp',
+      illustrationStrong: 'Kukuh',
     },
     howItWorks: {
       eyebrow: 'Cara ia berfungsi',

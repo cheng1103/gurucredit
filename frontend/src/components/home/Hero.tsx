@@ -1,16 +1,19 @@
-import Image from 'next/image';
 import { Container, Section, Stat } from '@/components/layout';
 import { QuickLeadCapture } from '@/components/QuickLeadCapture';
 import type { HomeContent } from '@/lib/content/home';
 import type { Language } from '@/lib/i18n/translations';
 import { HeroCtas } from './HeroCtas';
 import { BankLogoRow } from './BankLogoRow';
+import { HeroIllustration } from './HeroIllustration';
 
 export function Hero({ t, language }: { t: HomeContent; language: Language }) {
   const h = t.hero;
   return (
     <Section id="hero" className="relative overflow-hidden pt-14 lg:pt-20">
-      <div aria-hidden="true" className="bg-glow-hero bg-grid-fade pointer-events-none absolute inset-0" />
+      <div
+        aria-hidden="true"
+        className="bg-glow-hero bg-grid-fade aurora-drift pointer-events-none absolute inset-0"
+      />
       <Container className="relative">
         <div className="lg:grid lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:text-left">
           <div className="mx-auto max-w-3xl text-center lg:mx-0 lg:max-w-none lg:text-left">
@@ -32,30 +35,22 @@ export function Hero({ t, language }: { t: HomeContent; language: Language }) {
           </div>
 
           <div className="relative mt-10 lg:mt-0">
-            <div className="relative aspect-[16/10] max-h-[280px] overflow-hidden rounded-3xl border border-border shadow-card lg:aspect-[4/5] lg:max-h-[560px]">
-              <Image
-                src="/images/optimized/customer-2.webp"
-                alt={h.photoAlt}
-                fill
-                priority
-                sizes="(min-width:1024px) 40vw, 100vw"
-                className="object-cover object-top"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent"
+            <div className="relative aspect-[16/10] max-h-[280px] lg:aspect-[4/5] lg:max-h-[560px]">
+              <HeroIllustration
+                title={h.illustrationAlt}
+                labels={{ fit: h.floatFit, strong: h.illustrationStrong }}
               />
             </div>
 
             <div
               aria-hidden="true"
-              className="float-y absolute -top-4 right-2 hidden rounded-2xl border border-border bg-surface p-4 shadow-card sm:block lg:right-6 lg:top-8"
+              className="float-y absolute -top-4 left-2 hidden rounded-2xl border border-border bg-surface p-4 shadow-card sm:block lg:-top-6 lg:left-6"
             >
               <Stat value="82%" label={h.floatFit} tone="success" />
             </div>
             <div
               aria-hidden="true"
-              className="float-y absolute -bottom-4 left-2 hidden rounded-2xl border border-border bg-surface p-4 shadow-card [animation-delay:1.2s] sm:block lg:bottom-8 lg:left-6"
+              className="float-y absolute -bottom-4 right-2 hidden rounded-2xl border border-border bg-surface p-4 shadow-card [animation-delay:1.2s] sm:block lg:-bottom-6 lg:right-6"
             >
               <Stat value="24h" label={h.floatTime} tone="primary" />
             </div>

@@ -45,7 +45,10 @@ export default async function PartnersPage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {bankPartners.map((bank) => (
               <div key={bank.name} className="rounded-2xl border border-border bg-surface p-6 shadow-card">
-                <h3 className="font-semibold text-foreground">{bank.name}</h3>
+                {bank.logo ? (
+                  <img src={bank.logo} alt={bank.name} className="h-8 w-auto max-w-[140px] object-contain" />
+                ) : null}
+                <h3 className="mt-3 font-semibold text-foreground">{bank.name}</h3>
                 <p className="mt-1 text-sm text-foreground-muted">{bank.description[language]}</p>
                 <div className="mt-4">
                   <Stat value={bank.minRate} label={t.bankGrid.fromRate} />

@@ -2,8 +2,8 @@ import type { Language } from '@/lib/i18n/translations';
 
 export interface BankPartner {
   name: string;
-  /** Placeholder asset path — kept for when real bank wordmarks are approved for use. */
-  logo: string;
+  /** Real logo asset path, only set for banks whose file exists in /public/images/banks. */
+  logo?: string;
   minRate: string;
   description: Record<Language, string>;
   products: Record<Language, string[]>;
@@ -54,42 +54,38 @@ export const bankPartners: BankPartner[] = [
   },
   {
     name: 'Bank Rakyat',
-    logo: '/images/banks/bankrakyat.svg',
     minRate: '4.8%',
     description: { en: 'Cooperative bank for all', ms: 'Bank koperasi untuk semua' },
     products: { en: ['Personal Loan', 'Islamic Financing'], ms: ['Pinjaman Peribadi', 'Pembiayaan Islam'] },
   },
   {
     name: 'BSN',
-    logo: '/images/banks/bsn.svg',
     minRate: '5.0%',
     description: { en: 'National savings bank', ms: 'Bank simpanan nasional' },
     products: { en: ['Personal Loan', 'Home Loan'], ms: ['Pinjaman Peribadi', 'Pinjaman Rumah'] },
   },
   {
     name: 'Alliance Bank',
-    logo: '/images/banks/alliance.svg',
+    logo: '/images/banks/alliance.png',
     minRate: '5.7%',
     description: { en: 'Smart banking solutions', ms: 'Penyelesaian perbankan pintar' },
     products: { en: ['Personal Loan', 'Home Loan', 'Car Loan'], ms: ['Pinjaman Peribadi', 'Pinjaman Rumah', 'Pinjaman Kereta'] },
   },
   {
     name: 'Affin Bank',
-    logo: '/images/banks/affin.svg',
     minRate: '5.8%',
     description: { en: 'Your trusted partner', ms: 'Rakan dipercayai anda' },
     products: { en: ['Personal Loan', 'Home Loan', 'SME Financing'], ms: ['Pinjaman Peribadi', 'Pinjaman Rumah', 'Pembiayaan PKS'] },
   },
   {
     name: 'Bank Islam',
-    logo: '/images/banks/bankislam.svg',
+    logo: '/images/banks/bankislam.jpg',
     minRate: '5.3%',
     description: { en: 'Islamic banking leader', ms: 'Peneraju perbankan Islam' },
     products: { en: ['Islamic Personal Financing', 'Home Financing'], ms: ['Pembiayaan Peribadi Islam', 'Pembiayaan Rumah'] },
   },
   {
     name: 'MBSB Bank',
-    logo: '/images/banks/mbsb.svg',
     minRate: '5.5%',
     description: { en: 'Value-based banking', ms: 'Perbankan berasaskan nilai' },
     products: { en: ['Personal Financing', 'Home Financing'], ms: ['Pembiayaan Peribadi', 'Pembiayaan Rumah'] },

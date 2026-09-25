@@ -100,7 +100,7 @@ describe('glossary content integrity', () => {
     for (const lang of ['en', 'ms'] as const) {
       const slugs = new Set(glossaryTerms[lang].map((t) => t.slug));
       for (const term of glossaryTerms[lang] as GlossaryTerm[]) {
-        expect(term.related.length, `"${term.term}" (${lang}) should have 1-3 related terms`).toBeGreaterThan(0);
+        expect(term.related.length, `"${term.term}" (${lang}) should have 2-3 related terms`).toBeGreaterThanOrEqual(2);
         expect(term.related.length).toBeLessThanOrEqual(3);
         for (const rel of term.related) {
           expect(slugs.has(rel), `"${term.term}" (${lang}) has a dangling related slug "${rel}"`).toBe(true);

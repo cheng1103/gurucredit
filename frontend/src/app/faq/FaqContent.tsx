@@ -106,7 +106,7 @@ export default function FaqContent({ language }: FaqContentProps) {
                 <h2 id={`faq-${section.id}`} className="mb-4 text-xl font-semibold">
                   {section.label}
                 </h2>
-                <FaqAccordion items={section.items} />
+                <FaqAccordion items={section.items} idPrefix={`faq-${section.id}`} />
               </section>
             ))}
           </div>

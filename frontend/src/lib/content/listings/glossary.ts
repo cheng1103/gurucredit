@@ -90,7 +90,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'Credit Score',
       slug: 'credit-score',
-      definition: 'A numerical representation of creditworthiness. The CTOS Score typically runs on a scale of roughly 300–850, though you should confirm the current scale directly with CTOS as scoring models can change.',
+      definition: 'A numerical summary of creditworthiness, expressed as a score rather than a pass/fail result. The exact scale can change over time, so confirm the current scale directly with CTOS.',
       category: 'credit',
       related: ['ccris', 'ctos', 'credit-report'],
       example: 'A higher CTOS Score generally makes it easier to be matched with more lenders, though it never guarantees approval.',
@@ -907,7 +907,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'Skor Kredit',
       slug: 'credit-score',
-      definition: 'Perwakilan numerik kelayakan kredit. Skor CTOS biasanya berada pada skala kira-kira 300–850, tetapi anda perlu sahkan skala semasa terus dengan CTOS kerana model pemarkahan boleh berubah.',
+      definition: 'Ringkasan numerik kelayakan kredit, dinyatakan sebagai skor dan bukan sekadar keputusan lulus/gagal. Skala sebenar boleh berubah dari semasa ke semasa, jadi sahkan skala semasa terus dengan CTOS.',
       category: 'credit',
       related: ['ccris', 'ctos', 'credit-report'],
       example: 'Skor CTOS yang lebih tinggi umumnya memudahkan anda dipadankan dengan lebih ramai pemberi pinjaman, walaupun ia tidak pernah menjamin kelulusan.',
@@ -947,7 +947,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'NPL (Pinjaman Terjejas)',
       slug: 'npl',
-      definition: 'Non-Performing Loan — istilah industri untuk pinjaman di mana pembayaran telah tertunggak untuk tempoh yang panjang, dianggap sebagai tanda serius pada rekod kredit.',
+      definition: 'NPL (Non-Performing Loan, pinjaman terjejas) — istilah industri untuk pinjaman di mana pembayaran telah tertunggak untuk tempoh yang panjang, dianggap sebagai tanda serius pada rekod kredit.',
       category: 'credit',
       related: ['default', 'credit-score'],
       example: 'Bank memantau nisbah NPL mereka dengan teliti, salah satu sebab penajaminan boleh diperketatkan semasa tempoh ekonomi sukar.',
@@ -1013,7 +1013,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'EIR (Kadar Faedah Efektif)',
       slug: 'eir',
-      definition: 'Effective Interest Rate — cara piawai untuk menyatakan kos sebenar pinjaman, termasuk kompaun, supaya pinjaman dengan struktur kadar berbeza boleh dibandingkan dengan lebih adil.',
+      definition: 'EIR (Effective Interest Rate, kadar faedah efektif) — cara piawai untuk menyatakan kos sebenar pinjaman, termasuk faedah atas faedah (compounding), supaya pinjaman dengan struktur kadar berbeza boleh dibandingkan dengan lebih adil.',
       category: 'rates',
       related: ['flat-rate', 'effective-rate', 'apr'],
       example: 'Dua pinjaman dengan kadar rata yang sama masih boleh mempunyai EIR berbeza bergantung pada yuran dan struktur pembayaran.',
@@ -1021,7 +1021,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'APR (Kadar Peratusan Tahunan)',
       slug: 'apr',
-      definition: 'Annual Percentage Rate — ukuran kadar yang boleh merangkumi yuran tertentu selain faedah. Tidak semua pemberi pinjaman di Malaysia menyatakan APR dengan cara yang sama, jadi sahkan apa yang termasuk di dalamnya.',
+      definition: 'APR (Annual Percentage Rate, kadar peratusan tahunan) — ukuran kadar yang boleh merangkumi yuran tertentu selain faedah. Tidak semua pemberi pinjaman di Malaysia menyatakan APR dengan cara yang sama, jadi sahkan apa yang termasuk di dalamnya.',
       category: 'rates',
       related: ['eir', 'flat-rate'],
       example: 'Minta pemberi pinjaman anda tunjukkan yuran apa, jika ada, yang dimasukkan dalam angka APR yang mereka sebut.',
@@ -1053,7 +1053,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'OPR',
       slug: 'opr',
-      definition: 'Overnight Policy Rate — kadar faedah penanda aras yang ditetapkan oleh Bank Negara Malaysia yang mempengaruhi kadar pinjaman dalam ekonomi, termasuk banyak pinjaman kadar berubah.',
+      definition: 'OPR (Overnight Policy Rate, kadar dasar semalaman) — kadar faedah penanda aras yang ditetapkan oleh Bank Negara Malaysia yang mempengaruhi kadar pinjaman dalam ekonomi, termasuk banyak pinjaman kadar berubah.',
       category: 'rates',
       related: ['base-rate', 'standard-base-rate'],
       example: 'Apabila Bank Negara Malaysia menaikkan OPR, peminjam pinjaman kadar berubah sering melihat ansuran mereka meningkat.',
@@ -1249,7 +1249,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'e-KYC',
       slug: 'e-kyc',
-      definition: 'Electronic Know-Your-Customer — proses pengesahan identiti digital, sering menggabungkan swafoto dengan imbasan IC, yang membolehkan pemohon mendaftar tanpa melawat cawangan secara fizikal.',
+      definition: 'e-KYC (Electronic Know-Your-Customer, pengesahan pelanggan elektronik) — proses pengesahan identiti digital, sering menggabungkan swafoto dengan imbasan IC, yang membolehkan pemohon mendaftar tanpa melawat cawangan secara fizikal.',
       category: 'process',
       related: ['ic', 'mykad', 'e-signature'],
       example: 'e-KYC membolehkan anda mengesahkan identiti dari rumah tanpa perlu melawat kaunter cawangan.',
@@ -1405,7 +1405,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'Murabahah',
       slug: 'murabahah',
-      definition: 'Struktur jualan kos-tambah-keuntungan di mana pemberi pembiayaan membeli aset dan menjualnya kepada pelanggan pada margin yang didedahkan, dibayar secara ansuran.',
+      definition: 'Struktur jual beli yang menambah margin keuntungan di atas kos, di mana pemberi pembiayaan membeli aset lalu menjualnya semula kepada pelanggan pada harga margin yang didedahkan, dibayar secara ansuran.',
       category: 'islamic',
       related: ['shariah-compliant', 'profit-rate'],
       example: 'Sesetengah produk pembiayaan peribadi Islam di Malaysia menggunakan struktur Murabahah dan bukan pinjaman konvensional berasaskan faedah.',
@@ -1421,7 +1421,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: "Bai' Al-Inah",
       slug: 'bai-al-inah',
-      definition: "Struktur jual-dan-beli-semula yang digunakan dalam sesetengah produk pembiayaan Islam. Keharusannya diperdebatkan dalam kalangan ulama di bidang kuasa berbeza, jadi terma tepat berbeza mengikut institusi.",
+      definition: "Struktur jual kemudian beli semula yang digunakan dalam sesetengah produk pembiayaan Islam. Keharusannya diperdebatkan dalam kalangan ulama di bidang kuasa berbeza, jadi terma tepat berbeza mengikut institusi.",
       category: 'islamic',
       related: ['shariah-compliant', 'tawarruq'],
       example: "Tanya bank anda struktur mana — Bai' Al-Inah, Tawarruq, atau lain — yang mendasari produk Islam tertentu sebelum membandingkannya.",
@@ -1445,7 +1445,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'Patuh Shariah',
       slug: 'shariah-compliant',
-      definition: 'Menggambarkan produk kewangan yang distruktur untuk mematuhi undang-undang Islam, mengelakkan faedah (riba) demi struktur perkongsian keuntungan atau berasaskan fi yang diselia oleh jawatankuasa Shariah.',
+      definition: 'Menggambarkan produk kewangan yang distruktur untuk mematuhi undang-undang Islam, mengelakkan faedah (riba) demi struktur perkongsian keuntungan atau berasaskan yuran yang diselia oleh jawatankuasa Shariah.',
       category: 'islamic',
       related: ['islamic-financing', 'profit-rate'],
       example: 'Pinjaman patuh Shariah menggantikan kadar faedah dengan kadar keuntungan yang didedahkan di bawah struktur kontrak yang diluluskan.',
@@ -1469,7 +1469,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'Wakalah',
       slug: 'wakalah',
-      definition: 'Kontrak agensi di mana satu pihak (ejen) bertindak bagi pihak pihak lain (prinsipal), digunakan dalam sesetengah struktur pembiayaan Islam dan Takaful.',
+      definition: 'Kontrak agensi di mana satu pihak (ejen) bertindak bagi pihak-pihak lain (prinsipal), digunakan dalam sesetengah struktur pembiayaan Islam dan Takaful.',
       category: 'islamic',
       related: ['shariah-compliant', 'takaful'],
       example: 'Susunan Wakalah mungkin melantik bank sebagai ejen untuk menjalankan transaksi bagi pihak pelanggan.',
@@ -1487,7 +1487,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'MRTA',
       slug: 'mrta',
-      definition: 'Mortgage Reducing Term Assurance — insurans berjangka berkurangan yang melindungi baki tertunggak pinjaman rumah jika peminjam meninggal dunia atau hilang upaya kekal.',
+      definition: 'MRTA (Mortgage Reducing Term Assurance, insurans berjangka menurun untuk gadai janji) — melindungi baki tertunggak pinjaman rumah jika peminjam meninggal dunia atau hilang upaya kekal.',
       category: 'property',
       related: ['mlta', 'home-loan'],
       example: 'Perlindungan MRTA biasanya berkurangan lebih kurang selaras dengan baki tertunggak pinjaman rumah anda dari semasa ke semasa.',
@@ -1495,10 +1495,10 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'MLTA',
       slug: 'mlta',
-      definition: 'Mortgage Level Term Assurance — berbeza dengan MRTA, ini mengekalkan jumlah perlindungan tetap sepanjang tempoh pinjaman, umumnya dengan kos lebih tinggi tetapi perlindungan yang lebih konsisten.',
+      definition: 'MLTA (Mortgage Level Term Assurance, insurans berjangka tetap untuk gadai janji) — berbeza dengan MRTA, ini mengekalkan jumlah perlindungan tetap sepanjang tempoh pinjaman, umumnya dengan kos lebih tinggi tetapi perlindungan yang lebih konsisten.',
       category: 'property',
       related: ['mrta', 'home-loan'],
-      example: 'Peminjam yang mahu perlindungan kekal malah apabila baki pinjaman menurun mungkin memilih MLTA berbanding MRTA.',
+      example: 'Peminjam yang mahu perlindungan kekal walaupun baki pinjaman menurun mungkin memilih MLTA berbanding MRTA.',
     },
     {
       term: 'LTV / Margin Pembiayaan',
@@ -1511,7 +1511,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'MOT (Memorandum Pindah Milik)',
       slug: 'mot',
-      definition: 'Memorandum of Transfer — dokumen undang-undang yang memindahkan pemilikan berdaftar hartanah daripada penjual kepada pembeli.',
+      definition: 'MOT (Memorandum of Transfer, memorandum pindah milik) — dokumen undang-undang yang memindahkan pemilikan berdaftar hartanah daripada penjual kepada pembeli.',
       category: 'property',
       related: ['spa', 'valuation'],
       example: 'MOT biasanya dilaksanakan selepas Perjanjian Jual Beli dan pembayaran penuh selesai.',
@@ -1519,7 +1519,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'SPA (Perjanjian Jual Beli)',
       slug: 'spa',
-      definition: 'Sale and Purchase Agreement — kontrak undang-undang antara pembeli dan penjual untuk transaksi hartanah, diperlukan apabila memohon pinjaman rumah.',
+      definition: 'SPA (Sale and Purchase Agreement, perjanjian jual beli) — kontrak undang-undang antara pembeli dan penjual untuk transaksi hartanah, diperlukan apabila memohon pinjaman rumah.',
       category: 'property',
       related: ['mot', 'home-loan'],
       example: 'Bank umumnya memerlukan SPA yang ditandatangani sebelum memuktamadkan kelulusan pinjaman rumah.',
@@ -1593,7 +1593,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     {
       term: 'SOCSO',
       slug: 'socso',
-      definition: 'Social Security Organisation — menyediakan perlindungan keselamatan sosial, termasuk skim kecederaan dan hilang upaya, untuk pekerja Malaysia; rekod caruman boleh menyokong bukti pekerjaan.',
+      definition: 'SOCSO (Social Security Organisation, Pertubuhan Keselamatan Sosial) — menyediakan perlindungan keselamatan sosial, termasuk skim kecederaan dan hilang upaya, untuk pekerja Malaysia; rekod caruman boleh menyokong bukti pekerjaan.',
       category: 'general',
       related: ['perkeso', 'kwsp'],
       example: 'Rekod caruman SOCSO bersama slip gaji anda boleh membantu mengesahkan pekerjaan berterusan.',
@@ -1644,7 +1644,7 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
       definition: 'Pendapatan daripada menjalankan perniagaan sendiri dan bukan pekerjaan bergaji, biasanya disahkan melalui penyata bank dan penyata cukai seperti Borang B dan bukan slip gaji.',
       category: 'general',
       related: ['borang-b', 'bank-statement', 'gig-income'],
-      example: 'Pendapatan bekerja sendiri pemilik tunggal biasanya dinilai sepanjang setahun dua aktiviti perbankan perniagaan yang konsisten.',
+      example: 'Pendapatan bekerja sendiri pemilik tunggal biasanya dinilai sepanjang setahun atau dua tahun aktiviti perbankan perniagaan yang konsisten.',
     },
     {
       term: 'Pendapatan Ekonomi Gig',

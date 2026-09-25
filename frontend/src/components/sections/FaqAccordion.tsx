@@ -6,18 +6,28 @@ import { cn } from '@/lib/utils';
 
 type Item = { question: string; answer: string };
 
-export function FaqAccordion({ items, className }: { items: Item[]; className?: string }) {
+export function FaqAccordion({
+  items,
+  className,
+  idPrefix = 'faq',
+}: {
+  items: Item[];
+  className?: string;
+  idPrefix?: string;
+}) {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
     <div className={cn('divide-y divide-border rounded-2xl border border-border bg-surface', className)}>
       {items.map((faq, index) => {
         const isOpen = openIdx === index;
-        const panelId = `faq-panel-${index}`;
+        const panelId = `${idPrefix}-panel-${index}`;
+        const triggerId = `${idPrefix}-trigger-${index}`;
         return (
           <div key={faq.question}>
             <button
               type="button"
+              id={triggerId}
               onClick={() => setOpenIdx(isOpen ? null : index)}
               aria-expanded={isOpen}
               aria-controls={panelId}

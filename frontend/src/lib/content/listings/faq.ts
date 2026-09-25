@@ -295,7 +295,7 @@ export const faqItems: FaqItem[] = [
     question: 'Is approval guaranteed once I apply?',
     questionMs: 'Adakah kelulusan dijamin setelah saya memohon?',
     answer: 'No — approval is never guaranteed. We help match you to suitable licensed lenders and prepare your application, but the final credit decision always rests with the bank, based on its own underwriting criteria at the time you apply.',
-    answerMs: 'Tidak — kelulusan tidak pernah dijamin. Kami membantu memadankan anda dengan pemberi pinjaman berlesen yang sesuai dan menyediakan permohonan anda, tetapi keputusan kredit akhir sentiasa terletak pada bank, berdasarkan kriteria penajaminan mereka sendiri pada masa anda memohon.',
+    answerMs: 'Tidak — kelulusan tidak pernah dijamin. Kami membantu memadankan anda dengan pemberi pinjaman berlesen yang sesuai dan menyediakan permohonan anda, tetapi keputusan kredit akhir sentiasa terletak pada bank, berdasarkan kriteria penilaian kredit mereka sendiri pada masa anda memohon.',
   },
 
   // ── Repayment ─────────────────────────────────────────────────────────

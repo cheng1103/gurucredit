@@ -155,6 +155,13 @@ export default function GlossaryContent({ language }: GlossaryContentProps) {
                                       <a
                                         key={relSlug}
                                         href={`#${relSlug}`}
+                                        onClick={() => {
+                                          setSearchTerm('');
+                                          setSelectedCategory('all');
+                                          requestAnimationFrame(() => {
+                                            document.getElementById(relSlug)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                          });
+                                        }}
                                         className="rounded-full border border-border px-3 py-1 text-xs text-foreground-muted transition-colors hover:border-border-strong hover:text-foreground"
                                       >
                                         {relTerm?.term ?? relSlug}

@@ -231,3 +231,10 @@ test('ServicesJsonLd and GeoCoverageJsonLd render only on / and /services, not e
   expect(nodes.some((n) => hasType(n, 'ItemList'))).toBe(false);
   expect(nodes.some((n) => n['serviceType'] === 'Loan Consultation & Eligibility Analysis')).toBe(false);
 });
+
+test('/faq has no duplicate element ids across the per-category accordions', async ({ page }) => {
+  await page.goto('/faq');
+  const ids = await page.$$eval('[id]', (els) => els.map((e) => e.id));
+  expect(ids.length).toBeGreaterThan(0);
+  expect(new Set(ids).size).toBe(ids.length);
+});

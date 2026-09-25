@@ -224,6 +224,26 @@ test.describe('proxy ignores spoofed internal headers', () => {
     );
   });
 
+  // I1 (final-review.md): the matcher used to exclude every path containing a
+  // dot (`.*\\..*`), so the proxy never ran on `/blog/foo.bar` and the raw
+  // client-supplied headers flowed straight into resolveRequestLanguage() and
+  // the canonical builder. These paths 404, but the 404 still renders the root
+  // layout — and therefore a canonical the client could dictate.
+  for (const dotted of ['/blog/foo.bar', '/loans/my/x.y']) {
+    test(`spoofed headers on the dotted path ${dotted} do not reach the app`, async ({ page }) => {
+      await page.setExtraHTTPHeaders({
+        'x-gc-locale': 'ms',
+        'x-gc-path': '/evil-canonical',
+        'x-gc-sig': 'abc',
+      });
+      await page.goto(dotted);
+      const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+      expect(canonical).not.toContain('/evil-canonical');
+      expect(canonical).not.toContain('/ms');
+      await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    });
+  }
+
   test('a forged x-gc-sig does not verify, so the carried locale/path are not trusted', async ({ page }) => {
     await page.setExtraHTTPHeaders({
       'x-gc-sig': 'abc',

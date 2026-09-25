@@ -10,10 +10,15 @@ import type { Language } from '@/lib/i18n/translations';
 import type { LoanProductDoc, LoanProductContent } from '@/lib/content/loans/types';
 import { cn } from '@/lib/utils';
 
-const ui = {
+// Exported so each loan route's WebPageJsonLd can label its BreadcrumbList
+// with the same strings the visible breadcrumb trail shows — `/ms/loans/*`
+// used to emit "Home → Loans" under a Malay page (final-review.md M2).
+export const loanProductUi = {
   en: { home: 'Home', loans: 'Loans', guidedPlan: 'Guided plan rate', monthlyPayment: 'Estimated monthly payment' },
   ms: { home: 'Utama', loans: 'Pinjaman', guidedPlan: 'Kadar pelan berpandu', monthlyPayment: 'Anggaran bayaran bulanan' },
 } as const;
+
+const ui = loanProductUi;
 
 function ChecklistCard({ block }: { block: { title: string; items: string[] } }) {
   return (

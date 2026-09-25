@@ -3,6 +3,20 @@ import { getAuthorProfile } from '@/lib/authors';
 import { LOCALE_PREFIX_ENABLED } from '@/lib/i18n/routes';
 
 /**
+ * Serialize a JSON-LD graph for `dangerouslySetInnerHTML`.
+ *
+ * `</script>` anywhere inside a string value would close the surrounding
+ * `<script type="application/ld+json">` element early — breaking the page and
+ * turning any following text into live markup. Rewriting every `<` to its
+ * JSON unicode escape is parse-identical for a JSON consumer (Google's
+ * parser, `JSON.parse`) while being inert to the HTML tokenizer.
+ * Every emitter in this file routes its schema through here.
+ */
+export function serializeJsonLd(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, '\\u003c');
+}
+
+/**
  * Rewrite an absolute `${SEO.url}<path>` URL (and, by extension, any `@id`
  * built from it) onto its `/ms` counterpart when the page is actually
  * rendered in Malay and locale-prefixed URLs are live — so structured data
@@ -89,7 +103,7 @@ export function OrganizationJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 }
@@ -123,7 +137,7 @@ export function ServicesJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 }
@@ -155,7 +169,7 @@ export function ContactPageJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 }
@@ -251,7 +265,7 @@ export function ArticleJsonLd({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 }
@@ -299,7 +313,7 @@ export function HowToJsonLd({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 }
@@ -321,7 +335,7 @@ export function WebsiteJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 }
@@ -399,7 +413,7 @@ export function FinancialProductJsonLd({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 }
@@ -423,7 +437,7 @@ export function CalculatorJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 }
@@ -432,17 +446,22 @@ interface WebApplicationJsonLdProps {
   name: string;
   description: string;
   url: string;
+  /** Language this page is actually rendered in. Defaults to 'en'. */
+  language?: 'en' | 'ms';
 }
 
-export function WebApplicationJsonLd({ name, description, url }: WebApplicationJsonLdProps) {
+export function WebApplicationJsonLd({ name, description, url, language = 'en' }: WebApplicationJsonLdProps) {
+  const appUrl = localizeUrl(url, language);
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
+    '@id': `${appUrl}#webapplication`,
     name,
     applicationCategory: 'FinanceApplication',
     operatingSystem: 'Web Browser',
     description,
-    url,
+    url: appUrl,
+    inLanguage: language === 'ms' ? 'ms-MY' : 'en-MY',
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -459,7 +478,7 @@ export function WebApplicationJsonLd({ name, description, url }: WebApplicationJ
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 }
@@ -504,7 +523,7 @@ export function DefinedTermSetJsonLd({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 }
@@ -590,7 +609,7 @@ export function WebPageJsonLd({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 }
@@ -618,7 +637,7 @@ export function GeoCoverageJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(schema) }}
     />
   );
 }

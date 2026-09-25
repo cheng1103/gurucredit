@@ -396,3 +396,34 @@ export const faqItems: FaqItem[] = [
 export function faqsFor(categories: FaqCategoryId[], limit = 5): FaqItem[] {
   return faqItems.filter((item) => categories.includes(item.category)).slice(0, limit);
 }
+
+/** A question/answer pair already resolved to one display language. */
+export interface LocalizedFaq {
+  question: string;
+  answer: string;
+}
+
+/** `faqsFor`, with the display language already applied. */
+export function localizedFaqsFor(
+  categories: FaqCategoryId[],
+  language: 'en' | 'ms',
+  limit = 5,
+): LocalizedFaq[] {
+  return faqsFor(categories, limit).map((item) => ({
+    question: language === 'ms' ? item.questionMs : item.question,
+    answer: language === 'ms' ? item.answerMs : item.answer,
+  }));
+}
+
+/**
+ * The three FAQs the tool pages' "more questions" block renders. Resolved in
+ * the server page and passed down as a prop — `ToolLayout` and its callers
+ * are client components, so importing this module from them would ship all
+ * 42 items × 4 strings to the browser (see final-review.md I3).
+ */
+export function toolMoreQuestions(language: 'en' | 'ms'): LocalizedFaq[] {
+  return localizedFaqsFor(['fees', 'process'], language, 3);
+}
+
+/** Per-language UI copy object handed to the FAQ page's client component. */
+export type FaqUi = (typeof faqUi)[keyof typeof faqUi];

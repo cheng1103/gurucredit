@@ -238,3 +238,51 @@ test('/faq has no duplicate element ids across the per-category accordions', asy
   expect(ids.length).toBeGreaterThan(0);
   expect(new Set(ids).size).toBe(ids.length);
 });
+
+// I6 (final-review.md): WebApplicationJsonLd was the one emitter that did not
+// take `language`, so `/ms/tools/compare` advertised the English tool URL
+// while every other @id on the page pointed at /ms.
+test('/ms/tools/compare emits a WebApplication whose url is under /ms', async ({ page, request }) => {
+  test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
+
+  await page.goto('/ms/tools/compare');
+  const nodes = await collectJsonLdNodes(page);
+  const apps = nodes.filter((n) => hasType(n, 'WebApplication'));
+  expect(apps.length).toBe(1);
+  expect(apps[0].url).toBe('https://guru-credit.com/ms/tools/compare');
+  expect(String(apps[0].url)).toMatch(/^https:\/\/guru-credit\.com\/ms\//);
+  expect(apps[0]['@id']).toBe('https://guru-credit.com/ms/tools/compare#webapplication');
+});
+
+test('/tools/compare emits a WebApplication on the bare English url', async ({ page }) => {
+  await page.goto('/tools/compare');
+  const nodes = await collectJsonLdNodes(page);
+  const apps = nodes.filter((n) => hasType(n, 'WebApplication'));
+  expect(apps.length).toBe(1);
+  expect(apps[0].url).toBe('https://guru-credit.com/tools/compare');
+});
+
+// M2 (final-review.md): the BreadcrumbList *names* on /ms pages were English
+// ("Home → FAQ") even though the URLs were correctly localised.
+const MS_CRUMB_LABELS: [string, string[]][] = [
+  ['/ms/faq', ['Utama', 'Soalan Lazim']],
+  ['/ms/glossary', ['Utama', 'Glosari']],
+  ['/ms/blog', ['Utama', 'Blog']],
+  ['/ms/tools', ['Utama', 'Alat']],
+  ['/ms/loans/personal', ['Utama', 'Pinjaman']],
+];
+
+for (const [route, expectedNames] of MS_CRUMB_LABELS) {
+  test(`${route} labels its BreadcrumbList in Malay`, async ({ page, request }) => {
+    test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
+
+    await page.goto(route);
+    const nodes = await collectJsonLdNodes(page);
+    const breadcrumbs = nodes.filter((n) => hasType(n, 'BreadcrumbList'));
+    expect(breadcrumbs.length).toBe(1);
+
+    const names = ((breadcrumbs[0].itemListElement as { name?: string }[]) ?? []).map((i) => i.name);
+    expect(names.slice(0, expectedNames.length)).toEqual(expectedNames);
+    expect(names).not.toContain('Home');
+  });
+}

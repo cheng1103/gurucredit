@@ -26,8 +26,8 @@ export default async function ToolsPage() {
         description={t.lede}
         language={language}
         breadcrumbItems={[
-          { name: 'Home', url: SEO.url },
-          { name: 'Tools', url: `${SEO.url}/tools` },
+          { name: t.breadcrumbHome, url: SEO.url },
+          { name: t.breadcrumbTools, url: `${SEO.url}/tools` },
         ]}
       />
       <ListingShell

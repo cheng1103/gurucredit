@@ -3,13 +3,16 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 import { LanguageProvider } from '@/lib/i18n';
 import { BankRateCompare } from '../BankRateCompare';
+import { toolMoreQuestions } from '@/lib/content/listings/faq';
 
 vi.mock('next/navigation', () => ({ usePathname: () => '/', useRouter: () => ({ push: vi.fn() }) }));
 
+// The server page resolves these and passes them down (see final-review.md
+// I3) — the component itself must never import the FAQ module.
 const renderCompare = () =>
   render(
     <LanguageProvider>
-      <BankRateCompare language="en" />
+      <BankRateCompare language="en" moreQuestions={toolMoreQuestions('en')} />
     </LanguageProvider>,
   );
 

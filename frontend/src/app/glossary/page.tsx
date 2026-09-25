@@ -18,8 +18,8 @@ export default async function GlossaryPage() {
         image="/images/hero-bg.jpg"
         language={language}
         breadcrumbItems={[
-          { name: 'Home', url: SEO.url },
-          { name: 'Glossary', url: `${SEO.url}/glossary` },
+          { name: t.breadcrumbHome, url: SEO.url },
+          { name: t.breadcrumbGlossary, url: `${SEO.url}/glossary` },
         ]}
       />
       <DefinedTermSetJsonLd
@@ -29,7 +29,7 @@ export default async function GlossaryPage() {
         language={language}
         terms={terms.map((term) => ({ slug: term.slug, term: term.term, definition: term.definition }))}
       />
-      <GlossaryContent language={language} />
+      <GlossaryContent language={language} t={t} terms={terms} />
     </>
   );
 }

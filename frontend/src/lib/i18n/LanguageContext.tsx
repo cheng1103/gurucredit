@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { Language, getTranslation } from './translations';
 import { LOCALE_PREFIX_ENABLED } from './routes';
+import { secureCookieFlag } from './cookies';
 
 interface LanguageContextType {
   language: Language;
@@ -133,7 +134,7 @@ export function LanguageProvider({
       window.localStorage.setItem(STORAGE_KEY, language);
     }
     if (typeof document !== 'undefined') {
-      document.cookie = `${COOKIE_KEY}=${language}; path=/; max-age=31536000`;
+      document.cookie = `${COOKIE_KEY}=${language}; Path=/; Max-Age=31536000; SameSite=Lax${secureCookieFlag()}`;
     }
   }, [language]);
 
@@ -143,7 +144,7 @@ export function LanguageProvider({
     // just mirrors the current URL) so LocaleSuggestBanner can offer to take
     // the visitor back to their preferred language on a page in the other one.
     if (typeof document !== 'undefined') {
-      document.cookie = `${PREF_COOKIE_KEY}=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+      document.cookie = `${PREF_COOKIE_KEY}=${lang}; Path=/; Max-Age=31536000; SameSite=Lax${secureCookieFlag()}`;
     }
   }, []);
 

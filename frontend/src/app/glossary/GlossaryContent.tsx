@@ -6,15 +6,21 @@ import { ListingShell } from '@/components/listings';
 import { FilterBar, EmptyState } from '@/components/layout';
 import { PATHS } from '@/lib/i18n/routes';
 import type { Language } from '@/lib/i18n/translations';
-import { glossaryUi, glossaryTerms, type GlossaryTerm, type GlossaryCategoryId } from '@/lib/content/listings/glossary';
+// TYPE-ONLY import: pulling `glossaryTerms`/`glossaryUi` as values here would
+// ship both 100-term language arrays (term + definition + example + related)
+// to the browser. The server page selects the language and passes the result
+// down instead — see final-review.md I4.
+import type { GlossaryTerm, GlossaryCategoryId, GlossaryUi } from '@/lib/content/listings/glossary';
 
 interface GlossaryContentProps {
   language: Language;
+  /** `glossaryUi[language]`, resolved on the server. */
+  t: GlossaryUi;
+  /** `glossaryTerms[language]`, resolved on the server. */
+  terms: GlossaryTerm[];
 }
 
-export default function GlossaryContent({ language }: GlossaryContentProps) {
-  const t = glossaryUi[language];
-  const terms = glossaryTerms[language];
+export default function GlossaryContent({ language, t, terms }: GlossaryContentProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<'all' | GlossaryCategoryId>('all');
   const [expandedTerms, setExpandedTerms] = useState<Record<string, boolean>>({});

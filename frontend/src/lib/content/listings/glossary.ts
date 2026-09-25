@@ -1704,3 +1704,6 @@ export const glossaryTerms: { en: GlossaryTerm[]; ms: GlossaryTerm[] } = {
     },
   ],
 };
+
+/** Per-language UI copy object handed to the glossary page's client component. */
+export type GlossaryUi = (typeof glossaryUi)[keyof typeof glossaryUi];

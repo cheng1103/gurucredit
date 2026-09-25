@@ -2,9 +2,7 @@ import type { ReactNode } from 'react';
 import { LocaleLink } from '@/components/LocaleLink';
 import { PATHS } from '@/lib/i18n/routes';
 import type { Language } from '@/lib/i18n/translations';
-import { faqsFor } from '@/lib/content/listings/faq';
-
-const TOOL_MORE_QUESTIONS = faqsFor(['fees', 'process'], 3);
+import type { LocalizedFaq } from '@/lib/content/listings/faq';
 
 const moreQuestionsUi = {
   en: { title: 'More questions', viewAll: 'View all FAQs' },
@@ -17,17 +15,25 @@ const moreQuestionsUi = {
  * and a small "more questions" block (linking to /faq) under the results.
  * Plain composition — no hooks, so it's safe to render from either a server
  * or a client component (though every current caller is a client component).
+ *
+ * `moreQuestions` arrives as a prop rather than being computed here on
+ * purpose: every caller is a client component, so importing the bilingual FAQ
+ * module at this module's scope would drag all 42 items into the browser
+ * bundle for the sake of three `<details>` (final-review.md I3). The server
+ * page calls `toolMoreQuestions(language)` and passes the result down.
  */
 export function ToolLayout({
   rail,
   children,
   disclaimer,
   language,
+  moreQuestions,
 }: {
   rail: ReactNode;
   children: ReactNode;
   disclaimer?: ReactNode;
   language: Language;
+  moreQuestions: LocalizedFaq[];
 }) {
   const t = moreQuestionsUi[language];
 
@@ -42,14 +48,10 @@ export function ToolLayout({
         <div className="rounded-2xl border border-border bg-surface p-5">
           <h2 className="text-base font-semibold">{t.title}</h2>
           <div className="mt-3 space-y-2">
-            {TOOL_MORE_QUESTIONS.map((item) => (
+            {moreQuestions.map((item) => (
               <details key={item.question} className="rounded-xl border border-border p-3">
-                <summary className="cursor-pointer text-sm font-medium">
-                  {language === 'ms' ? item.questionMs : item.question}
-                </summary>
-                <p className="mt-2 text-sm text-foreground-muted">
-                  {language === 'ms' ? item.answerMs : item.answer}
-                </p>
+                <summary className="cursor-pointer text-sm font-medium">{item.question}</summary>
+                <p className="mt-2 text-sm text-foreground-muted">{item.answer}</p>
               </details>
             ))}
           </div>

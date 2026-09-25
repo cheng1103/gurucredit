@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 import { ToolLayout } from './ToolLayout';
 import { banks, compareUi, loanTypeDefaults, type LoanTypeId } from '@/lib/content/tools/compare';
 import type { Language } from '@/lib/i18n/translations';
+import type { LocalizedFaq } from '@/lib/content/listings/faq';
 
 const loanTypeIcons: Record<LoanTypeId, typeof Building2> = {
   home: Building2,
@@ -41,7 +42,13 @@ function formatCurrency(amount: number): string {
   }).format(amount);
 }
 
-export function BankRateCompare({ language }: { language: Language }) {
+export function BankRateCompare({
+  language,
+  moreQuestions,
+}: {
+  language: Language;
+  moreQuestions: LocalizedFaq[];
+}) {
   const t = compareUi[language].bank;
 
   const [loanType, setLoanType] = useState<LoanTypeId>('home');
@@ -207,6 +214,7 @@ export function BankRateCompare({ language }: { language: Language }) {
     <ToolLayout
       rail={rail}
       language={language}
+      moreQuestions={moreQuestions}
       disclaimer={
         <div>
           <p className="font-semibold text-foreground">{t.disclaimer.title}</p>

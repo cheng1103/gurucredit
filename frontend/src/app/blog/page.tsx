@@ -29,8 +29,8 @@ export default async function BlogPage() {
         description={t.lede}
         language={language}
         breadcrumbItems={[
-          { name: 'Home', url: SEO.url },
-          { name: 'Blog', url: `${SEO.url}/blog` },
+          { name: t.breadcrumbHome, url: SEO.url },
+          { name: t.breadcrumbBlog, url: `${SEO.url}/blog` },
         ]}
       />
       <ListingShell

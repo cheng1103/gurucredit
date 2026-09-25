@@ -24,7 +24,15 @@ const LOCALE_PREFIX_ENABLED =
 // the carried values when the signature verifies AND the current path
 // matches the signed path. A forged request can't produce a valid signature
 // without the secret, so it always falls through to the URL-only branch.
-const SECRET = crypto.getRandomValues(new Uint8Array(32)); // per-process; both passes run in the same runtime
+// Prefer a deterministic, operator-supplied secret (`LOCALE_SIG_SECRET`, set
+// once on the Vercel project) so the signature still verifies if the two
+// passes ever land in different isolates — a cold start, a different region,
+// or a future Next change. Without it we fall back to per-process randomness,
+// which is still fail-closed (a mismatch just falls through to the URL-only
+// branch) but would resolve `/ms/x` to English on a cross-isolate second pass.
+const SECRET = process.env.LOCALE_SIG_SECRET
+  ? new TextEncoder().encode(process.env.LOCALE_SIG_SECRET)
+  : crypto.getRandomValues(new Uint8Array(32));
 let keyPromise: Promise<CryptoKey> | null = null;
 const getKey = () =>
   (keyPromise ??= crypto.subtle.importKey('raw', SECRET, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']));
@@ -110,6 +118,15 @@ export async function proxy(request: NextRequest) {
   return response;
 }
 
+// The proxy is what NORMALISES `x-gc-locale`/`x-gc-path`/`x-gc-sig` — every
+// request it does not run on delivers the client's raw values straight to
+// `resolveRequestLanguage()` and the root layout's canonical builder. So the
+// matcher must cover every path that can reach a React route, including ones
+// with a dot in them (`/blog/foo.bar`): excluding `.*\..*` wholesale used to
+// leave those spoofable. Exclude only the framework prefixes and an explicit
+// list of real static asset extensions.
 export const config = {
-  matcher: ['/((?!api/|_next/|_vercel|.*\\..*).*)'],
+  matcher: [
+    '/((?!api/|_next/|_vercel|.*\\.(?:png|jpe?g|webp|avif|gif|svg|ico|css|js|mjs|map|txt|xml|webmanifest|json|woff2?|ttf|otf|eot|mp4|webm|pdf)$).*)',
+  ],
 };

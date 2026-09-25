@@ -59,7 +59,10 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: post.title,
+          // Alt text has to be in the language of the page it describes —
+          // a `/ms` post sharing an English alt is the same defect as an
+          // English `<html lang="ms">` (final-review.md M6).
+          alt: language === 'ms' ? post.titleMs : post.title,
         },
       ],
     },

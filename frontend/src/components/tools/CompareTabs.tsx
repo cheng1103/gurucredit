@@ -3,10 +3,17 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { compareUi } from '@/lib/content/tools/compare';
 import type { Language } from '@/lib/i18n/translations';
+import type { LocalizedFaq } from '@/lib/content/listings/faq';
 import { BankRateCompare } from './BankRateCompare';
 import { ProductCompare } from './ProductCompare';
 
-export function CompareTabs({ language }: { language: Language }) {
+export function CompareTabs({
+  language,
+  moreQuestions,
+}: {
+  language: Language;
+  moreQuestions: LocalizedFaq[];
+}) {
   const t = compareUi[language].tabs;
 
   return (
@@ -20,10 +27,10 @@ export function CompareTabs({ language }: { language: Language }) {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="bank">
-        <BankRateCompare language={language} />
+        <BankRateCompare language={language} moreQuestions={moreQuestions} />
       </TabsContent>
       <TabsContent value="product">
-        <ProductCompare language={language} />
+        <ProductCompare language={language} moreQuestions={moreQuestions} />
       </TabsContent>
     </Tabs>
   );

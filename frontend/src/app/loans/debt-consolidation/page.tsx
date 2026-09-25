@@ -3,7 +3,7 @@ import { SEO } from '@/lib/constants';
 import { PATHS } from '@/lib/i18n/routes';
 import { localizedMetadata } from '@/lib/seo';
 import { FinancialProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
-import { LoanProductPage } from '@/components/loans/LoanProductPage';
+import { LoanProductPage, loanProductUi } from '@/components/loans/LoanProductPage';
 import { debtConsolidationLoan } from '@/lib/content/loans/debt-consolidation';
 import { meta } from './metadata';
 
@@ -14,6 +14,7 @@ export async function generateMetadata() {
 export default async function DebtConsolidationPage() {
   const language = await resolveRequestLanguage();
   const t = debtConsolidationLoan.content[language] ?? debtConsolidationLoan.content.en;
+  const crumbs = loanProductUi[language];
 
   return (
     <>
@@ -38,8 +39,8 @@ export default async function DebtConsolidationPage() {
         description={t.lede}
         language={language}
         breadcrumbItems={[
-          { name: 'Home', url: SEO.url },
-          { name: 'Loans', url: `${SEO.url}${PATHS.services}` },
+          { name: crumbs.home, url: SEO.url },
+          { name: crumbs.loans, url: `${SEO.url}${PATHS.services}` },
           { name: t.title, url: `${SEO.url}/loans/debt-consolidation` },
         ]}
         faqItems={t.faq.items}

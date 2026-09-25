@@ -108,11 +108,30 @@ Vercel dashboard → Settings → **Environment Variables**:
 ```
 NEXT_PUBLIC_API_URL=https://api.guru-credit.com/api
 NEXT_PUBLIC_SITE_URL=https://guru-credit.com
-NEXT_PUBLIC_LOCALE_PREFIX_ENABLED=false
+NEXT_PUBLIC_LOCALE_PREFIX_ENABLED=true
+LOCALE_SIG_SECRET=<openssl rand -base64 32>
 # Optional Search Console + Bing verification:
 NEXT_PUBLIC_GSC_VERIFICATION=
 NEXT_PUBLIC_BING_VERIFICATION=
 ```
+
+**`NEXT_PUBLIC_LOCALE_PREFIX_ENABLED`** is inlined at **build** time, not read at
+runtime. If it is missing (or not exactly the string `true`) when the production
+build runs, the deploy ships the *dormant* build: `/ms/*` 404s, the sitemap loses
+all 97 Malay URLs, and nothing in the test suite fails, because every `/ms`
+assertion is gated on the flag being live. Change it in the Vercel dashboard and
+then **redeploy** — a variable change alone does not rebuild. Run
+`scripts/verify-live.sh` (§6) after every deploy to catch this.
+
+**`LOCALE_SIG_SECRET`** (not `NEXT_PUBLIC_` — it must never reach the client) keys
+the HMAC that `src/proxy.ts` uses to sign the internal `x-gc-locale`/`x-gc-path`
+headers it carries across the `/ms/<path>` → `/<path>` rewrite. It is optional:
+without it the proxy generates a random key per process, which is still
+fail-closed, but the signature would not verify if the two middleware passes ever
+executed in different isolates (cold start, different region) — and the failure
+mode is `/ms/<path>` silently rendering English with an English canonical. Set it
+once, to any high-entropy string, and leave it alone; rotating it is safe (it is
+only ever compared against itself within a single request).
 
 Settings → **Domains** → add:
 - `guru-credit.com` (mark as Production)
@@ -167,6 +186,38 @@ curl -I https://www.guru-credit.com | head   # should redirect to apex
 # Admin
 curl -I https://admin.guru-credit.com/login
 ```
+
+### Bilingual (`/ms`) gate — REQUIRED, run on every frontend deploy
+
+```bash
+cd frontend
+bash scripts/verify-live.sh https://guru-credit.com
+```
+
+Exits non-zero if any of these is wrong, so it is safe to wire into a release
+script:
+
+- `/ms/glossary` returns `200` and carries `<html lang="ms">`
+- `/sitemap.xml` lists at least 90 `<loc>` entries under `/ms/`
+- `/` self-canonicalises to the origin
+- `/ms/faq`'s `FAQPage` `@id` starts with `https://guru-credit.com/ms/`
+
+A failure here almost always means the production build was made without
+`NEXT_PUBLIC_LOCALE_PREFIX_ENABLED=true` (see §3) — fix the variable and
+redeploy, do not just re-run the script.
+
+### Pre-deploy: run the e2e suite in production-parity mode
+
+```bash
+cd frontend
+npm run build && npm run start &        # or point at a preview deployment
+EXPECT_LOCALE_PREFIX=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npm run test:e2e:ms -- --project=chromium
+```
+
+`test:e2e:ms` sets `EXPECT_LOCALE_PREFIX=1`. Without it, a server built with the
+locale flag off makes the entire `/ms` surface pass **vacuously** — every
+assertion silently skipped, zero failures reported. With it, a dormant server is
+a hard failure instead.
 
 Browser-side:
 1. Incognito window → `https://guru-credit.com` → verify hero renders, no console errors

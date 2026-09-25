@@ -32,6 +32,9 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...except the placeholder-only template: a .env.example that can't be
+# committed documents nothing. It must never carry a real value.
+!.env.example
 
 # vercel
 .vercel

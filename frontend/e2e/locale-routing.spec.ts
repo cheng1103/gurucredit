@@ -57,3 +57,67 @@ test.describe('locale routing & hreflang', () => {
     }
   });
 });
+
+// C1 regression (final-review.md): `/ms/<path>` is a REWRITE of `/<path>`, so
+// Next's client router keys both locales on the same segment-cache node. A
+// soft navigation between them re-renders the cached tree and discards the
+// fresh RSC payload — the URL and `<html lang>` flip while the visible copy
+// stays in the old language. Every cross-locale transition must therefore be
+// a full document load (LanguageSwitcher: `window.location.assign`;
+// LocaleSuggestBanner: a plain `<a href>`), and only asserting on the
+// POST-CLICK DOM catches a regression: the pre-click `href` was always right.
+test.describe('cross-locale navigation actually switches the rendered language', () => {
+  test('switcher: /about → Bahasa Melayu lands on /ms/about in Malay', async ({ page, request }) => {
+    test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
+
+    await page.goto('/about');
+    await expect(page.locator('h1')).toHaveText('About GURU Credits');
+
+    await page.getByRole('button', { name: /English/ }).first().click();
+    await page.getByRole('menuitem', { name: /Bahasa Melayu/ }).click();
+
+    await page.waitForURL('**/ms/about');
+    expect(new URL(page.url()).pathname).toBe('/ms/about');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'ms');
+    await expect(page.locator('h1')).toHaveText('Tentang GURU Credits');
+  });
+
+  test('switcher: /ms/about → English lands on /about in English', async ({ page, request }) => {
+    test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
+
+    await page.goto('/ms/about');
+    await expect(page.locator('h1')).toHaveText('Tentang GURU Credits');
+
+    await page.getByRole('button', { name: /Bahasa Melayu/ }).first().click();
+    await page.getByRole('menuitem', { name: /English/ }).click();
+
+    await page.waitForURL((url) => url.pathname === '/about');
+    expect(new URL(page.url()).pathname).toBe('/about');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('h1')).toHaveText('About GURU Credits');
+  });
+
+  test('banner: "Read in English" on /ms/faq with gc_pref=en lands on /faq in English', async ({
+    page,
+    context,
+    baseURL,
+    request,
+  }) => {
+    test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
+
+    await context.addCookies([{ name: 'gc_pref', value: 'en', url: baseURL! }]);
+    await page.goto('/ms/faq');
+    await expect(page.locator('h1')).toHaveText('Soalan Lazim');
+
+    // The banner's own dismiss control must be labelled in the page's
+    // language (ms here), not the target language (final-review.md M4).
+    await expect(page.getByRole('note').getByRole('button')).toHaveAttribute('aria-label', 'Tutup');
+
+    await page.getByRole('link', { name: /Read in English/i }).click();
+
+    await page.waitForURL((url) => url.pathname === '/faq');
+    expect(new URL(page.url()).pathname).toBe('/faq');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('h1')).toHaveText('Frequently Asked Questions');
+  });
+});

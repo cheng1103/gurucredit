@@ -1,10 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import { useState, useSyncExternalStore } from 'react';
 import { usePathname } from 'next/navigation';
 import { X } from 'lucide-react';
 import { LOCALE_PREFIX_ENABLED, localeHref } from '@/lib/i18n/routes';
+import { secureCookieFlag } from '@/lib/i18n/cookies';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import type { Language } from '@/lib/i18n/translations';
 
@@ -47,9 +47,18 @@ function getServerDismissedSnapshot(): boolean {
   return false;
 }
 
+// `text` is deliberately written in the *target* language — that is the whole
+// point of the nudge. `dismissLabel` is keyed by the language of the page the
+// banner is rendered on, so a screen reader on `<html lang="en">` never has to
+// announce a Malay word (and vice versa).
 const copy = {
-  toMs: { text: 'Baca dalam Bahasa Melayu', dismissLabel: 'Tutup' },
-  toEn: { text: 'Read in English', dismissLabel: 'Dismiss' },
+  toMs: { text: 'Baca dalam Bahasa Melayu' },
+  toEn: { text: 'Read in English' },
+};
+
+const dismissLabel: Record<Language, string> = {
+  en: 'Dismiss',
+  ms: 'Tutup',
 };
 
 /**
@@ -80,7 +89,7 @@ export function LocaleSuggestBanner() {
   const dismiss = () => {
     // Session cookie (no max-age/expires): the suggestion can resurface next
     // visit, but stays dismissed for the rest of this browser session.
-    document.cookie = `${DISMISS_COOKIE_KEY}=1; path=/; SameSite=Lax`;
+    document.cookie = `${DISMISS_COOKIE_KEY}=1; Path=/; SameSite=Lax${secureCookieFlag()}`;
     setDismissedThisRender(true);
   };
 
@@ -90,19 +99,22 @@ export function LocaleSuggestBanner() {
       className="flex items-center justify-between gap-3 border-b border-border bg-tint px-4 py-2 text-sm text-foreground"
     >
       {/*
-        This link intentionally crosses locales, so it uses next/link with an
-        explicit `localeHref` target rather than `LocaleLink` — `LocaleLink`
-        re-prefixes for the *current* language and would strip this straight
-        back to where the visitor already is (the same reason LanguageSwitcher
-        calls `localeHref` directly instead of going through `LocaleLink`).
+        A PLAIN anchor, deliberately — not next/link and not LocaleLink.
+        `LocaleLink` re-prefixes for the *current* language and would strip
+        this straight back to where the visitor already is, and next/link
+        would both prefetch and soft-navigate: because `/ms/<path>` is a
+        rewrite of `/<path>` (src/proxy.ts), the two locales share one client
+        router cache node, so a soft navigation renders the cached tree in the
+        wrong language. A plain anchor is a document load, which re-runs the
+        proxy and the server render.
       */}
-      <Link href={localeHref(prefLang, pathname)} className="font-medium text-primary hover:underline">
+      <a href={localeHref(prefLang, pathname)} className="font-medium text-primary hover:underline">
         {label.text} →
-      </Link>
+      </a>
       <button
         type="button"
         onClick={dismiss}
-        aria-label={label.dismissLabel}
+        aria-label={dismissLabel[urlLanguage]}
         className="shrink-0 rounded-full p-1 text-foreground-muted transition-colors hover:bg-surface-alt hover:text-foreground"
       >
         <X className="size-4" aria-hidden="true" />

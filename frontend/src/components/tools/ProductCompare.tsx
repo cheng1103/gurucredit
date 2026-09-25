@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { ToolLayout } from './ToolLayout';
 import { compareUi, productApplyHref, productKeys, type ProductKey } from '@/lib/content/tools/compare';
 import type { Language } from '@/lib/i18n/translations';
+import type { LocalizedFaq } from '@/lib/content/listings/faq';
 
 const productIcons: Record<ProductKey, typeof User> = {
   personal: User,
@@ -19,7 +20,13 @@ const productIcons: Record<ProductKey, typeof User> = {
   business: Briefcase,
 };
 
-export function ProductCompare({ language }: { language: Language }) {
+export function ProductCompare({
+  language,
+  moreQuestions,
+}: {
+  language: Language;
+  moreQuestions: LocalizedFaq[];
+}) {
   const t = compareUi[language].product;
   const [selected, setSelected] = useState<ProductKey[]>(['personal', 'car']);
 
@@ -71,7 +78,7 @@ export function ProductCompare({ language }: { language: Language }) {
   );
 
   return (
-    <ToolLayout rail={rail} language={language}>
+    <ToolLayout rail={rail} language={language} moreQuestions={moreQuestions}>
       {selected.length >= 2 ? (
         <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full border-collapse text-sm">

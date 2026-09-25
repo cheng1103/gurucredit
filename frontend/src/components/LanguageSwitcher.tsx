@@ -8,14 +8,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Globe } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import { languages, type Language } from '@/lib/i18n/translations';
 import { localeHref } from '@/lib/i18n/routes';
 
 export function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
-  const router = useRouter();
   const pathname = usePathname();
 
   const currentLang = languages.find((l) => l.code === language);
@@ -25,9 +24,16 @@ export function LanguageSwitcher() {
     // With URL-prefixed locales on, move to the localized URL so the choice is
     // crawlable/shareable; when the flag is off this is a no-op path.
     const target = localeHref(code, pathname || '/');
-    if (target !== pathname) {
-      router.push(target);
-    }
+    if (target === pathname) return;
+
+    // MUST be a full document navigation, not `router.push`. `/ms/<path>` is
+    // served by rewriting to `/<path>` (see src/proxy.ts), so Next's client
+    // router keys both locales' segment cache on the SAME destination node:
+    // a soft navigation re-renders the cached tree and throws the fresh RSC
+    // payload away, leaving the visitor on `/ms/about` reading English (and
+    // vice versa). A document load re-runs the proxy and the server render,
+    // so the URL, `<html lang>`, and the content always agree.
+    window.location.assign(target);
   };
 
   return (

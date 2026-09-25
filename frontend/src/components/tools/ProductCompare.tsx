@@ -71,7 +71,7 @@ export function ProductCompare({ language }: { language: Language }) {
   );
 
   return (
-    <ToolLayout rail={rail}>
+    <ToolLayout rail={rail} language={language}>
       {selected.length >= 2 ? (
         <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full border-collapse text-sm">

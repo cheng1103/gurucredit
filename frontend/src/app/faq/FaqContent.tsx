@@ -8,26 +8,36 @@ import { PATHS } from '@/lib/i18n/routes';
 import type { Language } from '@/lib/i18n/translations';
 import { SEO } from '@/lib/constants';
 import { WebPageJsonLd } from '@/components/JsonLd';
-import { faqUi, faqItems } from '@/lib/content/listings/faq';
+import { faqUi, faqItems, type FaqCategoryId } from '@/lib/content/listings/faq';
 
 type FaqContentProps = {
   language: Language;
 };
 
+const CATEGORY_ORDER: FaqCategoryId[] = [
+  'eligibility',
+  'documents',
+  'fees',
+  'credit',
+  'process',
+  'repayment',
+  'security',
+];
+
 export default function FaqContent({ language }: FaqContentProps) {
   const t = faqUi[language];
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState<'all' | FaqCategoryId>('all');
 
   const categories = [
     { id: 'all', label: t.categories.all },
-    { id: 'services', label: t.categories.services },
-    { id: 'process', label: t.categories.process },
-    { id: 'payment', label: t.categories.payment },
-    { id: 'security', label: t.categories.security },
+    ...CATEGORY_ORDER.map((id) => ({ id, label: t.categories[id] })),
   ];
 
+  // Full, unfiltered list — always emitted in the FAQPage JSON-LD below so the
+  // structured data reflects every question regardless of the on-page search
+  // or category filter state.
   const localizedFaqs = faqItems.map((item) => ({
     category: item.category,
     question: language === 'ms' ? item.questionMs : item.question,
@@ -35,12 +45,19 @@ export default function FaqContent({ language }: FaqContentProps) {
   }));
 
   const q = searchQuery.trim().toLowerCase();
+  const matchesSearch = (faq: { question: string; answer: string }) =>
+    q === '' || faq.question.toLowerCase().includes(q) || faq.answer.toLowerCase().includes(q);
 
-  const filteredFaqs = localizedFaqs.filter((faq) => {
-    const matchesSearch = q === '' || faq.question.toLowerCase().includes(q) || faq.answer.toLowerCase().includes(q);
-    const matchesCategory = selectedCategory === 'all' || faq.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  // One <section>/<h2> per category, each with its own accordion — filtered
+  // by the active category chip and search query, and dropped entirely when
+  // it has no matches.
+  const sections = CATEGORY_ORDER.filter((id) => selectedCategory === 'all' || selectedCategory === id)
+    .map((id) => ({
+      id,
+      label: t.categories[id],
+      items: localizedFaqs.filter((faq) => faq.category === id && matchesSearch(faq)),
+    }))
+    .filter((section) => section.items.length > 0);
 
   return (
     <>
@@ -69,7 +86,7 @@ export default function FaqContent({ language }: FaqContentProps) {
           placeholder={t.searchPlaceholder}
           categories={categories}
           active={selectedCategory}
-          onSelect={setSelectedCategory}
+          onSelect={(id) => setSelectedCategory(id as 'all' | FaqCategoryId)}
           className="-mt-16 mb-10 lg:-mt-24"
         />
 
@@ -82,8 +99,17 @@ export default function FaqContent({ language }: FaqContentProps) {
           ))}
         </div>
 
-        {filteredFaqs.length > 0 ? (
-          <FaqAccordion items={filteredFaqs} className="mb-16" />
+        {sections.length > 0 ? (
+          <div className="mb-16 space-y-12">
+            {sections.map((section) => (
+              <section key={section.id} aria-labelledby={`faq-${section.id}`}>
+                <h2 id={`faq-${section.id}`} className="mb-4 text-xl font-semibold">
+                  {section.label}
+                </h2>
+                <FaqAccordion items={section.items} />
+              </section>
+            ))}
+          </div>
         ) : (
           <EmptyState title={t.noResults.title} description={t.noResults.description} />
         )}

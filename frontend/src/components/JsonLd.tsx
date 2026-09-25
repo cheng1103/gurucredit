@@ -464,6 +464,51 @@ export function WebApplicationJsonLd({ name, description, url }: WebApplicationJ
   );
 }
 
+// Glossary Schema — a single DefinedTermSet listing every term as a nested
+// DefinedTerm, each addressable via its own #slug fragment so the glossary
+// page's on-page anchors (id={slug}) match the JSON-LD @id exactly.
+interface DefinedTermSetJsonLdProps {
+  url: string;
+  name: string;
+  description: string;
+  terms: { slug: string; term: string; definition: string }[];
+  /** Language this page is actually rendered in. Defaults to 'en'. */
+  language?: 'en' | 'ms';
+}
+
+export function DefinedTermSetJsonLd({
+  url,
+  name,
+  description,
+  terms,
+  language = 'en',
+}: DefinedTermSetJsonLdProps) {
+  const pageUrl = localizeUrl(url, language);
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTermSet',
+    '@id': `${pageUrl}#glossary`,
+    name,
+    description,
+    url: pageUrl,
+    inLanguage: language === 'ms' ? 'ms-MY' : 'en-MY',
+    hasDefinedTerm: terms.map((item) => ({
+      '@type': 'DefinedTerm',
+      '@id': `${pageUrl}#${item.slug}`,
+      name: item.term,
+      description: item.definition,
+      inDefinedTermSet: `${pageUrl}#glossary`,
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
 interface WebPageGraphProps {
   url: string;
   title: string;

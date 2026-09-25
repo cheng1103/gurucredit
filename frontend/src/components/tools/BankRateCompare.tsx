@@ -206,6 +206,7 @@ export function BankRateCompare({ language }: { language: Language }) {
   return (
     <ToolLayout
       rail={rail}
+      language={language}
       disclaimer={
         <div>
           <p className="font-semibold text-foreground">{t.disclaimer.title}</p>

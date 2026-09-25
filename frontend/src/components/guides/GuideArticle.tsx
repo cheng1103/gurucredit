@@ -8,6 +8,9 @@ import { PATHS } from '@/lib/i18n/routes';
 import type { Language } from '@/lib/i18n/translations';
 import type { GuideDoc, GuideSection } from '@/lib/content/guides/types';
 import { guideUi } from '@/lib/content/guides/ui';
+import { faqsFor } from '@/lib/content/listings/faq';
+
+const GUIDE_MORE_QUESTIONS = faqsFor(['eligibility', 'documents'], 3);
 
 type GuideUiLabels = Record<keyof (typeof guideUi)['en'], string>;
 
@@ -98,6 +101,24 @@ export function GuideArticle({ doc, language }: { doc: GuideDoc; language: Langu
         ) : null}
         {c.sections.map((s) => <Section key={s.id} s={s} labels={labels} />)}
         {c.faqs?.length ? (<><h2 id="faq">{labels.faq}</h2><div className="not-prose"><FaqAccordion items={c.faqs} /></div></>) : null}
+        <div className="not-prose mt-10 rounded-2xl border border-border bg-surface p-5">
+          <h2 className="text-lg font-semibold">{labels.moreQuestions}</h2>
+          <div className="mt-3 space-y-2">
+            {GUIDE_MORE_QUESTIONS.map((item) => (
+              <details key={item.question} className="rounded-xl border border-border p-3">
+                <summary className="cursor-pointer text-sm font-medium">
+                  {language === 'ms' ? item.questionMs : item.question}
+                </summary>
+                <p className="mt-2 text-sm text-foreground-muted">
+                  {language === 'ms' ? item.answerMs : item.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+          <LocaleLink href={PATHS.faq} className="mt-4 inline-block text-sm font-medium text-primary">
+            {labels.viewAllFaqs}
+          </LocaleLink>
+        </div>
       </ArticleLayout>
     </>
   );

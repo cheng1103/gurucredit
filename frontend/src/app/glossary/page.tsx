@@ -1,10 +1,14 @@
 import GlossaryContent from './GlossaryContent';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
-import { WebPageJsonLd } from '@/components/JsonLd';
+import { WebPageJsonLd, DefinedTermSetJsonLd } from '@/components/JsonLd';
 import { SEO } from '@/lib/constants';
+import { glossaryTerms, glossaryUi } from '@/lib/content/listings/glossary';
 
 export default async function GlossaryPage() {
   const language = await resolveRequestLanguage();
+  const t = glossaryUi[language];
+  const terms = glossaryTerms[language];
+
   return (
     <>
       <WebPageJsonLd
@@ -17,6 +21,13 @@ export default async function GlossaryPage() {
           { name: 'Home', url: SEO.url },
           { name: 'Glossary', url: `${SEO.url}/glossary` },
         ]}
+      />
+      <DefinedTermSetJsonLd
+        url={`${SEO.url}/glossary`}
+        name={t.title}
+        description={t.lede}
+        language={language}
+        terms={terms.map((term) => ({ slug: term.slug, term: term.term, definition: term.definition }))}
       />
       <GlossaryContent language={language} />
     </>

@@ -11,6 +11,7 @@ const ROUTES = [
   '/blog/personal-loan-malaysia-complete-guide-2026',
   '/loan-guides/topics/personal-loan-minimum-salary',
   '/faq',
+  '/glossary',
   '/tools/compare',
 ];
 
@@ -143,6 +144,50 @@ for (const route of ROUTES) {
       const ids = nodes.map((n) => n['@id']).filter((id): id is string => typeof id === 'string');
       expect(new Set(ids).size).toBe(ids.length);
     });
+  });
+}
+
+// Task 2: FAQ expanded to 42+ items across 7 topics, emitted as a single
+// FAQPage in the WebPage @graph on /faq (and its /ms twin, once the locale
+// prefix flag is on).
+const FAQ_ROUTES = ['/faq', '/ms/faq'];
+
+for (const route of FAQ_ROUTES) {
+  test(`${route} emits exactly one FAQPage with at least 42 questions`, async ({ page, request }) => {
+    if (route.startsWith('/ms')) {
+      test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
+    }
+
+    await page.goto(route);
+    const nodes = await collectJsonLdNodes(page);
+    const faqPages = nodes.filter((n) => hasType(n, 'FAQPage'));
+    expect(faqPages.length).toBe(1);
+
+    const mainEntity = (faqPages[0].mainEntity as unknown[]) ?? [];
+    expect(mainEntity.length).toBeGreaterThanOrEqual(42);
+  });
+}
+
+// Task 2: glossary expanded to 100+ bilingual terms, emitted as a single
+// DefinedTermSet on /glossary (and its /ms twin).
+const GLOSSARY_ROUTES = ['/glossary', '/ms/glossary'];
+
+for (const route of GLOSSARY_ROUTES) {
+  test(`${route} emits one DefinedTermSet with at least 100 terms`, async ({ page, request }) => {
+    if (route.startsWith('/ms')) {
+      test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
+    }
+
+    await page.goto(route);
+    const nodes = await collectJsonLdNodes(page);
+    const termSets = nodes.filter((n) => hasType(n, 'DefinedTermSet'));
+    expect(termSets.length).toBe(1);
+
+    const terms = (termSets[0].hasDefinedTerm as unknown[]) ?? [];
+    expect(terms.length).toBeGreaterThanOrEqual(100);
+
+    const breadcrumbs = nodes.filter((n) => hasType(n, 'BreadcrumbList'));
+    expect(breadcrumbs.length).toBe(1);
   });
 }
 

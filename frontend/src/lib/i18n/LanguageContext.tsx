@@ -14,6 +14,11 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 const STORAGE_KEY = 'guru-credits-language';
 const COOKIE_KEY = 'gc_lang';
+// Written only from an explicit user switch (see `setLanguage`/LanguageSwitcher)
+// — unlike `gc_lang`, which the effect below re-derives from the current URL
+// on every mount and therefore can't be used to remember "the visitor once
+// asked for ms while browsing en" (see LocaleSuggestBanner).
+const PREF_COOKIE_KEY = 'gc_pref';
 
 const getQueryLanguage = (): Language | null => {
   if (typeof window === 'undefined') {
@@ -134,6 +139,12 @@ export function LanguageProvider({
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
+    // Explicit user choice — remember it independently of `gc_lang` (which
+    // just mirrors the current URL) so LocaleSuggestBanner can offer to take
+    // the visitor back to their preferred language on a page in the other one.
+    if (typeof document !== 'undefined') {
+      document.cookie = `${PREF_COOKIE_KEY}=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+    }
   }, []);
 
   const t = useCallback(

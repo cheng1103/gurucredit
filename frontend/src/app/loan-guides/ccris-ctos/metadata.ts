@@ -9,7 +9,7 @@ export const meta: LocalizedMetadataInput = {
   ms: {
     title: 'Panduan CCRIS dan CTOS Malaysia',
     description:
-      'Panduan praktikal Malaysia untuk CCRIS dan CTOS: apa yang lender sebenarnya lihat, beza isu lama dan aktif, dan apa yang perlu dibaiki sebelum memohon semula.',
+      'Panduan praktikal Malaysia untuk CCRIS dan CTOS: apa yang pemberi pinjaman lihat, beza isu lama dan aktif, dan apa yang perlu dibaiki sebelum memohon semula.',
   },
   path: '/loan-guides/ccris-ctos',
   keywords:

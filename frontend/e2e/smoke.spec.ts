@@ -163,6 +163,31 @@ test.describe('URL wins over the gc_lang cookie', () => {
   });
 });
 
+// LocaleSuggestBanner reads the explicit-choice `gc_pref` cookie (never
+// `gc_lang`, which just mirrors the current URL) and offers to take the
+// visitor to their preferred locale — but only when it actually differs from
+// the page they're already on.
+test.describe('locale suggestion banner', () => {
+  test('gc_pref=ms on an English page links to the /ms equivalent', async ({ page, context, baseURL, request }) => {
+    test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
+
+    await context.addCookies([{ name: 'gc_pref', value: 'ms', url: baseURL }]);
+    await page.goto('/loans/personal');
+    await expect(page.getByRole('link', { name: /Baca dalam Bahasa Melayu/i })).toHaveAttribute(
+      'href',
+      '/ms/loans/personal',
+    );
+  });
+
+  test('gc_pref=ms on the matching /ms page shows no banner', async ({ page, context, baseURL, request }) => {
+    test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
+
+    await context.addCookies([{ name: 'gc_pref', value: 'ms', url: baseURL }]);
+    await page.goto('/ms/loans/personal');
+    await expect(page.getByRole('note')).toHaveCount(0);
+  });
+});
+
 // `x-gc-locale`/`x-gc-path` are internal signals the proxy derives from the
 // URL — they must never be trusted from an inbound request header, or a
 // client could force the Malay render or an arbitrary canonical URL on any

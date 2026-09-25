@@ -5,39 +5,42 @@ import { useState, useSyncExternalStore } from 'react';
 import { usePathname } from 'next/navigation';
 import { X } from 'lucide-react';
 import { LOCALE_PREFIX_ENABLED, localeHref } from '@/lib/i18n/routes';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import type { Language } from '@/lib/i18n/translations';
 
-const COOKIE_KEY = 'gc_lang';
-const DISMISS_KEY = 'gc_locale_suggest_dismissed';
+// `gc_pref` is written only from an explicit user switch (LanguageContext's
+// `setLanguage`) — unlike `gc_lang`, which is re-derived from the current URL
+// on every mount and so always agrees with whatever page you're already on.
+// Reading `gc_lang` here would mean the banner could never fire.
+const PREF_COOKIE_KEY = 'gc_pref';
+const DISMISS_COOKIE_KEY = 'gc_pref_dismissed';
 
-// Nothing external mutates the cookie or the dismissal flag while this
-// component stays mounted (switching locale navigates to a new URL, which
-// remounts the page tree), so there is no real event to subscribe to. A
-// no-op subscription plus a snapshot read is the useSyncExternalStore-
-// sanctioned way to do a one-shot client-only read without reaching for
-// setState-in-effect.
+// Nothing external mutates either cookie while this component stays mounted
+// (switching locale navigates to a new URL, which remounts the page tree), so
+// there is no real event to subscribe to. A no-op subscription plus a
+// snapshot read is the useSyncExternalStore-sanctioned way to do a one-shot
+// client-only read without reaching for setState-in-effect.
 function subscribe() {
   return () => {};
 }
 
-function readCookieLang(): Language | null {
+function readCookie(key: string): string | null {
   if (typeof document === 'undefined') return null;
-  const match = document.cookie.split('; ').find((row) => row.startsWith(`${COOKIE_KEY}=`));
-  const value = match?.split('=')[1];
+  const match = document.cookie.split('; ').find((row) => row.startsWith(`${key}=`));
+  return match ? match.split('=')[1] : null;
+}
+
+function readPrefLang(): Language | null {
+  const value = readCookie(PREF_COOKIE_KEY);
   return value === 'ms' || value === 'en' ? value : null;
 }
 
-function getServerCookieSnapshot(): Language | null {
+function getServerPrefSnapshot(): Language | null {
   return null;
 }
 
 function readDismissed(): boolean {
-  if (typeof window === 'undefined') return false;
-  try {
-    return window.sessionStorage.getItem(DISMISS_KEY) === '1';
-  } catch {
-    return false;
-  }
+  return readCookie(DISMISS_COOKIE_KEY) === '1';
 }
 
 function getServerDismissedSnapshot(): boolean {
@@ -50,37 +53,34 @@ const copy = {
 };
 
 /**
- * Slim, dismissible bar suggesting the visitor's cookie-remembered locale
- * when it disagrees with the current URL. Never redirects — the URL stays
- * authoritative for SEO; this is purely an on-page nudge.
+ * Slim, dismissible bar suggesting the visitor's explicitly-chosen locale
+ * (`gc_pref`) when it disagrees with the current URL's language. Never
+ * redirects — the URL stays authoritative for SEO; this is purely an
+ * on-page nudge.
  */
 export function LocaleSuggestBanner() {
   const pathname = usePathname() || '/';
-  const cookieLang = useSyncExternalStore(subscribe, readCookieLang, getServerCookieSnapshot);
+  const { language: urlLanguage } = useLanguage();
+  const prefLang = useSyncExternalStore(subscribe, readPrefLang, getServerPrefSnapshot);
   const persistedDismissed = useSyncExternalStore(subscribe, readDismissed, getServerDismissedSnapshot);
   const [dismissedThisRender, setDismissedThisRender] = useState(false);
 
-  if (!LOCALE_PREFIX_ENABLED || !cookieLang || persistedDismissed || dismissedThisRender) {
+  if (
+    !LOCALE_PREFIX_ENABLED ||
+    !prefLang ||
+    prefLang === urlLanguage ||
+    persistedDismissed ||
+    dismissedThisRender
+  ) {
     return null;
   }
 
-  const isMsPath = pathname === '/ms' || pathname.startsWith('/ms/');
-  const suggestMs = !isMsPath && cookieLang === 'ms';
-  const suggestEn = isMsPath && cookieLang === 'en';
-  if (!suggestMs && !suggestEn) {
-    return null;
-  }
-
-  const targetLocale: Language = suggestMs ? 'ms' : 'en';
-  const label = suggestMs ? copy.toMs : copy.toEn;
+  const label = prefLang === 'ms' ? copy.toMs : copy.toEn;
 
   const dismiss = () => {
-    try {
-      window.sessionStorage.setItem(DISMISS_KEY, '1');
-    } catch {
-      // Private-mode/sessionStorage unavailable — the in-render dismissal
-      // below still hides the banner for the rest of this page view.
-    }
+    // Session cookie (no max-age/expires): the suggestion can resurface next
+    // visit, but stays dismissed for the rest of this browser session.
+    document.cookie = `${DISMISS_COOKIE_KEY}=1; path=/; SameSite=Lax`;
     setDismissedThisRender(true);
   };
 
@@ -96,7 +96,7 @@ export function LocaleSuggestBanner() {
         back to where the visitor already is (the same reason LanguageSwitcher
         calls `localeHref` directly instead of going through `LocaleLink`).
       */}
-      <Link href={localeHref(targetLocale, pathname)} className="font-medium text-primary hover:underline">
+      <Link href={localeHref(prefLang, pathname)} className="font-medium text-primary hover:underline">
         {label.text} →
       </Link>
       <button

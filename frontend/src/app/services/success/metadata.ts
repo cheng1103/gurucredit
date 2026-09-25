@@ -9,7 +9,7 @@ export const meta: LocalizedMetadataInput = {
   ms: {
     title: 'Permohonan Dihantar',
     description:
-      'Permintaan konsultasi GURU Credits anda telah diterima. Simpan nombor rujukan anda dan kami akan susulan dalam masa 24 jam waktu bekerja.',
+      'Permintaan konsultasi GURU Credits anda telah diterima. Simpan nombor rujukan anda dan kami akan menghubungi anda semula dalam masa 24 jam waktu bekerja.',
   },
   path: '/services/success',
 };

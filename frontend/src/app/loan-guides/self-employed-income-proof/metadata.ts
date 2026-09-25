@@ -9,7 +9,7 @@ export const meta: LocalizedMetadataInput = {
   ms: {
     title: 'Panduan Bukti Pendapatan Bekerja Sendiri Malaysia',
     description:
-      'Cara peminjam bekerja sendiri, freelance, dan berpendapatan berubah di Malaysia patut sediakan bukti pendapatan lebih kukuh sebelum memohon pinjaman.',
+      'Cara peminjam bekerja sendiri, pekerja bebas, dan berpendapatan berubah di Malaysia patut menyediakan bukti pendapatan lebih kukuh sebelum memohon pinjaman.',
   },
   path: '/loan-guides/self-employed-income-proof',
   keywords:

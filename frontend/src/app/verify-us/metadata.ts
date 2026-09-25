@@ -9,7 +9,7 @@ export const meta: LocalizedMetadataInput = {
   ms: {
     title: 'Sahkan Kami: Lesen, Pejabat & Privasi',
     description:
-      'Semak butiran pejabat GURU Credits, saluran rasmi peminjam, pengendalian privasi, dan langkah yang kami harap peminjam gunakan untuk sahkan proses kami.',
+      'Semak butiran pejabat GURU Credits, saluran rasmi peminjam, pengendalian privasi, dan langkah yang kami harapkan peminjam gunakan untuk mengesahkan proses kami.',
   },
   path: '/verify-us',
   keywords:

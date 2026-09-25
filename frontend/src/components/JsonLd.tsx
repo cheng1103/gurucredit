@@ -570,7 +570,7 @@ export function WebPageJsonLd({
   if (faqItems?.length) {
     graph.push({
       '@type': 'FAQPage',
-      '@id': `${url}#faq`,
+      '@id': `${pageUrl}#faq`,
       mainEntity: faqItems.map((item) => ({
         '@type': 'Question',
         name: item.question,

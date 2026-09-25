@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
+import { localePrefixEnabled } from './locale-helpers';
 
 // Routes covering every JSON-LD emitter touched by task-B-brief B2: the
 // homepage (Organization/Website/Services/GeoCoverage + WebPage), a loan
@@ -142,6 +143,27 @@ for (const route of ROUTES) {
       const ids = nodes.map((n) => n['@id']).filter((id): id is string => typeof id === 'string');
       expect(new Set(ids).size).toBe(ids.length);
     });
+  });
+}
+
+// Malay pages must reference their own /ms URLs in structured data, not the
+// English ones — otherwise Google indexes the Malay page under the wrong
+// canonical @id/breadcrumb trail. Skipped (not failed) while the flag is off.
+const MS_ROUTES = ['/ms/loans/personal', '/ms/faq'];
+
+for (const route of MS_ROUTES) {
+  test(`${route} emits one BreadcrumbList localized to /ms`, async ({ page, request }) => {
+    test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
+
+    await page.goto(route);
+    const nodes = await collectJsonLdNodes(page);
+    const breadcrumbs = nodes.filter((n) => hasType(n, 'BreadcrumbList'));
+    expect(breadcrumbs.length).toBe(1);
+
+    const items = (breadcrumbs[0].itemListElement as { item?: string }[]) ?? [];
+    expect(items.length).toBeGreaterThan(0);
+    const lastItemUrl = items[items.length - 1]?.item;
+    expect(lastItemUrl).toMatch(/^https:\/\/guru-credit\.com\/ms\//);
   });
 }
 

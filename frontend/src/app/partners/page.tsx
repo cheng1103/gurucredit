@@ -20,6 +20,7 @@ export default async function PartnersPage() {
         title="Bank Partners"
         description="Partner banks across Malaysia offering personal, car, home, and SME financing options."
         image="/images/hero-bg.jpg"
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Partners', url: `${SEO.url}/partners` },

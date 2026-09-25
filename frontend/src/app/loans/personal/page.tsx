@@ -1,20 +1,15 @@
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { SEO } from '@/lib/constants';
 import { PATHS } from '@/lib/i18n/routes';
-import { buildMetadata } from '@/lib/seo';
+import { localizedMetadata } from '@/lib/seo';
 import { FinancialProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
 import { LoanProductPage } from '@/components/loans/LoanProductPage';
 import { personalLoan } from '@/lib/content/loans/personal';
+import { meta } from './metadata';
 
-export const metadata = buildMetadata({
-  title: 'Personal Loan Playbook',
-  description:
-    'Personal loan guidance for Malaysians. Get DSR strategy, CCRIS/CTOS checks, and loan offer structure to unlock better personal financing terms.',
-  path: '/loans/personal',
-  image: '/images/optimized/personal-loan.jpg',
-  keywords:
-    'GURU Credits personal loan, GURU Credits Malaysia personal financing, personal loan Malaysia, personal financing Malaysia, personal loan for bad credit Malaysia, personal loan for self employed Malaysia, pinjaman peribadi Malaysia, pinjaman peribadi lulus cepat, CCRIS CTOS personal loan, loan eligibility personal loan Malaysia, DSR analysis personal loan',
-});
+export async function generateMetadata() {
+  return localizedMetadata(meta);
+}
 
 export default async function PersonalLoanPage() {
   const language = await resolveRequestLanguage();
@@ -26,6 +21,7 @@ export default async function PersonalLoanPage() {
         url={`${SEO.url}/loans/personal`}
         name="Personal Loan Malaysia"
         description="Personal loan guidance with RM30 eligibility analysis, DSR strategy, and written loan offer tailored to your profile."
+        language={language}
         category="PersonalLoan"
         aprMin={4.88}
         aprMax={8.5}

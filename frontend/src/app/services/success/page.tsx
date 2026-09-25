@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import { LocaleLink } from '@/components/LocaleLink';
 import { Button } from '@/components/ui/button';
@@ -22,13 +21,6 @@ import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { WebPageJsonLd } from '@/components/JsonLd';
 import { successContent } from '@/lib/content/success';
 import { ReferenceDetailsClient } from './ReferenceDetailsClient';
-
-export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
 
 const stepIcons = [Mail, Clock, CheckCircle];
 
@@ -63,6 +55,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
         url={`${SEO.url}/services/success`}
         title="Application Submitted"
         description="Your GURU Credits consultation request has been received. Save your reference number and we will follow up within 24 business hours."
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Services', url: `${SEO.url}/services` },

@@ -1,20 +1,15 @@
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { SEO } from '@/lib/constants';
 import { PATHS } from '@/lib/i18n/routes';
-import { buildMetadata } from '@/lib/seo';
+import { localizedMetadata } from '@/lib/seo';
 import { FinancialProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
 import { LoanProductPage } from '@/components/loans/LoanProductPage';
 import { emergencyLoan } from '@/lib/content/loans/emergency';
+import { meta } from './metadata';
 
-export const metadata = buildMetadata({
-  title: 'Emergency Loan Guidance',
-  description:
-    'Emergency loan support for Malaysians. Get fast eligibility checks, DSR planning, and loan structuring for urgent funding needs.',
-  path: '/loans/emergency',
-  image: '/images/optimized/personal-loan.jpg',
-  keywords:
-    'GURU Credits emergency loan, emergency loan Malaysia, urgent cash loan Malaysia, same day emergency loan Malaysia, fast approval loan Malaysia, pinjaman kecemasan Malaysia, pinjaman segera Malaysia, emergency personal loan bad credit Malaysia, urgent cash loan Kuala Lumpur, fast loan eligibility Malaysia',
-});
+export async function generateMetadata() {
+  return localizedMetadata(meta);
+}
 
 export default async function EmergencyLoanPage() {
   const language = await resolveRequestLanguage();
@@ -26,6 +21,7 @@ export default async function EmergencyLoanPage() {
         url={`${SEO.url}/loans/emergency`}
         name="Emergency Personal Loan Malaysia"
         description="Fast eligibility analysis and loan structuring for urgent financial needs in Malaysia, with same-day document guidance."
+        language={language}
         category="PersonalLoan"
         aprMin={4.88}
         aprMax={9.0}

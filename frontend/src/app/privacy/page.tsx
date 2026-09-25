@@ -15,6 +15,7 @@ export default async function PrivacyPage() {
         title="Privacy Policy"
         description={c.lede}
         image="/images/hero-bg.jpg"
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Privacy Policy', url: `${SEO.url}/privacy` },

@@ -1,11 +1,7 @@
-import { test, expect, type APIRequestContext } from '@playwright/test';
+import { test, expect } from '@playwright/test';
+import { localePrefixEnabled } from './locale-helpers';
 
 const ORIGIN = 'https://guru-credit.com';
-
-async function localePrefixEnabled(request: APIRequestContext): Promise<boolean> {
-  const res = await request.get('/ms/glossary', { maxRedirects: 0 });
-  return res.status() === 200;
-}
 
 test.describe('locale routing & hreflang', () => {
   test('English pages self-canonicalize', async ({ request }) => {

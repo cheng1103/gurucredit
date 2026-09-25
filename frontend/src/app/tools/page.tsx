@@ -4,19 +4,14 @@ import { LocaleLink } from '@/components/LocaleLink';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { PATHS } from '@/lib/i18n/routes';
 import { SEO } from '@/lib/constants';
-import { buildMetadata } from '@/lib/seo';
+import { localizedMetadata } from '@/lib/seo';
 import { WebPageJsonLd } from '@/components/JsonLd';
 import { toolsUi, tools, toolsIntro } from '@/lib/content/listings/tools';
+import { meta } from './metadata';
 
-export const metadata = buildMetadata({
-  title: 'Loan Tools & Calculators',
-  description:
-    'Loan calculators and tools to estimate payments, compare bank offers, and plan your financing in Malaysia.',
-  path: '/tools',
-  image: '/images/hero-bg.jpg',
-  keywords:
-    'GURU Credits tools, loan tools Malaysia, loan comparison Malaysia, financing tools Malaysia, loan eligibility test Malaysia, compare loan rates Malaysia, bank loan comparison Malaysia, monthly instalment comparison Malaysia',
-});
+export async function generateMetadata() {
+  return localizedMetadata(meta);
+}
 
 export default async function ToolsPage() {
   const language = await resolveRequestLanguage();

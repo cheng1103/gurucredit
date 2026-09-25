@@ -4,19 +4,15 @@ import { LocaleLink } from '@/components/LocaleLink';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { COMPANY, SEO } from '@/lib/constants';
 import { PATHS } from '@/lib/i18n/routes';
-import { buildMetadata } from '@/lib/seo';
+import { localizedMetadata } from '@/lib/seo';
 import { ContactPageJsonLd, WebPageJsonLd } from '@/components/JsonLd';
 import { teamMembers } from '@/app/about/team-data';
 import { verifyUsContent, type VerifyUsSection } from '@/lib/content/verify-us';
+import { meta } from './metadata';
 
-export const metadata = buildMetadata({
-  title: 'Verify Us: Licensing, Office & Privacy',
-  description:
-    'Review GURU Credits office details, official borrower channels, privacy handling, and the steps we expect borrowers to use when verifying our process.',
-  path: '/verify-us',
-  keywords:
-    'verify GURU Credits, GURU Credits license, GURU Credits office, GURU Credits privacy, licensed money lender verification Malaysia, official WhatsApp lender verification',
-});
+export async function generateMetadata() {
+  return localizedMetadata(meta);
+}
 
 const ui = { en: { home: 'Home' }, ms: { home: 'Utama' } } as const;
 
@@ -96,6 +92,7 @@ export default async function VerifyUsPage() {
         url={`${SEO.url}/verify-us`}
         title={t.title}
         description={t.lede}
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: t.breadcrumbLabel, url: `${SEO.url}/verify-us` },

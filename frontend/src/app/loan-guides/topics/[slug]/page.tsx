@@ -23,37 +23,41 @@ export async function generateMetadata({ params }: TopicPageProps): Promise<Meta
     return { title: 'Guide Not Found' };
   }
 
-  const canonicalUrl = `${SEO.url}/loan-guides/topics/${topic.slug}`;
+  const language = await resolveRequestLanguage();
+  const title = language === 'ms' ? topic.titleMs : topic.title;
+  const description = language === 'ms' ? topic.descriptionMs : topic.description;
+  const path = `/loan-guides/topics/${topic.slug}`;
+  const canonicalUrl = language === 'ms' ? `${SEO.url}/ms${path}` : `${SEO.url}${path}`;
   const ogImage = new URL(SEO.shareImage, SEO.url).toString();
 
   return {
-    title: topic.title,
-    description: topic.description,
+    title,
+    description,
     // Set explicitly (rather than relying on inheritance from the root
     // layout) because loan-guides/layout.tsx sits between this page and the
     // root — see the note there about why a layout-level `alternates` would
     // shadow this page's own canonical if it defined one.
-    alternates: localeAlternates('en', `/loan-guides/topics/${topic.slug}`),
+    alternates: localeAlternates(language, path),
     openGraph: {
-      title: `${topic.title} | ${SEO.siteName}`,
-      description: topic.description,
+      title: `${title} | ${SEO.siteName}`,
+      description,
       url: canonicalUrl,
       siteName: SEO.siteName,
       type: 'article',
-      locale: SEO.locale,
+      locale: language === 'ms' ? 'ms_MY' : SEO.locale,
       images: [
         {
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: topic.title,
+          alt: title,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${topic.title} | ${SEO.siteName}`,
-      description: topic.description,
+      title: `${title} | ${SEO.siteName}`,
+      description,
       images: [ogImage],
     },
   };

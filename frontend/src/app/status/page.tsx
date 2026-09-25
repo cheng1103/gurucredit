@@ -12,6 +12,7 @@ export default async function StatusPage() {
         title="Check Application Status"
         description="Check your loan application status using your reference ID and email."
         image="/images/cta-bg.jpg"
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Status', url: `${SEO.url}/status` },

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { SEO } from './constants';
 import { LOCALE_PREFIX_ENABLED } from './i18n/routes';
+import { resolveRequestLanguage } from './i18n/server';
 import type { Language } from './i18n/translations';
 
 /**
@@ -51,7 +52,11 @@ export const buildMetadata = ({
   keywords,
   locale = 'en',
 }: PageMetadataInput): Metadata => {
-  const url = `${SEO.url}${path}`;
+  const alternates = localeAlternates(locale, path);
+  // og:url should match the canonical for this locale (e.g. the `/ms` URL on
+  // a Malay page), not the bare English path — otherwise Facebook/LinkedIn
+  // scrapers and anyone reading view-source see a mismatched canonical/og:url.
+  const url = alternates.canonical as string;
   const imageUrl = image
     ? new URL(image, SEO.url).toString()
     : new URL(SEO.shareImage, SEO.url).toString();
@@ -66,7 +71,7 @@ export const buildMetadata = ({
     title,
     description,
     keywords,
-    alternates: localeAlternates(locale, path),
+    alternates,
     openGraph: {
       title: fullTitle,
       description,
@@ -92,3 +97,37 @@ export const buildMetadata = ({
     },
   };
 };
+
+interface LocalizedMetadataCopy {
+  title: string;
+  description: string;
+}
+
+export interface LocalizedMetadataInput {
+  en: LocalizedMetadataCopy;
+  ms: LocalizedMetadataCopy;
+  path: string;
+  image?: string;
+  keywords?: string;
+}
+
+/**
+ * Static `metadata.ts`/`export const metadata` exports are evaluated once —
+ * they can't see the request, so they can't know whether the visitor is on
+ * `/about` or `/ms/about`. Routes that need per-locale title/description
+ * instead export `async function generateMetadata()` and call this, which
+ * resolves the request's language the same way the page body does
+ * (`resolveRequestLanguage`) and hands the matching copy to `buildMetadata`.
+ */
+export async function localizedMetadata(input: LocalizedMetadataInput): Promise<Metadata> {
+  const language = await resolveRequestLanguage();
+  const { title, description } = input[language];
+  return buildMetadata({
+    title,
+    description,
+    path: input.path,
+    image: input.image,
+    keywords: input.keywords,
+    locale: language,
+  });
+}

@@ -1,5 +1,6 @@
 import { headers } from 'next/headers';
 import { Language } from './translations';
+import { LOCALE_PREFIX_ENABLED } from './routes';
 
 export const resolveRequestLanguage = async (): Promise<Language> => {
   const headerStore = await headers();
@@ -9,6 +10,16 @@ export const resolveRequestLanguage = async (): Promise<Language> => {
   const headerLang = headerStore.get('x-gc-locale');
   if (headerLang === 'ms' || headerLang === 'en') {
     return headerLang;
+  }
+
+  // Once locale-prefixed URLs are live, the URL is the single source of
+  // truth: `headerLang` above already covers `/ms/*` (== 'ms') and
+  // everything else (== '' from the proxy, meaning "no /ms prefix"), which
+  // falls through to 'en' below. Do NOT consult the cookie or
+  // Accept-Language here — that would let a stale preference override the
+  // URL the user (or Google) actually requested.
+  if (LOCALE_PREFIX_ENABLED) {
+    return 'en';
   }
 
   const cookieHeader = headerStore.get('cookie');

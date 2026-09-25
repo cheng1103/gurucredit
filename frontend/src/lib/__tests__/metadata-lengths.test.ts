@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { Metadata } from 'next';
 import { SEO } from '@/lib/constants';
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, type LocalizedMetadataInput } from '@/lib/seo';
 import { blogPosts } from '@/lib/blog-data';
 import { guideTopics } from '@/lib/guide-topics';
 import { regions } from '@/lib/content/regions';
@@ -31,26 +31,22 @@ function collectMetadataFiles(dir: string, out: string[] = []): string[] {
   return out;
 }
 
-/**
- * Every metadata.ts in this app sits under the root layout's
- * `%s | GURU Credits` title template with nothing in between that resets it
- * (blog/loan-guides layouts forward the same template — see task-B-brief
- * B1.1), so a plain string title always renders with the suffix appended.
- */
-function effectiveTitle(title: Metadata['title']): string {
-  if (typeof title === 'string') return `${title}${SUFFIX}`;
-  if (title && typeof title === 'object' && 'default' in title) {
-    const value = (title as { default?: unknown }).default;
-    return typeof value === 'string' ? `${value}${SUFFIX}` : '';
-  }
-  return '';
-}
-
 function imageCount(images: Metadata['openGraph'] extends { images?: infer I } ? I : never): number {
   if (!images) return 0;
   return Array.isArray(images) ? images.length : 1;
 }
 
+/**
+ * Every metadata.ts in this app exports `meta: LocalizedMetadataInput`
+ * (`{ en, ms, path, image?, keywords? }`), consumed by the route's own
+ * `generateMetadata()` via `localizedMetadata()` (see src/lib/seo.ts). That
+ * function resolves the request's language via `resolveRequestLanguage()`,
+ * which needs a real Next.js request context this test doesn't have — so
+ * instead of calling it, we exercise both locales directly through
+ * `buildMetadata()`, the same function `localizedMetadata()` delegates to.
+ * This is also how the Malay side of every localised route gets its own
+ * length/shape budget check, not just the English one.
+ */
 describe('metadata.ts length + shape budget', () => {
   const files = collectMetadataFiles(APP_DIR);
 
@@ -62,25 +58,42 @@ describe('metadata.ts length + shape budget', () => {
     const rel = path.relative(process.cwd(), file);
 
     it(`${rel} stays within SEO budgets`, async () => {
-      const mod = (await import(file)) as { metadata?: Metadata };
-      const metadata = mod.metadata;
-      expect(metadata, `${rel} must export \`metadata\``).toBeTruthy();
-      if (!metadata) return;
+      const mod = (await import(file)) as { meta?: LocalizedMetadataInput };
+      const meta = mod.meta;
+      expect(meta, `${rel} must export \`meta\``).toBeTruthy();
+      if (!meta) return;
 
-      const title = effectiveTitle(metadata.title);
-      expect(title.length, `${rel} title "${title}"`).toBeGreaterThan(0);
-      expect(title.length, `${rel} title "${title}" (${title.length} chars)`).toBeLessThanOrEqual(TITLE_MAX);
+      for (const lang of ['en', 'ms'] as const) {
+        const copy = meta[lang];
+        const metadata = buildMetadata({
+          title: copy.title,
+          description: copy.description,
+          path: meta.path,
+          image: meta.image,
+          keywords: meta.keywords,
+          locale: lang,
+        });
 
-      if (typeof metadata.description === 'string') {
-        const { length } = metadata.description;
-        expect(length, `${rel} description too short (${length} chars)`).toBeGreaterThanOrEqual(DESCRIPTION_MIN);
-        expect(length, `${rel} description too long (${length} chars)`).toBeLessThanOrEqual(DESCRIPTION_MAX);
+        const title = `${copy.title}${SUFFIX}`;
+        expect(title.length, `${rel} [${lang}] title "${title}"`).toBeGreaterThan(0);
+        expect(title.length, `${rel} [${lang}] title "${title}" (${title.length} chars)`).toBeLessThanOrEqual(
+          TITLE_MAX,
+        );
+
+        expect(
+          copy.description.length,
+          `${rel} [${lang}] description too short (${copy.description.length} chars): "${copy.description}"`,
+        ).toBeGreaterThanOrEqual(DESCRIPTION_MIN);
+        expect(
+          copy.description.length,
+          `${rel} [${lang}] description too long (${copy.description.length} chars): "${copy.description}"`,
+        ).toBeLessThanOrEqual(DESCRIPTION_MAX);
+
+        const og = metadata.openGraph as { images?: unknown } | undefined;
+        expect(imageCount(og?.images as never), `${rel} [${lang}] openGraph.images`).toBeGreaterThan(0);
+
+        expect(metadata.alternates?.canonical, `${rel} [${lang}] alternates.canonical`).toBeTruthy();
       }
-
-      const og = metadata.openGraph as { images?: unknown } | undefined;
-      expect(imageCount(og?.images as never), `${rel} openGraph.images`).toBeGreaterThan(0);
-
-      expect(metadata.alternates?.canonical, `${rel} alternates.canonical`).toBeTruthy();
     });
   }
 });

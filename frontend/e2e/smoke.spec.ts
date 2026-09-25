@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { smokeRoutes } from '../src/lib/routes-for-smoke';
+import { localePrefixEnabled, toMsPath } from './locale-helpers';
 
 const ROUTES = smokeRoutes();
 
@@ -25,6 +26,37 @@ for (const route of ROUTES) {
     expect(title.split(' | GURU Credits').length).toBe(route === '/' ? 1 : 2);
   });
 }
+
+// Same coverage as above, but under the `/ms` prefix — every route the
+// sitemap/smoke list knows about must also render in Malay once locale-
+// prefixed URLs are live. Skipped (not failed) when the flag is off, so this
+// spec still passes against production before the flag flips.
+test.describe('ms locale-prefixed routes', () => {
+  for (const route of ROUTES) {
+    const msRoute = toMsPath(route);
+
+    test(`${msRoute} renders with one h1, no console errors, and <html lang="ms">`, async ({ page, request }) => {
+      test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
+
+      const consoleErrors: string[] = [];
+      page.on('console', (msg) => {
+        if (msg.type() === 'error') consoleErrors.push(msg.text());
+      });
+      page.on('pageerror', (err) => consoleErrors.push(err.message));
+
+      const res = await page.goto(msRoute);
+      expect(res?.status()).toBe(200);
+      await expect(page.locator('h1')).toHaveCount(1);
+      expect(consoleErrors).toEqual([]);
+      await expect(page.locator('html')).toHaveAttribute('lang', 'ms');
+
+      // Same suffix exemption as the English loop above: `/ms` (the Malay
+      // home) renders the root layout's bare `default` title.
+      const title = await page.title();
+      expect(title.split(' | GURU Credits').length).toBe(route === '/' ? 1 : 2);
+    });
+  }
+});
 
 // Routes covering every migrated template (blog post, all loan guides + topic,
 // services apply/success, editorial/review-methodology, and every listing/
@@ -105,23 +137,30 @@ test('mobile sticky CTA appears below the hero on the homepage', async ({ page }
   await expect(link).toBeInViewport({ ratio: 1 });
 });
 
-// The `ms` locale resolves by cookie today (LOCALE_PREFIX flag is off, so
-// `/ms/*` paths 404 — see e2e/locale-routing.spec.ts). Setting `gc_lang=ms`
-// before navigating exercises the Malay render on the un-prefixed routes.
-test.describe('ms locale via gc_lang cookie', () => {
-  const MS_ROUTES = ['/', '/loans/personal', '/blog', '/faq'];
+// Once locale-prefixed URLs are live, the URL is the sole source of truth for
+// language — a stale/forced `gc_lang` cookie must never override it. See
+// resolveRequestLanguage() in src/lib/i18n/server.ts.
+test.describe('URL wins over the gc_lang cookie', () => {
+  test('/ with gc_lang=ms still renders <html lang="en">', async ({ page, context, baseURL, request }) => {
+    test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
 
-  for (const route of MS_ROUTES) {
-    test(`${route} renders <html lang="ms"> with the gc_lang cookie set`, async ({
-      page,
-      context,
-      baseURL,
-    }) => {
-      await context.addCookies([{ name: 'gc_lang', value: 'ms', url: baseURL }]);
-      await page.goto(route);
-      await expect(page.locator('html')).toHaveAttribute('lang', 'ms');
-    });
-  }
+    await context.addCookies([{ name: 'gc_lang', value: 'ms', url: baseURL }]);
+    await page.goto('/');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  });
+
+  test('/ms renders <html lang="ms"> regardless of the gc_lang cookie', async ({
+    page,
+    context,
+    baseURL,
+    request,
+  }) => {
+    test.skip(!(await localePrefixEnabled(request)), 'LOCALE_PREFIX disabled');
+
+    await context.addCookies([{ name: 'gc_lang', value: 'en', url: baseURL }]);
+    await page.goto('/ms');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'ms');
+  });
 });
 
 // `x-gc-locale`/`x-gc-path` are internal signals the proxy derives from the

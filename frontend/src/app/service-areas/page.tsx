@@ -4,17 +4,15 @@ import { LocaleLink } from '@/components/LocaleLink';
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { PATHS } from '@/lib/i18n/routes';
 import { SEO } from '@/lib/constants';
-import { buildMetadata } from '@/lib/seo';
+import { localizedMetadata } from '@/lib/seo';
 import { WebPageJsonLd } from '@/components/JsonLd';
 import { getRegion, regionSlugs, formatMYR } from '@/lib/content/regions';
 import { serviceAreasUi, serviceAreasIntro } from '@/lib/content/listings/service-areas';
+import { meta } from './metadata';
 
-export const metadata = buildMetadata({
-  title: 'Malaysia Service Areas and Regional Loan Guides',
-  description: 'Browse GURU Credits regional loan guidance pages for Kuala Lumpur, Selangor, Johor, Penang, Sabah, Sarawak, and more across Malaysia.',
-  path: '/service-areas',
-  keywords: 'loan service areas Malaysia, regional loan guide Malaysia, Kuala Lumpur loan guide, Selangor loan advisory, Johor loan advice',
-});
+export async function generateMetadata() {
+  return localizedMetadata(meta);
+}
 
 export default async function ServiceAreasPage() {
   const language = await resolveRequestLanguage();

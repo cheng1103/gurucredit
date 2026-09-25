@@ -9,7 +9,7 @@ import { SEO } from "@/lib/constants";
 import { localeAlternates } from "@/lib/seo";
 import { resolveRequestLanguage } from "@/lib/i18n/server";
 import { Providers } from "@/components/Providers";
-import { WhatsAppFab, StickyMobileCTA } from "@/components/layout";
+import { WhatsAppFab, StickyMobileCTA, LocaleSuggestBanner } from "@/components/layout";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
 
 const defaultOgImage = new URL(SEO.shareImage, SEO.url).toString();
@@ -57,7 +57,7 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       locale: locale === "ms" ? "ms_MY" : SEO.locale,
       alternateLocale: locale === "ms" ? [SEO.locale] : ["ms_MY"],
-      url: SEO.url,
+      url: locale === "ms" ? `${SEO.url}/ms` : SEO.url,
       title,
       description,
       siteName: SEO.siteName,
@@ -126,6 +126,7 @@ export default async function RootLayout({
               Skip to content
             </a>
             <Navbar />
+            <LocaleSuggestBanner />
             <main id="main-content" className="flex-1">
               {children}
             </main>

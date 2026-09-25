@@ -24,6 +24,7 @@ export default async function ComparePage() {
         url={`${SEO.url}/tools/compare`}
         title={t.page.title}
         description={t.page.lede}
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Tools', url: `${SEO.url}/tools` },

@@ -15,6 +15,7 @@ export default async function TermsPage() {
         title="Terms of Service"
         description={c.lede}
         image="/images/hero-bg.jpg"
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Terms of Service', url: `${SEO.url}/terms` },

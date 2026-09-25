@@ -12,6 +12,7 @@ export default async function AboutPage() {
         title="About GURU Credits"
         description="Learn about GURU Credits, our loan guidance process, and how we support borrowers across Malaysia."
         image="/images/team.jpg"
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'About', url: `${SEO.url}/about` },

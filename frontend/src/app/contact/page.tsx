@@ -13,6 +13,7 @@ export default async function ContactPage() {
         title="Contact GURU Credits"
         description="Reach GURU Credits for loan consultation, WhatsApp support, and document guidance across Malaysia."
         image="/images/cta-bg.jpg"
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Contact', url: `${SEO.url}/contact` },

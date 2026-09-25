@@ -15,6 +15,7 @@ export default async function DisclaimerPage() {
         title="Disclaimer"
         description={c.lede}
         image="/images/hero-bg.jpg"
+        language={language}
         breadcrumbItems={[
           { name: 'Home', url: SEO.url },
           { name: 'Disclaimer', url: `${SEO.url}/disclaimer` },

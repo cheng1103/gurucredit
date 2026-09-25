@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { Language, getTranslation } from './translations';
+import { LOCALE_PREFIX_ENABLED } from './routes';
 
 interface LanguageContextType {
   language: Language;
@@ -82,6 +83,14 @@ export function LanguageProvider({
   // Hydrate from persisted value/browser settings on first client render
   useEffect(() => {
     if (typeof window === 'undefined') {
+      return;
+    }
+
+    // Once the URL is authoritative, the server already resolved the right
+    // language from the path prefix (see resolveRequestLanguage). Don't let a
+    // stale `?lang=` query, cookie, or browser language flip it post-mount —
+    // that would either fight the URL or flash the UI into the wrong locale.
+    if (LOCALE_PREFIX_ENABLED && initialLanguage) {
       return;
     }
 

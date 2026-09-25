@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   const language = await resolveRequestLanguage();
   const ogImage = post.image ? new URL(post.image, SEO.url).toString() : defaultOgImage;
-  const canonicalUrl = `${SEO.url}/blog/${post.slug}`;
+  const canonicalUrl = language === 'ms' ? `${SEO.url}/ms/blog/${post.slug}` : `${SEO.url}/blog/${post.slug}`;
   // seoTitle/seoTitleMs are shorter <title>-only overrides for posts whose
   // on-page H1 (post.title/titleMs) is too long for search result display.
   const seoTitle = language === 'ms' ? (post.seoTitleMs ?? post.titleMs) : (post.seoTitle ?? post.title);

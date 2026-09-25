@@ -1,5 +1,25 @@
 import { COMPANY, SEO, SERVICES, SERVICE_AREAS, SERVICE_AREA_LABEL } from '@/lib/constants';
 import { getAuthorProfile } from '@/lib/authors';
+import { LOCALE_PREFIX_ENABLED } from '@/lib/i18n/routes';
+
+/**
+ * Rewrite an absolute `${SEO.url}<path>` URL (and, by extension, any `@id`
+ * built from it) onto its `/ms` counterpart when the page is actually
+ * rendered in Malay and locale-prefixed URLs are live — so structured data
+ * on `/ms/*` pages references the real, crawlable Malay URL instead of the
+ * English one. A no-op for English pages, non-SEO.url strings, and while the
+ * flag is off (matching `localeHref`/`localeAlternates`).
+ */
+function localizeUrl(url: string, language: 'en' | 'ms' = 'en'): string {
+  if (language !== 'ms' || !LOCALE_PREFIX_ENABLED || !url.startsWith(SEO.url)) {
+    return url;
+  }
+  const rest = url.slice(SEO.url.length);
+  if (rest === '/ms' || rest.startsWith('/ms/')) {
+    return url;
+  }
+  return `${SEO.url}/ms${rest}`;
+}
 
 const areaServedSchema = SERVICE_AREAS.map((area) => ({
   '@type': 'AdministrativeArea',
@@ -182,6 +202,7 @@ export function ArticleJsonLd({
   language = 'en',
 }: ArticleJsonLdProps) {
   const resolvedImage = image ? new URL(image, SEO.url).toString() : undefined;
+  const pageUrl = localizeUrl(`${SEO.url}/blog/${slug}`, language);
   const profile = getAuthorProfile(author);
   const resolvedRole = authorRole ?? profile.role;
   const resolvedBio = authorBio ?? profile.bio;
@@ -204,7 +225,7 @@ export function ArticleJsonLd({
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    '@id': `${SEO.url}/blog/${slug}#article`,
+    '@id': `${pageUrl}#article`,
     headline: title,
     alternateHeadline: titleMs,
     ...(titleMs && { alternateName: titleMs }),
@@ -222,7 +243,7 @@ export function ArticleJsonLd({
     ...(resolvedImage ? { image: [resolvedImage] } : {}),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${SEO.url}/blog/${slug}#webpage`,
+      '@id': `${pageUrl}#webpage`,
     },
     keywords: tags.join(', '),
   };
@@ -320,6 +341,8 @@ interface FinancialProductJsonLdProps {
   maxAmount: number;
   requiredCollateral?: string;
   feeNote?: string;
+  /** Language this page is actually rendered in. Defaults to 'en'. */
+  language?: 'en' | 'ms';
 }
 
 export function FinancialProductJsonLd({
@@ -335,12 +358,14 @@ export function FinancialProductJsonLd({
   maxAmount,
   requiredCollateral,
   feeNote,
+  language = 'en',
 }: FinancialProductJsonLdProps) {
+  const productUrl = localizeUrl(url, language);
   const schema = {
     '@context': 'https://schema.org',
     '@type': ['FinancialProduct', 'LoanOrCredit'],
-    '@id': `${url}#financial-product`,
-    url,
+    '@id': `${productUrl}#financial-product`,
+    url: productUrl,
     name,
     description,
     category,
@@ -459,12 +484,13 @@ export function WebPageJsonLd({
   faqItems,
   language = 'en',
 }: WebPageGraphProps) {
+  const pageUrl = localizeUrl(url, language);
   const imageUrl = image ? new URL(image, SEO.url).toString() : undefined;
   const graph: Record<string, unknown>[] = [
     {
       '@type': 'WebPage',
-      '@id': `${url}#webpage`,
-      url,
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
       name: title,
       description,
       inLanguage: language === 'ms' ? 'ms-MY' : 'en-MY',
@@ -478,7 +504,7 @@ export function WebPageJsonLd({
         },
       }),
       ...(breadcrumbItems && {
-        breadcrumb: { '@id': `${url}#breadcrumb` },
+        breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
       }),
     },
   ];
@@ -486,12 +512,12 @@ export function WebPageJsonLd({
   if (breadcrumbItems?.length) {
     graph.push({
       '@type': 'BreadcrumbList',
-      '@id': `${url}#breadcrumb`,
+      '@id': `${pageUrl}#breadcrumb`,
       itemListElement: breadcrumbItems.map((item, index) => ({
         '@type': 'ListItem',
         position: index + 1,
         name: item.name,
-        item: item.url,
+        item: localizeUrl(item.url, language),
       })),
     });
   }

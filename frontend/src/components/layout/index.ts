@@ -5,6 +5,7 @@ export { Reveal } from './Reveal';
 export { Stat } from './Stat';
 export { WhatsAppFab } from './WhatsAppFab';
 export { StickyMobileCTA } from './StickyMobileCTA';
+export { LocaleSuggestBanner } from './LocaleSuggestBanner';
 export { Breadcrumbs, type BreadcrumbItem } from './Breadcrumbs';
 export { PageHeader } from './PageHeader';
 export { FormLayout } from './FormLayout';

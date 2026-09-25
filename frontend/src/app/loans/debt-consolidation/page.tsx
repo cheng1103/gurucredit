@@ -1,20 +1,15 @@
 import { resolveRequestLanguage } from '@/lib/i18n/server';
 import { SEO } from '@/lib/constants';
 import { PATHS } from '@/lib/i18n/routes';
-import { buildMetadata } from '@/lib/seo';
+import { localizedMetadata } from '@/lib/seo';
 import { FinancialProductJsonLd, WebPageJsonLd } from '@/components/JsonLd';
 import { LoanProductPage } from '@/components/loans/LoanProductPage';
 import { debtConsolidationLoan } from '@/lib/content/loans/debt-consolidation';
+import { meta } from './metadata';
 
-export const metadata = buildMetadata({
-  title: 'Debt Consolidation Loan Guidance',
-  description:
-    'Debt consolidation guidance for Malaysia. Combine multiple debts into one payment with lower rates and a clearer repayment plan.',
-  path: '/loans/debt-consolidation',
-  image: '/images/optimized/personal-loan.jpg',
-  keywords:
-    'GURU Credits debt consolidation, debt consolidation Malaysia, debt consolidation loan Malaysia, consolidate credit card debt Malaysia, debt restructuring Malaysia, penyatuan hutang Malaysia, lower monthly payment Malaysia, lower interest debt Malaysia, DSR strategy debt consolidation, debt consolidation for bad credit Malaysia',
-});
+export async function generateMetadata() {
+  return localizedMetadata(meta);
+}
 
 export default async function DebtConsolidationPage() {
   const language = await resolveRequestLanguage();
@@ -26,6 +21,7 @@ export default async function DebtConsolidationPage() {
         url={`${SEO.url}/loans/debt-consolidation`}
         name="Debt Consolidation Loan Malaysia"
         description="Combine multiple high-interest debts into one manageable monthly payment with a clearer repayment plan and bank recommendations."
+        language={language}
         category="PersonalLoan"
         aprMin={6}
         aprMax={9}

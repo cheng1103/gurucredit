@@ -127,6 +127,6 @@ export async function proxy(request: NextRequest) {
 // list of real static asset extensions.
 export const config = {
   matcher: [
-    '/((?!api/|_next/|_vercel|.*\\.(?:png|jpe?g|webp|avif|gif|svg|ico|css|js|mjs|map|txt|xml|webmanifest|json|woff2?|ttf|otf|eot|mp4|webm|pdf)$).*)',
+    '/((?!api/|_next/|_vercel|\\.well-known/|.*\\.(?:png|jpe?g|webp|avif|gif|svg|ico|css|js|mjs|map|txt|xml|webmanifest|json|woff2?|ttf|otf|eot|mp4|webm|pdf)$).*)',
   ],
 };

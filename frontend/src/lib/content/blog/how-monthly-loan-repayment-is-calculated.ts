@@ -12,7 +12,7 @@ export const post: BlogPost = {
   author: 'GURU Credits Research',
   publishedAt: '2026-09-25',
   reviewedBy: 'Policy Desk',
-  readTime: 8,
+  readTime: 6,
   image: '/images/blog/how-monthly-loan-repayment-is-calculated.jpg',
   tags: ['loan repayment', 'flat rate', 'effective rate', 'tenure', 'personal loan'],
   content: `Your monthly instalment is not simply "loan amount divided by number of months." It is built from the loan amount, the interest or profit rate, the way that rate is applied (flat versus effective), and the tenure you choose, and changing any one of these four moves your monthly figure and your total cost in different, sometimes counterintuitive, directions. This article breaks down exactly how the calculation works, walks through a worked example with real RM figures, and shows why a longer tenure can lower your monthly instalment while quietly raising the total amount you repay.

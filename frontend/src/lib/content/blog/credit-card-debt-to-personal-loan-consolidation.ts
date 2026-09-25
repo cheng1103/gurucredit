@@ -16,7 +16,7 @@ export const post: BlogPost = {
   readTime: 7,
   image: '/images/blog/credit-card-debt-to-personal-loan-consolidation.jpg',
   tags: ['debt consolidation', 'credit card debt', 'dsr', 'akpk', 'guide'],
-  content: `Credit card balances carry the statutory maximum unsecured interest rate of 18% p.a. under the Moneylenders Act 1951 framework for licensed lenders, and bank-issued cards typically charge in a similar high range on revolving balances. If you are only paying the minimum each month, most of that payment is going to interest, not principal. Moving the balance into a fixed-term personal loan can lower your monthly cost and give you a clear end date — but only if you close the underlying habit that built the balance in the first place. This article walks through the math, the DSR effect, and the discipline problem that consolidation does not solve on its own.
+  content: `Card issuers typically charge a high rate on revolving balances, comparable to the 18% p.a. statutory maximum that applies to unsecured loans from KPKT-licensed moneylenders — though banks are regulated by Bank Negara Malaysia (BNM), not by the Moneylenders Act 1951. If you are only paying the minimum each month, most of that payment is going to interest, not principal. Moving the balance into a fixed-term personal loan can lower your monthly cost and give you a clear end date — but only if you close the underlying habit that built the balance in the first place. This article walks through the math, the DSR effect, and the discipline problem that consolidation does not solve on its own.
 
 ## Why credit card debt is expensive to carry
 
@@ -73,7 +73,7 @@ If your total debt load is too high for even a consolidation loan to bring your 
 
 | | Staying on 2 cards (RM12,000 total) | Consolidating into personal loan |
 |---|---|---|
-| Interest basis | Up to 18% p.a. statutory maximum on revolving balance | Lower effective rate, fixed for the tenure |
+| Interest basis | High rate on revolving balance, set by the bank under BNM rules | Lower effective rate, fixed for the tenure |
 | Monthly payment | Minimum-based, can fluctuate | Fixed instalment for the agreed tenure |
 | Payoff date | Undefined if only minimums are paid | Known, fixed date |
 | DSR treatment | ~5% of outstanding balance counted monthly | Actual fixed instalment counted |
@@ -100,7 +100,7 @@ It depends on your current cards' effective rate, outstanding balance, and the n
 Not automatically — it depends on whether the new fixed instalment is smaller than the imputed card commitments it replaces. Confirm the actual DSR impact with the lender rather than assuming it will always improve.
 
 Moving high-interest card debt into one clear, fixed repayment can be a genuinely useful reset, but only if it comes with a real change in spending habits — the loan should be affordable on its own terms, not just cheaper than what you were paying before. [Check your eligibility](/eligibility-test) and see our [debt consolidation guide](/loans/debt-consolidation) for how the process and requirements typically work.`,
-  contentMs: `Baki kad kredit membawa kadar faedah statutori maksimum tidak bercagar sebanyak 18% setahun di bawah rangka kerja Akta Pemberi Pinjam Wang 1951 untuk pemberi pinjaman berlesen, dan kad terbitan bank pula lazimnya mengenakan kadar yang sama tinggi ke atas baki berulang. Jika anda hanya membayar bayaran minimum setiap bulan, sebahagian besar bayaran itu pergi kepada faedah, bukan pokok. Memindahkan baki itu ke pinjaman peribadi bertempoh tetap boleh menurunkan kos bulanan anda dan memberikan tarikh tamat yang jelas — tetapi hanya jika anda turut menutup tabiat yang membina baki itu pada mulanya. Artikel ini menerangkan pengiraannya, kesan kepada DSR, dan masalah disiplin yang tidak diselesaikan oleh penyatuan itu sendiri.
+  contentMs: `Pengeluar kad lazimnya mengenakan kadar yang tinggi ke atas baki berulang — setanding dengan kadar statutori maksimum 18% setahun yang terpakai bagi pinjaman tidak bercagar daripada pemberi pinjam wang berlesen KPKT, namun bank dikawal selia oleh Bank Negara Malaysia (BNM), bukan oleh Akta Pemberi Pinjam Wang 1951. Jika anda hanya membayar bayaran minimum setiap bulan, sebahagian besar bayaran itu pergi kepada faedah, bukan pokok. Memindahkan baki itu ke pinjaman peribadi bertempoh tetap boleh menurunkan kos bulanan anda dan memberikan tarikh tamat yang jelas — tetapi hanya jika anda turut menutup tabiat yang membina baki itu pada mulanya. Artikel ini menerangkan pengiraannya, kesan kepada DSR, dan masalah disiplin yang tidak diselesaikan oleh penyatuan itu sendiri.
 
 ## Mengapa hutang kad kredit mahal untuk ditanggung
 
@@ -157,7 +157,7 @@ Jika jumlah beban hutang anda terlalu tinggi malah untuk pinjaman penyatuan memb
 
 | | Kekal dengan 2 kad (jumlah RM12,000) | Menyatukan ke pinjaman peribadi |
 |---|---|---|
-| Asas faedah | Sehingga 18% setahun statutori maksimum ke atas baki berulang | Kadar berkesan lebih rendah, tetap sepanjang tempoh |
+| Asas faedah | Kadar tinggi ke atas baki berulang, ditetapkan oleh bank di bawah peraturan BNM | Kadar berkesan lebih rendah, tetap sepanjang tempoh |
 | Bayaran bulanan | Berasaskan minimum, boleh berubah-ubah | Ansuran tetap sepanjang tempoh dipersetujui |
 | Tarikh penyelesaian | Tidak ditentukan jika hanya minimum dibayar | Tarikh tetap yang diketahui |
 | Layanan DSR | ~5% daripada baki tertunggak dikira sebulan | Ansuran tetap sebenar dikira |

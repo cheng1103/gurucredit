@@ -15,7 +15,7 @@ export const post: BlogPost = {
   publishedAt: '2026-09-25',
   reviewedBy: 'Policy Desk',
   reviewedAt: '2026-09-25',
-  readTime: 7,
+  readTime: 6,
   image: '/images/blog/bank-vs-licensed-money-lender-malaysia.jpg',
   tags: ['licensed moneylender', 'bank loan', 'kpkt', 'bnm', 'personal loan'],
   content: `Both a bank and a licensed moneylender can put cash in your account, but they operate under different regulators, different statutory rules, and different practical processes. Choosing between them is not about which one is "better" in general — it's about which one fits your timeline, your documentation, and your ability to repay under each set of terms. This guide compares them directly and flags what separates a licensed moneylender from an illegal one.

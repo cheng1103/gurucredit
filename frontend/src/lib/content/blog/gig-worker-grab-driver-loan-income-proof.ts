@@ -15,7 +15,7 @@ export const post: BlogPost = {
   publishedAt: '2026-09-25',
   reviewedBy: 'Policy Desk',
   reviewedAt: '2026-09-25',
-  readTime: 7,
+  readTime: 6,
   image: '/images/blog/gig-worker-grab-driver-loan-income-proof.jpg',
   tags: ['gig economy', 'grab driver', 'income proof', 'personal loan', 'dsr'],
   content: `If you drive for Grab, deliver for a food-delivery platform, or freelance across several clients, your income is real — but it does not arrive the way a lender's standard form expects. No employer, no fixed payslip, no EA form. That does not mean you cannot qualify for a personal loan; it means you need a different, more deliberate set of documents to show what a payslip would otherwise prove. This guide covers what platform statements and bank records can demonstrate, how lenders typically average and discount variable income, and the mistakes that cause otherwise creditworthy gig workers to be turned down.

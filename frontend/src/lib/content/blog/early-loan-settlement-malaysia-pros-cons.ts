@@ -12,7 +12,7 @@ export const post: BlogPost = {
   author: 'Financial Wellness Desk',
   publishedAt: '2026-09-25',
   reviewedBy: 'Policy Desk',
-  readTime: 7,
+  readTime: 6,
   image: '/images/blog/early-loan-settlement-malaysia-pros-cons.jpg',
   tags: ['early settlement', 'rule of 78', 'loan rebate', 'lock-in period', 'personal loan'],
   content: `Settling a personal loan early can save you money, but on a flat-rate loan the saving is usually smaller than people expect, because the interest rebate you receive is calculated using the Rule of 78, not a simple pro-rated refund, and many loans also carry a lock-in period or an early-settlement fee that offsets part of the saving. As a general pattern, settling early in the tenure saves meaningfully more than settling near the end, since most of the interest under the Rule of 78 is front-loaded into the earlier instalments. This article explains how the rebate is actually calculated, when lock-in periods and fees apply, and how to work out whether early settlement is worth it for your specific loan.

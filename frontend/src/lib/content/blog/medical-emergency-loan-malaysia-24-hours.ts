@@ -13,7 +13,7 @@ export const post: BlogPost = {
   publishedAt: '2026-09-25',
   reviewedBy: 'Policy Desk',
   reviewedAt: '2026-09-25',
-  readTime: 7,
+  readTime: 6,
   image: '/images/blog/medical-emergency-loan-malaysia-24-hours.jpg',
   tags: ['emergency loan', 'medical', 'hospital deposit', 'fast loan', 'tips'],
   content: `A hospital deposit is due and you do not have the cash sitting ready. This is one of the most stressful moments to have to think clearly about money, so this article is deliberately structured as a checklist: what to prepare right now, which fast options are legitimate, and which offers you should walk away from no matter how urgent the situation feels.

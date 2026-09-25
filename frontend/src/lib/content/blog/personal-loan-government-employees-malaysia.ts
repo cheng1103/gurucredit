@@ -15,7 +15,7 @@ export const post: BlogPost = {
   publishedAt: '2026-09-25',
   reviewedBy: 'Policy Desk',
   reviewedAt: '2026-09-25',
-  readTime: 7,
+  readTime: 6,
   image: '/images/blog/personal-loan-government-employees-malaysia.jpg',
   tags: ['government employees', 'personal loan', 'angkasa', 'dsr', 'malaysia'],
   content: `If you work for the federal or state government, a statutory body, or a government-linked company, you sit in a category lenders generally consider lower-risk: your income is fixed, paid through a known payroll system, and rarely disappears overnight. That does not mean every application is approved, or that terms are better than for anyone else — but it does change which documents matter and how your Debt Service Ratio (DSR) is worked out. This guide walks through what to prepare before you apply, how the Angkasa salary-deduction scheme fits in, and the mistakes that trip up otherwise straightforward applications.

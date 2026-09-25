@@ -31,7 +31,12 @@ for (const file of process.argv.slice(2)) {
   const contentMs = field(src, 'contentMs') ?? '';
 
   const en = words(content), ms = words(contentMs);
-  if (en < 1200 || en > 1900) problems.push(`en word count ${en} (want 1200–1800)`);
+  if (en < 1200 || en > 1800) problems.push(`en word count ${en} (want 1200–1800)`);
+  const readTimeMatch = src.match(/\breadTime:\s*(\d+)/);
+  const readTime = readTimeMatch ? Number(readTimeMatch[1]) : null;
+  const expectedReadTime = Math.round(en / 220);
+  if (readTime === null) problems.push('readTime field missing');
+  else if (Math.abs(readTime - expectedReadTime) > 0) problems.push(`readTime ${readTime} (want ${expectedReadTime}, round(en words / 220))`);
   if (ms < 1000) problems.push(`ms word count ${ms} (want a full translation, ≥ 1000)`);
   if (seoTitle.length > 45) problems.push(`seoTitle ${seoTitle.length} chars (max 45)`);
   if (seoTitleMs.length > 45) problems.push(`seoTitleMs ${seoTitleMs.length} chars (max 45)`);

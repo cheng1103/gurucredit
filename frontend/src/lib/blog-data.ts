@@ -1,4 +1,17 @@
 // Blog data for GURU Credits
+import { post as p1 } from './content/blog/personal-loan-government-employees-malaysia';
+import { post as p2 } from './content/blog/gig-worker-grab-driver-loan-income-proof';
+import { post as p3 } from './content/blog/islamic-personal-financing-vs-conventional-loan';
+import { post as p4 } from './content/blog/bank-vs-licensed-money-lender-malaysia';
+import { post as p5 } from './content/blog/reapply-after-loan-rejection-how-long';
+import { post as p6 } from './content/blog/how-much-can-i-borrow-rm3000-salary';
+import { post as p7 } from './content/blog/how-monthly-loan-repayment-is-calculated';
+import { post as p8 } from './content/blog/early-loan-settlement-malaysia-pros-cons';
+import { post as p9 } from './content/blog/loan-guarantor-responsibilities-risks-malaysia';
+import { post as p10 } from './content/blog/credit-card-debt-to-personal-loan-consolidation';
+import { post as p11 } from './content/blog/medical-emergency-loan-malaysia-24-hours';
+import { post as p12 } from './content/blog/wedding-renovation-education-loan-planning';
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -40,6 +53,18 @@ export const blogCategories = [
 ];
 
 export const blogPosts: BlogPost[] = [
+  p1,
+  p2,
+  p3,
+  p4,
+  p5,
+  p6,
+  p7,
+  p8,
+  p9,
+  p10,
+  p11,
+  p12,
   {
     slug: 'personal-loan-malaysia-complete-guide-2026',
     title: 'Personal Loan Malaysia Complete Guide 2026: Bad Credit, Self-Employed, CCRIS, CTOS and Emergency Loan Options',

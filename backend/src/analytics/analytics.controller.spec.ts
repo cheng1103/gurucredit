@@ -10,8 +10,10 @@ import {
   THROTTLER_LIMIT,
   THROTTLER_TTL,
 } from '@nestjs/throttler/dist/throttler.constants';
+import type { NestExpressApplication } from '@nestjs/platform-express';
 import request from 'supertest';
 import type { App } from 'supertest/types';
+import { configureApp } from '../app-setup';
 import { AdminGuard, AuthGuard } from '../auth/auth.guard';
 import { AnalyticsController } from './analytics.controller';
 import { AnalyticsService, AnalyticsOverview } from './analytics.service';
@@ -48,20 +50,12 @@ interface ServiceMock {
   getOverview: jest.Mock;
 }
 
-const buildApp = async (
+const compileModule = (
   authGuard: CanActivate,
   adminGuard: CanActivate,
-): Promise<{
-  app: INestApplication<App>;
-  moduleRef: TestingModule;
-  serviceMock: ServiceMock;
-}> => {
-  const serviceMock: ServiceMock = {
-    track: jest.fn().mockResolvedValue(undefined),
-    getOverview: jest.fn().mockResolvedValue(emptyOverview),
-  };
-
-  const moduleRef = await Test.createTestingModule({
+  serviceMock: ServiceMock,
+): Promise<TestingModule> =>
+  Test.createTestingModule({
     controllers: [AnalyticsController],
     providers: [{ provide: AnalyticsService, useValue: serviceMock }],
   })
@@ -71,10 +65,47 @@ const buildApp = async (
     .useValue(adminGuard)
     .compile();
 
+const newServiceMock = (): ServiceMock => ({
+  track: jest.fn().mockResolvedValue(undefined),
+  getOverview: jest.fn().mockResolvedValue(emptyOverview),
+});
+
+const buildApp = async (
+  authGuard: CanActivate,
+  adminGuard: CanActivate,
+): Promise<{
+  app: INestApplication<App>;
+  moduleRef: TestingModule;
+  serviceMock: ServiceMock;
+}> => {
+  const serviceMock = newServiceMock();
+  const moduleRef = await compileModule(authGuard, adminGuard, serviceMock);
+
   const app = moduleRef.createNestApplication<INestApplication<App>>();
   app.setGlobalPrefix('api');
   await app.init();
   return { app, moduleRef, serviceMock };
+};
+
+/**
+ * Same controller, but wired through `configureApp` — the exact function
+ * `main.ts` calls. The middleware stack (scoped 4kb parser, its 204 error
+ * handler, the global ValidationPipe, the `api` prefix, then Nest's own
+ * global body parser) is therefore the production one. A bare
+ * `createNestApplication()` would skip all of it, which is precisely how an
+ * oversized body reaching Express's default 413 page went unnoticed.
+ */
+const buildBootstrappedApp = async (): Promise<{
+  app: NestExpressApplication;
+  serviceMock: ServiceMock;
+}> => {
+  const serviceMock = newServiceMock();
+  const moduleRef = await compileModule(allow, allow, serviceMock);
+
+  const app = moduleRef.createNestApplication<NestExpressApplication>();
+  configureApp(app);
+  await app.init();
+  return { app, serviceMock };
 };
 
 describe('AnalyticsController', () => {
@@ -155,6 +186,90 @@ describe('AnalyticsController', () => {
       expect(reflector.get<number>(`${THROTTLER_TTL}default`, handler)).toBe(
         60,
       );
+    });
+  });
+
+  describe('POST /api/analytics/track through the real main.ts wiring', () => {
+    let app: NestExpressApplication;
+    let serviceMock: ServiceMock;
+
+    beforeEach(async () => {
+      ({ app, serviceMock } = await buildBootstrappedApp());
+    });
+
+    afterEach(async () => {
+      await app.close();
+    });
+
+    it('still answers 204 for a normal beacon', async () => {
+      await request(app.getHttpServer())
+        .post('/api/analytics/track')
+        .send({ path: '/', locale: 'en', visitorId: 'a'.repeat(32) })
+        .expect(204);
+
+      expect(serviceMock.track).toHaveBeenCalledTimes(1);
+    });
+
+    it('answers 204 — not 413 — for a 200KB body', async () => {
+      const oversized = {
+        path: '/',
+        locale: 'en',
+        visitorId: 'a'.repeat(32),
+        referrerHost: 'x'.repeat(200 * 1024),
+      };
+      const payload = JSON.stringify(oversized);
+      expect(payload.length).toBeGreaterThan(200 * 1024);
+
+      const response = await request(app.getHttpServer())
+        .post('/api/analytics/track')
+        .set('Content-Type', 'application/json')
+        .send(payload)
+        .expect(204);
+
+      expect(response.text).toBe('');
+      // Rejected by the parser, so the controller never ran.
+      expect(serviceMock.track).not.toHaveBeenCalled();
+    });
+
+    it('answers 204 for a body just over the 4kb limit', async () => {
+      await request(app.getHttpServer())
+        .post('/api/analytics/track')
+        .set('Content-Type', 'application/json')
+        .send(JSON.stringify({ path: '/', pad: 'x'.repeat(5 * 1024) }))
+        .expect(204);
+
+      expect(serviceMock.track).not.toHaveBeenCalled();
+    });
+
+    it('answers 204 for malformed JSON', async () => {
+      await request(app.getHttpServer())
+        .post('/api/analytics/track')
+        .set('Content-Type', 'application/json')
+        .send('{"path": "/", ')
+        .expect(204);
+
+      expect(serviceMock.track).not.toHaveBeenCalled();
+    });
+
+    it('answers 204 for Content-Type: text/plain', async () => {
+      await request(app.getHttpServer())
+        .post('/api/analytics/track')
+        .set('Content-Type', 'text/plain')
+        .send('path=/&locale=en')
+        .expect(204);
+
+      // No parser claims the body, so the service gets nothing and drops it.
+      expect(serviceMock.track).toHaveBeenCalledTimes(1);
+    });
+
+    it('leaves the global 100kb parser alone for other routes', async () => {
+      // The scoped parser is mounted on the track path only; a large body to
+      // any other route must still hit Express's default 413, not a 204.
+      await request(app.getHttpServer())
+        .post('/api/analytics/overview')
+        .set('Content-Type', 'application/json')
+        .send(JSON.stringify({ pad: 'x'.repeat(200 * 1024) }))
+        .expect(413);
     });
   });
 

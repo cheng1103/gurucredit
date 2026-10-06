@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { configureApp } from './app-setup';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppLoggerService } from './common/logger/app-logger.service';
 import type { Request, Response, NextFunction } from 'express';
@@ -79,16 +79,9 @@ async function bootstrap() {
     optionsSuccessStatus: 204,
   });
 
-  // Global validation pipe
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      transform: true,
-    }),
-  );
-
-  // API prefix
-  app.setGlobalPrefix('api');
+  // Global validation pipe, API prefix, and the analytics body-parser scope.
+  // Shared with the tests so they exercise the real middleware stack.
+  configureApp(app);
 
   const enableSwagger =
     configService.get<boolean>('ENABLE_SWAGGER', !isProduction) ??

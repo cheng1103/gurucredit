@@ -101,15 +101,20 @@ export const isValidVisitorId = (value: unknown): boolean =>
   typeof value === 'string' && VISITOR_ID_PATTERN.test(value);
 
 /**
- * Bot-ness is derived in-request and the user agent is then discarded. A
- * missing user agent counts as a bot: every real browser sends one, so an
- * absent header is a script.
+ * Bot-ness is derived in-request and the user agent is then discarded.
+ *
+ * A missing or empty user agent is treated as a normal view, not a bot. Every
+ * real browser does send one, so an absent header usually is a script — but
+ * the failure modes are wildly asymmetric: counting a few unlabelled scripts
+ * costs almost nothing, while an edge proxy that strips the header would drop
+ * *all* traffic to zero silently. Genuine bot user agents are still rejected
+ * by the pattern below.
  */
 export const isBotUserAgent = (
   userAgent: string | undefined | null,
 ): boolean => {
   if (typeof userAgent !== 'string' || userAgent.trim().length === 0)
-    return true;
+    return false;
   return BOT_PATTERN.test(userAgent);
 };
 
@@ -302,6 +307,14 @@ export class AnalyticsService implements OnModuleInit {
       this.rangeTotals({
         dayKey: { $gte: shiftDayKey(todayKey, -29), $lte: todayKey },
       }),
+      // `allTime` has no `$match`, so it is a full collection scan — no index
+      // can help an unfiltered count. Acceptable at this site's volume (a few
+      // thousand rows, capped by the 180-day TTL). If `PageView` ever grows
+      // past roughly a million rows, stop scanning it: maintain a rolled-up
+      // daily totals collection (one row per `dayKey` with views and a
+      // distinct-visitor count, written by a nightly job) and read `allTime`
+      // from that instead. The other seven aggregations are `dayKey`-filtered
+      // and stay index-backed.
       this.rangeTotals({}),
       // Distinct visitors need two $group stages: Prisma has no
       // distinct-count aggregate, so this runs as a raw aggregation.

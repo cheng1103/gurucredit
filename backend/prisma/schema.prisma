@@ -280,8 +280,10 @@ model PageView {
   createdAt    DateTime @default(now())
   expiresAt    DateTime // createdAt + 180 days; TTL index deletes the row
 
+  // Only these two are queried: every overview aggregation filters on `dayKey`
+  // alone, and the top-pages pipeline groups by `path` within that window.
+  // `[visitorId, dayKey]` and `[createdAt]` were declared but never used, so
+  // they only cost write throughput on the hottest write path on the site.
   @@index([dayKey])
   @@index([path, dayKey])
-  @@index([visitorId, dayKey])
-  @@index([createdAt])
 }

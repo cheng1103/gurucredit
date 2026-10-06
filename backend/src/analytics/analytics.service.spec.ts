@@ -212,9 +212,14 @@ describe('analytics helpers', () => {
       expect(isBotUserAgent('Mozilla/5.0 HeadlessChrome/120.0.0.0')).toBe(true);
     });
 
-    it('treats a missing user agent as a bot', () => {
-      expect(isBotUserAgent(undefined)).toBe(true);
-      expect(isBotUserAgent('')).toBe(true);
+    it('does NOT treat a missing or empty user agent as a bot', () => {
+      // An edge proxy that strips the header must not silently take all
+      // traffic to zero; counting a few unlabelled scripts is the cheaper
+      // mistake. See the comment on isBotUserAgent.
+      expect(isBotUserAgent(undefined)).toBe(false);
+      expect(isBotUserAgent(null)).toBe(false);
+      expect(isBotUserAgent('')).toBe(false);
+      expect(isBotUserAgent('   ')).toBe(false);
     });
 
     it('accepts a real browser', () => {
@@ -368,6 +373,24 @@ describe('AnalyticsService.track', () => {
     );
 
     expect(prismaMock.pageView.create).not.toHaveBeenCalled();
+  });
+
+  it('counts a view with no user agent at all, classed as desktop', async () => {
+    await service.track(validBody(), undefined);
+
+    expect(prismaMock.pageView.create).toHaveBeenCalledTimes(1);
+    expect(createdCall(prismaMock.pageView.create).data).toEqual(
+      expect.objectContaining({ path: '/ms/faq', device: 'desktop' }),
+    );
+  });
+
+  it('counts a view whose user agent header is blank', async () => {
+    await service.track(validBody(), '   ');
+
+    expect(prismaMock.pageView.create).toHaveBeenCalledTimes(1);
+    expect(createdCall(prismaMock.pageView.create).data).toEqual(
+      expect.objectContaining({ device: 'desktop' }),
+    );
   });
 
   it('drops a request whose visitorId is not 32 hex characters', async () => {

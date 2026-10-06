@@ -48,10 +48,10 @@ model PageView {
 
   @@index([dayKey])
   @@index([path, dayKey])
-  @@index([visitorId, dayKey])
-  @@index([createdAt])
 }
 ```
+
+**Indexes.** Only these two are declared: every overview aggregation filters on `dayKey` alone, and the top-pages pipeline groups by `path` within that window. `[visitorId, dayKey]` and `[createdAt]` were in the original draft but no query ever used them, so they were dropped rather than charged against the write throughput of the busiest write path on the site.
 
 **Privacy.** No IP, no user agent string, no user id, no query strings. `visitorId` is random bytes minted by the browser and is meaningless outside this dataset. Device class is derived from the user agent and the user agent itself is discarded. Rows self-delete after 180 days via a MongoDB TTL index on `expiresAt`, created idempotently by the module on startup (Prisma cannot declare TTL indexes).
 

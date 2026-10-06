@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Sidebar } from './Sidebar';
 import { useAuthStore } from '@/lib/store';
+import { useIsHydrated } from '@/lib/use-is-hydrated';
 import { TopBar } from './TopBar';
 
 interface AdminLayoutProps {
@@ -13,17 +14,24 @@ interface AdminLayoutProps {
 export function AdminLayout({ children }: AdminLayoutProps) {
   const router = useRouter();
   const { isAuthenticated, user } = useAuthStore();
-  const [ready, setReady] = useState(useAuthStore.persist.hasHydrated());
+  const [storeHydrated, setStoreHydrated] = useState(useAuthStore.persist.hasHydrated());
+  // The persist store can report "hydrated" before React's own client
+  // snapshot has landed (see use-is-hydrated.ts for why). Both must be true
+  // before isAuthenticated can be trusted, otherwise a hard page load would
+  // briefly see the server snapshot's isAuthenticated === false and redirect
+  // to /login even for a logged-in user.
+  const clientHydrated = useIsHydrated();
+  const ready = storeHydrated && clientHydrated;
 
   useEffect(() => {
-    if (ready) return;
+    if (storeHydrated) return;
     const unsub = useAuthStore.persist.onFinishHydration?.(() => {
-      setReady(true);
+      setStoreHydrated(true);
     });
     return () => {
       unsub?.();
     };
-  }, [ready]);
+  }, [storeHydrated]);
 
   useEffect(() => {
     if (!ready) return;

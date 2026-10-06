@@ -107,11 +107,11 @@ export class NotificationService {
 
     const areaLabel = formatServiceArea(payload.serviceArea);
     const subject = 'Application received – GURU Credits';
-    const text = `Hi ${payload.name},\n\nThank you for submitting your ${areaLabel ? `${areaLabel} ` : ''}application. Your reference number is ${payload.referenceId}. Our consultant will review your details and follow up via WhatsApp (${this.whatsapp}) within 24 hours.\n\nThe RM30 analysis fee is collected only through our official WhatsApp chat once the consultant confirms your Kuala Lumpur/Selangor details. Please ignore any payment links that do not come from ${this.whatsapp}.\n\nIf you have urgent questions, simply reply to this email or drop us a message on WhatsApp.\n\n— GURU Credits`;
+    const text = `Hi ${payload.name},\n\nThank you for submitting your ${areaLabel ? `${areaLabel} ` : ''}application. Your reference number is ${payload.referenceId}. Our consultant will review your details and follow up via WhatsApp (${this.whatsapp}) within 24 hours.\n\nThe RM30 analysis fee is collected only through our official WhatsApp chat once the consultant confirms your details. Please ignore any payment links that do not come from ${this.whatsapp}.\n\nIf you have urgent questions, simply reply to this email or drop us a message on WhatsApp.\n\n— GURU Credits`;
     const html = `<p>Hi ${payload.name},</p>
 <p>Thank you for submitting your ${areaLabel ? `<strong>${areaLabel}</strong> ` : ''}application for <strong>${payload.serviceName || 'our service'}</strong>.</p>
 <p><strong>Reference:</strong> ${payload.referenceId}</p>
-${areaLabel ? `<p>We have recorded your service area as <strong>${areaLabel}</strong>. At the moment we only serve Kuala Lumpur & Selangor so this helps us route you to the right consultant.</p>` : ''}
+${areaLabel ? `<p>We have recorded your service area as <strong>${areaLabel}</strong>. This helps us route you to the right consultant.</p>` : ''}
 <p>Our consultant will review your details and contact you via WhatsApp (<strong>${this.whatsapp}</strong>) within 24 hours.</p>
 <p><strong>Payment reminder:</strong> The RM30 analysis fee is collected only through our official WhatsApp chat once the consultant confirms your local details. Please ignore any links that do not come from ${this.whatsapp}.</p>
 <p>You can reply to this email or message us on WhatsApp if anything is urgent.</p>
@@ -139,7 +139,7 @@ ${areaLabel ? `<p>We have recorded your service area as <strong>${areaLabel}</st
     const text = `Hi ${payload.name},\n\nWe received your ${areaLabel ? `${areaLabel} ` : ''}message regarding "${payload.subject}". Our support team will respond on WhatsApp (${this.whatsapp}) or email within the next business day.\n\nTalk soon,\nGURU Credits`;
     const html = `<p>Hi ${payload.name},</p>
 <p>We received your enquiry about <strong>${payload.subject}</strong>${areaLabel ? ` from <strong>${areaLabel}</strong>` : ''}. Our consultant will reply via WhatsApp (<strong>${this.whatsapp}</strong>) or email within the next business day.</p>
-${areaLabel ? '<p>At this time we exclusively serve Kuala Lumpur & Selangor, so you’re already on the priority list.</p>' : ''}
+${areaLabel ? `<p>We serve borrowers across Malaysia, and your enquiry has been routed to the consultant for <strong>${areaLabel}</strong>.</p>` : ''}
 <p>Talk soon,<br/>GURU Credits</p>`;
 
     await this.sendMail({

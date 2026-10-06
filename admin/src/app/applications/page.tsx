@@ -395,7 +395,7 @@ function ApplicationsPageContent() {
                   ))}
                 </SelectContent>
               </Select>
-              <p className="text-[11px] text-muted-foreground">Focus on Kuala Lumpur & Selangor leads</p>
+              <p className="text-[11px] text-muted-foreground">Filter leads by state or federal territory</p>
             </div>
           </CardContent>
         </Card>

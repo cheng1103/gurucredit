@@ -108,4 +108,31 @@ describe('getOrCreateVisitorId', () => {
 
     expect(cookieJar.getLastWrite()).not.toContain('; Secure');
   });
+
+  it('writes Max-Age=15552000 (180 days), Path=/, and SameSite=Lax on https', () => {
+    protocolSpy = vi.spyOn(window, 'location', 'get').mockReturnValue({
+      ...window.location,
+      protocol: 'https:',
+    });
+
+    const id = getOrCreateVisitorId();
+
+    // 180 days in seconds: 180 * 24 * 60 * 60 = 15552000.
+    expect(cookieJar.getLastWrite()).toBe(
+      `gc_vid=${id}; Path=/; Max-Age=15552000; SameSite=Lax; Secure`,
+    );
+  });
+
+  it('writes Max-Age=15552000, Path=/, and SameSite=Lax without Secure on http', () => {
+    protocolSpy = vi.spyOn(window, 'location', 'get').mockReturnValue({
+      ...window.location,
+      protocol: 'http:',
+    });
+
+    const id = getOrCreateVisitorId();
+
+    expect(cookieJar.getLastWrite()).toBe(
+      `gc_vid=${id}; Path=/; Max-Age=15552000; SameSite=Lax`,
+    );
+  });
 });

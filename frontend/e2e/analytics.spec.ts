@@ -63,6 +63,25 @@ test.describe('page view beacon', () => {
     }
   });
 
+  test('tags /ms pages with locale "ms" and /en pages with locale "en", sharing one visitor id', async ({ page }) => {
+    const requests = await interceptTrack(page);
+
+    await page.goto('/ms/faq');
+    await expect.poll(() => requests.length).toBe(1);
+    expect(requests[0].path).toBe('/ms/faq');
+    expect(requests[0].locale).toBe('ms');
+
+    await page.goto('/faq');
+    await expect.poll(() => requests.length).toBe(2);
+    expect(requests[1].path).toBe('/faq');
+    expect(requests[1].locale).toBe('en');
+
+    // Same browser context (same cookie jar) across the locale switch means
+    // the same visitor is recognized in both languages.
+    expect(requests[1].visitorId).toBe(requests[0].visitorId);
+    expect(requests[0].visitorId).toMatch(VISITOR_ID_RE);
+  });
+
   test('sends no beacon when Do Not Track is set', async ({ browser }) => {
     const context = await browser.newContext();
     await context.addInitScript(() => {

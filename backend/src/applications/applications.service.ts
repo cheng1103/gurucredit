@@ -524,7 +524,11 @@ export class ApplicationsService {
     });
   }
 
-  async updateStatus(id: string, dto: UpdateApplicationStatusDto, actor?: AuthUser) {
+  async updateStatus(
+    id: string,
+    dto: UpdateApplicationStatusDto,
+    actor?: AuthUser,
+  ) {
     const previous = await this.findOne(id);
 
     const application = await this.prisma.application.update({
@@ -547,11 +551,17 @@ export class ApplicationsService {
       },
     });
 
-    await this.createAuditLog('application.status_updated', 'Application', id, actor, {
-      fromStatus: previous.status,
-      toStatus: dto.status,
-      adminNotesUpdated: dto.adminNotes !== undefined,
-    });
+    await this.createAuditLog(
+      'application.status_updated',
+      'Application',
+      id,
+      actor,
+      {
+        fromStatus: previous.status,
+        toStatus: dto.status,
+        adminNotesUpdated: dto.adminNotes !== undefined,
+      },
+    );
 
     return this.transformApplication(application);
   }
@@ -584,11 +594,17 @@ export class ApplicationsService {
       },
     });
 
-    await this.createAuditLog('application.analysis_submitted', 'Application', id, actor, {
-      approvalChance: dto.approvalChance,
-      creditScore: dto.creditScore,
-      maxLoanAmount: dto.maxLoanAmount,
-    });
+    await this.createAuditLog(
+      'application.analysis_submitted',
+      'Application',
+      id,
+      actor,
+      {
+        approvalChance: dto.approvalChance,
+        creditScore: dto.creditScore,
+        maxLoanAmount: dto.maxLoanAmount,
+      },
+    );
 
     return this.transformApplication(application);
   }
@@ -626,10 +642,16 @@ export class ApplicationsService {
       },
     });
 
-    await this.createAuditLog('application.follow_up_updated', 'Application', id, actor, {
-      followUpAt: followUpAt ? followUpAt.toISOString() : null,
-      followUpStatus: dto.followUpStatus ?? application.followUpStatus,
-    });
+    await this.createAuditLog(
+      'application.follow_up_updated',
+      'Application',
+      id,
+      actor,
+      {
+        followUpAt: followUpAt ? followUpAt.toISOString() : null,
+        followUpStatus: dto.followUpStatus ?? application.followUpStatus,
+      },
+    );
 
     return this.transformApplication(application);
   }
@@ -637,11 +659,17 @@ export class ApplicationsService {
   async logContact(id: string, dto: LogContactDto, actor?: AuthUser) {
     await this.findOne(id);
 
-    await this.createAuditLog('application.contact_logged', 'Application', id, actor, {
-      channel: dto.channel,
-      outcome: dto.outcome,
-      notes: dto.notes,
-    });
+    await this.createAuditLog(
+      'application.contact_logged',
+      'Application',
+      id,
+      actor,
+      {
+        channel: dto.channel,
+        outcome: dto.outcome,
+        notes: dto.notes,
+      },
+    );
 
     return { success: true };
   }

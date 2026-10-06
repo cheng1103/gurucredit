@@ -1,7 +1,15 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateLeadDto, UpdateLeadStatusDto, DistributeLeadDto } from './leads.dto';
+import {
+  CreateLeadDto,
+  UpdateLeadStatusDto,
+  DistributeLeadDto,
+} from './leads.dto';
 import { AuditLogsService } from '../audit-logs/audit-logs.service';
 import type { AuthUser } from '../auth/types/auth-request.interface';
 
@@ -187,6 +195,4 @@ export class LeadsService {
     ]);
     return { total, new: newLeads, contacted, converted };
   }
-
-  
 }

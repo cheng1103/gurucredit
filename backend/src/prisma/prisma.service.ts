@@ -1,4 +1,9 @@
-import { Injectable, Logger, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  OnModuleInit,
+  OnModuleDestroy,
+} from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 
 @Injectable()
@@ -17,7 +22,9 @@ export class PrismaService
       .catch((error) => {
         const message = error instanceof Error ? error.message : String(error);
         this.logger.error(`Prisma initial $connect failed: ${message}`);
-        this.logger.warn('Queries will retry on demand. Check MongoDB network access whitelist.');
+        this.logger.warn(
+          'Queries will retry on demand. Check MongoDB network access whitelist.',
+        );
       });
   }
 

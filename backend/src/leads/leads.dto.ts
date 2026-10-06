@@ -2,7 +2,12 @@ import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { SERVICE_AREA_CODES } from '@guru/shared-config';
 import { Sanitize } from '../common/utils/sanitize.util';
 
-export const LEAD_STATUSES = ['NEW', 'CONTACTED', 'CONVERTED', 'NOT_INTERESTED'] as const;
+export const LEAD_STATUSES = [
+  'NEW',
+  'CONTACTED',
+  'CONVERTED',
+  'NOT_INTERESTED',
+] as const;
 export const LEAD_SOURCES = ['EXIT_INTENT', 'FOOTER', 'POPUP'] as const;
 
 export class CreateLeadDto {

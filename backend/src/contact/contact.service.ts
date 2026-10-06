@@ -73,7 +73,11 @@ export class ContactService {
     });
   }
 
-  async updateStatus(id: string, dto: UpdateContactStatusDto, actor?: AuthUser) {
+  async updateStatus(
+    id: string,
+    dto: UpdateContactStatusDto,
+    actor?: AuthUser,
+  ) {
     const updated = await this.prisma.contactMessage.update({
       where: { id },
       data: {

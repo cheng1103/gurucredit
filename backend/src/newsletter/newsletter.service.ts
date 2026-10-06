@@ -46,7 +46,11 @@ export class NewsletterService {
     pageSize?: number,
   ) {
     const where: Record<string, unknown> =
-      activeOnly === true ? { isActive: true } : activeOnly === false ? { isActive: false } : {};
+      activeOnly === true
+        ? { isActive: true }
+        : activeOnly === false
+          ? { isActive: false }
+          : {};
     if (search) {
       where.email = { contains: search, mode: 'insensitive' };
     }
@@ -76,7 +80,9 @@ export class NewsletterService {
   }
 
   async delete(id: string, actor?: AuthUser) {
-    const deleted = await this.prisma.newsletterSubscriber.delete({ where: { id } });
+    const deleted = await this.prisma.newsletterSubscriber.delete({
+      where: { id },
+    });
     await this.auditLogs.createLog({
       action: 'newsletter.deleted',
       targetType: 'NewsletterSubscriber',

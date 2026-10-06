@@ -11,6 +11,14 @@ import { post as p9 } from './content/blog/loan-guarantor-responsibilities-risks
 import { post as p10 } from './content/blog/credit-card-debt-to-personal-loan-consolidation';
 import { post as p11 } from './content/blog/medical-emergency-loan-malaysia-24-hours';
 import { post as p12 } from './content/blog/wedding-renovation-education-loan-planning';
+import { post as p13 } from './content/blog/angkasa-salary-deduction-loan-explained';
+import { post as p14 } from './content/blog/fresh-graduate-first-personal-loan-malaysia';
+import { post as p15 } from './content/blog/housewife-no-payslip-loan-options-malaysia';
+import { post as p16 } from './content/blog/how-to-read-loan-offer-letter-malaysia';
+import { post as p17 } from './content/blog/late-loan-repayment-consequences-malaysia';
+import { post as p18 } from './content/blog/loan-scam-red-flags-malaysia-2026';
+import { post as p19 } from './content/blog/loan-top-up-vs-refinance-personal-loan-malaysia';
+import { post as p20 } from './content/blog/sabah-sarawak-borrower-guide-loan-malaysia';
 
 export interface BlogPost {
   slug: string;
@@ -65,6 +73,14 @@ export const blogPosts: BlogPost[] = [
   p10,
   p11,
   p12,
+  p13,
+  p14,
+  p15,
+  p16,
+  p17,
+  p18,
+  p19,
+  p20,
   {
     slug: 'personal-loan-malaysia-complete-guide-2026',
     title: 'Personal Loan Malaysia Complete Guide 2026: Bad Credit, Self-Employed, CCRIS, CTOS and Emergency Loan Options',

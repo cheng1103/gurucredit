@@ -11,6 +11,7 @@ import { resolveRequestLanguage } from "@/lib/i18n/server";
 import { Providers } from "@/components/Providers";
 import { WhatsAppFab, StickyMobileCTA, LocaleSuggestBanner } from "@/components/layout";
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/JsonLd";
+import { PageViewTracker } from "@/components/analytics/PageViewTracker";
 
 const defaultOgImage = new URL(SEO.shareImage, SEO.url).toString();
 
@@ -136,6 +137,7 @@ export default async function RootLayout({
           <StickyMobileCTA />
           <Toaster />
         </Providers>
+        <PageViewTracker />
       </body>
     </html>
   );

@@ -24,6 +24,7 @@ import {
 import { AuthGuard, AdminGuard } from '../auth/auth.guard';
 import type { RequestWithUser } from '../auth/types/auth-request.interface';
 import { Throttle } from '@nestjs/throttler';
+import { SERVICE_AREA_CODES } from '@guru/shared-config';
 
 @ApiTags('Applications')
 @Controller('applications')
@@ -82,9 +83,9 @@ export class ApplicationsController {
     @Query('page') page?: string,
     @Query('pageSize') pageSize?: string,
   ) {
-    const allowedAreas = ['MY-14', 'MY-10'];
     const normalizedArea =
-      serviceArea && allowedAreas.includes(serviceArea)
+      serviceArea &&
+      (SERVICE_AREA_CODES as readonly string[]).includes(serviceArea)
         ? serviceArea
         : undefined;
     return this.applicationsService.findAllAdmin({

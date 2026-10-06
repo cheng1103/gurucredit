@@ -78,7 +78,7 @@ export class CreatePublicApplicationDto {
   @ApiProperty({ example: 'MY-14', enum: SERVICE_AREA_CODES })
   @IsString()
   @IsIn(SERVICE_AREA_CODES, {
-    message: 'We currently serve Kuala Lumpur & Selangor only',
+    message: 'Please select a valid Malaysian state or federal territory',
   })
   serviceArea: string;
 

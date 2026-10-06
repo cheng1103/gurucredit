@@ -28,7 +28,7 @@ export class CreateContactDto {
   @IsNotEmpty()
   @IsString()
   @IsIn(SERVICE_AREA_CODES, {
-    message: 'Service area must be Kuala Lumpur or Selangor',
+    message: 'Please select a valid Malaysian state or federal territory',
   })
   serviceArea: string;
 

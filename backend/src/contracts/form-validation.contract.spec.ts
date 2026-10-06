@@ -61,7 +61,7 @@ describe('CreatePublicApplicationDto validation', () => {
     );
     expect(serviceAreaError).toBeDefined();
     expect(serviceAreaError?.constraints?.isIn).toContain(
-      'Kuala Lumpur & Selangor only',
+      'Please select a valid Malaysian state or federal territory',
     );
   });
 });

@@ -264,3 +264,24 @@ model LeadDistribution {
   @@index([leadId, createdAt])
   @@index([teamMemberId, createdAt])
 }
+
+// Anonymous page-view analytics. No IP, no user agent, no user id, no query
+// strings. `visitorId` is random bytes minted in the browser. Rows self-delete
+// after 180 days via a MongoDB TTL index on `expiresAt`, created idempotently
+// by AnalyticsService on startup (Prisma cannot declare TTL indexes).
+model PageView {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  path         String   // public URL path incl. /ms prefix, query stripped, ≤ 512 chars
+  locale       String   // "en" | "ms"
+  visitorId    String   // 32 hex chars, random, minted in the browser — not derived from any personal data
+  referrerHost String?  // host only, never the full referring URL
+  device       String   // "mobile" | "tablet" | "desktop"
+  dayKey       String   // "YYYY-MM-DD" in Asia/Kuala_Lumpur
+  createdAt    DateTime @default(now())
+  expiresAt    DateTime // createdAt + 180 days; TTL index deletes the row
+
+  @@index([dayKey])
+  @@index([path, dayKey])
+  @@index([visitorId, dayKey])
+  @@index([createdAt])
+}

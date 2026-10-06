@@ -10,6 +10,7 @@ import { ContactModule } from './contact/contact.module';
 import { NewsletterModule } from './newsletter/newsletter.module';
 import { LeadsModule } from './leads/leads.module';
 import { AuditLogsModule } from './audit-logs/audit-logs.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 import { TeamMembersModule } from './team-members/team-members.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
@@ -41,6 +42,7 @@ import { HealthModule } from './common/health/health.module';
     NewsletterModule,
     LeadsModule,
     AuditLogsModule,
+    AnalyticsModule,
     TeamMembersModule,
     SecurityModule,
     HealthModule,

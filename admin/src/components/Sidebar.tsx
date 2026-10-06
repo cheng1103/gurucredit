@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Logo } from './Logo';
 import { cn } from '@/lib/utils';
 import {
+  BarChart3,
   LayoutDashboard,
   FileText,
   Users,
@@ -26,7 +27,10 @@ import { OFFLINE_MODE } from '@/lib/config';
 const menuSections = [
   {
     title: 'Overview',
-    items: [{ href: '/', icon: LayoutDashboard, label: 'Dashboard' }],
+    items: [
+      { href: '/', icon: LayoutDashboard, label: 'Dashboard' },
+      { href: '/analytics', icon: BarChart3, label: 'Analytics' },
+    ],
   },
   {
     title: 'Operations',

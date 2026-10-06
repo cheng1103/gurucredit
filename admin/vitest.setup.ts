@@ -37,7 +37,24 @@ const ensureLocalStorage = () => {
   });
 };
 
+// jsdom has no ResizeObserver; recharts' ResponsiveContainer needs one.
+const ensureResizeObserver = () => {
+  if ('ResizeObserver' in globalThis) {
+    return;
+  }
+  class ResizeObserverStub {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+  Object.defineProperty(globalThis, 'ResizeObserver', {
+    value: ResizeObserverStub,
+    writable: true,
+  });
+};
+
 ensureLocalStorage();
+ensureResizeObserver();
 
 beforeEach(() => {
   ensureLocalStorage();

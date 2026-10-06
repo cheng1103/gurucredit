@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { AdminLayout } from '@/components/AdminLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { applicationsAPI, usersAPI } from '@/lib/api';
-import { Users, FileText, DollarSign, TrendingUp, Sparkles, ShieldCheck, Stethoscope } from 'lucide-react';
+import { analyticsAPI, applicationsAPI, usersAPI, type AnalyticsOverview } from '@/lib/api';
+import { Users, FileText, DollarSign, TrendingUp, Sparkles, ShieldCheck, Stethoscope, Eye, UserRound } from 'lucide-react';
 import { StatCard } from '@/components/StatCard';
 import { PageHeader } from '@/components/PageHeader';
 import { StatusBadge } from '@/components/StatusBadge';
@@ -41,8 +41,17 @@ interface ApplicationSummary {
   } | null;
 }
 
+// Only used when NEXT_PUBLIC_ALLOW_OFFLINE_ADMIN is on and the API is unreachable.
+const DEMO_ANALYTICS_TOTALS: AnalyticsOverview['totals'] = {
+  today: { views: 148, visitors: 96 },
+  last7: { views: 1024, visitors: 612 },
+  last30: { views: 4180, visitors: 2355 },
+  allTime: { views: 15890, visitors: 8742 },
+};
+
 export default function DashboardPage() {
   const [stats, setStats] = useState<Stats | null>(null);
+  const [analyticsTotals, setAnalyticsTotals] = useState<AnalyticsOverview['totals'] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [recentApps, setRecentApps] = useState<ApplicationSummary[]>([]);
@@ -50,11 +59,20 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-          const [appStatsResult, userStatsResult, recentResult] = await Promise.allSettled([
+          const [appStatsResult, userStatsResult, recentResult, analyticsResult] = await Promise.allSettled([
           applicationsAPI.getStats(),
           usersAPI.getStats(),
           applicationsAPI.getAll({ page: 1, pageSize: 10 }),
+          analyticsAPI.getOverview(7),
         ]);
+
+        // Analytics degrades on its own: a failure here leaves the two cards
+        // showing a placeholder instead of blanking the dashboard.
+        if (analyticsResult.status === 'fulfilled') {
+          setAnalyticsTotals(analyticsResult.value.data.totals);
+        } else if (OFFLINE_MODE) {
+          setAnalyticsTotals(DEMO_ANALYTICS_TOTALS);
+        }
 
         if (appStatsResult.status === 'fulfilled' && userStatsResult.status === 'fulfilled') {
           setStats({ applications: appStatsResult.value.data, users: userStatsResult.value.data });
@@ -88,6 +106,7 @@ export default function DashboardPage() {
               admins: 4,
             },
           });
+          setAnalyticsTotals(DEMO_ANALYTICS_TOTALS);
           setRecentApps([
             {
               id: 'demo-1',
@@ -129,7 +148,17 @@ export default function DashboardPage() {
     );
   }, [stats?.applications.completed, stats?.applications.total]);
 
-  const statCards = [
+  const formatCount = (value?: number) =>
+    typeof value === 'number' ? value.toLocaleString('en-MY') : '—';
+
+  const statCards: {
+    label: string;
+    value: string;
+    subtext?: string;
+    icon: ReactNode;
+    tone?: 'default' | 'positive' | 'warning' | 'danger' | 'premium';
+    href?: string;
+  }[] = [
     {
       label: 'Total Applications',
       value: stats?.applications.total?.toLocaleString() ?? '—',
@@ -154,6 +183,26 @@ export default function DashboardPage() {
       value: `${completionRate}%`,
       subtext: `${stats?.applications.completed || 0} approved`,
       icon: <TrendingUp className="h-4 w-4" />,
+    },
+    {
+      label: 'Page Views (today)',
+      value: formatCount(analyticsTotals?.today.views),
+      subtext: analyticsTotals
+        ? `${formatCount(analyticsTotals.last7.views)} in the last 7 days`
+        : 'Analytics unavailable',
+      icon: <Eye className="h-4 w-4" />,
+      tone: 'premium' as const,
+      href: '/analytics',
+    },
+    {
+      label: 'Unique Visitors (today)',
+      value: formatCount(analyticsTotals?.today.visitors),
+      subtext: analyticsTotals
+        ? `${formatCount(analyticsTotals.last7.visitors)} in the last 7 days`
+        : 'Analytics unavailable',
+      icon: <UserRound className="h-4 w-4" />,
+      tone: 'positive' as const,
+      href: '/analytics',
     },
   ];
 
@@ -224,9 +273,9 @@ export default function DashboardPage() {
           </Card>
         )}
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {loading
-            ? Array.from({ length: 4 }).map((_, idx) => (
+            ? Array.from({ length: 6 }).map((_, idx) => (
                 <Card key={`skeleton-${idx}`} className="border-none shadow-sm">
                   <CardContent className="space-y-3 pt-6">
                     <Skeleton className="h-4 w-24" />
@@ -235,9 +284,19 @@ export default function DashboardPage() {
                   </CardContent>
                 </Card>
               ))
-            : statCards.map((card) => (
-                <StatCard key={card.label} {...card} />
-              ))}
+            : statCards.map(({ href, ...card }) =>
+                href ? (
+                  <Link
+                    key={card.label}
+                    href={href}
+                    className="group rounded-xl transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    <StatCard {...card} className="h-full" />
+                  </Link>
+                ) : (
+                  <StatCard key={card.label} {...card} />
+                ),
+              )}
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">

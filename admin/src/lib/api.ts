@@ -196,6 +196,45 @@ export const auditLogsAPI = {
     api.get('/audit-logs', { params: filters }),
 };
 
+// Analytics API
+export type AnalyticsRangeDays = 7 | 30 | 90;
+
+interface AnalyticsCount {
+  views: number;
+  visitors: number;
+}
+
+export interface AnalyticsSeriesPoint extends AnalyticsCount {
+  /** "YYYY-MM-DD" day key in Asia/Kuala_Lumpur. */
+  date: string;
+}
+
+export interface AnalyticsTopPage extends AnalyticsCount {
+  path: string;
+}
+
+export interface AnalyticsOverview {
+  totals: {
+    today: AnalyticsCount;
+    last7: AnalyticsCount;
+    last30: AnalyticsCount;
+    allTime: AnalyticsCount;
+  };
+  /** One row per day in the requested window, zero-filled and ascending. */
+  series: AnalyticsSeriesPoint[];
+  /** Up to 10 rows, views desc. Empty array when there is no traffic. */
+  topPages: AnalyticsTopPage[];
+  localeSplit: { en: number; ms: number };
+  deviceSplit: { mobile: number; tablet: number; desktop: number };
+  rangeDays: number;
+  generatedAt: string;
+}
+
+export const analyticsAPI = {
+  getOverview: (days: AnalyticsRangeDays = 30) =>
+    api.get<AnalyticsOverview>('/analytics/overview', { params: { days } }),
+};
+
 export const teamMembersAPI = {
   getAll: (params?: { activeOnly?: string; page?: number; pageSize?: number }) =>
     api.get('/team-members', { params }),

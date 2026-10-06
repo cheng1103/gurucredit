@@ -13,7 +13,9 @@ export class PrismaService
 {
   private readonly logger = new Logger(PrismaService.name);
 
-  async onModuleInit() {
+  // Not `async`: the connect below is deliberately fire-and-forget, so there
+  // is nothing to await and an `async` signature would only mislead.
+  onModuleInit(): void {
     // Fire-and-forget connect. If Atlas is slow/unreachable at startup,
     // the Nest app must still reach its PORT so the healthcheck /api/health
     // can respond. Queries will lazy-connect on first call.

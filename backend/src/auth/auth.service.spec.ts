@@ -13,6 +13,11 @@ jest.mock('bcrypt', () => ({
 
 import * as bcrypt from 'bcrypt';
 
+// `bcrypt` is mocked above, but `jest.spyOn` resolves `compare` to its
+// callback overload (which returns void), so `mockResolvedValue` would be
+// typed `never`. Reach for the mock directly instead.
+const bcryptCompare = bcrypt.compare as unknown as jest.Mock;
+
 type PrismaMock = {
   user: {
     findUnique: jest.Mock<
@@ -87,7 +92,7 @@ describe('AuthService security protections', () => {
       createConfigMock(),
       createPiiMock(),
     );
-    jest.spyOn(bcrypt, 'compare').mockResolvedValue(true);
+    bcryptCompare.mockResolvedValue(true);
   });
 
   afterEach(() => {
@@ -106,7 +111,7 @@ describe('AuthService security protections', () => {
   });
 
   it('locks the account after fifth failed attempt', async () => {
-    jest.spyOn(bcrypt, 'compare').mockResolvedValue(false);
+    bcryptCompare.mockResolvedValue(false);
     prisma.user.findUnique.mockResolvedValue(
       buildUser({ failedLoginAttempts: 4 }),
     );

@@ -1,6 +1,7 @@
 import { ContactService } from './contact.service';
 import type { PrismaService } from '../prisma/prisma.service';
 import type { NotificationService } from '../notifications/notification.service';
+import type { AuditLogsService } from '../audit-logs/audit-logs.service';
 import type { CreateContactDto } from './contact.dto';
 
 describe('ContactService', () => {
@@ -12,11 +13,15 @@ describe('ContactService', () => {
   const notificationsMock = {
     sendContactAcknowledgement: jest.fn(),
   };
+  const auditLogsMock = {
+    createLog: jest.fn(),
+  };
 
   const service = () =>
     new ContactService(
       prismaMock as unknown as PrismaService,
       notificationsMock as unknown as NotificationService,
+      auditLogsMock as unknown as AuditLogsService,
     );
 
   beforeEach(() => {
@@ -28,6 +33,7 @@ describe('ContactService', () => {
       serviceArea: 'MY-14',
     });
     notificationsMock.sendContactAcknowledgement.mockResolvedValue(undefined);
+    auditLogsMock.createLog.mockResolvedValue(undefined);
   });
 
   it('stores a contact message and triggers notification', async () => {

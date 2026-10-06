@@ -6,7 +6,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, UserRole } from './dto/create-user.dto';
 import { PiiEncryptionService } from '../common/security/pii-encryption.service';
 import type { AuthUser } from '../auth/types/auth-request.interface';
 
@@ -182,7 +182,7 @@ export class UsersService {
   }
 
   async create(data: CreateUserDto, actor?: AuthUser) {
-    if (data.role === 'SUPER_ADMIN') {
+    if (data.role === UserRole.SUPER_ADMIN) {
       throw new BadRequestException('SUPER_ADMIN role cannot be assigned');
     }
     const hashedPassword = await bcrypt.hash(data.password, 10);

@@ -10,6 +10,11 @@ describe('ApplicationsService', () => {
       create: jest.fn(),
       findMany: jest.fn(),
     },
+    // createPublic resolves a catalog slug to a real service id via
+    // `service.findFirst`; the mock drifted and never grew the delegate.
+    service: {
+      findFirst: jest.fn(),
+    },
   };
   const notificationsMock = {
     sendApplicationAcknowledgement: jest.fn(),
@@ -29,6 +34,7 @@ describe('ApplicationsService', () => {
     );
 
   beforeEach(() => {
+    jest.clearAllMocks();
     prismaMock.application.create.mockResolvedValue({
       id: 'app-1',
       applicantName: 'Hafiz',
@@ -37,6 +43,7 @@ describe('ApplicationsService', () => {
       serviceArea: 'MY-14',
       service: { name: 'Personal Loan' },
     });
+    prismaMock.service.findFirst.mockResolvedValue({ id: 'svc-db-1' });
     notificationsMock.sendApplicationAcknowledgement.mockResolvedValue(
       undefined,
     );
@@ -49,7 +56,7 @@ describe('ApplicationsService', () => {
 
   it('creates a public application and sums debts', async () => {
     const dto: CreatePublicApplicationDto = {
-      serviceId: 'svc-1',
+      serviceId: '507f1f77bcf86cd799439011',
       name: 'Hafiz',
       email: 'hafiz@example.com',
       phone: '0112345678',
@@ -89,6 +96,34 @@ describe('ApplicationsService', () => {
         name: dto.name,
         serviceArea: dto.serviceArea,
         serviceName: 'Personal Loan',
+      }),
+    );
+    // A 24-char hex id is trusted as-is, so no lookup is needed.
+    expect(prismaMock.service.findFirst).not.toHaveBeenCalled();
+  });
+
+  it('resolves a catalog slug to the first active service', async () => {
+    const dto = {
+      serviceId: '1',
+      name: 'Hafiz',
+      email: 'hafiz@example.com',
+      phone: '0112345678',
+      serviceArea: 'MY-14',
+      monthlyIncome: 6000,
+    } as CreatePublicApplicationDto;
+
+    await service().createPublic(dto);
+
+    expect(prismaMock.service.findFirst).toHaveBeenCalledWith({
+      where: { type: 'ELIGIBILITY_ANALYSIS', isActive: true },
+      select: { id: true },
+    });
+    expect(prismaMock.application.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          serviceId: 'svc-db-1',
+          existingDebts: 0,
+        }) as Record<string, unknown>,
       }),
     );
   });

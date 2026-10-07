@@ -261,7 +261,9 @@ export class ApplicationsService {
         applicantName: user.name,
         applicantEmail: user.email,
         applicantPhone: user.phone,
-        serviceArea: dto.serviceArea ?? 'MY-14',
+        // Left unset when the applicant did not give one. Stamping
+        // 'MY-14' here used to invent Kuala Lumpur and then email it back.
+        serviceArea: dto.serviceArea,
         applicantIcNumber: user.icNumber ?? undefined,
         monthlyIncome: dto.monthlyIncome,
         existingDebts: dto.existingDebts,
@@ -286,8 +288,7 @@ export class ApplicationsService {
     });
 
     const serviceName = service?.name ?? this.extractServiceName(application);
-    const serviceArea =
-      this.extractServiceArea(application) ?? dto.serviceArea ?? 'MY-14';
+    const serviceArea = this.extractServiceArea(application) ?? dto.serviceArea;
 
     void this.notifications.sendApplicationAcknowledgement({
       email: application.applicantEmail,
@@ -368,7 +369,7 @@ export class ApplicationsService {
       applicantName: application.applicantName,
       status: application.status,
       createdAt: application.createdAt,
-      serviceArea: serviceArea ?? 'MY-14',
+      serviceArea: serviceArea ?? null,
       contactPreference: application.contactPreference,
       referralSource: application.referralSource,
       serviceName,

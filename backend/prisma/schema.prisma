@@ -56,7 +56,10 @@ model Application {
   applicantName     String   @default("")
   applicantEmail    String   @default("")
   applicantPhone    String?
-  serviceArea       String   @default("MY-14")
+  // Optional: the public form requires it, the authenticated flow does not.
+  // Previously defaulted to "MY-14" (Kuala Lumpur), which invented a location
+  // for applicants who never gave one — and then emailed it back to them.
+  serviceArea       String?
   applicantIcNumber String?
 
   // Personal Info

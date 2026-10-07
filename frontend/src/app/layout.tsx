@@ -97,7 +97,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     // icons are auto-detected from src/app/icon.png, apple-icon.png, favicon.ico
     other: {
-      "geo.region": "MY-14,MY-10",
+      "geo.region": "MY",
       "geo.placename": "Malaysia",
       "geo.position": "3.1390;101.6869",
       ICBM: "3.1390, 101.6869",

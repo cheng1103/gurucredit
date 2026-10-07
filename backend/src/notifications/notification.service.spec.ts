@@ -60,6 +60,42 @@ describe('NotificationService', () => {
     expect(payload.html).toContain('+601122233344');
   });
 
+  it('omits the service-area line when the applicant never gave one', async () => {
+    const sendMail: SendMailMock = jest
+      .fn<Promise<void>, [SendMailOptions]>()
+      .mockResolvedValue(undefined);
+    mockCreateTransport.mockReturnValue({ sendMail });
+
+    const config = createConfigMock({
+      SMTP_HOST: 'smtp.test',
+      SMTP_PORT: 2525,
+      SMTP_USER: 'user',
+      SMTP_PASS: 'pass',
+      SMTP_FROM: 'no-reply@test.com',
+      COMPANY_WHATSAPP: '+601122233344',
+    });
+
+    const service = new NotificationService(config as ConfigService);
+
+    await service.sendApplicationAcknowledgement({
+      name: 'Ayu',
+      email: 'ayu@example.com',
+      referenceId: 'GC124',
+      serviceName: 'Personal Loan',
+      serviceArea: undefined,
+    });
+
+    const payload = sendMail.mock.calls[0][0];
+    // The old 'MY-14' default made this email tell an applicant from any of
+    // the other 15 states that their service area was Kuala Lumpur.
+    expect(payload.html).not.toContain('Kuala Lumpur');
+    expect(payload.html).not.toContain('We have recorded your service area');
+    expect(payload.text).not.toContain('Kuala Lumpur');
+    // The rest of the email is intact.
+    expect(payload.html).toContain('GC124');
+    expect(payload.html).toContain('Personal Loan');
+  });
+
   it('skips sending when recipient email is missing', async () => {
     const sendMail: SendMailMock = jest.fn<Promise<void>, [SendMailOptions]>();
     mockCreateTransport.mockReturnValue({ sendMail });

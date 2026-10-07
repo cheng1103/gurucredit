@@ -6,6 +6,8 @@ import {
   THROTTLER_LIMIT,
   THROTTLER_TTL,
 } from '@nestjs/throttler/dist/throttler.constants';
+import type { Server } from 'node:http';
+import type { AddressInfo } from 'node:net';
 import request from 'supertest';
 import type { App } from 'supertest/types';
 import { GLOBAL_THROTTLE_LIMIT, THROTTLE_WINDOW_MS } from './throttle';
@@ -113,6 +115,12 @@ describe('throttle windows', () => {
  */
 describe('ThrottlerGuard on POST /api/analytics/track', () => {
   let app: INestApplication<App>;
+  /**
+   * One listener for the whole test. Handing supertest the server object
+   * instead makes it `listen(0)` per request, i.e. 241 ephemeral listeners —
+   * which intermittently fails under the parallel jest run.
+   */
+  let baseUrl: string;
 
   const allow: CanActivate = { canActivate: () => true };
   const beacon = {
@@ -149,24 +157,29 @@ describe('ThrottlerGuard on POST /api/analytics/track', () => {
     app = moduleRef.createNestApplication<INestApplication<App>>();
     app.setGlobalPrefix('api');
     await app.init();
+
+    const server = app.getHttpServer() as Server;
+    await new Promise<void>((resolve) => {
+      server.listen(0, '127.0.0.1', () => resolve());
+    });
+    const address = server.address() as AddressInfo;
+    baseUrl = `http://127.0.0.1:${address.port}`;
   }, 60_000);
 
   afterAll(async () => {
-    // Clears the storage service's pending expiry timers.
+    // Closes the listener and clears the storage service's expiry timers.
     await app.close();
   });
 
   it('answers 429 once the 240-per-minute bucket is exhausted', async () => {
-    const server = app.getHttpServer();
-
     for (let sent = 0; sent < 240; sent += 1) {
-      await request(server)
+      await request(baseUrl)
         .post('/api/analytics/track')
         .send(beacon)
         .expect(204);
     }
 
-    const blocked = await request(server)
+    const blocked = await request(baseUrl)
       .post('/api/analytics/track')
       .send(beacon)
       .expect(429);

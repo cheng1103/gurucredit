@@ -195,7 +195,7 @@ model ContactMessage {
   name      String
   email     String
   phone     String?
-  serviceArea String  @default("MY-14")
+  serviceArea String
   subject   String
   message   String
   status    String    @default("NEW") // NEW, READ, REPLIED, ARCHIVED
@@ -223,7 +223,7 @@ model NewsletterSubscriber {
 model Lead {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   phone     String
-  serviceArea String  @default("MY-14")
+  serviceArea String
   source    String   @default("EXIT_INTENT") // EXIT_INTENT, FOOTER, POPUP
   pageUrl   String?
   language  String?

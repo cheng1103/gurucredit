@@ -369,7 +369,8 @@ export default function AnalyticsPage() {
                   <CardHeader>
                     <CardTitle>Top pages</CardTitle>
                     <CardDescription>
-                      Most visited paths in the last {rangeDays} days, up to ten.
+                      Most visited paths in the last {rangeDays} days, up to ten. Paths
+                      outside the site&rsquo;s known routes are grouped as /_other.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -418,7 +419,7 @@ export default function AnalyticsPage() {
                     <CardHeader>
                       <CardTitle>Language</CardTitle>
                       <CardDescription>
-                        Views by site language, last {rangeDays} days.
+                        Views by URL language prefix, last {rangeDays} days.
                       </CardDescription>
                     </CardHeader>
                     <CardContent>

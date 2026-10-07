@@ -24,6 +24,7 @@ import {
 import { AuthGuard, AdminGuard } from '../auth/auth.guard';
 import type { RequestWithUser } from '../auth/types/auth-request.interface';
 import { Throttle } from '@nestjs/throttler';
+import { THROTTLE_WINDOW_MS } from '../common/throttle';
 import { SERVICE_AREA_CODES } from '@guru/shared-config';
 
 @ApiTags('Applications')
@@ -40,7 +41,7 @@ export class ApplicationsController {
 
   @Post('public')
   @ApiOperation({ summary: 'Create a public application (no login required)' })
-  @Throttle({ default: { limit: 5, ttl: 60 } })
+  @Throttle({ default: { limit: 5, ttl: THROTTLE_WINDOW_MS } })
   createPublic(@Body() dto: CreatePublicApplicationDto) {
     return this.applicationsService.createPublic(dto);
   }
@@ -49,7 +50,7 @@ export class ApplicationsController {
   @ApiOperation({
     summary: 'Lookup application status by reference ID + email',
   })
-  @Throttle({ default: { limit: 5, ttl: 60 } })
+  @Throttle({ default: { limit: 5, ttl: THROTTLE_WINDOW_MS } })
   lookupByReference(@Body() dto: ReferenceLookupDto) {
     return this.applicationsService.findByReference(dto);
   }

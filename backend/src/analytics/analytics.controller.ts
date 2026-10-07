@@ -17,6 +17,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
+import { THROTTLE_WINDOW_MS } from '../common/throttle';
 import { AdminGuard, AuthGuard } from '../auth/auth.guard';
 import { AnalyticsOverview, AnalyticsService } from './analytics.service';
 import { TrackPageViewDto } from './dto/track-page-view.dto';
@@ -35,7 +36,7 @@ export class AnalyticsController {
    * the caller's IP.
    */
   @Post('track')
-  @Throttle({ default: { limit: 240, ttl: 60 } })
+  @Throttle({ default: { limit: 240, ttl: THROTTLE_WINDOW_MS } })
   @HttpCode(204)
   @ApiOperation({ summary: 'Record one anonymous page view' })
   @ApiBody({ type: TrackPageViewDto })

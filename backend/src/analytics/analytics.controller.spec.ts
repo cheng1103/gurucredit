@@ -14,6 +14,7 @@ import type { NestExpressApplication } from '@nestjs/platform-express';
 import request from 'supertest';
 import type { App } from 'supertest/types';
 import { configureApp } from '../app-setup';
+import { THROTTLE_WINDOW_MS } from '../common/throttle';
 import { AdminGuard, AuthGuard } from '../auth/auth.guard';
 import { AnalyticsController } from './analytics.controller';
 import { AnalyticsService, AnalyticsOverview } from './analytics.service';
@@ -173,7 +174,7 @@ describe('AnalyticsController', () => {
       expect(response.text).toBe('');
     });
 
-    it('carries its own 240/60s throttle bucket', () => {
+    it('carries its own 240-per-minute throttle bucket', () => {
       const reflector = new Reflector();
       const handler = Object.getOwnPropertyDescriptor(
         AnalyticsController.prototype,
@@ -183,9 +184,13 @@ describe('AnalyticsController', () => {
       expect(reflector.get<number>(`${THROTTLER_LIMIT}default`, handler)).toBe(
         240,
       );
+      // Milliseconds, not seconds — see src/common/throttle.ts. The previous
+      // assertion of `60` was literally true of the code and false of the
+      // behaviour, which is what hid a 60 ms rate-limit window.
       expect(reflector.get<number>(`${THROTTLER_TTL}default`, handler)).toBe(
-        60,
+        THROTTLE_WINDOW_MS,
       );
+      expect(THROTTLE_WINDOW_MS).toBe(60_000);
     });
   });
 

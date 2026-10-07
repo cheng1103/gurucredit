@@ -19,6 +19,7 @@ import { envValidationSchema } from './config/env.validation';
 import { AppLoggerService } from './common/logger/app-logger.service';
 import { SecurityModule } from './common/security/security.module';
 import { HealthModule } from './common/health/health.module';
+import { GLOBAL_THROTTLE_LIMIT, THROTTLE_WINDOW_MS } from './common/throttle';
 
 @Module({
   imports: [
@@ -29,8 +30,8 @@ import { HealthModule } from './common/health/health.module';
     PrismaModule,
     ThrottlerModule.forRoot([
       {
-        ttl: 60,
-        limit: 60,
+        ttl: THROTTLE_WINDOW_MS,
+        limit: GLOBAL_THROTTLE_LIMIT,
       },
     ]),
     AuthModule,

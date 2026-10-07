@@ -20,6 +20,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Throttle } from '@nestjs/throttler';
+import { THROTTLE_WINDOW_MS } from '../common/throttle';
 import type { RequestWithUser } from '../auth/types/auth-request.interface';
 
 @Controller('leads')
@@ -28,7 +29,7 @@ export class LeadsController {
 
   // Public endpoint for capturing leads
   @Post()
-  @Throttle({ default: { limit: 8, ttl: 60 } })
+  @Throttle({ default: { limit: 8, ttl: THROTTLE_WINDOW_MS } })
   create(@Body() dto: CreateLeadDto) {
     return this.leadsService.create(dto);
   }

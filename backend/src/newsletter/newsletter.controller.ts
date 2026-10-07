@@ -15,6 +15,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Throttle } from '@nestjs/throttler';
+import { THROTTLE_WINDOW_MS } from '../common/throttle';
 import type { RequestWithUser } from '../auth/types/auth-request.interface';
 
 @Controller('newsletter')
@@ -23,13 +24,13 @@ export class NewsletterController {
 
   // Public endpoint
   @Post('subscribe')
-  @Throttle({ default: { limit: 5, ttl: 60 } })
+  @Throttle({ default: { limit: 5, ttl: THROTTLE_WINDOW_MS } })
   subscribe(@Body() dto: SubscribeDto) {
     return this.newsletterService.subscribe(dto);
   }
 
   @Post('unsubscribe')
-  @Throttle({ default: { limit: 5, ttl: 60 } })
+  @Throttle({ default: { limit: 5, ttl: THROTTLE_WINDOW_MS } })
   unsubscribe(@Body() dto: SubscribeDto) {
     return this.newsletterService.unsubscribe(dto.email);
   }

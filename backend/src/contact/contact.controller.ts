@@ -16,6 +16,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Throttle } from '@nestjs/throttler';
+import { THROTTLE_WINDOW_MS } from '../common/throttle';
 import type { RequestWithUser } from '../auth/types/auth-request.interface';
 
 @Controller('contact')
@@ -24,7 +25,7 @@ export class ContactController {
 
   // Public endpoint for contact form submission
   @Post()
-  @Throttle({ default: { limit: 3, ttl: 60 } })
+  @Throttle({ default: { limit: 3, ttl: THROTTLE_WINDOW_MS } })
   create(@Body() dto: CreateContactDto) {
     return this.contactService.create(dto);
   }

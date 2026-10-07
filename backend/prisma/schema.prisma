@@ -266,7 +266,9 @@ model LeadDistribution {
 }
 
 // Anonymous page-view analytics. No IP, no user agent, no user id, no query
-// strings. `visitorId` is random bytes minted in the browser. Rows self-delete
+// strings and no per-row timestamp. `visitorId` is random bytes minted in the
+// browser. `path` is one of the routes the site serves or the literal
+// `/_other`, so nothing caller-controlled is ever stored. Rows self-delete
 // after 180 days via a MongoDB TTL index on `expiresAt`, created idempotently
 // by AnalyticsService on startup (Prisma cannot declare TTL indexes).
 model PageView {
@@ -277,8 +279,12 @@ model PageView {
   referrerHost String?  // host only, never the full referring URL
   device       String   // "mobile" | "tablet" | "desktop"
   dayKey       String   // "YYYY-MM-DD" in Asia/Kuala_Lumpur
-  createdAt    DateTime @default(now())
-  expiresAt    DateTime // createdAt + 180 days; TTL index deletes the row
+  // Day granularity on purpose, and no `createdAt`: a millisecond timestamp
+  // here would let anyone with database read access join a `visitorId` to a
+  // named `Application` by nearest timestamp and so recover that person's
+  // whole browsing history. Start of the Kuala Lumpur day after the view,
+  // plus 180 days — identical for every row written on the same day.
+  expiresAt    DateTime // TTL index deletes the row
 
   // Only these two are queried: every overview aggregation filters on `dayKey`
   // alone, and the top-pages pipeline groups by `path` within that window.

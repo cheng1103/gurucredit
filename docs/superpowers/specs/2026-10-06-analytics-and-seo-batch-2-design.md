@@ -43,17 +43,20 @@ model PageView {
   referrerHost String?  // host only, never the full referring URL
   device       String   // "mobile" | "tablet" | "desktop"
   dayKey       String   // "YYYY-MM-DD" in Asia/Kuala_Lumpur
-  createdAt    DateTime @default(now())
-  expiresAt    DateTime // createdAt + 180 days; TTL index deletes the row
+  expiresAt    DateTime // start of the next Kuala Lumpur day + 180 days; TTL index deletes the row
 
   @@index([dayKey])
   @@index([path, dayKey])
 }
 ```
 
+**No per-row timestamp (revised).** The model originally carried `createdAt DateTime @default(now())` and a millisecond-precision `expiresAt`. Both were removed: `Application` rows carry `applicantName`, `applicantEmail` and `applicantIcNumber` alongside their own `createdAt`, and applications are rare events, so a millisecond timestamp on `PageView` let anyone with database read access match a named applicant to the `/services/<id>/apply` view nearest their application time, recover that person's `visitorId`, and from it their entire 180-day browsing history. No query ever read `createdAt` — `dayKey` drives every aggregation and `expiresAt` drives the TTL — so the field was dropped outright, and `expiresAt` was coarsened to the start of the Kuala Lumpur day *after* the view plus 180 days. Every row written on the same day now shares one `expiresAt`, leaving the join no finer than a one-day bucket.
+
+**`path` is an allowlist, not free text (revised).** `path` is stored only when it matches a route the site actually serves — the static `PATHS` list plus the four dynamic shapes (`/blog/<slug>`, `/loan-guides/topics/<slug>`, `/loans/my/<region>`, `/services/<id>/apply`), each optionally under `/ms`. Anything else is stored as the literal `/_other`: the view still counts, but a 404 from a mangled link (an email client turning a URL into `…/blog/x (someone@example.com)`) and a hostile caller's chosen string can no longer put text of their choosing into the collection or the admin's top-pages table. Structurally unusable input (a scheme, `..`, a control character) is still dropped without a row.
+
 **Indexes.** Only these two are declared: every overview aggregation filters on `dayKey` alone, and the top-pages pipeline groups by `path` within that window. `[visitorId, dayKey]` and `[createdAt]` were in the original draft but no query ever used them, so they were dropped rather than charged against the write throughput of the busiest write path on the site.
 
-**Privacy.** No IP, no user agent string, no user id, no query strings. `visitorId` is random bytes minted by the browser and is meaningless outside this dataset. Device class is derived from the user agent and the user agent itself is discarded. Rows self-delete after 180 days via a MongoDB TTL index on `expiresAt`, created idempotently by the module on startup (Prisma cannot declare TTL indexes).
+**Privacy.** No IP, no user agent string, no user id, no query strings. `visitorId` is random bytes minted by the browser and is meaningless outside this dataset. Device class is derived from the user agent and the user agent itself is discarded. No per-row timestamp at all (see above). Rows self-delete after 180 days via a MongoDB TTL index on `expiresAt`, created idempotently by the module on startup (Prisma cannot declare TTL indexes); a failure to create that index is logged at `error` naming the index and retried once, because it is the only thing that deletes rows.
 
 ## 5. Backend
 

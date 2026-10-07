@@ -1,12 +1,17 @@
+import { Logger } from '@nestjs/common';
 import {
   AnalyticsService,
+  OTHER_PATH_BUCKET,
   PAGE_VIEW_RETENTION_DAYS,
+  PAGE_VIEW_TTL_INDEX_NAME,
+  bucketPath,
   dayKeyInKualaLumpur,
   deviceClassFromUserAgent,
   isBotUserAgent,
   isValidVisitorId,
   normalizePath,
   resolveRangeDays,
+  retentionExpiryForDayKey,
 } from './analytics.service';
 import type { PrismaService } from '../prisma/prisma.service';
 
@@ -119,6 +124,92 @@ const runPipeline = (docs: Doc[], pipeline: Doc[]): Doc[] =>
     throw new Error(`unsupported stage: ${Object.keys(stage).join(',')}`);
   }, docs);
 
+/**
+ * A `$runCommandRaw` stand-in that behaves like a real MongoDB cursor: it
+ * hands back at most `batchSize` documents per round trip and only reports
+ * the cursor exhausted (`id: 0`) once everything has been drained with
+ * `getMore`. The cursor id is returned in extended-JSON `{ $numberLong }`
+ * form, which is how Prisma surfaces an int64.
+ *
+ * MongoDB's real default first batch is 101 documents — the service used to
+ * read only that first batch, so anything larger was silently truncated.
+ */
+const createCursorServer = (rows: Doc[], batchSize: number): jest.Mock => {
+  const open = new Map<string, Doc[]>();
+  let nextCursorId = 1;
+
+  const page = (
+    id: string,
+    pending: Doc[],
+    field: 'firstBatch' | 'nextBatch',
+  ) => {
+    const batch = pending.slice(0, batchSize);
+    const rest = pending.slice(batchSize);
+    if (rest.length === 0) {
+      open.delete(id);
+      return { cursor: { id: 0, ns: 'test.PageView', [field]: batch }, ok: 1 };
+    }
+    open.set(id, rest);
+    return {
+      cursor: {
+        id: { $numberLong: id },
+        ns: 'test.PageView',
+        [field]: batch,
+      },
+      ok: 1,
+    };
+  };
+
+  return jest.fn((command: unknown) => {
+    const cmd = command as Record<string, unknown>;
+
+    if ('aggregate' in cmd) {
+      if (cmd.aggregate !== 'PageView') {
+        throw new Error(`unexpected collection: ${String(cmd.aggregate)}`);
+      }
+      const id = String(nextCursorId);
+      nextCursorId += 1;
+      const results = runPipeline(rows, cmd.pipeline as Doc[]);
+      return Promise.resolve(page(id, results, 'firstBatch'));
+    }
+
+    if ('getMore' in cmd) {
+      const raw = cmd.getMore as { $numberLong?: string } | number | string;
+      const id =
+        typeof raw === 'object' ? String(raw.$numberLong) : String(raw);
+      const pending = open.get(id);
+      if (!pending) throw new Error(`getMore on an unknown cursor: ${id}`);
+      if (cmd.collection !== 'PageView') {
+        throw new Error('getMore must name the collection');
+      }
+      return Promise.resolve(page(id, pending, 'nextBatch'));
+    }
+
+    throw new Error(`unsupported command: ${Object.keys(cmd).join(',')}`);
+  });
+};
+
+/** `days` days of rows ending on `lastDayKey`, one view each. */
+const seedDays = (lastDayKey: string, days: number): Doc[] => {
+  const start = Date.parse(`${lastDayKey}T00:00:00Z`);
+  return Array.from({ length: days }, (_, index) => ({
+    dayKey: new Date(start - (days - 1 - index) * 86_400_000)
+      .toISOString()
+      .slice(0, 10),
+    path: '/',
+    locale: 'en',
+    visitorId: VISITOR_A,
+    device: 'desktop',
+  }));
+};
+
+/** The private aggregation helper, for the cursor-draining tests. */
+type Aggregate = (pipeline: Doc[]) => Promise<Doc[]>;
+const aggregateOf = (service: AnalyticsService): Aggregate => {
+  const internals = service as unknown as { aggregate: Aggregate };
+  return (pipeline) => internals.aggregate(pipeline);
+};
+
 /** The single `pageView.create({ data })` argument, typed for assertions. */
 const createdCall = (create: jest.Mock): { data: Record<string, unknown> } => {
   const calls = create.mock.calls as unknown as Array<
@@ -179,6 +270,84 @@ describe('analytics helpers', () => {
     it('rejects non-string input', () => {
       expect(normalizePath(undefined)).toBeNull();
       expect(normalizePath(42)).toBeNull();
+    });
+  });
+
+  describe('bucketPath', () => {
+    it('keeps a static route the site serves', () => {
+      expect(bucketPath('/')).toBe('/');
+      expect(bucketPath('/faq')).toBe('/faq');
+      expect(bucketPath('/tools/compare')).toBe('/tools/compare');
+      expect(bucketPath('/loan-guides/ccris-ctos')).toBe(
+        '/loan-guides/ccris-ctos',
+      );
+    });
+
+    it('keeps the same routes under the /ms prefix, including the Malay home', () => {
+      expect(bucketPath('/ms')).toBe('/ms');
+      expect(bucketPath('/ms/faq')).toBe('/ms/faq');
+      expect(bucketPath('/ms/tools/compare')).toBe('/ms/tools/compare');
+    });
+
+    it('keeps the four dynamic route shapes', () => {
+      expect(
+        bucketPath('/blog/personal-loan-malaysia-complete-guide-2026'),
+      ).toBe('/blog/personal-loan-malaysia-complete-guide-2026');
+      expect(
+        bucketPath('/ms/blog/sabah-sarawak-borrower-guide-loan-malaysia'),
+      ).toBe('/ms/blog/sabah-sarawak-borrower-guide-loan-malaysia');
+      expect(bucketPath('/loan-guides/topics/bad-credit-loan-options')).toBe(
+        '/loan-guides/topics/bad-credit-loan-options',
+      );
+      expect(bucketPath('/loans/my/negeri-sembilan')).toBe(
+        '/loans/my/negeri-sembilan',
+      );
+      expect(bucketPath('/services/1/apply')).toBe('/services/1/apply');
+    });
+
+    it('buckets a 404 that is not a route the site serves', () => {
+      expect(bucketPath('/this-page-does-not-exist')).toBe(OTHER_PATH_BUCKET);
+      expect(bucketPath('/ms/nope')).toBe(OTHER_PATH_BUCKET);
+      expect(bucketPath('/blog/a/b')).toBe(OTHER_PATH_BUCKET);
+      expect(bucketPath('/services/1')).toBe(OTHER_PATH_BUCKET);
+    });
+
+    it('buckets a mangled link carrying a third party email address', () => {
+      // A real failure mode: an email client turning a link into a path.
+      expect(bucketPath('/blog/x (baabaa311@gmail.com)')).toBe(
+        OTHER_PATH_BUCKET,
+      );
+      expect(bucketPath('/blog/ali.bin.abu@gmail.com')).toBe(OTHER_PATH_BUCKET);
+    });
+
+    it('buckets anything IC-, phone- or reference-number shaped', () => {
+      expect(bucketPath('/blog/880101105432')).toBe(OTHER_PATH_BUCKET);
+      expect(bucketPath('/services/0123456789/apply')).toBe(OTHER_PATH_BUCKET);
+    });
+
+    it('buckets an attacker-chosen string instead of storing it', () => {
+      expect(bucketPath('/Buy-Cheap-Pills-Now')).toBe(OTHER_PATH_BUCKET);
+      expect(bucketPath(`/${'a'.repeat(300)}`)).toBe(OTHER_PATH_BUCKET);
+    });
+  });
+
+  describe('retentionExpiryForDayKey', () => {
+    it('expires at the start of the next Kuala Lumpur day plus 180 days', () => {
+      // 2026-10-08 00:00 in Kuala Lumpur is 2026-10-07T16:00:00Z.
+      expect(retentionExpiryForDayKey('2026-10-07')).toEqual(
+        new Date('2027-04-05T16:00:00.000Z'),
+      );
+    });
+
+    it('gives every view on one day the identical expiry', () => {
+      // This is the privacy property: `expiresAt` must not reveal when within
+      // the day a visitor browsed, or it can be joined to an Application.
+      expect(retentionExpiryForDayKey('2026-10-07')).toEqual(
+        retentionExpiryForDayKey('2026-10-07'),
+      );
+      expect(retentionExpiryForDayKey('2026-10-08')).not.toEqual(
+        retentionExpiryForDayKey('2026-10-07'),
+      );
     });
   });
 
@@ -335,11 +504,13 @@ describe('AnalyticsService.track', () => {
     jest.useRealTimers();
   });
 
-  it('writes one normalised row with a Kuala Lumpur day key and a 180-day expiry', async () => {
+  it('writes one normalised row with a Kuala Lumpur day key and a day-granular expiry', async () => {
     await service.track(validBody(), CHROME);
 
     expect(prismaMock.pageView.create).toHaveBeenCalledTimes(1);
     const arg = createdCall(prismaMock.pageView.create);
+    // An exhaustive match, so a re-added `createdAt` — or any other new
+    // column — fails here rather than shipping silently.
     expect(arg.data).toEqual({
       path: '/ms/faq',
       locale: 'ms',
@@ -348,10 +519,66 @@ describe('AnalyticsService.track', () => {
       device: 'desktop',
       dayKey: '2026-10-07',
       expiresAt: new Date(
-        Date.parse('2026-10-06T17:30:00Z') +
+        Date.parse('2026-10-08T00:00:00+08:00') +
           PAGE_VIEW_RETENTION_DAYS * 86_400_000,
       ),
     });
+  });
+
+  it('stores no per-row timestamp', async () => {
+    await service.track(validBody(), CHROME);
+
+    expect(createdCall(prismaMock.pageView.create).data).not.toHaveProperty(
+      'createdAt',
+    );
+  });
+
+  it('gives two views hours apart on the same day one identical expiry', async () => {
+    await service.track(validBody(), CHROME);
+    jest.setSystemTime(new Date('2026-10-07T09:15:00Z')); // same KL day
+    await service.track(validBody(), CHROME);
+
+    const calls = prismaMock.pageView.create.mock.calls as unknown as Array<
+      [{ data: Record<string, unknown> }]
+    >;
+    expect(calls).toHaveLength(2);
+    expect(calls[0][0].data.dayKey).toBe('2026-10-07');
+    expect(calls[1][0].data.dayKey).toBe('2026-10-07');
+    expect(calls[1][0].data.expiresAt).toEqual(calls[0][0].data.expiresAt);
+  });
+
+  it('stores a path the site does not serve as the /_other bucket', async () => {
+    // A 404 from a mangled link — the view still counts, but the third
+    // party's address must not reach the database or the admin UI.
+    await service.track(
+      { ...validBody(), path: '/blog/ali.bin.abu@gmail.com' },
+      CHROME,
+    );
+
+    expect(prismaMock.pageView.create).toHaveBeenCalledTimes(1);
+    const serialised = JSON.stringify(createdCall(prismaMock.pageView.create));
+    expect(createdCall(prismaMock.pageView.create).data.path).toBe(
+      OTHER_PATH_BUCKET,
+    );
+    expect(serialised).not.toContain('ali.bin.abu');
+  });
+
+  it('drops rather than buckets a path that is structurally unusable', async () => {
+    // A space (or any control character) means the input was never a path.
+    await service.track(
+      { ...validBody(), path: '/blog/x (ali.bin.abu@gmail.com)' },
+      CHROME,
+    );
+
+    expect(prismaMock.pageView.create).not.toHaveBeenCalled();
+  });
+
+  it('stores a known route verbatim', async () => {
+    await service.track({ ...validBody(), path: '/ms/loans/my/sabah' }, CHROME);
+
+    expect(createdCall(prismaMock.pageView.create).data.path).toBe(
+      '/ms/loans/my/sabah',
+    );
   });
 
   it('never stores the user agent, an IP, or a query string', async () => {
@@ -456,25 +683,78 @@ describe('AnalyticsService.onModuleInit', () => {
     service = new AnalyticsService(prismaMock as unknown as PrismaService);
   });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('creates the TTL index on expiresAt idempotently', async () => {
     await service.onModuleInit();
 
+    expect(prismaMock.$runCommandRaw).toHaveBeenCalledTimes(1);
     expect(prismaMock.$runCommandRaw).toHaveBeenCalledWith({
       createIndexes: 'PageView',
       indexes: [
         {
           key: { expiresAt: 1 },
-          name: 'PageView_expiresAt_ttl',
+          name: PAGE_VIEW_TTL_INDEX_NAME,
           expireAfterSeconds: 0,
         },
       ],
     });
+    expect(service.isRetentionIndexReady).toBe(true);
   });
 
   it('does not stop boot when the database rejects the index creation', async () => {
     prismaMock.$runCommandRaw.mockRejectedValue(new Error('read-only replica'));
+    jest.spyOn(Logger.prototype, 'error').mockImplementation(() => undefined);
 
     await expect(service.onModuleInit()).resolves.toBeUndefined();
+    expect(service.isRetentionIndexReady).toBe(false);
+  });
+
+  it('logs the failure at error naming the index, not at debug', async () => {
+    // This index is the only thing that deletes PageView rows, so a silent
+    // failure makes the 180-day retention promise quietly false.
+    prismaMock.$runCommandRaw.mockRejectedValue(
+      new Error('not authorized on guru to execute command createIndexes'),
+    );
+    const error = jest
+      .spyOn(Logger.prototype, 'error')
+      .mockImplementation(() => undefined);
+    const debug = jest
+      .spyOn(Logger.prototype, 'debug')
+      .mockImplementation(() => undefined);
+
+    await service.onModuleInit();
+
+    expect(debug).not.toHaveBeenCalled();
+    expect(error).toHaveBeenCalled();
+    const messages = error.mock.calls.map(([message]) => String(message));
+    expect(messages.join('\n')).toContain(PAGE_VIEW_TTL_INDEX_NAME);
+    expect(messages.join('\n')).toContain('not authorized');
+    expect(messages.join('\n')).toMatch(/will NOT expire/i);
+  });
+
+  it('retries the index creation once before giving up', async () => {
+    prismaMock.$runCommandRaw.mockRejectedValue(new Error('not primary'));
+    jest.spyOn(Logger.prototype, 'error').mockImplementation(() => undefined);
+
+    await service.onModuleInit();
+
+    expect(prismaMock.$runCommandRaw).toHaveBeenCalledTimes(2);
+  });
+
+  it('stops retrying as soon as the index is created', async () => {
+    prismaMock.$runCommandRaw
+      .mockRejectedValueOnce(new Error('not primary'))
+      .mockResolvedValueOnce({ ok: 1 });
+    jest.spyOn(Logger.prototype, 'error').mockImplementation(() => undefined);
+    jest.spyOn(Logger.prototype, 'log').mockImplementation(() => undefined);
+
+    await service.onModuleInit();
+
+    expect(prismaMock.$runCommandRaw).toHaveBeenCalledTimes(2);
+    expect(service.isRetentionIndexReady).toBe(true);
   });
 });
 
@@ -518,23 +798,8 @@ describe('AnalyticsService.getOverview', () => {
     jest.useFakeTimers();
     jest.setSystemTime(new Date('2026-10-06T10:00:00Z')); // 18:00 in KL
     prismaMock = createPrismaMock();
-    prismaMock.$runCommandRaw.mockImplementation((command: unknown) => {
-      const { aggregate, pipeline } = command as {
-        aggregate: string;
-        pipeline: Doc[];
-      };
-      if (aggregate !== 'PageView') {
-        throw new Error(`unexpected collection: ${aggregate}`);
-      }
-      return Promise.resolve({
-        cursor: {
-          id: 0,
-          ns: 'test.PageView',
-          firstBatch: runPipeline(rows, pipeline),
-        },
-        ok: 1,
-      });
-    });
+    // 101 is MongoDB's real default first-batch size.
+    prismaMock.$runCommandRaw.mockImplementation(createCursorServer(rows, 101));
     service = new AnalyticsService(prismaMock as unknown as PrismaService);
   });
 
@@ -608,17 +873,7 @@ describe('AnalyticsService.getOverview', () => {
   });
 
   it('returns an empty but well-formed payload when there is no traffic', async () => {
-    prismaMock.$runCommandRaw.mockImplementation((command: unknown) => {
-      const { pipeline } = command as { pipeline: Doc[] };
-      return Promise.resolve({
-        cursor: {
-          id: 0,
-          ns: 'test.PageView',
-          firstBatch: runPipeline([], pipeline),
-        },
-        ok: 1,
-      });
-    });
+    prismaMock.$runCommandRaw.mockImplementation(createCursorServer([], 101));
 
     const overview = await service.getOverview('7');
 
@@ -637,5 +892,128 @@ describe('AnalyticsService.getOverview', () => {
     });
     expect(overview.series).toHaveLength(7);
     expect(overview.series.every((point) => point.views === 0)).toBe(true);
+  });
+});
+
+/**
+ * `aggregate` used to read only `cursor.firstBatch`, so any result set past
+ * MongoDB's 101-document first batch was silently truncated — the 90-day
+ * series fit by eleven documents and nothing else was close. These tests seed
+ * more than 101 days so the cursor genuinely has to be drained.
+ */
+describe('AnalyticsService aggregation cursors', () => {
+  let prismaMock: PrismaAnalyticsMock;
+  let service: AnalyticsService;
+
+  const DAYS = 120;
+  const rows = seedDays('2026-10-06', DAYS);
+
+  const dailySeriesPipeline: Doc[] = [
+    {
+      $group: {
+        _id: { dayKey: '$dayKey', visitorId: '$visitorId' },
+        views: { $sum: 1 },
+      },
+    },
+    {
+      $group: {
+        _id: '$_id.dayKey',
+        views: { $sum: '$views' },
+        visitors: { $sum: 1 },
+      },
+    },
+    { $sort: { _id: 1 } },
+  ];
+
+  beforeEach(() => {
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date('2026-10-06T10:00:00Z'));
+    prismaMock = createPrismaMock();
+    service = new AnalyticsService(prismaMock as unknown as PrismaService);
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
+  it('returns all 120 day groups across MongoDB default 101-document batches', async () => {
+    prismaMock.$runCommandRaw.mockImplementation(createCursorServer(rows, 101));
+
+    const groups = await aggregateOf(service)(dailySeriesPipeline);
+
+    expect(groups).toHaveLength(DAYS);
+    expect(groups[0]._id).toBe('2026-06-09');
+    expect(groups[DAYS - 1]._id).toBe('2026-10-06');
+    // Exactly one aggregate plus one getMore for the 19-document remainder.
+    expect(prismaMock.$runCommandRaw).toHaveBeenCalledTimes(2);
+  });
+
+  it('asks for a large batch so the common case is a single round trip', async () => {
+    prismaMock.$runCommandRaw.mockImplementation(
+      createCursorServer(rows, 1000),
+    );
+
+    const groups = await aggregateOf(service)(dailySeriesPipeline);
+
+    expect(groups).toHaveLength(DAYS);
+    expect(prismaMock.$runCommandRaw).toHaveBeenCalledTimes(1);
+    expect(prismaMock.$runCommandRaw).toHaveBeenCalledWith(
+      expect.objectContaining({ cursor: { batchSize: 1000 } }),
+    );
+  });
+
+  it('drains however many batches the server chooses to use', async () => {
+    prismaMock.$runCommandRaw.mockImplementation(createCursorServer(rows, 7));
+
+    const groups = await aggregateOf(service)(dailySeriesPipeline);
+
+    expect(groups).toHaveLength(DAYS);
+    expect(prismaMock.$runCommandRaw.mock.calls.length).toBeGreaterThan(10);
+  });
+
+  it('returns the full 90-day series through getOverview when the server pages', async () => {
+    prismaMock.$runCommandRaw.mockImplementation(createCursorServer(rows, 25));
+
+    const overview = await service.getOverview('90');
+
+    expect(overview.series).toHaveLength(90);
+    expect(overview.series[0].date).toBe('2026-07-09');
+    expect(overview.series[89].date).toBe('2026-10-06');
+    // Every seeded day must be present — a truncated cursor would zero-fill
+    // the oldest days instead, with no error anywhere.
+    expect(overview.series.every((point) => point.views === 1)).toBe(true);
+    expect(overview.totals.allTime).toEqual({ views: DAYS, visitors: 1 });
+  });
+
+  it('fails loudly rather than spinning when a cursor stays open but yields nothing', async () => {
+    prismaMock.$runCommandRaw.mockResolvedValue({
+      cursor: {
+        id: { $numberLong: '42' },
+        ns: 'test.PageView',
+        firstBatch: [],
+        nextBatch: [],
+      },
+      ok: 1,
+    });
+
+    await expect(aggregateOf(service)(dailySeriesPipeline)).rejects.toThrow(
+      /stalled/,
+    );
+  });
+
+  it('treats an extended-JSON zero cursor id as exhausted', async () => {
+    prismaMock.$runCommandRaw.mockResolvedValue({
+      cursor: {
+        id: { $numberLong: '0' },
+        ns: 'test.PageView',
+        firstBatch: [{ _id: '2026-10-06', views: 1, visitors: 1 }],
+      },
+      ok: 1,
+    });
+
+    await expect(aggregateOf(service)(dailySeriesPipeline)).resolves.toEqual([
+      { _id: '2026-10-06', views: 1, visitors: 1 },
+    ]);
+    expect(prismaMock.$runCommandRaw).toHaveBeenCalledTimes(1);
   });
 });

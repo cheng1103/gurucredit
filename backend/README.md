@@ -41,7 +41,8 @@ API server for the GURU Credits platform. Provides authentication, service catal
 | Script               | Description                              |
 | -------------------- | ---------------------------------------- |
 | `npm run start:dev`  | Run Nest in watch mode                   |
-| `npm run lint`       | ESLint (configured via `eslint.config`)  |
+| `npm run lint`       | ESLint, read-only (the quality gate)     |
+| `npm run lint:fix`   | ESLint with `--fix` (rewrites sources)   |
 | `npm run test`       | Unit tests (Jest)                        |
 | `npm run test:e2e`   | E2E tests (`test/app.e2e-spec.ts`)       |
 | `npm run db:generate`| `prisma generate`                        |

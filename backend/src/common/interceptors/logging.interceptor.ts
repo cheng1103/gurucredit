@@ -9,6 +9,26 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AppLoggerService } from '../logger/app-logger.service';
 
+/**
+ * Routes that are not logged at all. The analytics beacon fires on every
+ * public page view, so it is by design the busiest route on the site: logging
+ * it would make it the dominant line in Railway's log stream, burying the
+ * lines that matter (`Prisma initial $connect failed`, auth lockout warnings)
+ * and, when `LOG_FILE` is set, growing an unrotated file without bound.
+ *
+ * Nothing is lost by skipping it: the endpoint always answers 204, and the
+ * service already logs its own dropped writes.
+ */
+const UNLOGGED_ROUTES = ['/api/analytics/track'];
+
+const isUnlogged = (req: Request): boolean => {
+  const url = req.originalUrl ?? req.url ?? '';
+  const path = url.split('?')[0];
+  return UNLOGGED_ROUTES.some(
+    (route) => path === route || path === `${route}/`,
+  );
+};
+
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
   constructor(private readonly logger: AppLoggerService) {}
@@ -18,6 +38,8 @@ export class LoggingInterceptor implements NestInterceptor {
     const req = http.getRequest<
       Request & { user?: { id: string; email?: string } }
     >();
+    if (isUnlogged(req)) return next.handle();
+
     const res = http.getResponse<Response>();
     const { method } = req;
     const url = this.sanitizeUrl(req.url);

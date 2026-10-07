@@ -77,6 +77,12 @@ async function bootstrap() {
     credentials: true,
     preflightContinue: false,
     optionsSuccessStatus: 204,
+    // `sendBeacon` posts an `application/json` Blob, which is not a safelisted
+    // content type, so every page view triggers a CORS preflight. Without
+    // `maxAge` the browser default is ~5 s, i.e. roughly two requests per page
+    // view for the life of the feature. One day is the usual ceiling browsers
+    // honour, and the origin list only changes on a deploy.
+    maxAge: 86_400,
   });
 
   // Global validation pipe, API prefix, and the analytics body-parser scope.
